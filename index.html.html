@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Second Semester Examination Timetable 2025/2026</title>
+<style>
+:root{
+  --gold:#facc15;--blue:#2563eb;--orange:#f97316;--red:#dc2626;--green:#16a34a;
+  --violet:#7c3aed;--teal:#0d9488;--rose:#e11d48;--ink:#0f172a;--muted:#475569;--line:#e5e7eb;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Arial,"Segoe UI",sans-serif;
+  color:white;
+  background:#07111f;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  background:
+    radial-gradient(circle at 12% 10%,rgba(250,204,21,.24),transparent 26%),
+    radial-gradient(circle at 85% 16%,rgba(37,99,235,.28),transparent 31%),
+    radial-gradient(circle at 52% 88%,rgba(34,197,94,.14),transparent 34%),
+    linear-gradient(135deg,#020617 0%,#0f172a 52%,#172554 100%);
+  animation:softGlow 12s ease-in-out infinite alternate;
+}
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  opacity:.10;
+  background-image:
+    linear-gradient(rgba(255,255,255,.18) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.18) 1px,transparent 1px),
+    radial-gradient(circle at 50% 50%,rgba(250,204,21,.12),transparent 35%);
+  background-size:48px 48px,48px 48px,100% 100%;
+  animation:gridMove 18s linear infinite;
+}
+@keyframes gridMove{to{background-position:48px 48px,48px 48px,0 0}}
+@keyframes softGlow{
+  from{filter:hue-rotate(0deg) brightness(1)}
+  to{filter:hue-rotate(10deg) brightness(1.08)}
+}
+header::before{
+  content:"";
+  position:absolute;
+  width:320px;
+  height:320px;
+  right:8%;
+  top:12%;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(250,204,21,.18),transparent 68%);
+  pointer-events:none;
+  animation:floatLight 7s ease-in-out infinite alternate;
+}
+header{position:relative}
+@keyframes floatLight{
+  from{transform:translateY(-8px) scale(1)}
+  to{transform:translateY(18px) scale(1.08)}
+}
+
+.top-specialty{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(2,6,23,.96);
+  border-bottom:1px solid rgba(255,255,255,.15);
+  padding:8px 3.5%;
+}
+.active-box{
+  max-width:1180px;
+  margin:auto;
+  padding:11px 13px;
+  border-radius:14px;
+  background:rgba(255,255,255,.10);
+  border-left:7px solid var(--active,#facc15);
+  font-size:16px;
+  font-weight:950;
+  box-shadow:0 0 18px color-mix(in srgb,var(--active,#facc15) 38%,transparent);
+  animation:activeGlow 1.4s infinite;
+}
+@keyframes activeGlow{
+  50%{box-shadow:0 0 0 3px color-mix(in srgb,var(--active,#facc15) 25%,transparent),0 0 28px color-mix(in srgb,var(--active,#facc15) 55%,transparent)}
+}
+
+header{
+  padding:34px 3.5% 24px;
+  display:grid;
+  grid-template-columns:1fr 390px;
+  gap:22px;
+  align-items:center;
+  min-height:90vh;
+}
+.badge{
+  display:inline-block;
+  padding:9px 13px;
+  border-radius:999px;
+  background:rgba(250,204,21,.16);
+  color:#fde68a;
+  font-weight:950;
+  border:1px solid rgba(250,204,21,.32);
+}
+h1{
+  margin:18px 0 10px;
+  font-family:Georgia,serif;
+  font-size:clamp(38px,7vw,76px);
+  line-height:.95;
+  letter-spacing:.3px;
+}
+.lead{
+  max-width:850px;
+  color:#dbeafe;
+  font-size:19px;
+  line-height:1.58;
+  font-weight:750;
+}
+.sessions{display:flex;flex-wrap:wrap;gap:9px;margin-top:15px}
+.session{
+  padding:9px 12px;
+  border-radius:999px;
+  background:rgba(255,255,255,.11);
+  border:1px solid rgba(255,255,255,.15);
+  font-weight:950;
+  color:#e0f2fe;
+}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.btn{
+  cursor:pointer;
+  border:0;
+  text-decoration:none;
+  padding:12px 16px;
+  border-radius:12px;
+  background:var(--gold);
+  color:#111827;
+  font-weight:950;
+}
+.btn.secondary{
+  background:rgba(255,255,255,.12);
+  color:white;
+  border:1px solid rgba(255,255,255,.18);
+}
+.hero-status{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  max-width:850px;
+}
+.hero-card{
+  background:rgba(255,255,255,.11);
+  border:1px solid rgba(255,255,255,.17);
+  border-radius:17px;
+  padding:13px;
+}
+.hero-card b{display:block;font-size:26px;color:#fde047}
+.hero-card span{color:#cbd5e1;font-weight:850;font-size:12px}
+
+.portal{
+  padding:13px;
+  border-radius:24px;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.17);
+}
+.portal-title{
+  font-family:Georgia,serif;
+  font-size:25px;
+  font-weight:950;
+  margin:2px 0 12px;
+  color:#fde047;
+}
+.portal a{
+  --c:#2563eb;
+  display:block;
+  text-decoration:none;
+  color:white;
+  padding:14px 14px 14px 19px;
+  margin:9px 0;
+  border-radius:15px;
+  background:rgba(255,255,255,.105);
+  border-left:7px solid var(--c);
+  font-weight:950;
+  line-height:1.35;
+}
+.portal a:hover,.portal a:active{
+  background:rgba(255,255,255,.18);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 30%,transparent);
+}
+.portal small{display:block;color:#cbd5e1;margin-top:4px;font-weight:750}
+
+nav{
+  position:sticky;
+  top:58px;
+  z-index:80;
+  display:flex;
+  gap:7px;
+  overflow:auto;
+  padding:9px 3.5%;
+  background:rgba(7,17,31,.92);
+  border-top:1px solid rgba(255,255,255,.12);
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+nav a{
+  white-space:nowrap;
+  text-decoration:none;
+  color:#e0f2fe;
+  background:rgba(255,255,255,.10);
+  padding:9px 11px;
+  border-radius:999px;
+  font-weight:900;
+  font-size:13px;
+}
+nav a.nav-current{background:var(--gold);color:#111827}
+
+main{padding:24px 3.5% 50px}
+.smart-panel{
+  max-width:1180px;
+  margin:0 auto 18px;
+  display:grid;
+  grid-template-columns:1.1fr 1fr .75fr;
+  gap:12px;
+}
+.box{
+  background:rgba(255,255,255,.96);
+  color:var(--ink);
+  border-radius:20px;
+  padding:16px;
+  box-shadow:0 12px 32px rgba(0,0,0,.16);
+}
+.box h2{margin:0 0 8px;font-family:Georgia,serif;color:#172554;font-size:23px}
+.focus-line{font-size:18px;font-weight:950;color:#111827;line-height:1.4}
+.recommend-text{font-weight:850;color:#475569;line-height:1.5}
+.progress-track{height:16px;background:#e5e7eb;border-radius:999px;overflow:hidden;margin-top:10px}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));border-radius:999px;transition:.35s}
+.progress-label{margin-top:8px;font-weight:950;color:#172554}
+
+.command{
+  max-width:1180px;
+  margin:0 auto 18px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+.cmd{
+  background:rgba(255,255,255,.13);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:15px;
+  padding:12px;
+  text-align:center;
+  font-weight:950;
+  cursor:pointer;
+}
+.cmd:hover{background:rgba(250,204,21,.20)}
+
+.search{
+  max-width:1180px;
+  margin:0 auto 18px;
+  display:flex;
+  gap:10px;
+}
+input{
+  flex:1;
+  padding:14px 15px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  font-size:16px;
+  outline:none;
+  font-weight:800;
+}
+
+.level{
+  --level:#2563eb;
+  max-width:1180px;
+  margin:0 auto 25px;
+  background:white;
+  color:var(--ink);
+  border-radius:23px;
+  overflow:hidden;
+  box-shadow:0 14px 36px rgba(0,0,0,.20);
+}
+.level-head{
+  display:grid;
+  grid-template-columns:1fr 320px;
+  gap:13px;
+  align-items:center;
+  padding:18px;
+  border-top:8px solid var(--level);
+  background:linear-gradient(135deg,#fff,#f8fafc);
+}
+.level h2{
+  margin:0;
+  font-family:Georgia,serif;
+  color:#172554;
+  font-size:27px;
+}
+.level.current h2{color:var(--level);animation:nameBlink 1.2s infinite}
+@keyframes nameBlink{50%{text-shadow:0 0 15px color-mix(in srgb,var(--level) 75%,transparent)}}
+.meta{margin-top:7px;color:var(--muted);font-weight:850;line-height:1.5}
+.group-tag{
+  display:inline-block;
+  margin-top:8px;
+  padding:7px 10px;
+  border-radius:999px;
+  background:#eef2ff;
+  color:#1e3a8a;
+  font-weight:950;
+  font-size:13px;
+}
+.first{
+  color:white;
+  border-radius:17px;
+  padding:14px;
+  background:#0f172a;
+  border-left:7px solid var(--gold);
+}
+.first b{color:#fde047}
+.first h3{margin:7px 0;font-size:16px;color:white}
+.mini,.count{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:6px;
+  margin-top:9px;
+}
+.mini div,.count div{text-align:center;border-radius:10px;padding:8px 3px}
+.mini div{background:rgba(255,255,255,.10)}
+.count div{background:#f8fafc;border:1px solid var(--line)}
+.mini strong{display:block;color:#fde047;font-size:18px}
+.count strong{display:block;color:#1d4ed8;font-size:19px}
+.mini span,.count span{font-size:10px;font-weight:950;color:#64748b}
+.mini span{color:#cbd5e1}
+
+.exam-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  padding:14px;
+  background:#f8fafc;
+}
+.exam{
+  --day:#94a3b8;
+  position:relative;
+  background:white;
+  border:1px solid var(--line);
+  border-left:8px solid var(--day);
+  border-radius:16px;
+  padding:15px;
+  box-shadow:0 7px 16px rgba(15,23,42,.06);
+  overflow:hidden;
+}
+.exam:before{
+  content:"";
+  position:absolute;
+  inset:0 0 auto 0;
+  height:5px;
+  background:var(--day);
+  opacity:.55;
+}
+.exam h3{
+  margin:0 0 10px;
+  font-size:19px;
+  color:#111827;
+  line-height:1.3;
+  position:relative;
+}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{
+  background:#eef2ff;
+  color:#1e293b;
+  border-radius:999px;
+  padding:7px 9px;
+  font-size:13px;
+  font-weight:950;
+}
+.status{
+  display:inline-block;
+  margin-top:10px;
+  padding:7px 10px;
+  border-radius:999px;
+  background:#f1f5f9;
+  color:#334155;
+  font-size:12px;
+  font-weight:950;
+  text-transform:uppercase;
+}
+.review-msg{
+  display:none;
+  margin-top:10px;
+  padding:10px 11px;
+  border-radius:13px;
+  background:#fff7ed;
+  color:#9a3412;
+  font-weight:950;
+  border:1px solid #fed7aa;
+}
+.first-day{background:#fffbea;border-left-color:var(--gold)}
+.next-day{background:#eff6ff;border-left-color:var(--blue)}
+.review-48{
+  background:linear-gradient(135deg,#fff7ed,#fff);
+  border-left-color:var(--orange);
+  animation:reviewPulse 1.35s infinite;
+}
+.review-48 .review-msg{display:block}
+.review-24{animation:reviewPulseFast .95s infinite}
+.critical-12{
+  background:linear-gradient(135deg,#fee2e2,#fff);
+  border-left-color:var(--red);
+  animation:redCritical .65s infinite;
+}
+.critical-12 .status{background:#dc2626;color:white}
+.critical-12 .count strong{color:#dc2626}
+.ended{
+  background:#ecfdf5;
+  border-left-color:var(--green);
+  animation:none;
+}
+.ended:after{
+  content:"EXAM FINISHED";
+  position:absolute;
+  right:-45px;
+  top:28px;
+  transform:rotate(35deg);
+  background:var(--green);
+  color:white;
+  font-weight:950;
+  padding:8px 48px;
+  letter-spacing:.5px;
+}
+.ended .status{background:var(--green);color:white}
+.ended .count strong{color:var(--green)}
+@keyframes reviewPulse{50%{box-shadow:0 0 0 4px rgba(249,115,22,.35),0 0 24px rgba(249,115,22,.35);transform:translateY(-1px)}}
+@keyframes reviewPulseFast{50%{box-shadow:0 0 0 5px rgba(249,115,22,.50),0 0 30px rgba(249,115,22,.48);transform:translateY(-2px)}}
+@keyframes redCritical{50%{box-shadow:0 0 0 6px rgba(239,68,68,.70),0 0 38px rgba(239,68,68,.72);transform:scale(1.008)}}
+
+.instructions{
+  max-width:1180px;
+  margin:38px auto 0;
+  background:#fff;
+  color:#0f172a;
+  border-radius:23px;
+  padding:22px;
+  box-shadow:0 14px 36px rgba(0,0,0,.20);
+  border-top:8px solid var(--red);
+}
+.instructions h2{font-family:Georgia,serif;margin:0 0 13px;color:#172554;font-size:30px}
+.warning{padding:14px;border-radius:15px;background:#fef3c7;color:#92400e;font-weight:950;margin-bottom:16px}
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.rule{padding:15px;border-radius:16px;background:#f8fafc;border:1px solid var(--line);border-left:7px solid #fb7185}
+.rule h3{margin:0 0 7px;color:#172554}
+.rule p{margin:0;color:#475569;font-weight:750;line-height:1.55}
+
+.final{
+  max-width:1180px;
+  margin:38px auto 0;
+  min-height:42vh;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  border-radius:26px;
+  padding:28px;
+  background:
+    radial-gradient(circle at 15% 15%,rgba(250,204,21,.25),transparent 28%),
+    radial-gradient(circle at 85% 25%,rgba(56,189,248,.24),transparent 30%),
+    linear-gradient(135deg,rgba(15,23,42,.94),rgba(30,58,138,.94));
+  border:1px solid rgba(255,255,255,.18);
+}
+.final h2{font-family:Georgia,serif;margin:12px 0;font-size:clamp(34px,6vw,60px)}
+.final p{color:#dbeafe;font-size:19px;line-height:1.6;max-width:800px;font-weight:750}
+footer{text-align:center;color:#cbd5e1;padding:24px;font-weight:800}
+.hidden{display:none!important}
+
+
+.level,.box,.instructions,.final,.portal{
+  animation:fadeUp .55s ease both;
+}
+.exam{
+  animation:cardIn .42s ease both;
+}
+.exam:nth-child(2n){animation-delay:.03s}
+.exam:nth-child(3n){animation-delay:.06s}
+.instructions .rule{
+  animation:rulePulse 3.2s ease-in-out infinite;
+}
+.instructions .rule:nth-child(2n){animation-delay:.25s}
+.instructions .rule:nth-child(3n){animation-delay:.50s}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(16px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes rulePulse{
+  50%{box-shadow:0 0 0 3px rgba(250,204,21,.12)}
+}
+.instructions{
+  background:
+    radial-gradient(circle at 92% 10%,rgba(239,68,68,.08),transparent 28%),
+    linear-gradient(135deg,#ffffff,#f8fafc);
+}
+.instructions h2::after{
+  content:"";
+  display:block;
+  width:92px;
+  height:4px;
+  margin-top:9px;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--red),var(--gold));
+  animation:lineMove 1.8s ease-in-out infinite alternate;
+}
+@keyframes lineMove{
+  from{width:70px}
+  to{width:150px}
+}
+
+.instructions.level{
+  border-top:0;
+}
+.instructions.level.current h2{
+  color:#dc2626;
+  animation:instructionsBlink .8s infinite;
+}
+@keyframes instructionsBlink{
+  50%{text-shadow:0 0 20px rgba(220,38,38,.95),0 0 34px rgba(250,204,21,.55)}
+}
+.instructions.level .level-head{
+  border-top:8px solid #dc2626;
+  background:linear-gradient(135deg,#ffffff,#fff7ed);
+}
+.instructions.level .first{
+  border-left-color:#dc2626;
+}
+.instructions.level .first h3{
+  color:white;
+}
+
+
+.smart-panel-plus .box{
+  position:relative;
+  overflow:hidden;
+}
+.smart-panel-plus .box::after{
+  content:"";
+  position:absolute;
+  right:-40px;
+  top:-40px;
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  background:rgba(250,204,21,.10);
+}
+.smart-badge{
+  display:inline-block;
+  margin-top:12px;
+  padding:8px 11px;
+  border-radius:999px;
+  background:#e0f2fe;
+  color:#075985;
+  font-weight:950;
+  font-size:13px;
+}
+.smart-badge.safe{background:#dcfce7;color:#166534}
+.smart-badge.warning{background:#ffedd5;color:#9a3412;animation:softSmartPulse 1.4s infinite}
+.smart-badge.critical{background:#fee2e2;color:#991b1b;animation:criticalSmartPulse .75s infinite}
+.smart-action{
+  margin-top:12px;
+  padding:11px 12px;
+  border-radius:14px;
+  background:#f8fafc;
+  border-left:6px solid #2563eb;
+  color:#334155;
+  font-weight:900;
+  line-height:1.45;
+}
+.smart-action.critical{
+  border-left-color:#dc2626;
+  background:#fef2f2;
+  color:#991b1b;
+  animation:criticalSmartPulse .75s infinite;
+}
+.smart-action.warning{
+  border-left-color:#f97316;
+  background:#fff7ed;
+  color:#9a3412;
+}
+.smart-action.safe{
+  border-left-color:#16a34a;
+  background:#f0fdf4;
+  color:#166534;
+}
+@keyframes softSmartPulse{
+  50%{box-shadow:0 0 0 4px rgba(249,115,22,.22)}
+}
+@keyframes criticalSmartPulse{
+  50%{box-shadow:0 0 0 5px rgba(220,38,38,.28),0 0 24px rgba(220,38,38,.35)}
+}
+
+
+.teacher-line{
+  margin-top:10px;
+  padding:9px 11px;
+  border-radius:13px;
+  background:#f8fafc;
+  color:#1e293b;
+  border-left:6px solid #2563eb;
+  font-weight:900;
+  font-size:13px;
+}
+.teacher-line b{color:#172554}
+
+@media(max-width:900px){
+  header::before{width:190px;height:190px;right:2%;top:5%;opacity:.65}
+  .level,.box,.instructions,.final,.portal,.exam{animation-duration:.35s}
+}
+
+@media(max-width:900px){
+  header{grid-template-columns:1fr;min-height:auto;padding-top:26px}
+  .portal{padding:11px}
+  nav{top:58px}
+  .smart-panel,.command{grid-template-columns:1fr}
+  .hero-status{grid-template-columns:1fr 1fr}
+  .level-head{grid-template-columns:1fr;padding:16px}
+  .exam-grid{grid-template-columns:1fr;padding:12px}
+  .level h2{font-size:24px}
+  .search{display:block}
+  .search .btn{margin-top:9px;width:100%}
+  .rules{grid-template-columns:1fr}
+}
+@media(max-width:430px){
+  header,main,nav,.top-specialty{padding-left:3.5%;padding-right:3.5%}
+  h1{font-size:36px}
+  .lead{font-size:17px}
+  .hero-status{grid-template-columns:1fr}
+  .count,.mini{grid-template-columns:repeat(2,1fr)}
+  .exam h3{font-size:18px}
+  .active-box{font-size:14px}
+  .ended:after{font-size:10px;right:-52px;top:22px}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important}}
+@media print{
+  header,nav,.search,.top-specialty,.final,footer,.smart-panel,.command{display:none}
+  body{background:white;color:black}
+  body:before,body:after{display:none}
+  main{padding:0}
+  .level,.instructions{break-inside:avoid;box-shadow:none;border:1px solid #ddd;margin-bottom:16px}
+  .exam-grid{grid-template-columns:repeat(2,1fr)}
+  .count,.first{display:none}
+}
+
+.main-title{
+  text-align:center;
+  font-family:Georgia,serif;
+  font-weight:900;
+  font-size:clamp(40px,6vw,80px);
+  line-height:1.05;
+  color:#fde047;
+  text-shadow:0 0 15px rgba(250,204,21,.4);
+  animation:titleGlow 2s infinite alternate;
+}
+.main-title .year{
+  font-size:30%;
+  margin-top:10px;
+  color:#e0f2fe;
+  font-weight:700;
+}
+@keyframes titleGlow{
+  from{opacity:.9; transform:scale(1)}
+  to{opacity:1; transform:scale(1.02)}
+}
+
+</style>
+</head>
+<body>
+<header id="home">
+  <div>
+    <span class="badge">Kasdi Merbah University – Ouargla</span>
+    <h1>
+<div class="main-title">
+  <div>Second Semester</div>
+  <div>Examination</div>
+  <div>Timetable</div>
+  <div class="year">Academic Year 2025 / 2026</div>
+</div>
+</h1>
+    <p class="lead">Faculty of Applied Sciences · Department of Electrical Engineering · Second Semester Examination Timetable · Academic Year 2025 / 2026.</p>
+    <div class="sessions"><span class="session">08:00 – 10:00</span><span class="session">10:30 – 12:30</span><span class="session">13:00 – 15:00</span><span class="session">15:30 – 17:30</span></div>
+    <div class="hero-status"><div class="hero-card"><b id="nextDays">--</b><span>Days to next exam</span></div><div class="hero-card"><b id="nextHours">--</b><span>Hours remaining</span></div><div class="hero-card"><b id="doneCount">0/0</b><span>Completed exams</span></div><div class="hero-card"><b id="riskLevel">--</b><span>Focus level</span></div></div>
+    <div class="actions"><a class="btn" href="#timetable">Open Smart System</a><a class="btn secondary" href="#focus">Smart Focus</a><button class="btn secondary" onclick="window.print()">Print / Save PDF</button></div>
+  </div>
+  <div class="portal"><div class="portal-title">Choose Your Level</div><div id="portal"></div></div>
+</header>
+<div class="top-specialty"><div class="active-box" id="activeTitle">Current Specialty: Select a specialty</div></div><nav id="nav"></nav>
+<main id="timetable">
+  <div class="smart-panel smart-panel-plus" id="focus">
+    <div class="box"><h2>Smart Focus</h2><div class="focus-line" id="focusLine">Loading next priority...</div><div class="smart-badge" id="modeBadge">Mode: Loading</div></div>
+    <div class="box"><h2>System Recommendation</h2><div class="recommend-text" id="recommendText">Preparing study advice...</div><div class="smart-action" id="smartAction">Action: --</div></div>
+    <div class="box"><h2>Mission Progress</h2><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><div class="progress-label" id="progressLabel">0%</div><div class="smart-action" id="progressAdvice">Progress advice: --</div></div>
+  </div>
+  <div class="command"><div class="cmd" onclick="quickFilter('')">All Exams</div><div class="cmd" onclick="quickFilter('review')">Revision Alerts</div><div class="cmd" onclick="quickFilter('urgent')">Critical Exams</div><div class="cmd" onclick="scrollToNext()">Next Exam</div></div>
+  <div class="search"><input id="search" placeholder="Search by level, group, module, date, or time..." onkeyup="filterCards()"><button class="btn secondary" onclick="showAll()">Show All</button></div>
+  <div id="levels"></div>
+  <section class="instructions level" id="instructions" data-title="Important Instructions for Students" data-color="#dc2626" style="--level:#dc2626">
+    <div class="level-head">
+      <div>
+        <h2>Important Instructions for Students</h2>
+        <div class="meta">Official examination rules · Department of Electrical Engineering · Academic Year 2025 / 2026</div>
+      </div>
+      <div class="first">
+        <b>Read Carefully</b>
+        <h3>Examination Rules</h3>
+        <div>Any violation leads to disciplinary action.</div>
+      </div>
+    </div>
+    <div style="padding:22px;background:#fff">
+      <div class="warning">Please read all instructions carefully. Any violation will lead to immediate referral to the disciplinary committee.</div>
+      <div class="rules">
+        <div class="rule"><h3>Arrival Time</h3><p>Students must arrive at least 10 minutes before the start of the exam.</p></div>
+        <div class="rule"><h3>Exam Duration</h3><p>The duration of each examination is 120 minutes.</p></div>
+        <div class="rule"><h3>Late Entry</h3><p>Entry is strictly forbidden after 30 minutes from the beginning of the exam.</p></div>
+        <div class="rule"><h3>No Early Exit</h3><p>Students are not allowed to leave before 30 minutes from the start of the exam.</p></div>
+        <div class="rule"><h3>Mobile Phones</h3><p>The use of mobile phones is strictly prohibited. Phones must not be used or placed on the table.</p></div>
+        <div class="rule"><h3>No Sharing Materials</h3><p>Sharing or exchanging pens, calculators, or any other materials is strictly forbidden.</p></div>
+        <div class="rule"><h3>Respect Invigilators</h3><p>Students must respect invigilators and follow all instructions during the examination.</p></div>
+        <div class="rule"><h3>Disciplinary Action</h3><p>Any violation of the examination rules will lead to disciplinary action.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final"><div><span class="badge">Good Luck</span><h2>Prepare with Confidence</h2><p>Study with focus, manage your time, arrive early, and respect all examination instructions. The Department of Electrical Engineering wishes success to all students.</p><div class="actions" style="justify-content:center"><a class="btn" href="#home">Back to Main Page</a></div></div></section>
+</main>
+<footer>Department of Electrical Engineering · Faculty of Applied Sciences · Kasdi Merbah University – Ouargla</footer>
+<script>
+const YEAR=2026,months={January:0,February:1,March:2,April:3,May:4,June:5,July:6,August:7,September:8,October:9,November:10,December:11},dayColors=["#facc15","#22c55e","#38bdf8","#a78bfa","#fb7185","#14b8a6","#f97316"];
+const teacherMap={"Fundamental Electrotechnics II": "Naceur.S", "Techniques of Expression and Communication": "Naceur.S", "Electrical Measurements": "Rezzoug.M", "Numerical Methods": "Saadaoui.F", "Combinational and Sequential Logic": "Benmir.A", "Signal Theory": "Benyoussef.L", "Electrical Safety": "Larouci.B", "Electric Power Generation": "Bourek.Y", "Machine Control": "Ider.Z", "Materials and Introduction to High Voltage": "Bouali.K", "Industrial Automation": "Benmakhlouf.A", "Industrial Control": "Ayad.A", "Electrical Network Protection": "Boudjella.H", "Entrepreneurship and Business Management": "Temejghdeen.F", "Industrial Maintenance": "Abbassi.A", "Compliance with Standards and Ethics": "Bouhafs.A", "Elements of Applied Artificial Intelligence": "Djerrah.D", "Industrial Electricity": "Bouhadouza.B", "Electric Drives": "Sahraoui.L", "Modeling and Identification of Electrical Systems": "Bouhafs.A", "Technology in Industrial Automation": "Sahraoui.L", "High Voltage Techniques": "Ayad.A", "Sampled-Data Control Systems": "Khelifa.M", "Modeling of Electrical Machines": "Khetach.L", "Magnetic Field in Electrical Machines": "Khetach.L", "Electrical Machine Construction": "Bourek.Y", "Machine–Converter Association": "Bouakaz.W", "Electrical Engineering Materials and High Voltage": "Naceur.S", "Control of Electro-Energetic Systems": "Bouakaz.W", "Electric Power Quality": "Ruibah.T", "Modeling and Optimization of Electrical Power Networks": "Bouhadouza.B", "Electrical Network Protection Techniques": "Riubah.T", "Electrical Network Planning": "Boudjella.H", "Centralized and Decentralized Power Generation": "Boudjella.H"};
+const levels=[
+{id:"l2",title:"Second Year Licence – Electrical Engineering",groups:"Groups: G1 – G2 – G3 – G4 – G5 – G6",color:"#f59e0b",exams:[
+["Tuesday 12 May","13:00","15:00","Fundamental Electrotechnics II"],
+["Tuesday 12 May","15:30","17:30","Electrical Measurements"],
+["Wednesday 13 May","08:00","10:00","Electric Power Generation"],
+["Wednesday 13 May","10:30","12:30","Combinational and Sequential Logic"],
+["Thursday 14 May","08:00","10:00","Signal Theory"],
+["Thursday 14 May","10:30","12:30","Electrical Safety"],
+["Saturday 16 May","08:00","10:00","Numerical Methods"],
+["Saturday 16 May","10:30","12:30","Techniques of Expression and Communication"]
+]},
+{id:"l3",title:"Third Year Licence – Electrical Engineering",groups:"Groups: G1 – G2 – G3 – G4",color:"#2563eb",exams:[
+["Saturday 09 May","08:00","10:00","Machine Control"],
+["Saturday 09 May","10:30","12:30","Industrial Maintenance"],
+["Sunday 10 May","08:00","10:00","Industrial Automation"],
+["Monday 11 May","13:00","15:00","Electrical Network Protection"],
+["Monday 11 May","15:30","17:30","Entrepreneurship and Business Management"],
+["Tuesday 12 May","08:00","10:00","Materials and Introduction to High Voltage"],
+["Wednesday 13 May","15:30","17:30","Industrial Control"]
+]},
+{id:"m1elt",title:"Master 1 – Industrial Electrotechnics",groups:"",color:"#7c3aed",exams:[
+["Saturday 09 May","13:00","15:00","Compliance with Standards and Ethics"],
+["Saturday 09 May","15:30","17:30","Elements of Applied Artificial Intelligence"],
+["Sunday 10 May","13:00","15:00","Electric Drives"],
+["Monday 11 May","08:00","10:00","Modeling and Identification of Electrical Systems"],
+["Monday 11 May","10:30","12:30","Technology in Industrial Automation"],
+["Tuesday 12 May","10:30","12:30","Industrial Electricity"],
+["Wednesday 13 May","13:00","15:00","High Voltage Techniques"],
+["Thursday 14 May","13:00","15:00","Sampled-Data Control Systems"]
+]},
+{id:"m1machines",title:"Master 1 – Electrical Machines",groups:"",color:"#0d9488",exams:[
+["Saturday 09 May","13:00","15:00","Compliance with Standards and Ethics"],
+["Saturday 09 May","15:30","17:30","Elements of Applied Artificial Intelligence"],
+["Sunday 10 May","13:00","15:00","Modeling of Electrical Machines"],
+["Monday 11 May","08:00","10:00","Magnetic Field in Electrical Machines"],
+["Monday 11 May","10:30","12:30","Machine–Converter Association"],
+["Tuesday 12 May","10:30","12:30","Electrical Machine Construction"],
+["Wednesday 13 May","13:00","15:00","Electrical Engineering Materials and High Voltage"],
+["Thursday 14 May","13:00","15:00","Sampled-Data Control Systems"]
+]},
+{id:"m1networks",title:"Master 1 – Electrical Networks",groups:"",color:"#e11d48",exams:[
+["Saturday 09 May","13:00","15:00","Compliance with Standards and Ethics"],
+["Saturday 09 May","15:30","17:30","Elements of Applied Artificial Intelligence"],
+["Sunday 10 May","13:00","15:00","Electric Power Quality"],
+["Monday 11 May","08:00","10:00","Modeling and Optimization of Electrical Power Networks"],
+["Monday 11 May","10:30","12:30","Electrical Network Protection Techniques"],
+["Tuesday 12 May","10:30","12:30","Centralized and Decentralized Power Generation"],
+["Wednesday 13 May","13:00","15:00","Electrical Network Planning"],
+["Thursday 14 May","13:00","15:30","Control of Electro-Energetic Systems"]
+]}
+];
+function parseDate(d,t){const p=d.split(" "),v=t.split(":").map(Number);return new Date(YEAR,months[p[2]],Number(p[1]),v[0],v[1],0)}
+function sameDay(a,b){return a.getFullYear()==b.getFullYear()&&a.getMonth()==b.getMonth()&&a.getDate()==b.getDate()}
+function nextDay(a,b){const d=new Date(a);d.setDate(d.getDate()+1);return sameDay(d,b)}
+function parts(ms){const s=Math.max(0,Math.floor(ms/1000));return{d:Math.floor(s/86400),h:Math.floor((s%86400)/3600),m:Math.floor((s%3600)/60),sec:s%60,total:s}}
+function pad(n){return String(n).padStart(2,"0")}
+function render(){const portal=document.getElementById("portal"),nav=document.getElementById("nav"),root=document.getElementById("levels");portal.innerHTML=nav.innerHTML=root.innerHTML="";levels.forEach(level=>{level.exams=level.exams.map(e=>({date:e[0],startTime:e[1],endTime:e[2],module:e[3],start:parseDate(e[0],e[1]),end:parseDate(e[0],e[2])}));const first=level.exams[0];portal.innerHTML+=`<a href="#${level.id}" style="--c:${level.color}" onclick="setActive('${level.id}')">${level.title}<small>${level.groups?level.groups+" · ":""}${first.module} · ${first.date} · ${first.startTime}</small></a>`;nav.innerHTML+=`<a href="#${level.id}" data-nav="${level.id}" onclick="setActive('${level.id}')">${level.title.replace(" – Electrical Engineering","")}</a>`;const dayMap={};let c=0;level.exams.forEach(ex=>{if(!dayMap[ex.date])dayMap[ex.date]=dayColors[c++%dayColors.length]});const section=document.createElement("section");section.className="level";section.id=level.id;section.style.setProperty("--level",level.color);section.dataset.title=level.title;section.dataset.color=level.color;section.innerHTML=`<div class="level-head"><div><h2>${level.title}</h2><div class="meta">Second Semester Examinations · Academic Year 2025 / 2026<br>First exam: <b>${first.module}</b> · ${first.date} · ${first.startTime} – ${first.endTime}</div>${level.groups?`<div class="group-tag">${level.groups}</div>`:""}</div><div class="first"><b>Countdown to first exam</b><h3>${first.module}</h3><div>${first.date} · ${first.startTime} – ${first.endTime}</div><div class="mini" data-first="${level.id}"><div><strong class="d">--</strong><span>Days</span></div><div><strong class="h">--</strong><span>Hours</span></div><div><strong class="m">--</strong><span>Min</span></div><div><strong class="s">--</strong><span>Sec</span></div></div></div></div><div class="exam-grid"></div>`;const grid=section.querySelector(".exam-grid");level.exams.forEach(ex=>{const card=document.createElement("article");card.className="exam";const color=sameDay(first.start,ex.start)?"#facc15":(nextDay(first.start,ex.start)?"#2563eb":dayMap[ex.date]);card.style.setProperty("--day",color);card.dataset.start=ex.start.toISOString();card.dataset.end=ex.end.toISOString();card.dataset.text=`${level.title} ${level.groups} ${ex.module} ${ex.date} ${ex.startTime} ${ex.endTime}`.toLowerCase();if(sameDay(first.start,ex.start))card.classList.add("first-day");if(nextDay(first.start,ex.start))card.classList.add("next-day");card.innerHTML=`<h3>${ex.module}</h3><div class="chips"><span class="chip">${ex.date}</span><span class="chip">${ex.startTime} – ${ex.endTime}</span><span class="chip">120 min</span></div><div class="teacher-line"><b>Responsible Teacher:</b> ${teacherMap[ex.module] || "To be confirmed"}</div><div class="count"><div><strong class="d">--</strong><span>Days</span></div><div><strong class="h">--</strong><span>Hours</span></div><div><strong class="m">--</strong><span>Min</span></div><div><strong class="s">--</strong><span>Sec</span></div></div><div class="review-msg">Revision reminder: review this module now.</div><span class="status">Upcoming</span>`;grid.appendChild(card)});root.appendChild(section)});if(!document.querySelector('[data-nav="instructions"]')){
+  const portalBox=document.getElementById("portal");
+  const navBox=document.getElementById("nav");
+  if(portalBox){portalBox.innerHTML += `<a href="#instructions" style="--c:#dc2626" onclick="setActive('instructions')">Important Instructions for Students<small>Official examination rules and disciplinary instructions</small></a>`;}
+  if(navBox){navBox.innerHTML += `<a href="#instructions" data-nav="instructions" onclick="setActive('instructions')">Instructions</a>`;}
+}
+updateActiveByScroll()}
+function updateCountdown(){
+ const now=new Date();
+ levels.forEach(level=>{
+  const first=level.exams[0],p=parts(first.start-now),box=document.querySelector(`[data-first="${level.id}"]`);
+  if(box){
+    box.querySelector(".d").textContent=p.d;
+    box.querySelector(".h").textContent=pad(p.h);
+    box.querySelector(".m").textContent=pad(p.m);
+    box.querySelector(".s").textContent=pad(p.sec);
+  }
+ });
+
+ let done=0,total=0,next=null,urgent=0,review=0,running=0;
+ document.querySelectorAll(".exam").forEach(card=>{
+  total++;
+  const start=new Date(card.dataset.start),end=new Date(card.dataset.end),diff=start-now,status=card.querySelector(".status");
+  card.classList.remove("review-48","review-24","critical-12","ended");
+
+  if(now>=end){
+    done++;
+    card.classList.add("ended");
+    status.textContent="Exam Finished";
+    ["d","h","m","s"].forEach(c=>card.querySelector("."+c).textContent="00");
+    return;
+  }
+
+  if(!next||start<next.start) next={start:start,end:end,module:card.querySelector("h3").textContent,el:card};
+
+  if(diff<=0&&now<end){
+    running++;
+    urgent++;
+    card.classList.add("critical-12");
+    status.textContent="Exam running now";
+    return;
+  }
+
+  const p=parts(diff);
+  card.querySelector(".d").textContent=p.d;
+  card.querySelector(".h").textContent=pad(p.h);
+  card.querySelector(".m").textContent=pad(p.m);
+  card.querySelector(".s").textContent=pad(p.sec);
+
+  if(diff<12*3600*1000){
+    urgent++;
+    card.classList.add("critical-12");
+    status.textContent="Less than 12 hours";
+  }else if(diff<24*3600*1000){
+    review++;
+    card.classList.add("review-48","review-24");
+    status.textContent="Final revision time";
+  }else if(diff<48*3600*1000){
+    review++;
+    card.classList.add("review-48");
+    status.textContent="Revision reminder";
+  }else{
+    status.textContent="Upcoming";
+  }
+ });
+
+ document.getElementById("doneCount").textContent=done+"/"+total;
+ const pct=total?Math.round(done/total*100):0;
+ document.getElementById("progressFill").style.width=pct+"%";
+ document.getElementById("progressLabel").textContent=pct+"% completed";
+
+ const modeBadge=document.getElementById("modeBadge");
+ const smartAction=document.getElementById("smartAction");
+ const progressAdvice=document.getElementById("progressAdvice");
+
+ function setSmartClasses(mode){
+   [modeBadge,smartAction,progressAdvice].forEach(el=>{
+     if(!el) return;
+     el.classList.remove("safe","warning","critical");
+     el.classList.add(mode);
+   });
+ }
+
+ if(next){
+  const p=parts(next.start-now);
+  document.getElementById("nextDays").textContent=p.d;
+  document.getElementById("nextHours").textContent=pad(p.h);
+
+  let levelText="NORMAL";
+  let mode="safe";
+  let recommendation="Plan your revision calmly and follow the priority order.";
+  let action="Action: Prepare a revision plan and start with the next module.";
+  let focus="Focus now on: "+next.module;
+
+  if(running>0){
+    levelText="RUNNING";
+    mode="critical";
+    recommendation="Exam is running now. Stay calm, manage time carefully, and follow invigilator instructions.";
+    action="Action: Focus only on answering clearly. Do not waste time.";
+    focus="Exam running now: "+next.module;
+  }else if(p.total < 12*3600){
+    levelText="CRITICAL";
+    mode="critical";
+    recommendation="Danger zone: less than 12 hours remain. Do not start new chapters. Revise formulas, summaries, and key exercises only.";
+    action="Action: Final revision only + prepare documents + sleep/rest if possible.";
+  }else if(p.total < 24*3600){
+    levelText="FINAL";
+    mode="warning";
+    recommendation="Final revision phase. Focus on exercises, typical questions, and important formulas.";
+    action="Action: Solve selected exercises and avoid distractions.";
+  }else if(p.total < 48*3600){
+    levelText="HIGH";
+    mode="warning";
+    recommendation="High focus required. Start serious revision now and divide the remaining time into short study blocks.";
+    action="Action: 3 study blocks today: theory, exercises, quick summary.";
+  }else{
+    levelText="NORMAL";
+    mode="safe";
+    recommendation="You still have time. Review calmly and keep a regular rhythm.";
+    action="Action: Read the course, prepare summaries, then solve exercises.";
+  }
+
+  document.getElementById("riskLevel").textContent=levelText;
+  document.getElementById("focusLine").textContent=focus;
+  document.getElementById("recommendText").textContent=recommendation;
+  if(modeBadge) modeBadge.textContent="Mode: "+levelText;
+  if(smartAction) smartAction.textContent=action;
+
+  if(done===0){
+    progressAdvice.textContent="Progress advice: Start strong. The first exam sets the rhythm.";
+  }else if(pct<50){
+    progressAdvice.textContent="Progress advice: Keep momentum. Several exams are still ahead.";
+  }else if(pct<100){
+    progressAdvice.textContent="Progress advice: You passed half of the mission. Continue with discipline.";
+  }else{
+    progressAdvice.textContent="Progress advice: Mission completed.";
+  }
+  setSmartClasses(mode);
+
+ }else{
+  document.getElementById("nextDays").textContent="00";
+  document.getElementById("nextHours").textContent="00";
+  document.getElementById("riskLevel").textContent="DONE";
+  document.getElementById("focusLine").textContent="All examinations are completed.";
+  document.getElementById("recommendText").textContent="Well done. The exam mission is completed.";
+  if(modeBadge) modeBadge.textContent="Mode: COMPLETED";
+  if(smartAction) smartAction.textContent="Action: Wait for results and keep your documents organized.";
+  if(progressAdvice) progressAdvice.textContent="Progress advice: Mission completed.";
+  setSmartClasses("safe");
+ }
+}
+function setActive(id){const sec=document.getElementById(id);if(!sec)return;document.querySelectorAll(".level").forEach(x=>x.classList.remove("current"));document.querySelectorAll("nav a").forEach(x=>x.classList.remove("nav-current"));sec.classList.add("current");const navLink=document.querySelector(`[data-nav="${id}"]`);if(navLink)navLink.classList.add("nav-current");const active=document.getElementById("activeTitle");active.textContent=(id==="instructions" ? "Important Instructions for Students" : "Current Specialty: "+sec.dataset.title);active.style.setProperty("--active",sec.dataset.color)}
+let ticking=false;function updateActiveByScroll(){const els=[...document.querySelectorAll(".level:not(.hidden)")];if(!els.length)return;const trigger=window.innerHeight*.30;let current=els[0];for(const sec of els){const rect=sec.getBoundingClientRect();if(rect.top<=trigger)current=sec;else break}setActive(current.id)}
+function onScrollFast(){if(!ticking){window.requestAnimationFrame(()=>{updateActiveByScroll();ticking=false});ticking=true}}window.addEventListener("scroll",onScrollFast,{passive:true});window.addEventListener("resize",updateActiveByScroll);
+function filterCards(){const q=document.getElementById("search").value.toLowerCase().trim();document.querySelectorAll(".level").forEach(level=>{let any=false;level.querySelectorAll(".exam").forEach(card=>{const hit=!q||card.dataset.text.includes(q);card.classList.toggle("hidden",!hit);if(hit)any=true});level.classList.toggle("hidden",!any)});updateActiveByScroll()}
+function showAll(){document.getElementById("search").value="";document.querySelectorAll(".hidden").forEach(el=>el.classList.remove("hidden"));updateActiveByScroll()}
+function quickFilter(type){showAll();if(!type)return;document.querySelectorAll(".exam").forEach(card=>{let hit=type==="urgent"?card.classList.contains("critical-12"):card.classList.contains("review-48");card.classList.toggle("hidden",!hit)});document.querySelectorAll(".level").forEach(level=>{level.classList.toggle("hidden",![...level.querySelectorAll(".exam")].some(c=>!c.classList.contains("hidden")))});updateActiveByScroll()}
+function scrollToNext(){const cards=[...document.querySelectorAll(".exam")].filter(c=>!c.classList.contains("ended")).sort((a,b)=>new Date(a.dataset.start)-new Date(b.dataset.start));if(cards[0])cards[0].scrollIntoView({behavior:"smooth",block:"center"})}
+render();updateCountdown();setInterval(updateCountdown,1000);
+</script>
+</body>
+</html>
