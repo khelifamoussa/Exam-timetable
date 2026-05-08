@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Master Student Room Distribution | Electrical Engineering Department</title>
+  <style>
+    :root{
+      --bg1:#07111f; --bg2:#102a44; --card:rgba(255,255,255,.10); --stroke:rgba(255,255,255,.18);
+      --text:#f8fbff; --muted:#c9d8e8; --accent:#38bdf8; --accent2:#a78bfa; --ok:#22c55e; --warn:#f59e0b;
+      --danger:#ef4444; --shadow: 0 18px 60px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,Segoe UI,Tahoma,Arial,sans-serif;background:linear-gradient(135deg,var(--bg1),var(--bg2));color:var(--text);min-height:100vh;overflow-x:hidden}
+    .orb{position:fixed;border-radius:999px;filter:blur(18px);opacity:.45;animation:float 9s ease-in-out infinite;z-index:-1}
+    .orb.one{width:320px;height:320px;background:#2563eb;top:-80px;left:-90px}.orb.two{width:260px;height:260px;background:#7c3aed;right:-60px;top:180px;animation-delay:1.4s}.orb.three{width:240px;height:240px;background:#06b6d4;bottom:-80px;left:35%;animation-delay:2.8s}
+    @keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-28px) scale(1.06)}}
+    header{max-width:1180px;margin:auto;padding:34px 18px 12px;text-align:center}.badge{display:inline-flex;gap:8px;align-items:center;padding:8px 14px;border:1px solid var(--stroke);background:rgba(255,255,255,.08);border-radius:999px;color:var(--muted);font-size:13px;margin-bottom:14px}
+    h1{margin:0;font-size:clamp(28px,5vw,52px);line-height:1.08;letter-spacing:-1px}.subtitle{max-width:840px;margin:16px auto 0;color:var(--muted);font-size:clamp(15px,2vw,18px);line-height:1.7}.arabic{font-family:Tahoma,Arial,sans-serif;direction:rtl}.wrap{max-width:1180px;margin:0 auto;padding:18px}.search-card{background:var(--card);border:1px solid var(--stroke);border-radius:28px;padding:22px;box-shadow:var(--shadow);backdrop-filter:blur(16px);position:sticky;top:10px;z-index:10}.search-row{display:grid;grid-template-columns:1fr auto;gap:12px}.input{width:100%;padding:18px 18px;border-radius:20px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.12);color:var(--text);font-size:18px;outline:none}.input::placeholder{color:#b8c9da}.btn{border:0;border-radius:20px;padding:0 24px;font-weight:800;color:#07111f;background:linear-gradient(135deg,#67e8f9,#60a5fa,#c4b5fd);cursor:pointer;box-shadow:0 12px 26px rgba(56,189,248,.25);font-size:16px}.hint{margin-top:12px;color:var(--muted);font-size:14px;line-height:1.6}.result{display:none;margin-top:18px;padding:18px;border-radius:22px;border:1px solid rgba(34,197,94,.45);background:rgba(34,197,94,.12)}.result.show{display:block}.result h2{margin:0 0 10px;font-size:25px}.result-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}.pill{padding:12px;border-radius:16px;background:rgba(255,255,255,.10);border:1px solid var(--stroke)}.pill b{display:block;color:white;font-size:18px}.pill span{font-size:12px;color:var(--muted)}.no-result{display:none;margin-top:18px;padding:18px;border-radius:22px;border:1px solid rgba(239,68,68,.45);background:rgba(239,68,68,.12)}.no-result.show{display:block}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0}.stat{background:rgba(255,255,255,.09);border:1px solid var(--stroke);border-radius:22px;padding:18px;text-align:center}.stat b{font-size:30px;display:block}.stat span{color:var(--muted);font-size:13px}.rooms{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}.room{background:rgba(255,255,255,.09);border:1px solid var(--stroke);border-radius:26px;overflow:hidden;box-shadow:0 14px 38px rgba(0,0,0,.22)}.room-head{padding:18px;background:linear-gradient(135deg,rgba(56,189,248,.28),rgba(167,139,250,.24));display:flex;justify-content:space-between;align-items:center}.room-head h3{margin:0;font-size:24px}.spec{font-size:13px;color:#e0f2fe}.count{background:rgba(0,0,0,.22);padding:7px 10px;border-radius:999px;font-weight:800}.list{max-height:335px;overflow:auto;padding:10px}.student{display:grid;grid-template-columns:44px 1fr;gap:9px;align-items:center;padding:10px;border-bottom:1px solid rgba(255,255,255,.08)}.student:last-child{border-bottom:0}.num{width:34px;height:34px;border-radius:12px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;color:#dff7ff;font-weight:700}.name{direction:rtl;text-align:right;font-weight:700}.reg{font-size:12px;color:var(--muted);margin-top:3px}.footer-note{margin:22px 0 35px;padding:18px;border-radius:22px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.35);color:#ffedd5;line-height:1.7;text-align:center}
+    mark{background:#fde68a;color:#111827;border-radius:6px;padding:0 3px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.tab{padding:9px 12px;border-radius:999px;border:1px solid var(--stroke);background:rgba(255,255,255,.08);color:var(--text);cursor:pointer}.tab.active{background:rgba(56,189,248,.24);border-color:rgba(56,189,248,.6)}
+    @media(max-width:900px){.rooms{grid-template-columns:1fr}.stats,.result-grid{grid-template-columns:repeat(2,1fr)}.search-row{grid-template-columns:1fr}.btn{height:52px}.search-card{position:relative;top:auto}}
+    @media(max-width:520px){.stats,.result-grid{grid-template-columns:1fr}header{padding-top:22px}.wrap{padding:12px}.search-card{border-radius:22px}.room-head h3{font-size:21px}}
+  </style>
+</head>
+<body>
+  <div class="orb one"></div><div class="orb two"></div><div class="orb three"></div>
+  <header>
+    <div class="badge">KASDI MERBAH UNIVERSITY – OUARGLA • FACULTY OF APPLIED SCIENCES</div>
+    <h1>Master Student Room Distribution</h1>
+    <p class="subtitle">Department of Electrical Engineering — Academic Year 2025/2026<br><span class="arabic">يمكن للطالب كتابة الاسم بالعربية أو رقم التسجيل لمعرفة القاعة مباشرة</span></p>
+  </header>
+  <main class="wrap">
+    <section class="search-card">
+      <div class="search-row">
+        <input id="searchInput" class="input arabic" type="text" placeholder="اكتب الاسم أو رقم التسجيل هنا... مثال: خنوس أو 222239290211" autocomplete="off" />
+        <button class="btn" onclick="searchStudent()">Search</button>
+      </div>
+      <div class="hint">Search works with Arabic name, family name, first name, or registration number. البحث يعمل بالاسم أو اللقب أو رقم التسجيل.</div>
+      <div id="result" class="result"></div>
+      <div id="noResult" class="no-result arabic">لم يتم العثور على الطالب. يرجى التأكد من كتابة الاسم أو رقم التسجيل بشكل صحيح.</div>
+      <div class="tabs" id="tabs"></div>
+    </section>
+
+    <section class="stats">
+      <div class="stat"><b id="totalStudents">0</b><span>Total Students</span></div>
+      <div class="stat"><b>6</b><span>Rooms</span></div>
+      <div class="stat"><b>3</b><span>Specializations</span></div>
+      <div class="stat"><b>M01</b><span>Level</span></div>
+    </section>
+
+    <section id="rooms" class="rooms"></section>
+
+    <div class="footer-note arabic">ملاحظة مهمة: توزيع القاعات خاص بطلبة السنة الأولى ماستر في تخصصات كهروتقني صناعي، ماكينات كهربائية، وشبكات كهربائية. يجب على كل طالب التأكد من قاعته قبل يوم الامتحان.</div>
+  </main>
+
+<script>
+const students = [
+  // Industrial Electrotechnics - Room 109
+  {n:1, reg:'222239290211', last:'خنوس', first:'محمد وليد', name:'خنوس محمد وليد', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'109'},
+  {n:2, reg:'222239307116', last:'دهماني', first:'محمد لزهر', name:'دهماني محمد لزهر', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'109'},
+  {n:3, reg:'222239378504', last:'ذكار', first:'مروة', name:'ذكار مروة', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'109'},
+  {n:4, reg:'222239327102', last:'زايد', first:'أحمد', name:'زايد أحمد', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'109'},
+  {n:5, reg:'222239342107', last:'زوزو', first:'رافع', name:'زوزو رافع', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'109'},
+  {n:6, reg:'251339032198', last:'زيتوني', first:'زهير', name:'زيتوني زهير', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'109'},
+  {n:7, reg:'222239354405', last:'شاشه', first:'محمد علي', name:'شاشه محمد علي', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'109'},
+  {n:8, reg:'222239378417', last:'شطي', first:'مراد', name:'شطي مراد', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'109'},
+  {n:9, reg:'202039052058', last:'طبوشه', first:'أمجد', name:'طبوشه أمجد', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'109'},
+  {n:10, reg:'222239306710', last:'عزوزي', first:'عبد الرحمان', name:'عزوزي عبد الرحمان', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'109'},
+  {n:11, reg:'212138013990', last:'عمران', first:'امينة', name:'عمران امينة', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'109'},
+  {n:12, reg:'222239307618', last:'عيساوي', first:'فارس', name:'عيساوي فارس', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'109'},
+  {n:13, reg:'212239513410', last:'غرغوط', first:'سيف الدين', name:'غرغوط سيف الدين', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'109'},
+  {n:14, reg:'222239354907', last:'قانه', first:'محمد ياسر', name:'قانه محمد ياسر', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'109'},
+  {n:15, reg:'222239352903', last:'قروط', first:'محمد التهامي', name:'قروط محمد التهامي', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'109'},
+  {n:16, reg:'222239307210', last:'كيور', first:'معتز باهلل', name:'كيور معتز باهلل', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'109'},
+  {n:17, reg:'222239294217', last:'مبارك', first:'مهدي جياللي', name:'مبارك مهدي جياللي', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'109'},
+  {n:18, reg:'202039051027', last:'مسيني', first:'هاني', name:'مسيني هاني', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'109'},
+  {n:19, reg:'222239297412', last:'ميلودي', first:'بسملة', name:'ميلودي بسملة', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'109'},
+  {n:20, reg:'222239302011', last:'نتاري', first:'منير', name:'نتاري منير', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'109'},
+  {n:21, reg:'212139057619', last:'نفزاوة', first:'محمد السعيد', name:'نفزاوة محمد السعيد', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'109'},
+  // Room 110
+  {n:1, reg:'222239330805', last:'السخري', first:'عبد القهار', name:'السخري عبد القهار', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'110'},
+  {n:2, reg:'202039079909', last:'العلمي', first:'أيمن عبد الله', name:'العلمي أيمن عبد الله', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'110'},
+  {n:3, reg:'222239330803', last:'باسة', first:'ايوب', name:'باسة ايوب', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'110'},
+  {n:4, reg:'222239307619', last:'بريم', first:'فارس الإسلام', name:'بريم فارس الإسلام', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'110'},
+  {n:5, reg:'202039057647', last:'بقارية', first:'أحمد أمين', name:'بقارية أحمد أمين', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'110'},
+  {n:6, reg:'222239341904', last:'بن السعدي', first:'الصديق', name:'بن السعدي الصديق', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'110'},
+  {n:7, reg:'222239341910', last:'بن حامد', first:'محمد الطيب', name:'بن حامد محمد الطيب', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'110'},
+  {n:8, reg:'222239354909', last:'بن حامه', first:'هيثم عبد المؤمن', name:'بن حامه هيثم عبد المؤمن', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'110'},
+  {n:9, reg:'222239341004', last:'بن دلالي', first:'رياض', name:'بن دلالي رياض', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'110'},
+  {n:10, reg:'212139087449', last:'بن ساحة', first:'عبد القادر', name:'بن ساحة عبد القادر', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'110'},
+  {n:11, reg:'212139052089', last:'بن شنة', first:'مسعود', name:'بن شنة مسعود', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'110'},
+  {n:12, reg:'202039081548', last:'بن عمران', first:'أبوبكر', name:'بن عمران أبوبكر', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'110'},
+  {n:13, reg:'222239327201', last:'بن غرس الله', first:'أكرم', name:'بن غرس الله أكرم', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'110'},
+  {n:14, reg:'222239333909', last:'بوحنيك', first:'الحاج بوبكر', name:'بوحنيك الحاج بوبكر', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'110'},
+  {n:15, reg:'222234441712', last:'بورويسة', first:'وليد', name:'بورويسة وليد', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'110'},
+  {n:16, reg:'212139056585', last:'بوستة', first:'عبد الرحمان', name:'بوستة عبد الرحمان', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'110'},
+  {n:17, reg:'222239298106', last:'بوعزة', first:'محمد عامر', name:'بوعزة محمد عامر', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'110'},
+  {n:18, reg:'222231190709', last:'بوعلبة', first:'سالم عبد الصمد', name:'بوعلبة سالم عبد الصمد', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'110'},
+  {n:19, reg:'222239317718', last:'بوقفة', first:'محمد أمجد', name:'بوقفة محمد أمجد', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'110'},
+  {n:20, reg:'202039051223', last:'بوقنور', first:'عبد الله', name:'بوقنور عبد الله', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'110'},
+  {n:21, reg:'222239307203', last:'جوهري', first:'محمد وليد بلخير', name:'جوهري محمد وليد بلخير', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'110'},
+  {n:22, reg:'222239289207', last:'خمقانى', first:'أحمد عبد الهادى', name:'خمقانى أحمد عبد الهادى', spec:'Industrial Electrotechnics', specAr:'كهروتقني صناعي', room:'110'},
+  // Electrical Machines Room 111
+  {n:1, reg:'222239317902', last:'خروبي', first:'نصر الدين', name:'خروبي نصر الدين', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'111'},
+  {n:2, reg:'222239344719', last:'خلف الله', first:'محمد البشير', name:'خلف الله محمد البشير', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'111'},
+  {n:3, reg:'222239341208', last:'دحماني', first:'عبد الوهاب', name:'دحماني عبد الوهاب', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'111'},
+  {n:4, reg:'222239356513', last:'دغريش', first:'ياسر', name:'دغريش ياسر', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'111'},
+  {n:5, reg:'171739054938', last:'روابح', first:'أيوب', name:'روابح أيوب', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'111'},
+  {n:6, reg:'181839044754', last:'زيتوني', first:'محمد أنيس', name:'زيتوني محمد أنيس', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'111'},
+  {n:7, reg:'222239289814', last:'شبوعات', first:'عبد الحق', name:'شبوعات عبد الحق', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'111'},
+  {n:8, reg:'222239291202', last:'شبوعات', first:'أسامة', name:'شبوعات أسامة', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'111'},
+  {n:9, reg:'222239293307', last:'شوقي', first:'أحمد إبراهيم', name:'شوقي أحمد إبراهيم', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'111'},
+  {n:10, reg:'251439046764', last:'شيروبة', first:'عبد الرحيم', name:'شيروبة عبد الرحيم', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'111'},
+  {n:11, reg:'202039053342', last:'عباسي', first:'معاذ', name:'عباسي معاذ', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'111'},
+  {n:12, reg:'222239356401', last:'عوفي', first:'محمد السايح', name:'عوفي محمد السايح', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'111'},
+  {n:13, reg:'222239323302', last:'قمو', first:'أحمد وسيم', name:'قمو أحمد وسيم', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'111'},
+  {n:14, reg:'202039046262', last:'الزر', first:'احمد مروان', name:'الزر احمد مروان', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'111'},
+  {n:15, reg:'212239384607', last:'محمدي', first:'نجوى', name:'محمدي نجوى', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'111'},
+  {n:16, reg:'222239330207', last:'مرابط', first:'إلياس', name:'مرابط إلياس', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'111'},
+  {n:17, reg:'222239329308', last:'معراف', first:'مصطفى', name:'معراف مصطفى', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'111'},
+  {n:18, reg:'212139053789', last:'منصوري', first:'مروان', name:'منصوري مروان', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'111'},
+  {n:19, reg:'212139064765', last:'ميلودي', first:'عبد النافع', name:'ميلودي عبد النافع', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'111'},
+  {n:20, reg:'202039046883', last:'نتاري', first:'عبد العالي', name:'نتاري عبد العالي', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'111'},
+  // Electrical Machines Room 112
+  {n:1, reg:'212139055788', last:'الاخضري', first:'محمد عبد اللطيف', name:'الاخضري محمد عبد اللطيف', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'112'},
+  {n:2, reg:'222239338504', last:'الزاكي', first:'يوسف', name:'الزاكي يوسف', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'112'},
+  {n:3, reg:'202039052606', last:'باسو', first:'عبد المنجي', name:'باسو عبد المنجي', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'112'},
+  {n:4, reg:'222239455407', last:'بالعيد', first:'عبد الحسيب', name:'بالعيد عبد الحسيب', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'112'},
+  {n:5, reg:'202039047586', last:'بخديجة', first:'عبد السلام', name:'بخديجة عبد السلام', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'112'},
+  {n:6, reg:'222239334306', last:'برقوق', first:'سعيدة', name:'برقوق سعيدة', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'112'},
+  {n:7, reg:'212139052626', last:'بلمسعود', first:'الحاج', name:'بلمسعود الحاج', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'112'},
+  {n:8, reg:'222239395719', last:'بن بيه', first:'أحمد عبد الله', name:'بن بيه أحمد عبد الله', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'112'},
+  {n:9, reg:'212139056093', last:'بن رتمية', first:'أحمد شوقي', name:'بن رتمية أحمد شوقي', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'112'},
+  {n:10, reg:'201539049886', last:'بن زغمان', first:'ابراهيم', name:'بن زغمان ابراهيم', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'112'},
+  {n:11, reg:'222239354905', last:'بوخلط', first:'محمد العيد', name:'بوخلط محمد العيد', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'112'},
+  {n:12, reg:'212139059474', last:'بوخلط', first:'شمس الدين', name:'بوخلط شمس الدين', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'112'},
+  {n:13, reg:'161639046797', last:'بورويس', first:'عبد العزيز', name:'بورويس عبد العزيز', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'112'},
+  {n:14, reg:'202039051749', last:'بوعقه', first:'نبيل', name:'بوعقه نبيل', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'112'},
+  {n:15, reg:'222239322013', last:'بوقفة', first:'محمد تقي الدين', name:'بوقفة محمد تقي الدين', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'112'},
+  {n:16, reg:'192039057646', last:'جدي', first:'أحمد', name:'جدي أحمد', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'112'},
+  {n:17, reg:'212139051500', last:'حجاج', first:'أحمد عباس', name:'حجاج أحمد عباس', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'112'},
+  {n:18, reg:'222239303212', last:'حرور', first:'محمد نور الدين', name:'حرور محمد نور الدين', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'112'},
+  {n:19, reg:'202039045868', last:'حمي', first:'محمد إسلام', name:'حمي محمد إسلام', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'112'},
+  {n:20, reg:'212139055778', last:'حمي', first:'محمد رمزي', name:'حمي محمد رمزي', spec:'Electrical Machines', specAr:'ماكينات كهربائية', room:'112'},
+  // Electrical Networks Room 113
+  {n:1, reg:'212139053327', last:'خويلد', first:'اميرة', name:'خويلد اميرة', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'113'},
+  {n:2, reg:'202039047624', last:'درويش', first:'محمد اسلام', name:'درويش محمد اسلام', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'113'},
+  {n:3, reg:'181839045612', last:'دوادي', first:'الحاج الصديق', name:'دوادي الحاج الصديق', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'113'},
+  {n:4, reg:'222239317804', last:'ذوادي', first:'محمد رياض', name:'ذوادي محمد رياض', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'113'},
+  {n:5, reg:'222231190802', last:'رجال ملاح', first:'عبد المؤمن', name:'رجال ملاح عبد المؤمن', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'113'},
+  {n:6, reg:'191939049919', last:'رحيم', first:'محمد الاشرف', name:'رحيم محمد الاشرف', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'113'},
+  {n:7, reg:'202039051518', last:'رزوق', first:'أيمن', name:'رزوق أيمن', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'113'},
+  {n:8, reg:'212139057222', last:'رزيق', first:'أحمد أمين', name:'رزيق أحمد أمين', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'113'},
+  {n:9, reg:'212139051339', last:'سعدامو', first:'محمد بلال', name:'سعدامو محمد بلال', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'113'},
+  {n:10, reg:'181839054303', last:'سيتوحة', first:'العربي', name:'سيتوحة العربي', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'113'},
+  {n:11, reg:'171739050017', last:'صندالي', first:'ابراهيم', name:'صندالي ابراهيم', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'113'},
+  {n:12, reg:'212139058605', last:'طواهر', first:'أشرف', name:'طواهر أشرف', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'113'},
+  {n:13, reg:'212139056603', last:'عديلي', first:'عبد الهادي', name:'عديلي عبد الهادي', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'113'},
+  {n:14, reg:'222239380609', last:'عقال', first:'محمد ادريس', name:'عقال محمد ادريس', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'113'},
+  {n:15, reg:'202039050814', last:'عماني لفرك', first:'عبد الحكيم', name:'عماني لفرك عبد الحكيم', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'113'},
+  {n:16, reg:'202039049781', last:'عون', first:'محمد المهدي', name:'عون محمد المهدي', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'113'},
+  {n:17, reg:'212139050141', last:'غربي', first:'محمد زين الدين', name:'غربي محمد زين الدين', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'113'},
+  {n:18, reg:'212139067013', last:'قطافي', first:'السايح بدر الدين', name:'قطافي السايح بدر الدين', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'113'},
+  {n:19, reg:'222239290212', last:'كواني', first:'محمد ياسين', name:'كواني محمد ياسين', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'113'},
+  {n:20, reg:'222239329311', last:'لكحل', first:'معمر', name:'لكحل معمر', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'113'},
+  {n:21, reg:'212139055377', last:'مجوجة', first:'أنور عبد الشكور', name:'مجوجة أنور عبد الشكور', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'113'},
+  {n:22, reg:'212139053891', last:'منصوري', first:'عبد الرحمان', name:'منصوري عبد الرحمان', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'113'},
+  {n:23, reg:'212131027787', last:'هرويني', first:'عبدالوهاب', name:'هرويني عبدالوهاب', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'113'},
+  // Electrical Networks Room 114
+  {n:1, reg:'222239344904', last:'اكرمى', first:'مسيل', name:'اكرمى مسيل', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'114'},
+  {n:2, reg:'212139059366', last:'التهامي', first:'إخلاص', name:'التهامي إخلاص', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'114'},
+  {n:3, reg:'212139050196', last:'الداوي', first:'نوفل', name:'الداوي نوفل', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'114'},
+  {n:4, reg:'212139090374', last:'العابد', first:'عبد الرحمان', name:'العابد عبد الرحمان', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'114'},
+  {n:5, reg:'222239576908', last:'أولاد حيمودة', first:'وليد', name:'أولاد حيمودة وليد', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'114'},
+  {n:6, reg:'202039047637', last:'أولالو', first:'محمد مبارك', name:'أولالو محمد مبارك', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'114'},
+  {n:7, reg:'212139053743', last:'بتقى', first:'عبد الحق', name:'بتقى عبد الحق', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'114'},
+  {n:8, reg:'191939047677', last:'برابح', first:'ياسين', name:'برابح ياسين', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'114'},
+  {n:9, reg:'212139091936', last:'براهمي', first:'نوح', name:'براهمي نوح', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'114'},
+  {n:10, reg:'212139056446', last:'برقيقه', first:'ابراهيم', name:'برقيقه ابراهيم', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'114'},
+  {n:11, reg:'191939049893', last:'بريحه', first:'صلاح الدين', name:'بريحه صلاح الدين', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'114'},
+  {n:12, reg:'191939047629', last:'بلخيري', first:'محمد محسن', name:'بلخيري محمد محسن', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'114'},
+  {n:13, reg:'2399925255', last:'بلقاسم', first:'علي', name:'بلقاسم علي', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'114'},
+  {n:14, reg:'222239327612', last:'بن الحبيب', first:'بوبكر', name:'بن الحبيب بوبكر', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'114'},
+  {n:15, reg:'212139049625', last:'بن طرفة', first:'مصطفى أمين', name:'بن طرفة مصطفى أمين', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'114'},
+  {n:16, reg:'202039060283', last:'بن عمر', first:'إسحاق', name:'بن عمر إسحاق', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'114'},
+  {n:17, reg:'202037002660', last:'بن منوفي', first:'محمد عبد الله', name:'بن منوفي محمد عبد الله', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'114'},
+  {n:18, reg:'212139053785', last:'بوقفة', first:'محمد عبد العزيز', name:'بوقفة محمد عبد العزيز', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'114'},
+  {n:19, reg:'202039050864', last:'جدرة', first:'فارس', name:'جدرة فارس', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'114'},
+  {n:20, reg:'151539058188', last:'حامدي', first:'محمد الأمين', name:'حامدي محمد الأمين', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'114'},
+  {n:21, reg:'222239346301', last:'حداوي', first:'عبد السلام', name:'حداوي عبد السلام', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'114'},
+  {n:22, reg:'222231190610', last:'حمادي', first:'انيس عصام الدين', name:'حمادي انيس عصام الدين', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'114'},
+  {n:23, reg:'212139058084', last:'خاطر', first:'عبد الباسط', name:'خاطر عبد الباسط', spec:'Electrical Networks', specAr:'شبكات كهربائية', room:'114'}
+];
+
+function normalize(s){return (s||'').toString().trim().toLowerCase().replace(/[أإآٱ]/g,'ا').replace(/[ى]/g,'ي').replace(/[ة]/g,'ه').replace(/[ؤ]/g,'و').replace(/[ئ]/g,'ي').replace(/[ًٌٍَُِّْـ]/g,'').replace(/\s+/g,' ')}
+function roomOrder(){return ['109','110','111','112','113','114']}
+function renderRooms(filter='all'){
+  const rooms = document.getElementById('rooms'); rooms.innerHTML='';
+  roomOrder().forEach(room=>{
+    const arr = students.filter(s=>s.room===room && (filter==='all' || s.spec===filter)); if(!arr.length) return;
+    const spec = [...new Set(arr.map(s=>s.spec))].join(' / ');
+    const specAr = [...new Set(arr.map(s=>s.specAr))].join(' / ');
+    const card = document.createElement('div'); card.className='room';
+    card.innerHTML = `<div class="room-head"><div><h3>Room ${room}</h3><div class="spec">${spec}<br><span class="arabic">${specAr}</span></div></div><div class="count">${arr.length} students</div></div><div class="list">${arr.map(s=>`<div class="student"><div class="num">${s.n}</div><div><div class="name">${s.name}</div><div class="reg">${s.reg}</div></div></div>`).join('')}</div>`;
+    rooms.appendChild(card);
+  })
+}
+function searchStudent(){
+  const qRaw = document.getElementById('searchInput').value; const q = normalize(qRaw);
+  const result = document.getElementById('result'); const no = document.getElementById('noResult');
+  result.classList.remove('show'); no.classList.remove('show'); result.innerHTML='';
+  if(!q){no.textContent='يرجى كتابة الاسم أو رقم التسجيل أولا.'; no.classList.add('show'); return;}
+  const found = students.filter(s=>normalize(s.name).includes(q)||normalize(s.last).includes(q)||normalize(s.first).includes(q)||s.reg.includes(qRaw.trim()));
+  if(!found.length){no.textContent='لم يتم العثور على الطالب. يرجى التأكد من كتابة الاسم أو رقم التسجيل بشكل صحيح.'; no.classList.add('show'); return;}
+  result.classList.add('show');
+  result.innerHTML = found.map(s=>`<div><h2 class="arabic">${s.name}</h2><div class="result-grid"><div class="pill"><span>Room</span><b>${s.room}</b></div><div class="pill"><span>Registration Number</span><b>${s.reg}</b></div><div class="pill"><span>Specialization</span><b>${s.spec}</b></div><div class="pill"><span>Arabic Specialization</span><b class="arabic">${s.specAr}</b></div></div></div>`).join('<hr style="border-color:rgba(255,255,255,.15);margin:18px 0">');
+  document.querySelector(`.room`)?.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function buildTabs(){
+  const tabs = document.getElementById('tabs'); const opts=[['all','All Rooms'],['Industrial Electrotechnics','Industrial Electrotechnics'],['Electrical Machines','Electrical Machines'],['Electrical Networks','Electrical Networks']];
+  tabs.innerHTML=opts.map((o,i)=>`<button class="tab ${i===0?'active':''}" onclick="setFilter(this,'${o[0]}')">${o[1]}</button>`).join('');
+}
+function setFilter(btn, filter){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');renderRooms(filter)}
+document.getElementById('searchInput').addEventListener('input',()=>{const v=document.getElementById('searchInput').value.trim(); if(v.length>=2) searchStudent(); if(!v){document.getElementById('result').classList.remove('show');document.getElementById('noResult').classList.remove('show');}});
+document.getElementById('searchInput').addEventListener('keydown',e=>{if(e.key==='Enter') searchStudent()});
+document.getElementById('totalStudents').textContent=students.length;
+buildTabs(); renderRooms();
+</script>
+</body>
+</html>
