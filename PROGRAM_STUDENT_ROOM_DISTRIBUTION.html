@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Student Room Distribution | L3 Electrotechnical Engineering</title>
+<style>
+:root{
+ --bg:#061017;--cyan:#22d3ee;--blue:#2563eb;--gold:#f59e0b;--green:#10b981;--red:#ef4444;
+ --paper:#f8fafc;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--violet:#7c3aed;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+ margin:0;font-family:Arial,"Segoe UI",sans-serif;background:#061017;color:white;overflow-x:hidden;
+}
+body:before{
+ content:"";position:fixed;inset:0;z-index:-2;
+ background:
+ radial-gradient(circle at 12% 10%,rgba(34,211,238,.24),transparent 30%),
+ radial-gradient(circle at 82% 18%,rgba(245,158,11,.22),transparent 30%),
+ radial-gradient(circle at 50% 88%,rgba(124,58,237,.24),transparent 34%),
+ linear-gradient(135deg,#020617,#071827 55%,#082f49);
+ animation:bgMove 14s ease-in-out infinite alternate;
+}
+body:after{
+ content:"";position:fixed;inset:0;z-index:-1;opacity:.11;
+ background-image:linear-gradient(rgba(255,255,255,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.16) 1px,transparent 1px);
+ background-size:46px 46px;animation:gridMove 18s linear infinite;
+}
+@keyframes bgMove{to{filter:hue-rotate(10deg) brightness(1.08)}}
+@keyframes gridMove{to{background-position:46px 46px,46px 46px}}
+header{
+ min-height:92vh;padding:36px 4%;display:grid;grid-template-columns:1fr 430px;gap:28px;align-items:center;
+}
+.badge{display:inline-block;padding:10px 14px;border-radius:999px;background:rgba(34,211,238,.14);border:1px solid rgba(34,211,238,.34);color:#cffafe;font-weight:950}
+h1{font-family:Georgia,serif;font-size:clamp(40px,7vw,86px);line-height:.95;margin:20px 0 12px;color:#f8fafc}
+h1 span{display:block;color:#fbbf24;text-shadow:0 0 20px rgba(245,158,11,.45)}
+.lead{font-size:19px;line-height:1.6;color:#dbeafe;font-weight:760;max-width:900px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.stat{padding:15px;border-radius:20px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px)}
+.stat b{display:block;font-size:28px;color:#fbbf24}
+.stat span{font-size:12px;color:#cbd5e1;font-weight:900}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.btn{border:0;cursor:pointer;text-decoration:none;padding:13px 17px;border-radius:14px;background:#22d3ee;color:#082f49;font-weight:950}
+.btn.secondary{background:rgba(255,255,255,.12);color:white;border:1px solid rgba(255,255,255,.18)}
+.panel{
+ background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.18);border-radius:30px;padding:18px;box-shadow:0 24px 70px rgba(0,0,0,.30);backdrop-filter:blur(14px);
+}
+.panel h2{margin:0 0 12px;font-family:Georgia,serif;color:#fbbf24}
+.lookup{background:rgba(248,250,252,.96);color:#111827;border-radius:22px;padding:16px;margin-bottom:12px}
+.lookup input{width:100%;padding:15px;border-radius:14px;border:1px solid #cbd5e1;font-weight:900;font-size:16px;outline:none}
+.result{margin-top:12px;padding:13px;border-radius:15px;background:#ecfeff;border-left:7px solid #22d3ee;color:#0f172a;font-weight:900;line-height:1.45}
+.room-buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.room-btn{padding:11px;border-radius:12px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:white;font-weight:950;cursor:pointer;text-align:left}
+.room-btn:hover{background:#22d3ee;color:#082f49}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(2,6,23,.95);padding:9px 4%;border-bottom:1px solid rgba(255,255,255,.14);backdrop-filter:blur(12px)}
+.active-title{max-width:1240px;margin:auto;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.10);border-left:8px solid var(--active,#22d3ee);font-weight:950;animation:pulse 1.3s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 4px color-mix(in srgb,var(--active,#22d3ee) 24%,transparent),0 0 28px color-mix(in srgb,var(--active,#22d3ee) 48%,transparent)}}
+nav{position:sticky;top:58px;z-index:90;display:flex;gap:8px;overflow:auto;background:rgba(15,23,42,.94);padding:10px 4%;border-bottom:1px solid rgba(255,255,255,.13)}
+nav a{white-space:nowrap;text-decoration:none;color:#dbeafe;padding:10px 12px;border-radius:999px;background:rgba(255,255,255,.10);font-weight:950}
+nav a.current{background:#22d3ee;color:#082f49}
+main{padding:26px 4% 56px}
+.smart{max-width:1240px;margin:0 auto 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.box{background:rgba(248,250,252,.96);color:#111827;border-radius:24px;padding:18px;box-shadow:0 16px 40px rgba(0,0,0,.16);position:relative;overflow:hidden}
+.box:after{content:"";position:absolute;width:120px;height:120px;right:-42px;top:-42px;background:rgba(34,211,238,.14);border-radius:50%}
+.box h2{margin:0 0 8px;font-family:Georgia,serif;color:#082f49}
+.box p{margin:0;color:#475569;font-weight:850;line-height:1.5}
+.pill{display:inline-block;margin-top:12px;padding:9px 12px;border-radius:999px;background:#cffafe;color:#155e75;font-weight:950}
+.search{max-width:1240px;margin:0 auto 18px;display:flex;gap:10px}
+.search input{flex:1;padding:15px;border-radius:14px;border:1px solid #cbd5e1;font-weight:900;font-size:16px;outline:none}
+.quick{max-width:1240px;margin:0 auto 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.q{padding:13px;border-radius:15px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);font-weight:950;text-align:center;cursor:pointer}
+.q:hover{background:rgba(34,211,238,.20)}
+.section{max-width:1240px;margin:0 auto 28px;background:#f8fafc;color:#111827;border-radius:28px;overflow:hidden;box-shadow:0 18px 48px rgba(0,0,0,.22)}
+.section-head{padding:20px;border-top:9px solid var(--c,#22d3ee);background:linear-gradient(135deg,#fff,#ecfeff);display:grid;grid-template-columns:1fr 310px;gap:16px;align-items:center}
+.section h2{margin:0;font-family:Georgia,serif;color:#082f49;font-size:30px}
+.meta{margin-top:8px;color:#475569;font-weight:850;line-height:1.5}
+.notice{background:#0f172a;color:white;border-left:7px solid #f59e0b;border-radius:18px;padding:15px}
+.notice b{color:#fbbf24}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;padding:16px;background:#edf2f7}
+.student-card{position:relative;background:white;border:1px solid #e2e8f0;border-left:8px solid var(--c,#22d3ee);border-radius:18px;padding:16px;box-shadow:0 8px 18px rgba(15,23,42,.07);overflow:hidden}
+.student-card h3{margin:0 0 10px;color:#111827;font-size:22px;direction:rtl;text-align:right;font-family:"Tahoma","Arial",sans-serif}
+.reg{font-size:20px;font-weight:950;color:#082f49;margin:8px 0}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:9px 0}
+.chip{padding:7px 9px;border-radius:999px;background:#ecfeff;color:#155e75;font-weight:950;font-size:13px}
+.room-alert{margin-top:10px;padding:10px 11px;border-radius:13px;background:#fff7ed;color:#9a3412;border-left:6px solid #f59e0b;font-weight:950}
+.highlight{animation:urgent 1s infinite;border-left-color:#ef4444!important;background:linear-gradient(135deg,#fff7ed,#fff)}
+@keyframes urgent{50%{box-shadow:0 0 0 5px rgba(239,68,68,.22),0 0 28px rgba(239,68,68,.28);transform:translateY(-1px)}}
+.table-wrap{padding:16px;background:#edf2f7;overflow:auto}
+table{width:100%;border-collapse:collapse;background:white;border-radius:14px;overflow:hidden}
+th,td{padding:11px;border-bottom:1px solid #e2e8f0;text-align:left;font-weight:850}
+th{background:#082f49;color:white}
+td.name{direction:rtl;text-align:right;font-family:"Tahoma","Arial",sans-serif;font-size:16px}
+.room-section.hidden,.student-card.hidden,tr.hidden{display:none!important}
+.instructions .section-head{border-top-color:#ef4444;background:linear-gradient(135deg,#fff,#fff7ed)}
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;padding:16px;background:#edf2f7}
+.rule{background:white;border-radius:18px;border:1px solid #e2e8f0;border-left:7px solid #ef4444;padding:16px}
+.rule h3{margin:0 0 8px;color:#082f49}
+.rule p{margin:0;color:#475569;font-weight:780;line-height:1.55}
+footer{text-align:center;color:#cbd5e1;font-weight:850;padding:24px}
+@media(max-width:950px){header{grid-template-columns:1fr;min-height:auto}.stats,.smart,.quick{grid-template-columns:1fr 1fr}.section-head{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.rules{grid-template-columns:1fr}}
+@media(max-width:520px){header,main,nav,.topbar{padding-left:3.5%;padding-right:3.5%}.stats,.smart,.quick,.room-buttons{grid-template-columns:1fr}.search{display:block}.search button{width:100%;margin-top:9px}h1{font-size:38px}}
+@media print{header,nav,.topbar,.smart,.search,.quick,footer{display:none}body{background:white;color:black}body:before,body:after{display:none}main{padding:0}.section{box-shadow:none;border:1px solid #ddd;break-inside:avoid}.grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header>
+<div>
+<span class="badge">Kasdi Merbah University – Ouargla</span>
+<h1>PROGRAM 04:<span>SMART STUDENT ROOM DISTRIBUTION</span></h1>
+<p class="lead">Faculty of Applied Sciences · Department of Electrical Engineering · Third Year Licence – Electrotechnical Engineering · Academic Year 2025 / 2026.</p>
+<div class="stats">
+<div class="stat"><b>147</b><span>Total students</span></div>
+<div class="stat"><b>7</b><span>Rooms</span></div>
+<div class="stat"><b>18</b><span>Students in rooms 109–114</span></div>
+<div class="stat"><b>39</b><span>Students in room 210</span></div>
+</div>
+<div class="actions"><a class="btn" href="#rooms">Open Distribution</a><a class="btn secondary" href="#studentTable">Student Index</a><button class="btn secondary" onclick="window.print()">Print / Save PDF</button></div>
+</div>
+<div class="panel">
+<h2>Student Room Finder</h2>
+<div class="lookup"><input id="heroSearch" onkeyup="syncSearch(this.value)" placeholder="Search by Arabic name, registration number, or room..."><div class="result" id="liveResult">Type a student name or registration number to get the room instantly.</div></div>
+<div class="room-buttons" id="roomButtons"></div>
+</div>
+</header>
+
+<div class="topbar"><div class="active-title" id="activeTitle">Current Page: Smart Student Room Distribution</div></div>
+<nav id="nav"></nav>
+
+<main>
+<section class="smart">
+<div class="box"><h2>Smart Search</h2><p id="focusLine">Search by student name, registration number, or room.</p><span class="pill" id="statusPill">Ready</span></div>
+<div class="box"><h2>Room Alert</h2><p>The system highlights the matching student and displays the assigned room immediately.</p><span class="pill">Instant room detection</span></div>
+<div class="box"><h2>Distribution Rule</h2><p>Rooms 109 to 114 contain 18 students each, and Room 210 contains the remaining students.</p><span class="pill">Official list based distribution</span></div>
+</section>
+
+<div class="quick"><div class="q" onclick="quickFilter('')">All Rooms</div><div class="q" onclick="quickFilter('Room 109')">Room 109</div><div class="q" onclick="quickFilter('Room 114')">Room 114</div><div class="q" onclick="quickFilter('Room 210')">Room 210</div></div>
+<div class="search"><input id="search" placeholder="Search by Arabic name, registration number, or room..." onkeyup="filterCards()"><button class="btn secondary" onclick="showAll()">Show All</button></div>
+
+<div id="rooms"></div>
+
+<section class="section" id="studentTable" style="--c:#f59e0b">
+<div class="section-head"><div><h2>Complete Student Index</h2><div class="meta">All students with registration numbers and assigned rooms.</div></div><div class="notice"><b>Smart Index</b><br>Use search to filter the full list instantly.</div></div>
+<div class="table-wrap">
+<table><thead><tr><th>No.</th><th>Registration Number</th><th>Student Name</th><th>Room</th></tr></thead><tbody id="tableBody"></tbody></table>
+</div>
+</section>
+
+<section class="section instructions" id="instructions" style="--c:#ef4444">
+<div class="section-head"><div><h2>Important Instructions for Students</h2><div class="meta">Official room distribution instructions.</div></div><div class="notice"><b>Important</b><br>Check your room before the exam day.</div></div>
+<div class="rules">
+<div class="rule"><h3>Arrive Early</h3><p>Students must arrive at least 10 minutes before the exam starts.</p></div>
+<div class="rule"><h3>Check Your Room</h3><p>Each student must go directly to the assigned room shown in this system.</p></div>
+<div class="rule"><h3>Registration Number</h3><p>Use your registration number to avoid mistakes in similar names.</p></div>
+</div>
+</section>
+</main>
+<footer>Department of Electrical Engineering · Faculty of Applied Sciences · Kasdi Merbah University – Ouargla</footer>
+
+<script>
+const DATA={"rooms": {"Room 109": [["232339541502", "أخداري ساعد"], ["222239307016", "الأخضري محمد الطاهر"], ["212139056588", "الاخضري عبد الرحمان"], ["212139056614", "السايح لمبارك عمر"], ["222239395706", "السايح لمبارك أحمد"], ["232339306002", "الشيخ جابر"], ["222239322818", "الطاهري صالح الدين"], ["222239315214", "العريبي الأمين"], ["212139057264", "المقدم محمد"], ["212139058295", "النوري علاء"], ["232339532003", "باباعربي محمد الصادق"], ["202039058464", "باحمد موالي علي الشريف"], ["232339536920", "باساسي عبد الرشيد"], ["222239308105", "باسيمان محمدأنس"], ["181839051475", "بالرقي يونس"], ["232339548801", "بالطيب أكرم"], ["232339544014", "باوه ياسين"], ["232339543601", "باوه عبد الباقي"]], "Room 110": [["191939051568", "بدوي عبد العظيم"], ["212139054678", "براء الله ياسين"], ["222239315602", "برجي صالح الدين"], ["232339546312", "بركاوي الأخضر"], ["232339541506", "بروبه عبد الرحيم"], ["222239317508", "بريحة سفيان"], ["212135002830", "بشيش أنيس هادي"], ["232339550906", "بعضي صهيب"], ["232339353006", "بلجهم عبد الرحمان"], ["232339286612", "بلعباس عبد الرحمان"], ["232339570510", "بلقاسم صالح الدين"], ["202038023601", "بلقاندي أحمد عبد العزيز"], ["212139052747", "بن الزوخ عبد الجليل"], ["232339537316", "بن الزين محمد فؤاد"], ["232339287006", "بن السايح محمد مختار"], ["232339319709", "بن الصديق محمد الهشمي"], ["222234020401", "بن براح آدم"], ["232339536605", "بن دبكة رمزي"]], "Room 111": [["232339543802", "بن دلالي محمد المصطفى"], ["232331181002", "بن رمضان أيمن"], ["212139050136", "بن زغمان محمد حسان"], ["222239311715", "بن ساسي شعيب"], ["232339570507", "بن سعدي بن عيسى"], ["222239341506", "بن صالح وائل"], ["222239321413", "بن طرية شعيب"], ["232339295612", "بن عريف محمد علي"], ["212139054521", "بن عشورة محمد"], ["212139056406", "بن عطالله أحمد ناصر الدين"], ["212139057263", "بوالانوار محمد"], ["232339541110", "بوبكري وائل"], ["181839044758", "بوخالفة منير"], ["212139058193", "بوختاش نصر الدين"], ["232339551207", "بوطبيله نهلة"], ["232339306010", "بوطهراوي محمد عبد الجواد"], ["232339291418", "بوعزة محمد الفاتح"], ["232339304716", "بوعنان محمد طارق"]], "Room 112": [["232339286704", "بوغابة عبد الوهاب"], ["232331180609", "بوقرينات عبد العظيم"], ["232339520504", "بوقفة الحاج علي"], ["232339521916", "بوقفة صهيب"], ["232339520804", "بوقفة سيد علي"], ["222239317715", "بوقفة محسن"], ["232339536915", "تجيني عبد الحميد"], ["212139055637", "تومي عبد الباري ء ياسين"], ["232339530308", "حجوج أنس"], ["232339525314", "حفوظه عبد المهيمن"], ["232337014411", "حفيدي مريمة"], ["232339533506", "حنونة عبد الباري"], ["212139053317", "خازن احمد وليد"], ["222239337306", "خدير أحمد ياسين"], ["232339306007", "خشيبة محمد رياض"], ["232339538313", "خليفي معتزبالله"], ["232339288002", "خميس أحمد وائل"], ["222239321009", "خورارة خالد"]], "Room 113": [["222239334606", "خينش عبد القادر"], ["232339549114", "ديده عمار"], ["232339521102", "ربوح محمد إسلام"], ["232339315008", "رواي محمد باقر الامين"], ["232339305102", "زكري هارون"], ["222239317818", "زناتي نبيل"], ["232339286919", "زيدوري محمد طه"], ["232339550509", "سالكه أحمد شوقي"], ["222239320805", "سراوي امجد"], ["232339319418", "سعيد محمد"], ["232339615304", "سعيدات صارة"], ["232339581705", "سلمي أحمد جابر"], ["191939093527", "سماعيلي هاجر"], ["232339537006", "سوداني عبد الله"], ["222239339101", "سوداني الحاج ياسين"], ["212139053312", "سويلم إلياس"], ["222239321711", "شاشة عماد"], ["232339532119", "شاكو معتز بالله"]], "Room 114": [["222239344802", "شعباني محمد السعيد"], ["191939054642", "شوراب محمد لحسن"], ["222239315608", "شوفي عبد الرحيم"], ["222239330302", "صادوقي عبد النور"], ["181839052223", "صالحي محمد"], ["222239308107", "صحراوي وائل"], ["232339525710", "صحرة محمد عبد المجيد"], ["232339550612", "صدادقي الياس"], ["222239301418", "صديقي سليمان"], ["202039054342", "صندالي عمر"], ["232339530206", "صولي أحمد ياسين"], ["202039054295", "طاجين ثامر"], ["232339287018", "طبشي مسلم"], ["232339551216", "طبه ياسين"], ["232339299411", "طويلي محمد أمين"], ["232339536413", "عباسي خالد"], ["212139058900", "عبعوب فارس"], ["232339546104", "عبيد أبو بكر الصديق"]], "Room 210": [["222239328509", "عبيد صالح الدين"], ["232339320019", "عطوات فطيمة"], ["232339344104", "عماري عماد الدين"], ["212139054525", "عماري محمد أمين"], ["212139049607", "عواريب محمد عبد الحليم"], ["222239308101", "عيساني بعافومحمد رستم"], ["212139055645", "عيساني عبد الرؤوف"], ["222239300913", "غداري أسامة"], ["222239308703", "غربية طه محمد البشير"], ["232339318005", "غزال صالح الدين"], ["232339551011", "غطاس محمد أحمد"], ["222239354304", "غطاس عبد الرحيم"], ["202039053123", "غمري عبد الرحمن"], ["222239336106", "غيلاني حاج عميرة"], ["222239321207", "غيلاني رياض"], ["232339296305", "قماز اكرم"], ["232339540205", "قمري حامد"], ["232339543516", "قواسم طارق"], ["232339543617", "كانون عماد الدين"], ["232339544208", "كربوسه عبد المهيمن"], ["222239321611", "محبوب عبد السلام"], ["202034018172", "مراحي المعز بالله"], ["212139058313", "مزيدي خالد"], ["232339540606", "معطاءالله عبد التواب"], ["222239316408", "معمري محمد عبد الجبار"], ["232339550618", "مناصريه توفيق محمد علي"], ["222239354906", "مناصريه محمد بهاء الدين"], ["222239290317", "مناع موسى"], ["232339541704", "منصور عيسى نصر الدين"], ["222239349510", "منصوري عبد الوهاب"], ["232339319702", "موساوي احمد ياسين"], ["232339321818", "ميدون فارس"], ["212139058937", "ناويهة محسن"], ["232339291811", "نعام يوسف"], ["212139049700", "نعيمي محمد رافع"], ["232339537302", "نقودي محمد العيد"], ["232339531712", "نون عماد الدين"], ["171739047768", "همال بختة"], ["232339615908", "ولحاج زكرياء"]]}, "students": [{"room": "Room 109", "number": 1, "reg": "232339541502", "name": "أخداري ساعد"}, {"room": "Room 109", "number": 2, "reg": "222239307016", "name": "الأخضري محمد الطاهر"}, {"room": "Room 109", "number": 3, "reg": "212139056588", "name": "الاخضري عبد الرحمان"}, {"room": "Room 109", "number": 4, "reg": "212139056614", "name": "السايح لمبارك عمر"}, {"room": "Room 109", "number": 5, "reg": "222239395706", "name": "السايح لمبارك أحمد"}, {"room": "Room 109", "number": 6, "reg": "232339306002", "name": "الشيخ جابر"}, {"room": "Room 109", "number": 7, "reg": "222239322818", "name": "الطاهري صالح الدين"}, {"room": "Room 109", "number": 8, "reg": "222239315214", "name": "العريبي الأمين"}, {"room": "Room 109", "number": 9, "reg": "212139057264", "name": "المقدم محمد"}, {"room": "Room 109", "number": 10, "reg": "212139058295", "name": "النوري علاء"}, {"room": "Room 109", "number": 11, "reg": "232339532003", "name": "باباعربي محمد الصادق"}, {"room": "Room 109", "number": 12, "reg": "202039058464", "name": "باحمد موالي علي الشريف"}, {"room": "Room 109", "number": 13, "reg": "232339536920", "name": "باساسي عبد الرشيد"}, {"room": "Room 109", "number": 14, "reg": "222239308105", "name": "باسيمان محمدأنس"}, {"room": "Room 109", "number": 15, "reg": "181839051475", "name": "بالرقي يونس"}, {"room": "Room 109", "number": 16, "reg": "232339548801", "name": "بالطيب أكرم"}, {"room": "Room 109", "number": 17, "reg": "232339544014", "name": "باوه ياسين"}, {"room": "Room 109", "number": 18, "reg": "232339543601", "name": "باوه عبد الباقي"}, {"room": "Room 110", "number": 1, "reg": "191939051568", "name": "بدوي عبد العظيم"}, {"room": "Room 110", "number": 2, "reg": "212139054678", "name": "براء الله ياسين"}, {"room": "Room 110", "number": 3, "reg": "222239315602", "name": "برجي صالح الدين"}, {"room": "Room 110", "number": 4, "reg": "232339546312", "name": "بركاوي الأخضر"}, {"room": "Room 110", "number": 5, "reg": "232339541506", "name": "بروبه عبد الرحيم"}, {"room": "Room 110", "number": 6, "reg": "222239317508", "name": "بريحة سفيان"}, {"room": "Room 110", "number": 7, "reg": "212135002830", "name": "بشيش أنيس هادي"}, {"room": "Room 110", "number": 8, "reg": "232339550906", "name": "بعضي صهيب"}, {"room": "Room 110", "number": 9, "reg": "232339353006", "name": "بلجهم عبد الرحمان"}, {"room": "Room 110", "number": 10, "reg": "232339286612", "name": "بلعباس عبد الرحمان"}, {"room": "Room 110", "number": 11, "reg": "232339570510", "name": "بلقاسم صالح الدين"}, {"room": "Room 110", "number": 12, "reg": "202038023601", "name": "بلقاندي أحمد عبد العزيز"}, {"room": "Room 110", "number": 13, "reg": "212139052747", "name": "بن الزوخ عبد الجليل"}, {"room": "Room 110", "number": 14, "reg": "232339537316", "name": "بن الزين محمد فؤاد"}, {"room": "Room 110", "number": 15, "reg": "232339287006", "name": "بن السايح محمد مختار"}, {"room": "Room 110", "number": 16, "reg": "232339319709", "name": "بن الصديق محمد الهشمي"}, {"room": "Room 110", "number": 17, "reg": "222234020401", "name": "بن براح آدم"}, {"room": "Room 110", "number": 18, "reg": "232339536605", "name": "بن دبكة رمزي"}, {"room": "Room 111", "number": 1, "reg": "232339543802", "name": "بن دلالي محمد المصطفى"}, {"room": "Room 111", "number": 2, "reg": "232331181002", "name": "بن رمضان أيمن"}, {"room": "Room 111", "number": 3, "reg": "212139050136", "name": "بن زغمان محمد حسان"}, {"room": "Room 111", "number": 4, "reg": "222239311715", "name": "بن ساسي شعيب"}, {"room": "Room 111", "number": 5, "reg": "232339570507", "name": "بن سعدي بن عيسى"}, {"room": "Room 111", "number": 6, "reg": "222239341506", "name": "بن صالح وائل"}, {"room": "Room 111", "number": 7, "reg": "222239321413", "name": "بن طرية شعيب"}, {"room": "Room 111", "number": 8, "reg": "232339295612", "name": "بن عريف محمد علي"}, {"room": "Room 111", "number": 9, "reg": "212139054521", "name": "بن عشورة محمد"}, {"room": "Room 111", "number": 10, "reg": "212139056406", "name": "بن عطالله أحمد ناصر الدين"}, {"room": "Room 111", "number": 11, "reg": "212139057263", "name": "بوالانوار محمد"}, {"room": "Room 111", "number": 12, "reg": "232339541110", "name": "بوبكري وائل"}, {"room": "Room 111", "number": 13, "reg": "181839044758", "name": "بوخالفة منير"}, {"room": "Room 111", "number": 14, "reg": "212139058193", "name": "بوختاش نصر الدين"}, {"room": "Room 111", "number": 15, "reg": "232339551207", "name": "بوطبيله نهلة"}, {"room": "Room 111", "number": 16, "reg": "232339306010", "name": "بوطهراوي محمد عبد الجواد"}, {"room": "Room 111", "number": 17, "reg": "232339291418", "name": "بوعزة محمد الفاتح"}, {"room": "Room 111", "number": 18, "reg": "232339304716", "name": "بوعنان محمد طارق"}, {"room": "Room 112", "number": 1, "reg": "232339286704", "name": "بوغابة عبد الوهاب"}, {"room": "Room 112", "number": 2, "reg": "232331180609", "name": "بوقرينات عبد العظيم"}, {"room": "Room 112", "number": 3, "reg": "232339520504", "name": "بوقفة الحاج علي"}, {"room": "Room 112", "number": 4, "reg": "232339521916", "name": "بوقفة صهيب"}, {"room": "Room 112", "number": 5, "reg": "232339520804", "name": "بوقفة سيد علي"}, {"room": "Room 112", "number": 6, "reg": "222239317715", "name": "بوقفة محسن"}, {"room": "Room 112", "number": 7, "reg": "232339536915", "name": "تجيني عبد الحميد"}, {"room": "Room 112", "number": 8, "reg": "212139055637", "name": "تومي عبد الباري ء ياسين"}, {"room": "Room 112", "number": 9, "reg": "232339530308", "name": "حجوج أنس"}, {"room": "Room 112", "number": 10, "reg": "232339525314", "name": "حفوظه عبد المهيمن"}, {"room": "Room 112", "number": 11, "reg": "232337014411", "name": "حفيدي مريمة"}, {"room": "Room 112", "number": 12, "reg": "232339533506", "name": "حنونة عبد الباري"}, {"room": "Room 112", "number": 13, "reg": "212139053317", "name": "خازن احمد وليد"}, {"room": "Room 112", "number": 14, "reg": "222239337306", "name": "خدير أحمد ياسين"}, {"room": "Room 112", "number": 15, "reg": "232339306007", "name": "خشيبة محمد رياض"}, {"room": "Room 112", "number": 16, "reg": "232339538313", "name": "خليفي معتزبالله"}, {"room": "Room 112", "number": 17, "reg": "232339288002", "name": "خميس أحمد وائل"}, {"room": "Room 112", "number": 18, "reg": "222239321009", "name": "خورارة خالد"}, {"room": "Room 113", "number": 1, "reg": "222239334606", "name": "خينش عبد القادر"}, {"room": "Room 113", "number": 2, "reg": "232339549114", "name": "ديده عمار"}, {"room": "Room 113", "number": 3, "reg": "232339521102", "name": "ربوح محمد إسلام"}, {"room": "Room 113", "number": 4, "reg": "232339315008", "name": "رواي محمد باقر الامين"}, {"room": "Room 113", "number": 5, "reg": "232339305102", "name": "زكري هارون"}, {"room": "Room 113", "number": 6, "reg": "222239317818", "name": "زناتي نبيل"}, {"room": "Room 113", "number": 7, "reg": "232339286919", "name": "زيدوري محمد طه"}, {"room": "Room 113", "number": 8, "reg": "232339550509", "name": "سالكه أحمد شوقي"}, {"room": "Room 113", "number": 9, "reg": "222239320805", "name": "سراوي امجد"}, {"room": "Room 113", "number": 10, "reg": "232339319418", "name": "سعيد محمد"}, {"room": "Room 113", "number": 11, "reg": "232339615304", "name": "سعيدات صارة"}, {"room": "Room 113", "number": 12, "reg": "232339581705", "name": "سلمي أحمد جابر"}, {"room": "Room 113", "number": 13, "reg": "191939093527", "name": "سماعيلي هاجر"}, {"room": "Room 113", "number": 14, "reg": "232339537006", "name": "سوداني عبد الله"}, {"room": "Room 113", "number": 15, "reg": "222239339101", "name": "سوداني الحاج ياسين"}, {"room": "Room 113", "number": 16, "reg": "212139053312", "name": "سويلم إلياس"}, {"room": "Room 113", "number": 17, "reg": "222239321711", "name": "شاشة عماد"}, {"room": "Room 113", "number": 18, "reg": "232339532119", "name": "شاكو معتز بالله"}, {"room": "Room 114", "number": 1, "reg": "222239344802", "name": "شعباني محمد السعيد"}, {"room": "Room 114", "number": 2, "reg": "191939054642", "name": "شوراب محمد لحسن"}, {"room": "Room 114", "number": 3, "reg": "222239315608", "name": "شوفي عبد الرحيم"}, {"room": "Room 114", "number": 4, "reg": "222239330302", "name": "صادوقي عبد النور"}, {"room": "Room 114", "number": 5, "reg": "181839052223", "name": "صالحي محمد"}, {"room": "Room 114", "number": 6, "reg": "222239308107", "name": "صحراوي وائل"}, {"room": "Room 114", "number": 7, "reg": "232339525710", "name": "صحرة محمد عبد المجيد"}, {"room": "Room 114", "number": 8, "reg": "232339550612", "name": "صدادقي الياس"}, {"room": "Room 114", "number": 9, "reg": "222239301418", "name": "صديقي سليمان"}, {"room": "Room 114", "number": 10, "reg": "202039054342", "name": "صندالي عمر"}, {"room": "Room 114", "number": 11, "reg": "232339530206", "name": "صولي أحمد ياسين"}, {"room": "Room 114", "number": 12, "reg": "202039054295", "name": "طاجين ثامر"}, {"room": "Room 114", "number": 13, "reg": "232339287018", "name": "طبشي مسلم"}, {"room": "Room 114", "number": 14, "reg": "232339551216", "name": "طبه ياسين"}, {"room": "Room 114", "number": 15, "reg": "232339299411", "name": "طويلي محمد أمين"}, {"room": "Room 114", "number": 16, "reg": "232339536413", "name": "عباسي خالد"}, {"room": "Room 114", "number": 17, "reg": "212139058900", "name": "عبعوب فارس"}, {"room": "Room 114", "number": 18, "reg": "232339546104", "name": "عبيد أبو بكر الصديق"}, {"room": "Room 210", "number": 1, "reg": "222239328509", "name": "عبيد صالح الدين"}, {"room": "Room 210", "number": 2, "reg": "232339320019", "name": "عطوات فطيمة"}, {"room": "Room 210", "number": 3, "reg": "232339344104", "name": "عماري عماد الدين"}, {"room": "Room 210", "number": 4, "reg": "212139054525", "name": "عماري محمد أمين"}, {"room": "Room 210", "number": 5, "reg": "212139049607", "name": "عواريب محمد عبد الحليم"}, {"room": "Room 210", "number": 6, "reg": "222239308101", "name": "عيساني بعافومحمد رستم"}, {"room": "Room 210", "number": 7, "reg": "212139055645", "name": "عيساني عبد الرؤوف"}, {"room": "Room 210", "number": 8, "reg": "222239300913", "name": "غداري أسامة"}, {"room": "Room 210", "number": 9, "reg": "222239308703", "name": "غربية طه محمد البشير"}, {"room": "Room 210", "number": 10, "reg": "232339318005", "name": "غزال صالح الدين"}, {"room": "Room 210", "number": 11, "reg": "232339551011", "name": "غطاس محمد أحمد"}, {"room": "Room 210", "number": 12, "reg": "222239354304", "name": "غطاس عبد الرحيم"}, {"room": "Room 210", "number": 13, "reg": "202039053123", "name": "غمري عبد الرحمن"}, {"room": "Room 210", "number": 14, "reg": "222239336106", "name": "غيلاني حاج عميرة"}, {"room": "Room 210", "number": 15, "reg": "222239321207", "name": "غيلاني رياض"}, {"room": "Room 210", "number": 16, "reg": "232339296305", "name": "قماز اكرم"}, {"room": "Room 210", "number": 17, "reg": "232339540205", "name": "قمري حامد"}, {"room": "Room 210", "number": 18, "reg": "232339543516", "name": "قواسم طارق"}, {"room": "Room 210", "number": 19, "reg": "232339543617", "name": "كانون عماد الدين"}, {"room": "Room 210", "number": 20, "reg": "232339544208", "name": "كربوسه عبد المهيمن"}, {"room": "Room 210", "number": 21, "reg": "222239321611", "name": "محبوب عبد السلام"}, {"room": "Room 210", "number": 22, "reg": "202034018172", "name": "مراحي المعز بالله"}, {"room": "Room 210", "number": 23, "reg": "212139058313", "name": "مزيدي خالد"}, {"room": "Room 210", "number": 24, "reg": "232339540606", "name": "معطاءالله عبد التواب"}, {"room": "Room 210", "number": 25, "reg": "222239316408", "name": "معمري محمد عبد الجبار"}, {"room": "Room 210", "number": 26, "reg": "232339550618", "name": "مناصريه توفيق محمد علي"}, {"room": "Room 210", "number": 27, "reg": "222239354906", "name": "مناصريه محمد بهاء الدين"}, {"room": "Room 210", "number": 28, "reg": "222239290317", "name": "مناع موسى"}, {"room": "Room 210", "number": 29, "reg": "232339541704", "name": "منصور عيسى نصر الدين"}, {"room": "Room 210", "number": 30, "reg": "222239349510", "name": "منصوري عبد الوهاب"}, {"room": "Room 210", "number": 31, "reg": "232339319702", "name": "موساوي احمد ياسين"}, {"room": "Room 210", "number": 32, "reg": "232339321818", "name": "ميدون فارس"}, {"room": "Room 210", "number": 33, "reg": "212139058937", "name": "ناويهة محسن"}, {"room": "Room 210", "number": 34, "reg": "232339291811", "name": "نعام يوسف"}, {"room": "Room 210", "number": 35, "reg": "212139049700", "name": "نعيمي محمد رافع"}, {"room": "Room 210", "number": 36, "reg": "232339537302", "name": "نقودي محمد العيد"}, {"room": "Room 210", "number": 37, "reg": "232339531712", "name": "نون عماد الدين"}, {"room": "Room 210", "number": 38, "reg": "171739047768", "name": "همال بختة"}, {"room": "Room 210", "number": 39, "reg": "232339615908", "name": "ولحاج زكرياء"}]};
+const roomColors=["#22d3ee","#2563eb","#7c3aed","#10b981","#f59e0b","#ef4444","#14b8a6"];
+
+function render(){
+ const nav=document.getElementById("nav"), roomButtons=document.getElementById("roomButtons"), root=document.getElementById("rooms"), table=document.getElementById("tableBody");
+ nav.innerHTML=roomButtons.innerHTML=root.innerHTML=table.innerHTML="";
+ Object.keys(DATA.rooms).forEach((room,idx)=>{
+  const color=roomColors[idx%roomColors.length];
+  nav.innerHTML += `<a href="#${room.replace(" ","")}" data-room="${room}" onclick="setActive('${room}','${color}')">${room}</a>`;
+  roomButtons.innerHTML += `<button class="room-btn" onclick="quickFilter('${room}')">${room} · ${DATA.rooms[room].length} students</button>`;
+  const section=document.createElement("section");
+  section.className="section room-section";
+  section.id=room.replace(" ","");
+  section.dataset.room=room.toLowerCase();
+  section.style.setProperty("--c", color);
+  section.innerHTML=`<div class="section-head"><div><h2>${room}</h2><div class="meta">Third Year Licence – Electrotechnical Engineering<br>Number of students: <b>${DATA.rooms[room].length}</b></div></div><div class="notice"><b>Room Alert</b><br>Students assigned to ${room} must go directly to this room.</div></div><div class="grid"></div>`;
+  const grid=section.querySelector(".grid");
+  DATA.rooms[room].forEach((s,i)=>{
+   const reg=s[0], name=s[1];
+   const card=document.createElement("article");
+   card.className="student-card";
+   card.dataset.text=(room+" "+reg+" "+name).toLowerCase();
+   card.dataset.room=room.toLowerCase();
+   card.innerHTML=`<h3>${name}</h3><div class="reg">${reg}</div><div class="chips"><span class="chip">No. ${i+1}</span><span class="chip">${room}</span><span class="chip">L3 Electrotechnical Engineering</span></div><div class="room-alert">Assigned room: <b>${room}</b></div>`;
+   grid.appendChild(card);
+  });
+  root.appendChild(section);
+ });
+ DATA.students.forEach((s,idx)=>{
+  table.innerHTML += `<tr data-text="${(s.name+" "+s.reg+" "+s.room).toLowerCase()}"><td>${idx+1}</td><td>${s.reg}</td><td class="name">${s.name}</td><td>${s.room}</td></tr>`;
+ });
+ nav.innerHTML += `<a href="#studentTable">Student Index</a><a href="#instructions">Instructions</a>`;
+}
+function setActive(room,color){
+ const box=document.getElementById("activeTitle");
+ box.textContent="Current Room: "+room;
+ box.style.setProperty("--active",color);
+ document.querySelectorAll("nav a").forEach(a=>a.classList.toggle("current",a.dataset.room===room));
+}
+function applySearch(q){
+ q=q.toLowerCase().trim();
+ let hits=[];
+ document.querySelectorAll(".student-card").forEach(card=>{
+  const hit=!q || card.dataset.text.includes(q);
+  card.classList.toggle("hidden",!hit);
+  card.classList.toggle("highlight",q && hit);
+  if(hit) hits.push(card);
+ });
+ document.querySelectorAll(".room-section").forEach(sec=>{
+  const any=[...sec.querySelectorAll(".student-card")].some(c=>!c.classList.contains("hidden"));
+  sec.classList.toggle("hidden",!any);
+ });
+ document.querySelectorAll("#tableBody tr").forEach(row=>{
+  row.classList.toggle("hidden", q && !row.dataset.text.includes(q));
+ });
+ const result=document.getElementById("liveResult");
+ if(!q){
+  result.textContent="Type a student name or registration number to get the room instantly.";
+  document.getElementById("focusLine").textContent="Search by student name, registration number, or room.";
+  document.getElementById("statusPill").textContent="Ready";
+ }else if(hits.length){
+  const first=hits[0];
+  const name=first.querySelector("h3").textContent;
+  const reg=first.querySelector(".reg").textContent;
+  const room=first.querySelector(".chip:nth-child(2)").textContent;
+  result.innerHTML=`<b>${name}</b><br>Registration: <b>${reg}</b><br>Assigned Room: <b>${room}</b>`;
+  document.getElementById("focusLine").textContent=hits.length+" matching result(s) found.";
+  document.getElementById("statusPill").textContent="Room found";
+  first.scrollIntoView({behavior:"smooth",block:"center"});
+ }else{
+  result.textContent="No result found. Please check the spelling or registration number.";
+  document.getElementById("focusLine").textContent="No matching result.";
+  document.getElementById("statusPill").textContent="Not found";
+ }
+}
+function filterCards(){const q=document.getElementById("search").value;document.getElementById("heroSearch").value=q;applySearch(q);}
+function syncSearch(v){document.getElementById("search").value=v;applySearch(v);}
+function quickFilter(v){document.getElementById("search").value=v;document.getElementById("heroSearch").value=v;applySearch(v);}
+function showAll(){document.getElementById("search").value="";document.getElementById("heroSearch").value="";applySearch("");}
+render();
+</script>
+</body>
+</html>
