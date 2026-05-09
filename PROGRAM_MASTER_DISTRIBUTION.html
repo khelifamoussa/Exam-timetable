@@ -26,17 +26,17 @@
   <header>
     <div class="badge">KASDI MERBAH UNIVERSITY – OUARGLA • FACULTY OF APPLIED SCIENCES</div>
     <h1>Master Student Room Distribution</h1>
-    <p class="subtitle">Department of Electrical Engineering — Academic Year 2025/2026<br><span class="arabic">يمكن للطالب كتابة الاسم بالعربية أو رقم التسجيل لمعرفة القاعة مباشرة</span></p>
+    <p class="subtitle">Department of Electrical Engineering — Academic Year 2025/2026<br>Students can search by Arabic name or registration number to find their assigned room immediately.</p>
   </header>
   <main class="wrap">
     <section class="search-card">
       <div class="search-row">
-        <input id="searchInput" class="input arabic" type="text" placeholder="اكتب الاسم أو رقم التسجيل هنا... مثال: خنوس أو 222239290211" autocomplete="off" />
+        <input id="searchInput" class="input arabic" type="text" placeholder="اكتب الاسم بالعربية أو رقم التسجيل هنا... مثال: خنوس أو 222239290211" autocomplete="off" />
         <button class="btn" onclick="searchStudent()">Search</button>
       </div>
-      <div class="hint">Search works with Arabic name, family name, first name, or registration number. البحث يعمل بالاسم أو اللقب أو رقم التسجيل.</div>
+      <div class="hint">Search works with Arabic student names, family names, first names, or registration numbers.</div>
       <div id="result" class="result"></div>
-      <div id="noResult" class="no-result arabic">لم يتم العثور على الطالب. يرجى التأكد من كتابة الاسم أو رقم التسجيل بشكل صحيح.</div>
+      <div id="noResult" class="no-result">No student found. Please check the Arabic name or registration number and try again.</div>
       <div class="tabs" id="tabs"></div>
     </section>
 
@@ -49,7 +49,7 @@
 
     <section id="rooms" class="rooms"></section>
 
-    <div class="footer-note arabic">ملاحظة مهمة: توزيع القاعات خاص بطلبة السنة الأولى ماستر في تخصصات كهروتقني صناعي، ماكينات كهربائية، وشبكات كهربائية. يجب على كل طالب التأكد من قاعته قبل يوم الامتحان.</div>
+    <div class="footer-note">Important note: This room distribution is for first-year Master students in Industrial Electrotechnics, Electrical Machines, and Electrical Networks. Each student must check the assigned room before the examination day.</div>
   </main>
 
 <script>
@@ -198,9 +198,8 @@ function renderRooms(filter='all'){
   roomOrder().forEach(room=>{
     const arr = students.filter(s=>s.room===room && (filter==='all' || s.spec===filter)); if(!arr.length) return;
     const spec = [...new Set(arr.map(s=>s.spec))].join(' / ');
-    const specAr = [...new Set(arr.map(s=>s.specAr))].join(' / ');
     const card = document.createElement('div'); card.className='room';
-    card.innerHTML = `<div class="room-head"><div><h3>Room ${room}</h3><div class="spec">${spec}<br><span class="arabic">${specAr}</span></div></div><div class="count">${arr.length} students</div></div><div class="list">${arr.map(s=>`<div class="student"><div class="num">${s.n}</div><div><div class="name">${s.name}</div><div class="reg">${s.reg}</div></div></div>`).join('')}</div>`;
+    card.innerHTML = `<div class="room-head"><div><h3>Room ${room}</h3><div class="spec">${spec}</div></div><div class="count">${arr.length} students</div></div><div class="list">${arr.map(s=>`<div class="student"><div class="num">${s.n}</div><div><div class="name">${s.name}</div><div class="reg">${s.reg}</div></div></div>`).join('')}</div>`;
     rooms.appendChild(card);
   })
 }
@@ -208,11 +207,11 @@ function searchStudent(){
   const qRaw = document.getElementById('searchInput').value; const q = normalize(qRaw);
   const result = document.getElementById('result'); const no = document.getElementById('noResult');
   result.classList.remove('show'); no.classList.remove('show'); result.innerHTML='';
-  if(!q){no.textContent='يرجى كتابة الاسم أو رقم التسجيل أولا.'; no.classList.add('show'); return;}
+  if(!q){no.textContent='Please type the Arabic name or registration number first.'; no.classList.add('show'); return;}
   const found = students.filter(s=>normalize(s.name).includes(q)||normalize(s.last).includes(q)||normalize(s.first).includes(q)||s.reg.includes(qRaw.trim()));
-  if(!found.length){no.textContent='لم يتم العثور على الطالب. يرجى التأكد من كتابة الاسم أو رقم التسجيل بشكل صحيح.'; no.classList.add('show'); return;}
+  if(!found.length){no.textContent='No student found. Please check the Arabic name or registration number and try again.'; no.classList.add('show'); return;}
   result.classList.add('show');
-  result.innerHTML = found.map(s=>`<div><h2 class="arabic">${s.name}</h2><div class="result-grid"><div class="pill"><span>Room</span><b>${s.room}</b></div><div class="pill"><span>Registration Number</span><b>${s.reg}</b></div><div class="pill"><span>Specialization</span><b>${s.spec}</b></div><div class="pill"><span>Arabic Specialization</span><b class="arabic">${s.specAr}</b></div></div></div>`).join('<hr style="border-color:rgba(255,255,255,.15);margin:18px 0">');
+  result.innerHTML = found.map(s=>`<div><h2 class="arabic">${s.name}</h2><div class="result-grid"><div class="pill"><span>Room</span><b>${s.room}</b></div><div class="pill"><span>Registration Number</span><b>${s.reg}</b></div><div class="pill"><span>Specialization</span><b>${s.spec}</b></div><div class="pill"><span>Level</span><b>M01</b></div></div></div>`).join('<hr style="border-color:rgba(255,255,255,.15);margin:18px 0">');
   document.querySelector(`.room`)?.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 function buildTabs(){
