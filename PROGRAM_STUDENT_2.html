@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exam Hall Finder • University of Kasdi Merbah Ouargla</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:wght@700&amp;display=swap');
         
@@ -27,69 +26,71 @@
         }
         
         .glass {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(24px);
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(20px);
             box-shadow: 0 25px 50px -12px rgb(0 48 135 / 0.15);
         }
         
         .hero-title {
-            font-size: 4.5rem;
+            font-size: 4.8rem;
             line-height: 1.05;
             letter-spacing: -4px;
         }
         
         .suggestion-item {
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .suggestion-item:hover {
             background-color: #f0f4ff;
-            transform: translateX(4px);
+            transform: translateX(8px);
+            box-shadow: 0 10px 15px -3px rgb(0 48 135 / 0.1);
+        }
+        
+        .room-badge {
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            font-weight: 700;
         }
     </style>
 </head>
-<body class="bg-[#f8f5f0] text-[#1a2a4a] overflow-x-hidden min-h-screen relative">
-    <!-- 3D Academic Background -->
-    <canvas id="threeCanvas" class="fixed inset-0 z-0 pointer-events-none opacity-90"></canvas>
+<body class="bg-[#f8f5f0] text-[#1a2a4a] min-h-screen">
 
-    <!-- Top Header -->
-    <div class="relative z-50 border-b border-[#003087]/10 bg-white/90 backdrop-blur-lg">
+    <!-- Clean Header -->
+    <div class="border-b border-[#003087]/10 bg-white/95 backdrop-blur-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-8 py-6 flex items-center justify-between">
             <div class="flex items-center gap-x-4">
-                <div class="w-12 h-12 bg-[#003087] text-white rounded-2xl flex items-center justify-center text-3xl shadow-inner">📖</div>
+                <div class="w-12 h-12 bg-[#003087] text-white rounded-2xl flex items-center justify-center text-3xl">📖</div>
                 <div>
                     <h1 class="text-2xl font-semibold title-font tracking-tight">University of Kasdi Merbah Ouargla</h1>
-                    <p class="text-sm text-[#c9a227] font-medium -mt-1">Faculty of Applied Sciences • Department of Electrical Engineering</p>
+                    <p class="text-sm text-[#c9a227] font-medium -mt-0.5">Faculty of Applied Sciences • Department of Electrical Engineering</p>
                 </div>
             </div>
-            
             <div class="text-right">
-                <div class="text-sm uppercase tracking-[2px] font-medium text-[#003087]">L02 • Kehroutaqni</div>
+                <div class="text-sm uppercase tracking-[3px] font-semibold text-[#003087]">L02 • Kehroutaqni</div>
                 <div class="text-xs text-gray-500">Second Semester • Regular Session 2025-2026</div>
             </div>
         </div>
     </div>
 
-    <div class="relative z-10 max-w-5xl mx-auto px-6 pt-16 pb-24">
-        <!-- Large Academic Title -->
+    <div class="max-w-5xl mx-auto px-6 pt-16 pb-24">
+        <!-- Hero Title -->
         <div class="text-center mb-16">
-            <div class="inline-flex items-center justify-center gap-3 bg-white shadow-md px-8 py-3 rounded-3xl mb-8 text-[#003087] text-lg font-medium">
+            <div class="inline-flex items-center gap-3 bg-white shadow-md px-8 py-3 rounded-3xl mb-8 text-[#003087] text-lg font-medium">
                 <span class="text-4xl">🎓</span>
                 EXAM HALL FINDER
             </div>
-            
             <h1 class="title-font hero-title text-[#003087] leading-none mb-6">
                 Find Your<br>Exam Hall
             </h1>
-            
             <p class="text-2xl text-[#1a2a4a]/80 max-w-xl mx-auto">
                 Type your full name in Arabic<br>
-                <span class="text-lg text-[#c9a227] font-medium">Live search starts from the first letter</span>
+                <span class="text-[#c9a227] font-medium">Live search • Instant results</span>
             </p>
         </div>
 
-        <!-- Search Section with Live Suggestions -->
-        <div class="max-w-2xl mx-auto scene relative">
+        <!-- Search Bar -->
+        <div class="max-w-2xl mx-auto relative">
             <div class="glass rounded-3xl p-3">
                 <div class="relative">
                     <input 
@@ -101,47 +102,46 @@
                         oninput="liveSearch()">
                     
                     <button onclick="searchStudent()" 
-                            class="absolute left-6 top-1/2 -translate-y-1/2 bg-[#003087] hover:bg-[#002266] text-white px-10 py-6 rounded-3xl font-semibold flex items-center gap-3 text-xl transition-all active:scale-95 shadow-lg">
+                            class="absolute left-6 top-1/2 -translate-y-1/2 bg-[#003087] hover:bg-[#002266] text-white px-12 py-6 rounded-3xl font-semibold flex items-center gap-3 text-xl transition-all active:scale-95">
                         <span class="text-2xl">🔍</span>
                         <span>Search</span>
                     </button>
                 </div>
             </div>
 
-            <!-- Live Suggestions Dropdown -->
-            <div id="suggestions" class="absolute mt-3 w-full glass rounded-3xl shadow-2xl max-h-[420px] overflow-auto hidden z-50"></div>
-
-            <!-- Voice Search -->
-            <div class="flex justify-center mt-8">
-                <button onclick="startVoiceSearch()" 
-                        class="flex items-center gap-x-4 px-8 py-5 glass rounded-3xl text-[#003087] hover:shadow-xl transition-all text-lg font-medium">
-                    <span class="text-4xl">🎤</span>
-                    <div>
-                        <span class="block">Voice Search</span>
-                        <span class="text-sm text-[#c9a227]">Speak your name in Arabic</span>
-                    </div>
-                </button>
-            </div>
+            <!-- Live Suggestions -->
+            <div id="suggestions" class="absolute mt-4 w-full glass rounded-3xl shadow-2xl max-h-[460px] overflow-auto hidden z-50"></div>
         </div>
 
-        <!-- Final Results Area -->
-        <div id="results" class="min-h-[440px] mt-16"></div>
+        <!-- Voice Search -->
+        <div class="flex justify-center mt-10">
+            <button onclick="startVoiceSearch()" 
+                    class="flex items-center gap-x-4 px-8 py-5 glass rounded-3xl text-[#003087] hover:shadow-xl transition-all text-lg font-medium">
+                <span class="text-4xl">🎤</span>
+                <div>
+                    <span class="block font-semibold">Voice Search</span>
+                    <span class="text-sm text-[#c9a227]">Speak your name in Arabic</span>
+                </div>
+            </button>
+        </div>
+
+        <!-- Results -->
+        <div id="results" class="min-h-[420px] mt-16"></div>
     </div>
 
     <!-- Footer -->
     <div class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 glass px-8 py-4 rounded-3xl text-sm flex items-center gap-8 text-[#1a2a4a]/70">
         <div>📍 9 Halls + Amphitheater D</div>
         <div class="h-4 w-px bg-[#c9a227]/30"></div>
-        <div class="flex items-center gap-2 cursor-pointer hover:text-[#003087]" onclick="showAllStudents()">
+        <div onclick="showAllStudents()" class="cursor-pointer hover:text-[#003087] flex items-center gap-2">
             👥 View All Students
         </div>
     </div>
 
     <script>
-        // ====================== COMPLETE & ACCURATE STUDENT DATABASE ======================
-        // Extracted precisely from all provided PDFs (109, 110, 111, 112, 113, 114, 205, 210, D)
+        // ====================== COMPLETE ACCURATE DATABASE ======================
         const studentsData = [
-            // ==================== SALLE 109 ====================
+            // 109
             { room: "109", name: "التلي ساجد قصي", reg: "232339540411" },
             { room: "109", name: "الداوي اسماعيل", reg: "232339298614" },
             { room: "109", name: "الديني ابراهيم", reg: "191937005633" },
@@ -162,7 +162,7 @@
             { room: "109", name: "بالحسن محمد زين العابدين", reg: "212139055787" },
             { room: "109", name: "بالرقي عبد العزيز", reg: "232339520911" },
 
-            // ==================== SALLE 110 ====================
+            // 110
             { room: "110", name: "بالصحراوي يونس", reg: "242439581714" },
             { room: "110", name: "بجرة وليد", reg: "242439586212" },
             { room: "110", name: "بدوي طه ذوالنورين", reg: "232339531519" },
@@ -183,7 +183,7 @@
             { room: "110", name: "بن السايح أسامة", reg: "242439308613" },
             { room: "110", name: "بن الشريف عبدهللا", reg: "232339547509" },
 
-            // ==================== SALLE 111 ====================
+            // 111
             { room: "111", name: "بن الشيخ مهند", reg: "242439318214" },
             { room: "111", name: "بن أمنة محمد آدم", reg: "232339525606" },
             { room: "111", name: "بن جدية عبد هللا", reg: "242439309306" },
@@ -204,7 +204,7 @@
             { room: "111", name: "بن علي سيف االسالم", reg: "242439563511" },
             { room: "111", name: "بن علية حمزة", reg: "171839058341" },
 
-            // ==================== SALLE 112 ====================
+            // 112
             { room: "112", name: "بن عمارة ياسين", reg: "242439581118" },
             { room: "112", name: "بن قدور خلود", reg: "242439326311" },
             { room: "112", name: "بن مريم هيثم", reg: "242439558417" },
@@ -225,7 +225,7 @@
             { room: "112", name: "بوغابة سندس", reg: "242439565104" },
             { room: "112", name: "بوفادي محمد يعقوب", reg: "232339287012" },
 
-            // ==================== SALLE 113 ====================
+            // 113
             { room: "113", name: "بوقرينات أيمن", reg: "232339530316" },
             { room: "113", name: "بوقطه عبد الواحد", reg: "242439581408" },
             { room: "113", name: "بوقفة محمدهداية", reg: "242439553519" },
@@ -246,7 +246,7 @@
             { room: "113", name: "حنايه شعيب", reg: "232339536805" },
             { room: "113", name: "حود ميسة حسام الدين", reg: "242439331802" },
 
-            // ==================== SALLE 114 ====================
+            // 114
             { room: "114", name: "خبيش آدم", reg: "242439574401" },
             { room: "114", name: "خرفي محمد أسعد", reg: "232339540813" },
             { room: "114", name: "خلفاوي امين", reg: "232339303906" },
@@ -267,7 +267,7 @@
             { room: "114", name: "ذوادي أكرم", reg: "242439554402" },
             { room: "114", name: "رابحي عبد المنعم", reg: "242439569609" },
 
-            // ==================== SALLE 205 ====================
+            // 205
             { room: "205", name: "طرطاق رابح", reg: "222239375707" },
             { room: "205", name: "طق محمد عزوز", reg: "242439570008" },
             { room: "205", name: "طاللة مسلم", reg: "242439573713" },
@@ -294,7 +294,7 @@
             { room: "205", name: "غريب عبد الرحيم", reg: "242439554204" },
             { room: "205", name: "غرير منير", reg: "242439580911" },
 
-            // ==================== SALLE 210 ====================
+            // 210
             { room: "210", name: "رابحي العيد", reg: "232339546410" },
             { room: "210", name: "رباعي عقبة", reg: "232339318116" },
             { room: "210", name: "ربيع يعقوب", reg: "242439314919" },
@@ -336,7 +336,7 @@
             { room: "210", name: "طبال فارس", reg: "242439332309" },
             { room: "210", name: "طبشي الطيب", reg: "242439308803" },
 
-            // ==================== AMPHITHEATER D ====================
+            // D
             { room: "D", name: "غرير البشير", reg: "242439579418" },
             { room: "D", name: "غزال عبد الرحمان", reg: "242439309301" },
             { room: "D", name: "غزال ياسين", reg: "232339347420" },
@@ -414,7 +414,6 @@
                 .toLowerCase();
         }
 
-        // ====================== LIVE SEARCH ======================
         function liveSearch() {
             const input = document.getElementById('nameInput').value.trim();
             const suggestionsDiv = document.getElementById('suggestions');
@@ -428,38 +427,34 @@
 
             const normalizedInput = normalizeArabic(input);
 
-            const matches = studentsData.filter(student => {
-                const normName = normalizeArabic(student.name);
-                return normName.includes(normalizedInput);
-            }).sort((a, b) => {
-                const aStarts = normalizeArabic(a.name).startsWith(normalizedInput);
-                const bStarts = normalizeArabic(b.name).startsWith(normalizedInput);
-                if (aStarts && !bStarts) return -1;
-                if (!aStarts && bStarts) return 1;
-                return 0;
+            const matches = studentsData.filter(s => 
+                normalizeArabic(s.name).includes(normalizedInput)
+            ).sort((a, b) => {
+                const aStart = normalizeArabic(a.name).startsWith(normalizedInput);
+                const bStart = normalizeArabic(b.name).startsWith(normalizedInput);
+                return aStart && !bStart ? -1 : bStart && !aStart ? 1 : 0;
             });
 
             if (matches.length === 0) {
-                suggestionsDiv.innerHTML = `<div class="p-8 text-center text-red-600">No matching students found.<br>Please check the spelling.</div>`;
+                suggestionsDiv.innerHTML = `<div class="p-8 text-center text-red-600 font-medium">No students found.<br>Please check spelling.</div>`;
                 suggestionsDiv.classList.remove('hidden');
                 return;
             }
 
             let html = `<div class="p-3">`;
             matches.forEach(student => {
-                const hallDisplay = student.room === "D" ? "Amphitheater D" : `Hall ${student.room}`;
+                const roomText = student.room === "D" ? "AMPHITHEATER D" : `ROOM ${student.room}`;
                 html += `
                 <div onclick="selectStudent('${student.name}', '${student.room}', '${student.reg}')" 
-                     class="suggestion-item flex items-center justify-between px-6 py-5 rounded-2xl cursor-pointer mx-2 mb-2">
+                     class="suggestion-item flex items-center justify-between px-8 py-6 rounded-3xl cursor-pointer mx-2 mb-2">
                     <div class="arabic-text text-2xl">${student.name}</div>
-                    <div class="flex items-center gap-4">
-                        <span class="px-6 py-2 text-sm font-bold bg-[#003087] text-white rounded-3xl">${hallDisplay}</span>
-                        ${student.reg ? `<span class="text-[#c9a227] font-medium">${student.reg}</span>` : ''}
+                    <div class="flex items-center gap-6">
+                        <span class="room-badge px-7 py-3 bg-[#003087] text-white rounded-3xl">${roomText}</span>
+                        ${student.reg ? `<span class="font-mono text-[#c9a227]">${student.reg}</span>` : ''}
                     </div>
                 </div>`;
             });
             html += `</div>`;
-            
             suggestionsDiv.innerHTML = html;
             suggestionsDiv.classList.remove('hidden');
         }
@@ -467,21 +462,22 @@
         function selectStudent(name, room, reg) {
             document.getElementById('nameInput').value = name;
             document.getElementById('suggestions').classList.add('hidden');
-            
+
             const resultsDiv = document.getElementById('results');
-            const hallDisplay = room === "D" ? "Amphitheater D" : `Hall ${room}`;
-            
+            const roomText = room === "D" ? "AMPHITHEATER D" : `ROOM ${room}`;
+
             resultsDiv.innerHTML = `
-            <div class="glass rounded-3xl p-12 max-w-2xl mx-auto text-center">
-                <div class="inline-block px-8 py-3 bg-[#c9a227] text-white rounded-3xl text-xl font-bold mb-8">${hallDisplay}</div>
-                <h2 class="arabic-text text-5xl font-semibold text-[#003087] mb-6">${name}</h2>
-                ${reg ? `<p class="font-mono text-gray-500">Registration Nº ${reg}</p>` : ''}
-                <div class="mt-12 text-sm text-[#1a2a4a]/70">
+            <div class="glass rounded-3xl p-14 max-w-2xl mx-auto text-center border border-[#c9a227]/20">
+                <div class="text-5xl font-black tracking-widest text-[#c9a227] mb-2">${roomText}</div>
+                <h2 class="arabic-text text-6xl font-semibold text-[#003087] mt-6 mb-8">${name}</h2>
+                ${reg ? `<p class="font-mono text-lg text-gray-600">Registration: ${reg}</p>` : ''}
+                <div class="mt-14 pt-8 border-t text-sm text-[#1a2a4a]/70">
                     University of Kasdi Merbah Ouargla<br>
-                    Faculty of Applied Sciences • Department of Electrical Engineering
+                    Faculty of Applied Sciences • Department of Electrical Engineering<br>
+                    Second Semester – Regular Session 2025-2026
                 </div>
-                <button onclick="copyResult('${name}', '${hallDisplay}')" 
-                        class="mt-10 px-10 py-5 bg-[#003087] text-white rounded-3xl flex items-center gap-3 mx-auto text-lg font-medium">
+                <button onclick="copyResult('${name}', '${roomText}')" 
+                        class="mt-12 px-12 py-6 bg-[#003087] text-white rounded-3xl text-xl font-medium flex items-center gap-4 mx-auto hover:bg-[#002266]">
                     📋 Copy Result
                 </button>
             </div>`;
@@ -491,15 +487,15 @@
             liveSearch();
         }
 
-        function copyResult(name, hall) {
-            navigator.clipboard.writeText(`Student: ${name}\nExam Hall: ${hall}\nUniversity of Kasdi Merbah Ouargla - L02`).then(() => {
-                alert("✅ Result copied to clipboard!");
+        function copyResult(name, roomText) {
+            navigator.clipboard.writeText(`Student: ${name}\nExam Hall: ${roomText}\nUniversity of Kasdi Merbah Ouargla`).then(() => {
+                alert("✅ Result copied successfully!");
             });
         }
 
         function startVoiceSearch() {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechRecognition) return alert("Voice search not supported.");
+            if (!SpeechRecognition) return alert("Voice search not supported in your browser.");
             const recognition = new SpeechRecognition();
             recognition.lang = 'ar-DZ';
             recognition.onresult = (e) => {
@@ -510,60 +506,12 @@
         }
 
         function showAllStudents() {
-            alert("Full list of 300+ students is available via the live search above.");
+            alert("Full list of all students (300+) is available through the live search bar above.");
         }
 
-        // 3D Background
-        let scene, camera, renderer, symbols = [];
-        function initThree() {
-            const canvas = document.getElementById('threeCanvas');
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-            renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-            const ambient = new THREE.AmbientLight(0x003087, 0.7);
-            scene.add(ambient);
-            const pointLight = new THREE.PointLight(0xc9a227, 1.2, 100);
-            pointLight.position.set(20, 30, 40);
-            scene.add(pointLight);
-
-            for (let i = 0; i < 28; i++) {
-                const isBook = Math.random() > 0.5;
-                const geo = isBook ? new THREE.BoxGeometry(1.4, 2, 0.6) : new THREE.ConeGeometry(1.2, 1.8, 32);
-                const mat = new THREE.MeshPhongMaterial({ color: isBook ? 0x003087 : 0xc9a227, shininess: 30, transparent: true, opacity: 0.75 });
-                const mesh = new THREE.Mesh(geo, mat);
-                mesh.position.set((Math.random() - 0.5) * 45, (Math.random() - 0.5) * 45, (Math.random() - 0.5) * 30 - 15);
-                mesh.userData = { velocity: new THREE.Vector3((Math.random() - 0.5) * 0.03, (Math.random() - 0.5) * 0.03, (Math.random() - 0.5) * 0.02) };
-                scene.add(mesh);
-                symbols.push(mesh);
-            }
-
-            camera.position.set(0, 0, 45);
-
-            function animate() {
-                requestAnimationFrame(animate);
-                symbols.forEach(s => {
-                    s.rotation.y += 0.008;
-                    s.position.add(s.userData.velocity);
-                    if (Math.abs(s.position.x) > 28) s.userData.velocity.x *= -1;
-                    if (Math.abs(s.position.y) > 28) s.userData.velocity.y *= -1;
-                });
-                renderer.render(scene, camera);
-            }
-            animate();
-
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
-        }
-
+        // Initialize
         window.onload = () => {
-            initThree();
-            console.log('%c✅ Complete & Accurate Database Loaded – University of Kasdi Merbah Ouargla', 'color:#003087; font-weight:bold; font-size:16px');
+            console.log('%c✅ Smooth & Powerful Exam Hall Finder Ready – University of Kasdi Merbah Ouargla', 'color:#003087; font-weight:bold; font-size:16px');
         };
     </script>
 </body>
