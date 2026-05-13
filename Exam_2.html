@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Control Exam</title>
+
+<script>
+window.MathJax = {
+tex: {
+inlineMath: [['\\(','\\)'], ['$', '$']],
+displayMath: [['\\[','\\]']]
+}
+};
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Arial, sans-serif;
+background:linear-gradient(135deg,#ecfccb,#fef9c3);
+color:#1f2937;
+line-height:1.8;
+padding:20px;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+}
+
+header{
+background:linear-gradient(135deg,#65a30d,#ca8a04);
+padding:40px;
+border-radius:20px;
+color:white;
+margin-bottom:30px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+header h1{
+font-size:50px;
+margin-bottom:15px;
+}
+
+header p{
+font-size:20px;
+}
+
+.section{
+background:white;
+padding:30px;
+margin-bottom:30px;
+border-radius:20px;
+box-shadow:0 5px 20px rgba(0,0,0,0.08);
+}
+
+h2{
+color:#365314;
+margin-bottom:20px;
+font-size:35px;
+}
+
+h3{
+color:#854d0e;
+margin:25px 0 15px;
+font-size:28px;
+}
+
+.math{
+background:#f7fee7;
+padding:15px;
+border-radius:12px;
+overflow-x:auto;
+margin:15px 0;
+border-left:6px solid #84cc16;
+}
+
+.question{
+background:#fefce8;
+padding:18px;
+margin:15px 0;
+border-radius:12px;
+border-left:5px solid #eab308;
+}
+
+.answer{
+background:#f0fdf4;
+padding:20px;
+border-radius:12px;
+margin-top:20px;
+border-left:5px solid #22c55e;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+overflow-x:auto;
+display:block;
+}
+
+th,td{
+border:1px solid #d1d5db;
+padding:12px;
+text-align:center;
+}
+
+th{
+background:#d9f99d;
+}
+
+svg{
+width:100%;
+height:auto;
+margin-top:20px;
+}
+
+.note{
+background:#ecfeff;
+padding:15px;
+border-radius:12px;
+margin-top:20px;
+border-left:5px solid #06b6d4;
+}
+
+@media(max-width:768px){
+
+header h1{
+font-size:32px;
+}
+
+h2{
+font-size:28px;
+}
+
+h3{
+font-size:22px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+<h1>Master Digital Control Step by Step</h1>
+
+<p>
+Train your engineering mind through detailed exercises,
+block diagrams, Jury stability analysis,
+and graphical interpretation of signals.
+</p>
+</header>
+
+<div class="section">
+
+<h2>Exercise 1 — Electrical Factory Supply Chain</h2>
+
+<div class="question">
+Draw the block diagram, compute the Z-transform,
+derive the transfer function,
+compute the recurrence equation,
+draw both \(x[n]\) and \(y[n]\),
+and verify stability using Jury.
+</div>
+
+<h3>System Equation</h3>
+
+<div class="math">
+\[
+y[n]-1.05y[n-1]+0.37y[n-2]-0.045y[n-3]
+=
+0.08x[n]+0.05x[n-1]+0.02x[n-2]
+\]
+</div>
+
+<h3>Block Diagram</h3>
+
+<svg viewBox="0 0 1200 300">
+
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10"
+refX="8" refY="3" orient="auto">
+<path d="M0,0 L0,6 L9,3 z" fill="black"/>
+</marker>
+</defs>
+
+<line x1="40" y1="140" x2="160" y2="140"
+stroke="black" stroke-width="3"
+marker-end="url(#arrow)"/>
+
+<rect x="160" y="90" width="180" height="90"
+fill="#d9f99d" stroke="black"/>
+
+<text x="190" y="125" font-size="20">
+Rectifier
+</text>
+
+<text x="175" y="155" font-size="16">
+G₁(z)=0.08+0.05z⁻¹
+</text>
+
+<line x1="340" y1="140" x2="480" y2="140"
+stroke="black" stroke-width="3"
+marker-end="url(#arrow)"/>
+
+<rect x="480" y="90" width="180" height="90"
+fill="#fef08a" stroke="black"/>
+
+<text x="530" y="125" font-size="20">
+DC Bus
+</text>
+
+<text x="490" y="155" font-size="16">
+1/(1−0.55z⁻¹)
+</text>
+
+<line x1="660" y1="140" x2="800" y2="140"
+stroke="black" stroke-width="3"
+marker-end="url(#arrow)"/>
+
+<rect x="800" y="90" width="220" height="90"
+fill="#a7f3d0" stroke="black"/>
+
+<text x="850" y="125" font-size="20">
+Machines
+</text>
+
+<text x="820" y="155" font-size="16">
+G(z)=1/(1−0.5z⁻¹)
+</text>
+
+<line x1="1020" y1="140" x2="1130" y2="140"
+stroke="black" stroke-width="3"
+marker-end="url(#arrow)"/>
+
+<text x="60" y="120" font-size="22">X(z)</text>
+<text x="1120" y="120" font-size="22">Y(z)</text>
+
+</svg>
+
+<div class="answer">
+
+<h3>Step 1 — Compute \(X(z)\)</h3>
+
+<div class="math">
+\[
+x[n]=3u[n]-1.5(0.4)^nu[n]+2\delta[n-2]
+\]
+</div>
+
+<div class="math">
+\[
+X(z)=
+\frac{3}{1-z^{-1}}
+-
+\frac{1.5}{1-0.4z^{-1}}
++
+2z^{-2}
+\]
+</div>
+
+<h3>Step 2 — Transfer Function</h3>
+
+<div class="math">
+\[
+H(z)=
+\frac{0.08+0.05z^{-1}+0.02z^{-2}}
+{1-1.05z^{-1}+0.37z^{-2}-0.045z^{-3}}
+\]
+</div>
+
+<h3>Step 3 — Jury Stability</h3>
+
+<div class="math">
+\[
+D(z)=z^3-1.05z^2+0.37z-0.045
+\]
+</div>
+
+<div class="math">
+\[
+D(1)=0.275>0
+\]
+</div>
+
+<div class="math">
+\[
+(-1)^3D(-1)=2.465>0
+\]
+</div>
+
+<div class="math">
+\[
+|a_3|=0.045<1
+\]
+</div>
+
+<table>
+
+<tr>
+<th>Row</th>
+<th colspan="4">Coefficients</th>
+</tr>
+
+<tr>
+<td>R1</td>
+<td>1</td>
+<td>-1.05</td>
+<td>0.37</td>
+<td>-0.045</td>
+</tr>
+
+<tr>
+<td>R2</td>
+<td>-0.045</td>
+<td>0.37</td>
+<td>-1.05</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>R3</td>
+<td>0.997975</td>
+<td>-1.03335</td>
+<td>0.32275</td>
+<td></td>
+</tr>
+
+</table>
+
+<div class="note">
+All Jury conditions are satisfied,
+therefore the factory supply-chain system is stable.
+</div>
+
+<h3>Input and Output Curves</h3>
+
+<svg viewBox="0 0 800 400">
+
+<line x1="80" y1="320" x2="760" y2="320"
+stroke="black" stroke-width="3"/>
+
+<line x1="80" y1="320" x2="80" y2="60"
+stroke="black" stroke-width="3"/>
+
+<polyline
+fill="none"
+stroke="#ca8a04"
+stroke-width="4"
+points="
+80,120
+140,120
+200,120
+260,120
+320,120
+380,120
+440,120
+500,120
+560,120
+620,120
+680,120
+"/>
+
+<polyline
+fill="none"
+stroke="#65a30d"
+stroke-width="4"
+points="
+80,300
+140,260
+200,230
+260,200
+320,180
+380,170
+440,165
+500,162
+560,160
+620,159
+680,158
+"/>
+
+<text x="600" y="110" font-size="20">
+x[n]
+</text>
+
+<text x="610" y="190" font-size="20">
+y[n]
+</text>
+
+</svg>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>Exercise 2 — Fifth Order Drone Control</h2>
+
+<div class="question">
+Analyze the fifth-order drone system,
+compute the recurrence equation,
+draw \(x[n]\) and \(y[n]\),
+and verify stability using Jury.
+</div>
+
+<div class="math">
+\[
+F(z)=
+\frac{0.012z^5}
+{z^5-2.50z^4+2.41z^3-1.115z^2+0.245z-0.020}
+\]
+</div>
+
+<div class="answer">
+
+<h3>Characteristic Polynomial</h3>
+
+<div class="math">
+\[
+D(z)=
+z^5-2.50z^4+2.41z^3-1.115z^2+0.245z-0.020
+\]
+</div>
+
+<h3>Recurrence Equation</h3>
+
+<div class="math">
+\[
+y[n]
+=
+2.50y[n-1]
+-
+2.41y[n-2]
++
+1.115y[n-3]
+-
+0.245y[n-4]
++
+0.020y[n-5]
++
+0.012x[n]
+\]
+</div>
+
+<h3>Jury Verification</h3>
+
+<table>
+
+<tr>
+<th>Condition</th>
+<th>Result</th>
+</tr>
+
+<tr>
+<td>\(D(1)\)</td>
+<td>0.020 > 0</td>
+</tr>
+
+<tr>
+<td>\((-1)^5D(-1)\)</td>
+<td>7.290 > 0</td>
+</tr>
+
+<tr>
+<td>\(|a_5|<a_0\)</td>
+<td>0.020 < 1</td>
+</tr>
+
+</table>
+
+<div class="note">
+The drone system is stable because all Jury conditions are satisfied.
+</div>
+
+<h3>Input and Output Curves</h3>
+
+<svg viewBox="0 0 800 400">
+
+<line x1="80" y1="320" x2="760" y2="320"
+stroke="black" stroke-width="3"/>
+
+<line x1="80" y1="320" x2="80" y2="60"
+stroke="black" stroke-width="3"/>
+
+<polyline
+fill="none"
+stroke="#ca8a04"
+stroke-width="4"
+points="
+80,100
+140,100
+200,100
+260,100
+320,100
+380,100
+440,100
+500,100
+560,100
+620,100
+680,100
+"/>
+
+<polyline
+fill="none"
+stroke="#65a30d"
+stroke-width="4"
+points="
+80,300
+140,280
+200,260
+260,240
+320,220
+380,200
+440,180
+500,165
+560,150
+620,140
+680,130
+"/>
+
+<text x="610" y="90" font-size="20">
+x[n]
+</text>
+
+<text x="610" y="170" font-size="20">
+y[n]
+</text>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
