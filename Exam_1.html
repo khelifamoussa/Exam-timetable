@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Expanded Digital Control Exam — PI Control, Inverse Z and Jury Stability</title>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)'],['$','$']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{
+  --ink:#f2f6ff;--muted:#b9c6e6;--line:rgba(255,255,255,.14);
+  --cyan:#5eead4;--blue:#60a5fa;--violet:#a78bfa;--gold:#fde68a;--green:#86efac;--red:#fb7185;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;overflow-x:hidden;font-family:Inter,Segoe UI,Arial,sans-serif;
+  background:radial-gradient(circle at 10% 5%,rgba(96,165,250,.22),transparent 30%),
+             radial-gradient(circle at 90% 10%,rgba(167,139,250,.18),transparent 30%),
+             linear-gradient(180deg,#060915,#0b1020 50%,#070b16);
+  color:var(--ink);line-height:1.75
+}
+header{padding:54px 7vw 34px;border-bottom:1px solid var(--line)}
+main{padding:24px 7vw 70px}
+h1{margin:0 0 14px;font-size:clamp(2rem,5vw,4.15rem);line-height:1.05;letter-spacing:-.04em}
+h2{font-size:clamp(1.45rem,3vw,2.45rem);margin:40px 0 16px}
+h3{font-size:1.28rem;color:#eaf1ff;margin:20px 0 10px}
+h4{color:#dbeafe;margin:17px 0 8px}
+p,li{color:var(--muted);font-size:1.04rem}
+.kicker{color:var(--cyan);font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:.82rem}
+.ar{direction:rtl;text-align:right;color:#d9e5ff;border-top:1px dashed rgba(255,255,255,.16);padding-top:10px;margin-top:10px}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.badge{padding:8px 13px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.06)}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;position:sticky;top:0;z-index:5;background:rgba(7,16,32,.92);backdrop-filter:blur(12px);padding:14px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+button{cursor:pointer;border:0;border-radius:14px;padding:12px 15px;color:white;font-weight:850;background:#24345f}
+button:hover,button.active{background:linear-gradient(90deg,var(--violet),var(--blue),var(--cyan));color:#06111f}
+.panel{display:none}.panel.active{display:block}
+.card,.answer,.method,.summary{background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.035));border:1px solid var(--line);border-radius:24px;padding:22px;margin:18px 0;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.method{border-color:rgba(167,139,250,.35)}
+.answer{border-color:rgba(134,239,172,.32)}
+.summary{border-color:rgba(253,186,116,.40)}
+.white-page{background:#fff;color:#111;border-radius:18px;padding:34px;box-shadow:0 24px 70px rgba(0,0,0,.35);max-width:1150px;margin:22px auto}
+.white-page h2,.white-page h3,.white-page h4{color:#111}
+.white-page p,.white-page li{color:#222}
+.white-page .math{background:#f6f8fc;border:1px solid #d8e0ef;color:#111}
+.white-page .exam-box{border:1px solid #d7dce8;border-radius:14px;padding:18px;margin:18px 0;background:#fff}
+.white-page .q{border-left:4px solid #2563eb;padding:10px 12px;margin:10px 0;background:#f8fafc;color:#111}
+.white-page .points{background:#fff7d6;border:1px solid #e7c76a;color:#111}
+.math{font-family:"Cambria Math","STIX Two Math","Times New Roman",serif;font-size:1.16rem;color:#fff;background:rgba(96,165,250,.075);border:1px solid rgba(96,165,250,.22);border-radius:16px;padding:13px 15px;overflow-x:auto;margin:12px 0}
+.points{float:right;background:rgba(253,230,138,.12);border:1px solid rgba(253,230,138,.38);padding:4px 10px;border-radius:999px;color:#fff;font-size:.9rem}
+.ok,.note,.tip,.danger,.why{padding:15px 17px;border-radius:17px;margin:14px 0}
+.ok{background:rgba(134,239,172,.10);border:1px solid rgba(134,239,172,.30)}
+.note{background:rgba(253,230,138,.10);border:1px solid rgba(253,230,138,.30)}
+.tip{background:rgba(94,234,212,.10);border:1px solid rgba(94,234,212,.30)}
+.danger{background:rgba(251,113,133,.10);border:1px solid rgba(251,113,133,.30)}
+.why{background:rgba(167,139,250,.10);border:1px solid rgba(167,139,250,.30)}
+table{border-collapse:collapse;width:100%;margin:15px 0;border-radius:15px;overflow:hidden}
+th,td{border:1px solid rgba(255,255,255,.12);padding:10px;text-align:center;color:#dbeafe;vertical-align:middle}
+th{background:rgba(167,139,250,.22);color:#fff}
+tr:nth-child(even) td{background:rgba(255,255,255,.035)}
+.jury-table td:first-child,.jury-table th:first-child{font-weight:900;color:#fff;background:rgba(96,165,250,.12)}
+.white-page table th,.white-page table td{color:#111;border-color:#d8e0ef}
+.white-page table th{background:#eef2ff}
+.white-page table tr:nth-child(even) td{background:#f8fafc}
+.diagram-wrap{margin:16px 0 22px;padding:16px;border:1px solid rgba(94,234,212,.25);border-radius:20px;background:linear-gradient(180deg,rgba(94,234,212,.08),rgba(255,255,255,.035));overflow-x:auto}
+.diagram-title{display:flex;align-items:center;gap:10px;margin-bottom:12px;color:#fff;font-weight:900}
+.diagram-title span{display:inline-flex;width:28px;height:28px;border-radius:50%;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--cyan),var(--blue));color:#06111f}
+svg{width:100%;min-height:170px}
+.bd-label{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:15px;fill:#eef3ff;font-weight:800}
+.bd-small{font-size:12px;fill:#b9c6e6;font-weight:600}
+.bd-box{fill:rgba(96,165,250,.12);stroke:#60a5fa;stroke-width:2}
+.bd-box2{fill:rgba(167,139,250,.13);stroke:#a78bfa;stroke-width:2}
+.bd-sum{fill:rgba(94,234,212,.10);stroke:#5eead4;stroke-width:2}
+.bd-line{stroke:#eaf1ff;stroke-width:2.5;fill:none}
+.bd-feedback{stroke:#5eead4;stroke-width:2.4;fill:none}
+.step{border-left:4px solid var(--cyan);padding-left:16px;margin:20px 0}
+.substep{border-left:3px solid rgba(253,230,138,.65);padding-left:14px;margin:14px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+canvas{background:rgba(255,255,255,.04);border-radius:18px;padding:10px;margin-top:12px}
+.footer{padding:30px 7vw;border-top:1px solid var(--line);color:#9caad0}
+@media (max-width:760px){
+  header{padding:34px 18px 24px}main{padding:16px 14px 46px}
+  h1{font-size:2rem}h2{font-size:1.5rem}
+  .tabs{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch}
+  .tabs button{flex:0 0 auto;font-size:.86rem;padding:10px 12px}
+  .white-page{padding:18px;border-radius:14px}
+  .card,.answer,.method,.summary{padding:16px;border-radius:18px}
+  .math{font-size:.96rem}
+  .diagram-wrap,table,.math{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  svg{min-width:760px}
+  table{display:block;white-space:nowrap}
+  th,td{font-size:.9rem}
+  .points{float:none;display:inline-block;margin-top:6px}
+}
+@media print{
+  body{background:#fff;color:#000}.tabs,button{display:none}.panel{display:block}
+  .white-page,.card,.answer,.method,.summary,.diagram-wrap{box-shadow:none;border:1px solid #bbb;background:#fff;color:#000}
+  p,li,.ar,td{color:#111}.bd-label{fill:#000}.bd-small{fill:#333}.bd-line{stroke:#000}.bd-feedback{stroke:#000}
+}
+</style>
+</head>
+<body>
+<header>
+<div class="kicker">One expanded exam</div>
+<h1>Digital Control Exam: First-Order Motor, PI Controller, Inverse Z-Transform and Jury Stability</h1>
+<p>One complete exam with two expanded exercises. The first exercise is a first-order motor in a closed loop, then the same motor with a PI controller. The second exercise is a third-order plant with a PI controller, leading to a fourth-order characteristic equation solved using Jury.</p>
+<div class="ar">اختبار واحد كامل يحتوي تمرينين موسعين: الأول محرك من الدرجة الأولى في حلقة مغلقة ثم مع متحكم PI، والثاني نظام من الدرجة الثالثة مع PI يؤدي إلى معادلة مميزة من الدرجة الرابعة تُحل بطريقة جيري.</div>
+<div class="badges"><span class="badge">One exam</span><span class="badge">White question page</span><span class="badge">Detailed solution</span><span class="badge">PI control</span><span class="badge">Jury method</span></div>
+</header>
+
+<main>
+<nav class="tabs">
+<button class="active" onclick="showPanel('questions',this)">White Exam Page</button>
+<button onclick="showPanel('concepts',this)">Concepts Before Solving</button>
+<button onclick="showPanel('solution1',this)">Exercise 1 Solution</button>
+<button onclick="showPanel('solution2',this)">Exercise 2 Solution</button>
+<button onclick="showPanel('review',this)">Final Review</button>
+</nav>
+
+<section id="questions" class="panel active">
+<div class="white-page">
+<h2>Digital Control — Expanded Exam Sheet</h2>
+<p><strong>Duration:</strong> 90 minutes. <strong>Total:</strong> 40 points. Show all intermediate steps. A numerical answer without explanation is not sufficient.</p>
+
+<div class="exam-box">
+<h3>Exercise 1 — First-order motor in closed loop, then PI control <span class="points">20 pts</span></h3>
+<p>A discrete-time first-order motor is given by:</p>
+<div class="math">\[G(z)=\frac{0.4z}{z-0.6}\]</div>
+<p>The feedback is unity and negative. The input is a unit-step signal \(X(z)\), and the output is \(Y(z)\).</p>
+
+<div class="q"><strong>Q1.</strong> Draw/read the closed-loop block diagram and find the complete closed-loop transfer function without PI controller. <strong>3 pts</strong></div>
+<div class="q"><strong>Q2.</strong> Find the relation between input and output, then derive the first-order difference equation. <strong>3 pts</strong></div>
+<div class="q"><strong>Q3.</strong> Decide whether the system is stable. Use the roots of the denominator/characteristic equation and the unit-circle rule. <strong>3 pts</strong></div>
+<div class="q"><strong>Q4.</strong> Add a PI controller after the error signal:
+<div class="math">\[C(z)=K_p+\frac{K_iz}{z-1},\qquad K_p=0.8,\quad K_i=0.2\]</div>
+Find the new closed-loop transfer function. <strong>3 pts</strong></div>
+<div class="q"><strong>Q5.</strong> Derive the new relation between input and output, then use inverse Z-transform to obtain the second-order recurrence equation. Explain clearly how the delay terms are transformed. <strong>4 pts</strong></div>
+<div class="q"><strong>Q6.</strong> For a unit-step input, compute \(Y[n]\) up to \(n=10\), then draw \(Y[n]\) as discrete points, draw \(X[n]\) as the unit-step input, and compute the steady-state error \(e_\infty\). <strong>4 pts</strong></div>
+</div>
+
+<div class="exam-box">
+<h3>Exercise 2 — Third-order plant with PI controller, Jury stability and discrete response <span class="points">24 pts</span></h3>
+<p>A more complex discrete-time system is given by:</p>
+<div class="math">\[G_2(z)=\frac{0.15z^3}{z^3-1.1z^2+0.39z-0.045}\]</div>
+<p>The system is controlled by a PI controller:</p>
+<div class="math">\[C(z)=K_p+\frac{K_iz}{z-1},\qquad K_p=0.7,\quad K_i=0.15\]</div>
+<p>The feedback is unity and negative.</p>
+
+<div class="q"><strong>Q1.</strong> Draw the complete block diagram with PI controller, plant, feedback, input \(X(z)\), and output \(Y(z)\). <strong>3 pts</strong></div>
+<div class="q"><strong>Q2.</strong> Compute the open-loop transfer function \(L(z)=C(z)G_2(z)\). <strong>3 pts</strong></div>
+<div class="q"><strong>Q3.</strong> Compute the complete closed-loop transfer function \(F(z)=Y(z)/X(z)\). <strong>4 pts</strong></div>
+<div class="q"><strong>Q4.</strong> Derive the relation between \(X(z)\) and \(Y(z)\), then write the recurrence equation. <strong>4 pts</strong></div>
+<div class="q"><strong>Q5.</strong> Since the characteristic equation is fourth-order, use the Jury method to decide whether the closed-loop system is stable. Show all rows and all conditions. <strong>6 pts</strong></div>
+<div class="q"><strong>Q6.</strong> Starting from the input-output relation, derive the reference recurrence equation between \(X[n]\) and \(Y[n]\). Then assume the input is the unit-step signal \(X[n]=1\), compute \(Y[n]\) for \(0\le n\le 10\), and draw \(Y[n]\) as discrete sampled points like in Exercise 1. <strong>4 pts</strong></div>
+<div class="q"><strong>Q6.</strong> For a unit-step input, compute \(Y[n]\) up to \(n=10\), draw \(Y[n]\) as discrete points, draw \(X[n]\) as the unit-step input, and interpret the response. <strong>4 pts</strong></div>
+</div>
+</div>
+</section>
+
+<section id="concepts" class="panel">
+<h2>Concepts Before Solving</h2>
+
+<div class="method">
+<h3>1. Important correction: stability is decided by the denominator</h3>
+<p>Sometimes students say: “we solve the numerator to decide stability.” This is not correct for transfer-function stability. Stability is decided from the poles, which are roots of the denominator.</p>
+<div class="math">\[F(z)=\frac{N(z)}{D(z)}\]</div>
+<div class="math">\[\text{Poles: }D(z)=0,\qquad \text{Zeros: }N(z)=0\]</div>
+<div class="ok">Stable if all roots of \(D(z)\) satisfy \(|z_i|<1\).</div>
+<div class="danger">If one root has \(|z_i|=1\) or \(|z_i|>1\), the discrete-time system is not asymptotically stable.</div>
+<div class="ar">تصحيح مهم: الاستقرار يُحكم من جذور المقام، وليس البسط. جذور المقام هي الأقطاب، وهي التي تحدد الاستقرار.</div>
+</div>
+
+<div class="method">
+<h3>2. Delay rule for inverse Z-transform</h3>
+<p>The main rule used to convert a Z-domain relation into a recurrence equation is:</p>
+<div class="math">\[z^{-1}Y(z)\longleftrightarrow y[n-1]\]</div>
+<div class="math">\[z^{-2}Y(z)\longleftrightarrow y[n-2]\]</div>
+<p>So when a denominator is second-order, the recurrence usually contains \(y[n-1]\) and \(y[n-2]\).</p>
+<div class="ar">عندما نقسم على أعلى قوة من \(z\)، تظهر حدود مثل \(z^{-1}\) و \(z^{-2}\)، وهي تمثل التأخر: \(y[n-1]\) و \(y[n-2]\).</div>
+</div>
+
+<div class="method">
+<h3>3. Jury method for degree 3 and above</h3>
+<p>For degree 1 or 2, roots or simple second-order Jury conditions are easy. For degree 3 and above, the Jury table becomes very useful.</p>
+<div class="math">\[D(z)=a_0z^n+a_1z^{n-1}+\cdots+a_n\]</div>
+<p>Preliminary conditions:</p>
+<div class="math">\[D(1)>0,\qquad (-1)^nD(-1)>0,\qquad |a_n|<a_0\]</div>
+<p>Reduction formula:</p>
+<div class="math">\[q_k=p_0p_k-p_mp_{m-k}\]</div>
+</div>
+</section>
+
+<section id="solution1" class="panel">
+<h2>Exercise 1 — Complete Detailed Solution</h2>
+
+<div class="answer">
+<h3>System block diagram before any calculation</h3>
+<div class="diagram-wrap"><div class="diagram-title"><span>1</span> Closed-loop first-order motor without PI</div>
+<svg viewBox="0 0 1050 260">
+<defs><marker id="m1" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#eaf1ff"/></marker></defs>
+<line class="bd-line" marker-end="url(#m1)" x1="40" y1="105" x2="135" y2="105"/><text class="bd-label" x="35" y="82">X(z)</text>
+<circle class="bd-sum" cx="170" cy="105" r="28"/><text class="bd-label" x="160" y="99">+</text><text class="bd-label" x="162" y="128">−</text>
+<line class="bd-line" marker-end="url(#m1)" x1="198" y1="105" x2="320" y2="105"/>
+<rect class="bd-box" x="320" y="60" width="270" height="90" rx="16"/><text class="bd-label" x="385" y="95">Motor plant</text><text class="bd-label" x="372" y="123">G(z)=0.4z/(z−0.6)</text>
+<line class="bd-line" marker-end="url(#m1)" x1="590" y1="105" x2="880" y2="105"/><text class="bd-label" x="900" y="110">Y(z)</text>
+<path class="bd-feedback" d="M805,105 L805,205 L170,205 L170,135"/>
+</svg></div>
+
+<div class="step">
+<h3>Q1 — Closed-loop transfer function without PI</h3>
+<p>For unity negative feedback, the closed-loop transfer function is:</p>
+<div class="math">\[F_0(z)=\frac{G(z)}{1+G(z)}\]</div>
+<p>Substitute the motor model:</p>
+<div class="math">\[F_0(z)=\frac{\frac{0.4z}{z-0.6}}{1+\frac{0.4z}{z-0.6}}\]</div>
+<p>To simplify, write the denominator over the same denominator \(z-0.6\):</p>
+<div class="math">\[1+\frac{0.4z}{z-0.6}=\frac{z-0.6}{z-0.6}+\frac{0.4z}{z-0.6}\]</div>
+<div class="math">\[1+\frac{0.4z}{z-0.6}=\frac{z-0.6+0.4z}{z-0.6}=\frac{1.4z-0.6}{z-0.6}\]</div>
+<p>Now divide two fractions:</p>
+<div class="math">\[F_0(z)=\frac{0.4z}{z-0.6}\cdot\frac{z-0.6}{1.4z-0.6}\]</div>
+<div class="math">\[F_0(z)=\frac{0.4z}{1.4z-0.6}\]</div>
+<div class="ar">استعملنا قانون الحلقة المغلقة، ثم وحدنا المقامات، وبعدها اختصرنا \(z-0.6\).</div>
+</div>
+
+<div class="step">
+<h3>Q2 — Relation between input and output</h3>
+<p>By definition:</p>
+<div class="math">\[F_0(z)=\frac{Y(z)}{X(z)}=\frac{0.4z}{1.4z-0.6}\]</div>
+<p>Cross-multiply:</p>
+<div class="math">\[(1.4z-0.6)Y(z)=0.4zX(z)\]</div>
+<p>Divide by \(z\), because we want powers \(z^{-1}\):</p>
+<div class="math">\[(1.4-0.6z^{-1})Y(z)=0.4X(z)\]</div>
+<p>Apply inverse Z-transform:</p>
+<div class="math">\[1.4y[n]-0.6y[n-1]=0.4x[n]\]</div>
+<p>Solve for \(y[n]\):</p>
+<div class="math">\[y[n]=\frac{0.6}{1.4}y[n-1]+\frac{0.4}{1.4}x[n]\]</div>
+<div class="math">\[y[n]=0.4286y[n-1]+0.2857x[n]\]</div>
+</div>
+
+<div class="step">
+<h3>Q3 — Stability without PI</h3>
+<p>The denominator is:</p>
+<div class="math">\[D_0(z)=1.4z-0.6\]</div>
+<p>Set it equal to zero:</p>
+<div class="math">\[1.4z-0.6=0\]</div>
+<div class="math">\[1.4z=0.6\]</div>
+<div class="math">\[z=\frac{0.6}{1.4}=0.4286\]</div>
+<p>Now compare with the unit-circle radius:</p>
+<div class="math">\[|z|=0.4286<1\]</div>
+<div class="ok">The closed-loop motor without PI is stable.</div>
+<div class="note">Again: we solved the denominator. The numerator \(0.4z\) gives a zero, not the stability pole.</div>
+</div>
+</div>
+
+<div class="answer">
+<h3>Adding the PI controller</h3>
+<div class="diagram-wrap"><div class="diagram-title"><span>PI</span> Closed-loop motor with PI controller</div>
+<svg viewBox="0 0 1120 300">
+<defs><marker id="m2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#eaf1ff"/></marker></defs>
+<line class="bd-line" marker-end="url(#m2)" x1="40" y1="120" x2="130" y2="120"/><text class="bd-label" x="35" y="96">X(z)</text>
+<circle class="bd-sum" cx="165" cy="120" r="28"/><text class="bd-label" x="156" y="114">+</text><text class="bd-label" x="157" y="143">−</text>
+<line class="bd-line" marker-end="url(#m2)" x1="193" y1="120" x2="285" y2="120"/>
+<rect class="bd-box2" x="285" y="80" width="230" height="80" rx="16"/><text class="bd-label" x="333" y="112">PI controller</text><text class="bd-small" x="320" y="140">Kp=0.8, Ki=0.2</text>
+<line class="bd-line" marker-end="url(#m2)" x1="515" y1="120" x2="610" y2="120"/>
+<rect class="bd-box" x="610" y="80" width="250" height="80" rx="16"/><text class="bd-label" x="680" y="112">Motor</text><text class="bd-small" x="660" y="140">G(z)=0.4z/(z−0.6)</text>
+<line class="bd-line" marker-end="url(#m2)" x1="860" y1="120" x2="1020" y2="120"/><text class="bd-label" x="1030" y="125">Y(z)</text>
+<path class="bd-feedback" d="M970,120 L970,245 L165,245 L165,150"/>
+</svg></div>
+
+<div class="step">
+<h3>Q4 — New closed-loop transfer function with PI</h3>
+<p>The controller is:</p>
+<div class="math">\[C(z)=K_p+\frac{K_iz}{z-1}\]</div>
+<p>Put it over a common denominator:</p>
+<div class="math">\[C(z)=\frac{K_p(z-1)+K_iz}{z-1}\]</div>
+<p>Substitute \(K_p=0.8\), \(K_i=0.2\):</p>
+<div class="math">\[C(z)=\frac{0.8(z-1)+0.2z}{z-1}\]</div>
+<div class="math">\[C(z)=\frac{0.8z-0.8+0.2z}{z-1}=\frac{z-0.8}{z-1}\]</div>
+<p>The open-loop transfer function is:</p>
+<div class="math">\[L(z)=C(z)G(z)=\frac{z-0.8}{z-1}\cdot\frac{0.4z}{z-0.6}\]</div>
+<div class="math">\[L(z)=\frac{0.4z(z-0.8)}{(z-1)(z-0.6)}\]</div>
+<p>The closed-loop function is:</p>
+<div class="math">\[F_{PI}(z)=\frac{L(z)}{1+L(z)}\]</div>
+<div class="math">\[F_{PI}(z)=\frac{0.4z(z-0.8)}{(z-1)(z-0.6)+0.4z(z-0.8)}\]</div>
+<p>Expand both parts of the denominator:</p>
+<div class="math">\[(z-1)(z-0.6)=z^2-1.6z+0.6\]</div>
+<div class="math">\[0.4z(z-0.8)=0.4z^2-0.32z\]</div>
+<p>Add them:</p>
+<div class="math">\[D_{PI}(z)=z^2-1.6z+0.6+0.4z^2-0.32z\]</div>
+<div class="math">\[D_{PI}(z)=1.4z^2-1.92z+0.6\]</div>
+<p>The numerator is:</p>
+<div class="math">\[N_{PI}(z)=0.4z^2-0.32z\]</div>
+<p>Therefore:</p>
+<div class="math">\[F_{PI}(z)=\frac{0.4z^2-0.32z}{1.4z^2-1.92z+0.6}\]</div>
+</div>
+
+<div class="step">
+<h3>Stability with PI</h3>
+<p>Use the denominator:</p>
+<div class="math">\[D_{PI}(z)=1.4z^2-1.92z+0.6\]</div>
+<p>For a second-order polynomial, we can solve the roots or use second-order Jury. Here, use the roots:</p>
+<div class="math">\[z=\frac{1.92\pm\sqrt{(-1.92)^2-4(1.4)(0.6)}}{2(1.4)}\]</div>
+<div class="math">\[z=\frac{1.92\pm\sqrt{3.6864-3.36}}{2.8}\]</div>
+<div class="math">\[z=\frac{1.92\pm\sqrt{0.3264}}{2.8}\]</div>
+<div class="math">\[\sqrt{0.3264}=0.5713\]</div>
+<div class="math">\[z_1=\frac{1.92+0.5713}{2.8}=0.8898,\qquad z_2=\frac{1.92-0.5713}{2.8}=0.4817\]</div>
+<div class="math">\[|z_1|=0.8898<1,\qquad |z_2|=0.4817<1\]</div>
+<div class="ok">The system with PI is stable.</div>
+</div>
+
+<div class="step">
+<h3>Q5 — Relation between input and output and inverse Z-transform</h3>
+<p>Start from:</p>
+<div class="math">\[\frac{Y(z)}{X(z)}=\frac{0.4z^2-0.32z}{1.4z^2-1.92z+0.6}\]</div>
+<p>Cross-multiply:</p>
+<div class="math">\[(1.4z^2-1.92z+0.6)Y(z)=(0.4z^2-0.32z)X(z)\]</div>
+<p>Divide by \(z^2\). This is the key step because it creates \(z^{-1}\) and \(z^{-2}\):</p>
+<div class="math">\[(1.4-1.92z^{-1}+0.6z^{-2})Y(z)=(0.4-0.32z^{-1})X(z)\]</div>
+<p>Now apply inverse Z-transform term by term:</p>
+<div class="math">\[1.4Y(z)\longleftrightarrow 1.4y[n]\]</div>
+<div class="math">\[-1.92z^{-1}Y(z)\longleftrightarrow -1.92y[n-1]\]</div>
+<div class="math">\[0.6z^{-2}Y(z)\longleftrightarrow 0.6y[n-2]\]</div>
+<div class="math">\[0.4X(z)\longleftrightarrow 0.4x[n]\]</div>
+<div class="math">\[-0.32z^{-1}X(z)\longleftrightarrow -0.32x[n-1]\]</div>
+<p>So the recurrence equation is:</p>
+<div class="math">\[1.4y[n]-1.92y[n-1]+0.6y[n-2]=0.4x[n]-0.32x[n-1]\]</div>
+<p>Solve for \(y[n]\):</p>
+<div class="math">\[y[n]=\frac{1.92}{1.4}y[n-1]-\frac{0.6}{1.4}y[n-2]+\frac{0.4}{1.4}x[n]-\frac{0.32}{1.4}x[n-1]\]</div>
+<div class="math">\[y[n]=1.3714y[n-1]-0.4286y[n-2]+0.2857x[n]-0.2286x[n-1]\]</div>
+</div>
+
+<div class="step">
+<h3>Q6 — Reference recurrence equation, unit-step input, and discrete plot of \(Y[n]\)</h3>
+<p>This question must be solved in the same logical order as Exercise 1: first derive the reference relation between input and output, then choose the input \(X[n]\), then compute the samples, then draw \(Y[n]\) as separated discrete points.</p>
+
+<div class="substep">
+<h4>Step 1 — Start from the Z-domain input-output relation</h4>
+<p>From the closed-loop transfer function found previously:</p>
+<div class="math">\[
+\frac{Y(z)}{X(z)}=
+\frac{0.1275z^4-0.105z^3}
+{1.1275z^4-2.205z^3+1.49z^2-0.435z+0.045}
+\]</div>
+<p>Cross-multiply to get the relation between \(X(z)\) and \(Y(z)\):</p>
+<div class="math">\[
+(1.1275z^4-2.205z^3+1.49z^2-0.435z+0.045)Y(z)
+=(0.1275z^4-0.105z^3)X(z)
+\]</div>
+</div>
+
+<div class="substep">
+<h4>Step 2 — Convert the relation into delayed powers</h4>
+<p>Because the highest power is \(z^4\), divide the full equation by \(z^4\). This is the key step that creates delays:</p>
+<div class="math">\[
+(1.1275-2.205z^{-1}+1.49z^{-2}-0.435z^{-3}+0.045z^{-4})Y(z)
+=(0.1275-0.105z^{-1})X(z)
+\]</div>
+<div class="note">
+The rule is:
+\[
+z^{-1}Y(z)\leftrightarrow y[n-1],\quad
+z^{-2}Y(z)\leftrightarrow y[n-2],\quad
+z^{-3}Y(z)\leftrightarrow y[n-3],\quad
+z^{-4}Y(z)\leftrightarrow y[n-4]
+\]
+</div>
+</div>
+
+<div class="substep">
+<h4>Step 3 — Apply inverse Z-transform</h4>
+<p>Transform each term separately:</p>
+<div class="math">\[
+1.1275Y(z)\leftrightarrow 1.1275y[n]
+\]</div>
+<div class="math">\[
+-2.205z^{-1}Y(z)\leftrightarrow -2.205y[n-1]
+\]</div>
+<div class="math">\[
+1.49z^{-2}Y(z)\leftrightarrow 1.49y[n-2]
+\]</div>
+<div class="math">\[
+-0.435z^{-3}Y(z)\leftrightarrow -0.435y[n-3]
+\]</div>
+<div class="math">\[
+0.045z^{-4}Y(z)\leftrightarrow 0.045y[n-4]
+\]</div>
+<p>For the input terms:</p>
+<div class="math">\[
+0.1275X(z)\leftrightarrow 0.1275x[n],\qquad
+-0.105z^{-1}X(z)\leftrightarrow -0.105x[n-1]
+\]</div>
+<p>So the reference recurrence equation is:</p>
+<div class="math">\[
+1.1275y[n]-2.205y[n-1]+1.49y[n-2]-0.435y[n-3]+0.045y[n-4]
+=0.1275x[n]-0.105x[n-1]
+\]</div>
+</div>
+
+<div class="substep">
+<h4>Step 4 — Solve for the current output \(y[n]\)</h4>
+<p>Move all previous-output terms to the right-hand side and divide by \(1.1275\):</p>
+<div class="math">\[
+y[n]=1.956y[n-1]-1.322y[n-2]+0.386y[n-3]-0.0399y[n-4]+0.1131x[n]-0.0931x[n-1]
+\]</div>
+<p>This is the formula used to generate the output samples.</p>
+<div class="ar">هذه هي العلاقة المرجعية التي نستعملها لحساب \(Y[n]\) عينة بعد عينة عندما يكون الدخل \(X[n]\) إشارة وحدة.</div>
+</div>
+
+<div class="substep">
+<h4>Step 5 — Assume the input is the unit-step signal</h4>
+<div class="math">\[
+x[n]=1,\qquad n\ge 0
+\]</div>
+<p>Before the beginning of the sequence, use zero initial conditions:</p>
+<div class="math">\[
+x[-1]=0,\qquad y[-1]=y[-2]=y[-3]=y[-4]=0
+\]</div>
+</div>
+
+<div class="substep">
+<h4>Step 6 — Compute the first samples of \(Y[n]\)</h4>
+<p>At \(n=0\):</p>
+<div class="math">\[
+y[0]=0.1131x[0]-0.0931x[-1]=0.1131(1)-0.0931(0)=0.1131
+\]</div>
+
+<p>At \(n=1\):</p>
+<div class="math">\[
+y[1]=1.956y[0]+0.1131x[1]-0.0931x[0]
+\]</div>
+<div class="math">\[
+y[1]=1.956(0.1131)+0.1131-0.0931=0.2413
+\]</div>
+
+<p>At \(n=2\):</p>
+<div class="math">\[
+y[2]=1.956y[1]-1.322y[0]+0.1131-0.0931
+\]</div>
+<div class="math">\[
+y[2]=1.956(0.2413)-1.322(0.1131)+0.0200=0.3425
+\]</div>
+</div>
+
+<div class="substep">
+<h4>Step 7 — Table for \(X[n]\), \(Y[n]\), and error</h4>
+<table>
+<tr><th>n</th><th>\(X[n]\)</th><th>\(Y[n]\)</th><th>\(e[n]=X[n]-Y[n]\)</th></tr>
+<tr><td>0</td><td>1</td><td>0.1131</td><td>0.8869</td></tr>
+<tr><td>1</td><td>1</td><td>0.2413</td><td>0.7587</td></tr>
+<tr><td>2</td><td>1</td><td>0.3425</td><td>0.6575</td></tr>
+<tr><td>3</td><td>1</td><td>0.4236</td><td>0.5764</td></tr>
+<tr><td>4</td><td>1</td><td>0.4926</td><td>0.5074</td></tr>
+<tr><td>5</td><td>1</td><td>0.5527</td><td>0.4473</td></tr>
+<tr><td>6</td><td>1</td><td>0.6057</td><td>0.3943</td></tr>
+<tr><td>7</td><td>1</td><td>0.6528</td><td>0.3472</td></tr>
+<tr><td>8</td><td>1</td><td>0.6948</td><td>0.3052</td></tr>
+<tr><td>9</td><td>1</td><td>0.7325</td><td>0.2675</td></tr>
+<tr><td>10</td><td>1</td><td>0.7665</td><td>0.2335</td></tr>
+</table>
+</div>
+
+<div class="substep">
+<h4>Step 8 — Draw \(Y[n]\) like Exercise 1</h4>
+<p>The output \(Y[n]\) must be drawn as discrete sampled points, not as a continuous-time signal.</p>
+<div class="diagram-wrap">
+<div class="diagram-title"><span>Y</span> Discrete plot of \(Y[n]\) with unit-step input \(X[n]\)</div>
+<canvas id="exercise2YnLikeEx1Chart" height="340"></canvas>
+</div>
+<div class="ok">The points rise gradually toward the input \(X[n]=1\). Since the Jury test proved stability, the response is expected to continue approaching a final value rather than diverging.</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="solution2" class="panel">
+<h2>Exercise 2 — Complete Detailed Solution</h2>
+
+<div class="answer">
+<h3>System block diagram</h3>
+<div class="diagram-wrap"><div class="diagram-title"><span>2</span> Third-order plant with PI controller</div>
+<svg viewBox="0 0 1140 310">
+<defs><marker id="c2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#eaf1ff"/></marker></defs>
+<line class="bd-line" marker-end="url(#c2)" x1="40" y1="125" x2="130" y2="125"/><text class="bd-label" x="35" y="102">X(z)</text>
+<circle class="bd-sum" cx="165" cy="125" r="28"/><text class="bd-label" x="156" y="119">+</text><text class="bd-label" x="157" y="148">−</text>
+<line class="bd-line" marker-end="url(#c2)" x1="193" y1="125" x2="285" y2="125"/>
+<rect class="bd-box2" x="285" y="80" width="230" height="90" rx="16"/><text class="bd-label" x="335" y="115">PI controller</text><text class="bd-small" x="327" y="143">Kp=0.7, Ki=0.15</text>
+<line class="bd-line" marker-end="url(#c2)" x1="515" y1="125" x2="610" y2="125"/>
+<rect class="bd-box" x="610" y="70" width="310" height="110" rx="16"/><text class="bd-label" x="704" y="108">Plant</text><text class="bd-small" x="648" y="137">0.15z³/(z³−1.1z²+0.39z−0.045)</text>
+<line class="bd-line" marker-end="url(#c2)" x1="920" y1="125" x2="1040" y2="125"/><text class="bd-label" x="1052" y="130">Y(z)</text>
+<path class="bd-feedback" d="M1000,125 L1000,255 L165,255 L165,155"/>
+</svg></div>
+
+<div class="step">
+<h3>Q2 — Open-loop transfer function</h3>
+<p>First simplify the PI controller:</p>
+<div class="math">\[C(z)=K_p+\frac{K_iz}{z-1}\]</div>
+<div class="math">\[C(z)=\frac{K_p(z-1)+K_iz}{z-1}\]</div>
+<div class="math">\[C(z)=\frac{(K_p+K_i)z-K_p}{z-1}\]</div>
+<p>Substitute \(K_p=0.7\), \(K_i=0.15\):</p>
+<div class="math">\[C(z)=\frac{0.85z-0.7}{z-1}\]</div>
+<p>The plant is:</p>
+<div class="math">\[G_2(z)=\frac{0.15z^3}{z^3-1.1z^2+0.39z-0.045}\]</div>
+<p>Therefore:</p>
+<div class="math">\[L(z)=C(z)G_2(z)\]</div>
+<div class="math">\[L(z)=\frac{0.15z^3(0.85z-0.7)}{(z-1)(z^3-1.1z^2+0.39z-0.045)}\]</div>
+<p>Expand the numerator:</p>
+<div class="math">\[0.15z^3(0.85z-0.7)=0.1275z^4-0.105z^3\]</div>
+</div>
+
+<div class="step">
+<h3>Q3 — Closed-loop transfer function</h3>
+<p>For unity negative feedback:</p>
+<div class="math">\[F(z)=\frac{L(z)}{1+L(z)}\]</div>
+<p>So:</p>
+<div class="math">\[F(z)=\frac{0.1275z^4-0.105z^3}{(z-1)(z^3-1.1z^2+0.39z-0.045)+0.1275z^4-0.105z^3}\]</div>
+<p>Now expand the plant denominator multiplied by \((z-1)\):</p>
+<div class="math">\[(z-1)(z^3-1.1z^2+0.39z-0.045)\]</div>
+<div class="math">\[=z(z^3-1.1z^2+0.39z-0.045)-1(z^3-1.1z^2+0.39z-0.045)\]</div>
+<div class="math">\[=z^4-1.1z^3+0.39z^2-0.045z-z^3+1.1z^2-0.39z+0.045\]</div>
+<div class="math">\[=z^4-2.1z^3+1.49z^2-0.435z+0.045\]</div>
+<p>Add the controller numerator term:</p>
+<div class="math">\[D(z)=z^4-2.1z^3+1.49z^2-0.435z+0.045+0.1275z^4-0.105z^3\]</div>
+<div class="math">\[D(z)=1.1275z^4-2.205z^3+1.49z^2-0.435z+0.045\]</div>
+<p>Thus:</p>
+<div class="math">\[F(z)=\frac{0.1275z^4-0.105z^3}{1.1275z^4-2.205z^3+1.49z^2-0.435z+0.045}\]</div>
+</div>
+
+<div class="step">
+<h3>Q4 — Relation between \(X(z)\) and \(Y(z)\), then recurrence</h3>
+<div class="math">\[(1.1275z^4-2.205z^3+1.49z^2-0.435z+0.045)Y(z)\]</div>
+<div class="math">\[=(0.1275z^4-0.105z^3)X(z)\]</div>
+<p>Divide by \(z^4\):</p>
+<div class="math">\[(1.1275-2.205z^{-1}+1.49z^{-2}-0.435z^{-3}+0.045z^{-4})Y(z)\]</div>
+<div class="math">\[=(0.1275-0.105z^{-1})X(z)\]</div>
+<p>Apply inverse Z-transform:</p>
+<div class="math">\[1.1275y[n]-2.205y[n-1]+1.49y[n-2]-0.435y[n-3]+0.045y[n-4]\]</div>
+<div class="math">\[=0.1275x[n]-0.105x[n-1]\]</div>
+<p>Solve for \(y[n]\):</p>
+<div class="math">\[y[n]=\frac{2.205}{1.1275}y[n-1]-\frac{1.49}{1.1275}y[n-2]+\frac{0.435}{1.1275}y[n-3]-\frac{0.045}{1.1275}y[n-4]\]</div>
+<div class="math">\[+\frac{0.1275}{1.1275}x[n]-\frac{0.105}{1.1275}x[n-1]\]</div>
+<div class="math">\[y[n]=1.956y[n-1]-1.322y[n-2]+0.386y[n-3]-0.0399y[n-4]+0.1131x[n]-0.0931x[n-1]\]</div>
+</div>
+
+<div class="step">
+<h3>Q5 — Jury stability for the fourth-order equation</h3>
+<p>The characteristic polynomial is:</p>
+<div class="math">\[D(z)=1.1275z^4-2.205z^3+1.49z^2-0.435z+0.045\]</div>
+
+<div class="substep">
+<h4>Step 1 — Preliminary conditions</h4>
+<div class="math">\[D(1)=1.1275-2.205+1.49-0.435+0.045=0.0225>0\]</div>
+<div class="math">\[D(-1)=1.1275+2.205+1.49+0.435+0.045=5.3025\]</div>
+<p>Since \(n=4\):</p>
+<div class="math">\[(-1)^4D(-1)=D(-1)=5.3025>0\]</div>
+<div class="math">\[|a_4|=|0.045|<a_0=1.1275\]</div>
+<div class="ok">All preliminary conditions pass.</div>
+</div>
+
+<div class="substep">
+<h4>Step 2 — First Jury rows</h4>
+<table class="jury-table">
+<tr><th>Row</th><th colspan="5">Coefficients</th><th>Role</th></tr>
+<tr><td>R1</td><td>1.1275</td><td>-2.205</td><td>1.49</td><td>-0.435</td><td>0.045</td><td>Original</td></tr>
+<tr><td>R2</td><td>0.045</td><td>-0.435</td><td>1.49</td><td>-2.205</td><td>1.1275</td><td>Reverse</td></tr>
+</table>
+</div>
+
+<div class="substep">
+<h4>Step 3 — First reduction from degree 4 to degree 3</h4>
+<p>Use \(p_0=1.1275\) and \(p_4=0.045\).</p>
+<div class="math">\[q_0=p_0p_0-p_4p_4=1.1275^2-0.045^2=1.269231\]</div>
+<div class="math">\[q_1=p_0p_1-p_4p_3=1.1275(-2.205)-0.045(-0.435)=-2.466319\]</div>
+<div class="math">\[q_2=p_0p_2-p_4p_2=1.1275(1.49)-0.045(1.49)=1.612975\]</div>
+<div class="math">\[q_3=p_0p_3-p_4p_1=1.1275(-0.435)-0.045(-2.205)=-0.391013\]</div>
+<p>The final \(q_4\) is zero and is removed.</p>
+<table class="jury-table">
+<tr><th>Row</th><th colspan="4">Coefficients</th><th>Role</th></tr>
+<tr><td>R3</td><td>1.269231</td><td>-2.466319</td><td>1.612975</td><td>-0.391013</td><td>Reduced degree 3</td></tr>
+<tr><td>R4</td><td>-0.391013</td><td>1.612975</td><td>-2.466319</td><td>1.269231</td><td>Reverse</td></tr>
+</table>
+</div>
+
+<div class="substep">
+<h4>Step 4 — Second reduction from degree 3 to degree 2</h4>
+<p>Now \(p_0=1.269231\), \(p_3=-0.391013\).</p>
+<div class="math">\[s_0=p_0^2-p_3^2=1.269231^2-(-0.391013)^2=1.458268\]</div>
+<div class="math">\[s_1=p_0p_1-p_3p_2=1.269231(-2.466319)-(-0.391013)(1.612975)=-2.499538\]</div>
+<div class="math">\[s_2=p_0p_2-p_3p_1=1.269231(1.612975)-(-0.391013)(-2.466319)=1.083875\]</div>
+<table class="jury-table">
+<tr><th>Row</th><th colspan="3">Coefficients</th><th>Role</th></tr>
+<tr><td>R5</td><td>1.458268</td><td>-2.499538</td><td>1.083875</td><td>Reduced degree 2</td></tr>
+<tr><td>R6</td><td>1.083875</td><td>-2.499538</td><td>1.458268</td><td>Reverse</td></tr>
+</table>
+</div>
+
+<div class="substep">
+<h4>Step 5 — Final second-order test</h4>
+<div class="math">\[D_f(z)=1.458268z^2-2.499538z+1.083875\]</div>
+<div class="math">\[D_f(1)=1.458268-2.499538+1.083875=0.042605>0\]</div>
+<div class="math">\[D_f(-1)=1.458268+2.499538+1.083875=5.041681>0\]</div>
+<div class="math">\[|1.083875|<1.458268\]</div>
+<div class="ok">The final Jury stage passes. Therefore, the fourth-order closed-loop system is stable.</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="review" class="panel">
+<h2>Final Review</h2>
+<div class="summary">
+<h3>What students must remember</h3>
+<ol>
+<li>For stability, solve the denominator \(D(z)=0\), not the numerator.</li>
+<li>If \(|z_i|<1\) for every pole, the system is stable.</li>
+<li>For PI controller:
+<div class="math">\[C(z)=K_p+\frac{K_iz}{z-1}=\frac{(K_p+K_i)z-K_p}{z-1}\]</div></li>
+<li>To obtain a recurrence equation, divide by the highest power of \(z\), then use:
+<div class="math">\[z^{-1}Y(z)\leftrightarrow y[n-1],\qquad z^{-2}Y(z)\leftrightarrow y[n-2]\]</div></li>
+<li>For degree 3 or higher, use Jury table carefully until the final second-order stage.</li>
+</ol>
+<div class="ar">أهم ما يجب تذكره: الاستقرار من المقام، التأخر \(z^{-1}\) يعني قيمة سابقة، والمتحكم PI يحسن الخطأ النهائي لكنه يرفع درجة النظام، ولذلك يجب التحقق من الاستقرار.</div>
+</div>
+</section>
+</main>
+
+<div class="footer">One expanded digital control exam with detailed solutions, PI control, inverse Z-transform and Jury stability.</div>
+
+<script>
+function showPanel(id,btn){
+ document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('nav button').forEach(t=>t.classList.remove('active'));
+ btn.classList.add('active');
+ setTimeout(()=>{if(window.MathJax){MathJax.typesetPromise();}},80);
+ if(id==='solution1') setTimeout(drawStep,120);
+ if(id==='solution2'){ setTimeout(drawComplexStep,120); setTimeout(drawYnOnly,150); setTimeout(drawExercise2YnLikeEx1,180);} 
+}
+let chart;
+function drawStep(){
+ const canvas=document.getElementById('stepChart');
+ if(!canvas) return;
+ const y=[0.2857,0.4489,0.5475,0.6185,0.6745,0.7205,0.7589,0.7913,0.8189,0.8426,0.8631];
+ const x=y.map(()=>1);
+ if(chart) chart.destroy();
+ chart=new Chart(canvas,{type:'line',data:{labels:y.map((_,i)=>i),datasets:[
+  {label:'Input X[n]=1',data:x,tension:0,pointRadius:5,showLine:true,borderWidth:3},
+  {label:'Output Y[n] discrete samples',data:y,tension:0,pointRadius:7,pointHoverRadius:9,showLine:true,borderWidth:2,stepped:false}
+ ]},options:{responsive:true,plugins:{legend:{labels:{color:'#eef3ff'}}},scales:{x:{title:{display:true,text:'Sample index n',color:'#eef3ff'},ticks:{color:'#b9c6e6'},grid:{color:'rgba(255,255,255,.08)'}},y:{title:{display:true,text:'Amplitude',color:'#eef3ff'},min:0,max:1.1,ticks:{color:'#b9c6e6'},grid:{color:'rgba(255,255,255,.08)'}}}}});
+}
+
+let chart2;
+function drawComplexStep(){
+ const canvas=document.getElementById('complexStepChart');
+ if(!canvas) return;
+ const y=[0.1131,0.2413,0.3425,0.4236,0.4926,0.5527,0.6057,0.6528,0.6948,0.7325,0.7665];
+ const x=y.map(()=>1);
+ if(chart2) chart2.destroy();
+ chart2=new Chart(canvas,{type:'line',data:{labels:y.map((_,i)=>i),datasets:[
+  {label:'Input X[n]=1',data:x,tension:0,pointRadius:5,showLine:true,borderWidth:3},
+  {label:'Output Y[n] discrete samples',data:y,tension:0,pointRadius:7,pointHoverRadius:9,showLine:true,borderWidth:2,stepped:false}
+ ]},options:{responsive:true,plugins:{legend:{labels:{color:'#eef3ff'}}},scales:{x:{title:{display:true,text:'Sample index n',color:'#eef3ff'},ticks:{color:'#b9c6e6'},grid:{color:'rgba(255,255,255,.08)'}},y:{title:{display:true,text:'Amplitude',color:'#eef3ff'},min:0,max:1.1,ticks:{color:'#b9c6e6'},grid:{color:'rgba(255,255,255,.08)'}}}}});
+}
+
+
+let ynChart;
+function drawYnOnly(){
+ const canvas=document.getElementById('ynOnlyChart');
+ if(!canvas) return;
+
+ const y=[0.1131,0.2413,0.3425,0.4236,0.4926,0.5527,0.6057,0.6528,0.6948,0.7325,0.7665];
+
+ if(ynChart) ynChart.destroy();
+
+ ynChart=new Chart(canvas,{
+   type:'scatter',
+   data:{
+     datasets:[{
+       label:'Discrete output Y[n]',
+       data:y.map((v,i)=>({x:i,y:v})),
+       pointRadius:7,
+       pointHoverRadius:9,
+       showLine:false
+     }]
+   },
+   options:{
+     responsive:true,
+     plugins:{
+       legend:{labels:{color:'#eef3ff'}}
+     },
+     scales:{
+       x:{
+         type:'linear',
+         min:0,
+         max:10,
+         title:{display:true,text:'Sample index n',color:'#eef3ff'},
+         ticks:{color:'#b9c6e6',stepSize:1},
+         grid:{color:'rgba(255,255,255,.08)'}
+       },
+       y:{
+         min:0,
+         max:1,
+         title:{display:true,text:'Y[n]',color:'#eef3ff'},
+         ticks:{color:'#b9c6e6'},
+         grid:{color:'rgba(255,255,255,.08)'}
+       }
+     }
+   }
+ });
+}
+
+
+let exercise2YnChart;
+function drawExercise2YnLikeEx1(){
+ const canvas=document.getElementById('exercise2YnLikeEx1Chart');
+ if(!canvas) return;
+ const y=[0.1131,0.2413,0.3425,0.4236,0.4926,0.5527,0.6057,0.6528,0.6948,0.7325,0.7665];
+ const x=y.map(()=>1);
+ if(exercise2YnChart) exercise2YnChart.destroy();
+ exercise2YnChart=new Chart(canvas,{
+   type:'line',
+   data:{
+     labels:y.map((_,i)=>i),
+     datasets:[
+       {label:'Input X[n]=1',data:x,tension:0,pointRadius:4,showLine:true,borderWidth:3},
+       {label:'Output Y[n] sampled points',data:y,tension:0,pointRadius:7,pointHoverRadius:9,showLine:false}
+     ]
+   },
+   options:{
+     responsive:true,
+     plugins:{legend:{labels:{color:'#eef3ff'}}},
+     scales:{
+       x:{title:{display:true,text:'Sample index n',color:'#eef3ff'},ticks:{color:'#b9c6e6'},grid:{color:'rgba(255,255,255,.08)'}},
+       y:{title:{display:true,text:'Amplitude',color:'#eef3ff'},min:0,max:1.1,ticks:{color:'#b9c6e6'},grid:{color:'rgba(255,255,255,.08)'}}
+     }
+   }
+ });
+}
+
+window.addEventListener('load',()=>{drawStep(); drawComplexStep(); drawYnOnly(); drawExercise2YnLikeEx1();});
+</script>
+</body>
+</html>
