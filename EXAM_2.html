@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exam 2 — Factory Supply Chain and Drone Control</title>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)'],['$','$']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+:root{--ink:#172033;--muted:#526177;--line:#d7dfec;--blue:#2563eb;--cyan:#0891b2;--green:#16a34a;--amber:#d97706;--card:#fff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:linear-gradient(180deg,#f7fee7,#fefce8 45%,#eef8d8);color:var(--ink);line-height:1.72}.hero{background:radial-gradient(circle at 15% 15%,rgba(217,249,157,.38),transparent 32%),linear-gradient(135deg,#365314,#84cc16 58%,#ca8a04);color:white;padding:54px 7vw 38px}.hero h1{margin:0 0 14px;font-size:clamp(2rem,5vw,4.4rem);line-height:1.05;letter-spacing:-.04em}.hero p{color:#dbeafe;font-size:1.08rem;max-width:1050px}.kicker{font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#fef08a;font-size:.82rem}.ar{direction:rtl;text-align:right;color:#31435f;border-top:1px dashed #c8d3e4;padding-top:10px;margin-top:10px}.hero .ar{color:#dbeafe;border-color:rgba(255,255,255,.28)}.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.badge{padding:8px 13px;border-radius:999px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22)}nav{position:sticky;top:0;z-index:10;background:rgba(15,23,42,.96);backdrop-filter:blur(12px);padding:12px 7vw;display:flex;gap:10px;overflow-x:auto}nav button{flex:0 0 auto;border:0;border-radius:999px;background:#25314d;color:white;font-weight:850;padding:11px 16px;cursor:pointer}nav button:hover,nav button.active{background:#fef08a;color:#0f172a}main{padding:26px 7vw 70px}.panel{display:none}.panel.active{display:block}h2{font-size:clamp(1.55rem,3vw,2.65rem);margin:38px 0 16px;letter-spacing:-.025em}h3{font-size:1.28rem;margin:20px 0 10px;color:#0f172a}h4{font-size:1.08rem;margin:18px 0 8px;color:#1e3a8a}p,li{color:var(--muted);font-size:1.03rem}.white-sheet,.card,.solution,.method,.summary{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:24px;margin:18px 0;box-shadow:0 18px 45px rgba(30,41,59,.10)}.white-sheet{max-width:1150px;margin:20px auto;padding:34px}.exam-block{border:1px solid #d9e2ef;border-radius:18px;background:#fff;padding:22px;margin:20px 0}.q{background:#f8fafc;border-left:5px solid #84cc16;border-radius:12px;padding:12px 14px;margin:10px 0;color:#111827}.points{float:right;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:999px;padding:4px 10px;font-size:.86rem;font-weight:900}.math{font-family:"Cambria Math","STIX Two Math","Times New Roman",serif;background:#feffe8;border:1px solid #d9f99d;border-radius:16px;padding:13px 15px;overflow-x:auto;color:#0f172a;margin:12px 0;font-size:1.15rem}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}.step{border-left:5px solid var(--cyan);padding-left:16px;margin:20px 0}.ok,.note,.tip{border-radius:17px;padding:15px 17px;margin:14px 0}.ok{background:#ecfdf5;border:1px solid #bbf7d0;color:#14532d}.note{background:#fffbeb;border:1px solid #fde68a;color:#78350f}.tip{background:#ecfeff;border:1px solid #a5f3fc;color:#164e63}table{border-collapse:collapse;width:100%;margin:16px 0;border-radius:16px;overflow:hidden;background:#fff}th,td{border:1px solid #dbe4f0;padding:11px;text-align:center;color:#1f2937;vertical-align:middle}th{background:#ecfccb;color:#0f172a}tr:nth-child(even)td{background:#f8fafc}.jury-table td:first-child,.jury-table th:first-child{font-weight:900;background:#d9f99d;color:#0f172a}.diagram{background:linear-gradient(180deg,#feffe8,#ecfccb);border:1px solid #bef264;border-radius:20px;padding:16px;margin:18px 0;overflow-x:auto}.diagram-title{display:flex;gap:10px;align-items:center;font-weight:900;color:#0f172a;margin-bottom:12px}.diagram-title span{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:#84cc16;color:#1a2e05}svg{width:100%;min-height:170px}.bd-label{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:15px;fill:#0f172a;font-weight:800}.bd-small{font-size:12px;fill:#475569;font-weight:650}.bd-box{fill:#ecfccb;stroke:#65a30d;stroke-width:2}.bd-box2{fill:#ecfeff;stroke:#0891b2;stroke-width:2}.bd-box3{fill:#fef3c7;stroke:#d97706;stroke-width:2}.bd-sum{fill:#fff;stroke:#0f766e;stroke-width:2}.bd-line{stroke:#111827;stroke-width:2.4;fill:none}.bd-feedback{stroke:#0891b2;stroke-width:2.4;fill:none}.footer{padding:30px 7vw;background:#0f172a;color:#cbd5e1}@media(max-width:760px){.hero{padding:34px 18px 26px}.hero h1{font-size:2rem}main{padding:16px 14px 46px}nav{padding:10px 14px}nav button{font-size:.85rem;padding:9px 12px}.white-sheet,.card,.solution,.method,.summary{padding:17px;border-radius:18px}.white-sheet{padding:18px}h2{font-size:1.52rem}h3{font-size:1.13rem}.math{font-size:.96rem}table{display:block;overflow-x:auto;white-space:nowrap}svg{min-width:760px}.points{float:none;display:inline-block;margin-top:6px}}
+
+/* Yellow-green motivational theme overrides */
+.hero{
+  background:
+    radial-gradient(circle at 15% 15%, rgba(254,240,138,.30), transparent 32%),
+    radial-gradient(circle at 80% 20%, rgba(190,242,100,.34), transparent 34%),
+    linear-gradient(135deg,#1a2e05,#65a30d 55%,#ca8a04) !important;
+}
+.hero p{color:#fefce8}
+.kicker{color:#fef08a}
+.badge{background:rgba(254,252,232,.16);border-color:rgba(254,240,138,.35)}
+nav button:hover,nav button.active{background:#d9f99d !important;color:#1a2e05 !important}
+.diagram-title span{background:#84cc16 !important;color:#1a2e05 !important}
+.q{border-left-color:#84cc16 !important;background:#f7fee7 !important}
+.white-sheet .q{border-left-color:#84cc16 !important;background:#f7fee7 !important}
+th{background:#ecfccb !important;color:#1a2e05 !important}
+.jury-table td:first-child,.jury-table th:first-child{background:#d9f99d !important;color:#1a2e05 !important}
+
+
+/* Response curve blocks */
+.response-chart{
+  background:#ffffff;
+  border:1px solid #d9f99d;
+  border-radius:18px;
+  padding:14px;
+  margin:18px 0;
+  overflow-x:auto;
+}
+.response-chart svg{
+  min-width:720px;
+  min-height:320px;
+}
+.axis{stroke:#334155;stroke-width:2}
+.gridline{stroke:#dbeafe;stroke-width:1}
+.curve{fill:none;stroke:#65a30d;stroke-width:4}
+.curve2{fill:none;stroke:#ca8a04;stroke-width:4}
+.dot{fill:#365314;stroke:#fef08a;stroke-width:2}
+.chart-label{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:13px;fill:#334155;font-weight:700}
+.chart-title{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:17px;fill:#1a2e05;font-weight:900}
+@media(max-width:760px){
+  .response-chart svg{min-width:680px}
+}
+
+
+/* Expanded academic solution blocks */
+.deep-box{
+  background:#ffffff;
+  border:1px solid #bef264;
+  border-radius:18px;
+  padding:18px;
+  margin:18px 0;
+}
+.deep-box h4{margin-top:0}
+.mini-steps{
+  counter-reset:ms;
+  list-style:none;
+  padding-left:0;
+}
+.mini-steps li{
+  counter-increment:ms;
+  background:#f7fee7;
+  border:1px solid #d9f99d;
+  border-radius:14px;
+  padding:12px 14px 12px 52px;
+  margin:10px 0;
+  position:relative;
+  color:#365314;
+}
+.mini-steps li:before{
+  content:counter(ms);
+  position:absolute;
+  left:14px;
+  top:12px;
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  background:#84cc16;
+  color:#1a2e05;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+}
+
+</style>
+</head>
+<body>
+<section class="hero"><div class="kicker">Exam 2 — new interface</div><h1>Electrical Factory Supply Chain and Fifth-Order Drone Control</h1><p>Train your engineering mind step by step: understand the system, master the equations, and turn stability analysis into a clear path toward excellence.</p><div class="ar">ابدأ بثقة، راجع بذكاء، وحوّل كل خطوة حسابية إلى فهم عميق يقودك إلى التفوق.</div><div class="badges"><span class="badge">Factory electrical supply chain</span><span class="badge">Fifth-order drone</span><span class="badge">Detailed Jury</span><span class="badge">Mobile-friendly</span></div></section>
+<nav><button class="active" onclick="showPanel('questions',this)">Question Sheet</button><button onclick="showPanel('method',this)">Method Guide</button><button onclick="showPanel('solutions',this)">Detailed Solutions</button><button onclick="showPanel('review',this)">Final Review</button></nav>
+<main>
+<section id="questions" class="panel active"><div class="white-sheet"><h2>Exam 2 — Question Sheet</h2><p><strong>Duration:</strong> 90 minutes. <strong>Total:</strong> 20 points. Each exercise is graded out of 10 points. Show all intermediate steps.</p><div class="exam-block"><h3>Exercise 1 — Electrical factory supply chain model <span class="points">10 pts</span></h3><p>A factory receives electrical power from a main feeder. The power passes through a rectifier, a DC bus, inverter drives, and finally motorized production machines. The discrete equivalent of the energy-flow correction model is:</p><div class="math">\[y[n]-1.05y[n-1]+0.37y[n-2]-0.045y[n-3]=0.08x[n]+0.05x[n-1]+0.02x[n-2]\]</div><p>The input signal represents the normalized electrical supply request:</p><div class="math">\[x[n]=3u[n]-1.5(0.4)^nu[n]+2\delta[n-2]\]</div><div class="q">Q1. Draw the block diagram and identify \(X(z)\), \(Y(z)\), storage/memory effects, and output. <strong>2 pts</strong></div><div class="q">Q2. Compute \(X(z)\). <strong>2 pts</strong></div><div class="q">Q3. Find \(H(z)=Y(z)/X(z)\). <strong>2 pts</strong></div><div class="q">Q4. For \(x[n]=1\), derive the recurrence equation and compute \(y[n]\) up to \(n=10\). <strong>2 pts</strong></div><div class="q">Q5. Decide stability using the characteristic equation and Jury. <strong>2 pts</strong></div></div><div class="exam-block"><h3>Exercise 2 — Fifth-order drone control system <span class="points">10 pts</span></h3><p>A drone altitude-control loop is represented by a fifth-order closed-loop model:</p><div class="math">\[F(z)=\frac{Y(z)}{R(z)}=\frac{0.012z^5}{z^5-2.50z^4+2.41z^3-1.115z^2+0.245z-0.020}\]</div><div class="q">Q1. Draw the detailed block diagram of the drone control loop. <strong>2 pts</strong></div><div class="q">Q2. Extract the recurrence equation between \(r[n]\) and \(y[n]\). <strong>2 pts</strong></div><div class="q">Q3. For \(r[n]=1\), compute \(y[n]\) and \(e[n]=1-y[n]\) up to \(n=10\). <strong>2 pts</strong></div><div class="q">Q4. Compute the steady-state error using \(F(1)\). <strong>2 pts</strong></div><div class="q">Q5. Verify stability using a full Jury table until the final reduced stage. <strong>2 pts</strong></div></div></div></section>
+<section id="method" class="panel"><h2>Solution Method Guide</h2><div class="grid"><div class="method"><h3>Signal/system exercise</h3><ol><li>Draw the physical block diagram.</li><li>Compute \(X(z)\) using linearity.</li><li>Transform the difference equation.</li><li>Find \(H(z)=Y(z)/X(z)\).</li><li>Derive the recurrence equation.</li><li>Compute values for \(n=0,\ldots,10\).</li><li>Study stability from \(D(z)\).</li></ol></div><div class="method"><h3>Fifth-order control system</h3><ol><li>Start from \(F(z)=N(z)/D(z)\).</li><li>Use \(D(z)Y(z)=N(z)R(z)\).</li><li>Divide by \(z^5\).</li><li>Apply inverse Z-transform.</li><li>Compute output values recursively.</li><li>Compute \(F(1)\).</li><li>Use Jury to confirm stability.</li></ol></div></div><div class="method"><h3>Jury reminder</h3><div class="math">\[D(1)>0,\qquad (-1)^nD(-1)>0,\qquad |a_n|<a_0\]</div><div class="math">\[q_k=p_0p_k-p_mp_{m-k}\]</div></div></section>
+<section id="solutions" class="panel"><h2>Detailed Solutions</h2><div class="solution"><h3>Exercise 1 — Electrical factory supply chain model</h3>
+<div class="note">
+<strong>Expanded solution plan.</strong> The solution follows five stages: first, interpret the factory blocks physically; second, compute the Z-transform of the supply request; third, derive the transfer function; fourth, compute and draw \(x[n]\) and \(y[n]\); finally, verify stability using the full Jury procedure.
+</div>
+<div class="deep-box">
+<h4>Why this model is a supply-chain electrical model</h4>
+<p>The factory electrical chain behaves like a discrete dynamic system because power demand is not transmitted instantly to the machines. The rectifier, DC bus, inverter drives, and machine loads introduce memory. In the difference equation, memory appears through previous outputs \(y[n-1]\), \(y[n-2]\), and \(y[n-3]\). The delayed input terms \(x[n-1]\) and \(x[n-2]\) represent delayed influence of the supply request.</p>
+<ol class="mini-steps">
+<li><strong>Current input effect:</strong> \(0.08x[n]\) represents the immediate response to a new electrical request.</li>
+<li><strong>Delayed input effect:</strong> \(0.05x[n-1]+0.02x[n-2]\) represents energy already injected into intermediate stages.</li>
+<li><strong>Storage effect:</strong> \(1.05y[n-1]-0.37y[n-2]+0.045y[n-3]\) models the stored energy and correction dynamics.</li>
+<li><strong>Stability question:</strong> if stored energy does not decay, the supply chain may oscillate or diverge; this is why Jury is required.</li>
+</ol>
+</div>
+<div class="diagram"><div class="diagram-title"><span>1</span> Block diagram — electrical supply chain in a factory</div><svg viewBox="0 0 1200 320"><defs><marker id="arr1" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#111827"/></marker></defs><line class="bd-line" marker-end="url(#arr1)" x1="40" y1="130" x2="150" y2="130"/><text class="bd-label" x="35" y="105">Supply request X(z)</text><rect class="bd-box" x="150" y="85" width="160" height="90" rx="16"/><text class="bd-label" x="188" y="108">Rectifier</text><text class="bd-small" x="166" y="133">G₁(z)=0.08+0.05z⁻¹</text><text class="bd-small" x="185" y="156">AC/DC stage</text><line class="bd-line" marker-end="url(#arr1)" x1="310" y1="130" x2="390" y2="130"/><rect class="bd-box3" x="390" y="85" width="170" height="90" rx="16"/><text class="bd-label" x="430" y="108">DC Bus</text><text class="bd-small" x="408" y="133">G₂(z)=1/(1−0.55z⁻¹)</text><text class="bd-small" x="415" y="156">energy storage</text><line class="bd-line" marker-end="url(#arr1)" x1="560" y1="130" x2="640" y2="130"/><rect class="bd-box2" x="640" y="85" width="180" height="90" rx="16"/><text class="bd-label" x="675" y="108">Inverter</text><text class="bd-small" x="660" y="133">G₃(z)=1+0.25z⁻¹</text><text class="bd-small" x="685" y="156">drive delay</text><line class="bd-line" marker-end="url(#arr1)" x1="820" y1="130" x2="900" y2="130"/><rect class="bd-box" x="900" y="85" width="190" height="90" rx="16"/><text class="bd-label" x="944" y="108">Machines</text><text class="bd-small" x="920" y="133">G₄(z)=1/(1−0.5z⁻¹)</text><text class="bd-small" x="930" y="156">production output</text><line class="bd-line" marker-end="url(#arr1)" x1="1090" y1="130" x2="1160" y2="130"/><text class="bd-label" x="1115" y="105">Y(z)</text><path class="bd-feedback" d="M995,175 L995,250 L475,250 L475,175"/><text class="bd-small" x="540" y="275">memory terms model storage and delayed energy-flow correction</text></svg></div><div class="step"><h4>Q1 — Interpretation</h4><p>The input is the normalized request for electrical energy. The output is the corrected electrical availability for production machines. Previous-output terms model energy storage, bus inertia, and delayed correction.</p><div class="ar">الدخل يمثل طلب الطاقة الكهربائية، والخرج يمثل الطاقة المصححة المتاحة للآلات. الحدود السابقة تمثل التخزين والتأخر في التصحيح.</div></div><div class="step"><h4>Q2 — Compute \(X(z)\)</h4><div class="math">\[X(z)=\frac{3}{1-z^{-1}}-\frac{1.5}{1-0.4z^{-1}}+2z^{-2}\]</div></div><div class="step"><h4>Q3 — Find \(H(z)\)</h4><div class="math">\[(1-1.05z^{-1}+0.37z^{-2}-0.045z^{-3})Y(z)=(0.08+0.05z^{-1}+0.02z^{-2})X(z)\]</div><div class="math">\[H(z)=\frac{0.08+0.05z^{-1}+0.02z^{-2}}{1-1.05z^{-1}+0.37z^{-2}-0.045z^{-3}}\]</div></div><div class="step"><h4>Q4 — Recurrence and response</h4><div class="math">\[y[n]=1.05y[n-1]-0.37y[n-2]+0.045y[n-3]+0.08x[n]+0.05x[n-1]+0.02x[n-2]\]</div><table><tr><th>n</th><th>x[n]</th><th>y[n]</th><th>comment</th></tr><tr><td>0</td><td>1</td><td>0.0800</td><td>current input</td></tr><tr><td>1</td><td>1</td><td>0.2140</td><td>delayed input starts</td></tr><tr><td>2</td><td>1</td><td>0.4249</td><td>full input active</td></tr><tr><td>3</td><td>1</td><td>0.6703</td><td>storage effect</td></tr><tr><td>4</td><td>1</td><td>0.9003</td><td>rising</td></tr><tr><td>5</td><td>1</td><td>1.0899</td><td>overshoot</td></tr><tr><td>6</td><td>1</td><td>1.2330</td><td>settling</td></tr><tr><td>7</td><td>1</td><td>1.3337</td><td>slow variation</td></tr><tr><td>8</td><td>1</td><td>1.3996</td><td>near final</td></tr><tr><td>9</td><td>1</td><td>1.4392</td><td>near final</td></tr><tr><td>10</td><td>1</td><td>1.4604</td><td>approaching steady state</td></tr></table></div><div class="step"><h4>Q5 — Stability by Jury</h4><div class="math">\[D(z)=z^3-1.05z^2+0.37z-0.045\]</div><div class="math">\[D(1)=0.275>0,\quad (-1)^3D(-1)=2.465>0,\quad |-0.045|<1\]</div><table class="jury-table"><tr><th>Row</th><th colspan="4">Coefficients</th><th>Role</th></tr><tr><td>R1</td><td>1</td><td>-1.05</td><td>0.37</td><td>-0.045</td><td>Original</td></tr><tr><td>R2</td><td>-0.045</td><td>0.37</td><td>-1.05</td><td>1</td><td>Reverse</td></tr><tr><td>R3</td><td>0.997975</td><td>-1.03335</td><td>0.32275</td><td></td><td>Reduced degree 2</td></tr><tr><td>R4</td><td>0.32275</td><td>-1.03335</td><td>0.997975</td><td></td><td>Reverse</td></tr></table><div class="math">\[D_r(1)=0.287375>0,\quad D_r(-1)=2.354075>0,\quad |0.32275|<0.997975\]</div><div class="ok">All Jury conditions pass. The factory electrical supply-chain model is stable.</div></div></div>
+<div class="solution"><h3>Exercise 2 — Fifth-order drone control system</h3>
+<div class="note">
+<strong>Expanded solution plan.</strong> The fifth-order model is solved by converting the closed-loop transfer function into a recurrence equation, computing the step response, drawing \(x[n]\) and \(y[n]\), checking the steady-state error, and then validating stability with Jury.
+</div>
+<div class="deep-box">
+<h4>Why a fifth-order drone model is realistic</h4>
+<p>A drone altitude loop can easily become high-order because several dynamics are combined: controller memory, motor delay, propeller thrust buildup, body vertical acceleration, and sensor feedback. The denominator has degree five, which means the current output depends on five previous output samples.</p>
+<ol class="mini-steps">
+<li><strong>Reference \(r[n]\):</strong> desired altitude command.</li>
+<li><strong>Output \(y[n]\):</strong> measured altitude response.</li>
+<li><strong>Fifth-order memory:</strong> the model uses \(y[n-1]\) through \(y[n-5]\).</li>
+<li><strong>Stability requirement:</strong> all five closed-loop poles must be inside the unit circle.</li>
+</ol>
+</div>
+<div class="diagram"><div class="diagram-title"><span>2</span> Block diagram — fifth-order drone altitude control</div><svg viewBox="0 0 1220 340"><defs><marker id="arr2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#111827"/></marker></defs><line class="bd-line" marker-end="url(#arr2)" x1="40" y1="130" x2="130" y2="130"/><text class="bd-label" x="35" y="105">R(z)</text><circle class="bd-sum" cx="165" cy="130" r="28"/><text class="bd-label" x="156" y="124">+</text><text class="bd-label" x="157" y="151">−</text><line class="bd-line" marker-end="url(#arr2)" x1="193" y1="130" x2="285" y2="130"/><rect class="bd-box2" x="285" y="85" width="180" height="90" rx="16"/><text class="bd-label" x="322" y="108">Digital</text><text class="bd-label" x="320" y="132">controller</text><text class="bd-small" x="303" y="156">C(z): altitude law</text><line class="bd-line" marker-end="url(#arr2)" x1="465" y1="130" x2="545" y2="130"/><rect class="bd-box3" x="545" y="85" width="180" height="90" rx="16"/><text class="bd-label" x="592" y="108">Motors</text><text class="bd-small" x="558" y="133">Gₘ(z)=0.012z/(z−0.7)</text><text class="bd-small" x="575" y="156">actuator delay</text><line class="bd-line" marker-end="url(#arr2)" x1="725" y1="130" x2="805" y2="130"/><rect class="bd-box" x="805" y="85" width="190" height="90" rx="16"/><text class="bd-label" x="842" y="108">Drone body</text><text class="bd-small" x="820" y="133">Gᵦ(z): fifth-order dynamics</text><text class="bd-small" x="840" y="156">vertical motion</text><line class="bd-line" marker-end="url(#arr2)" x1="995" y1="130" x2="1135" y2="130"/><text class="bd-label" x="1145" y="135">Y(z)</text><rect class="bd-box" x="705" y="235" width="210" height="58" rx="16"/><text class="bd-label" x="750" y="258">Altitude sensor</text><text class="bd-small" x="758" y="280">H(z)=1</text><path class="bd-feedback" d="M1080,130 L1080,264 L915,264"/><path class="bd-feedback" marker-end="url(#arr2)" d="M705,264 L165,264 L165,158"/></svg></div><div class="step"><h4>Q1 — Structure</h4><p>The reference altitude is compared with the measured altitude. The error enters a digital controller. The command passes through motor dynamics and the drone body, then the altitude sensor closes the loop.</p></div><div class="step"><h4>Q2 — Recurrence equation</h4><div class="math">\[(z^5-2.50z^4+2.41z^3-1.115z^2+0.245z-0.020)Y(z)=0.012z^5R(z)\]</div><div class="math">\[y[n]=2.50y[n-1]-2.41y[n-2]+1.115y[n-3]-0.245y[n-4]+0.020y[n-5]+0.012r[n]\]</div></div><div class="step"><h4>Q3 — Unit-step response</h4><table><tr><th>n</th><th>r[n]</th><th>y[n]</th><th>e[n]</th></tr><tr><td>0</td><td>1</td><td>0.012000</td><td>0.988000</td></tr><tr><td>1</td><td>1</td><td>0.042000</td><td>0.958000</td></tr><tr><td>2</td><td>1</td><td>0.087480</td><td>0.912520</td></tr><tr><td>3</td><td>1</td><td>0.143418</td><td>0.856582</td></tr><tr><td>4</td><td>1</td><td>0.204359</td><td>0.795641</td></tr><tr><td>5</td><td>1</td><td>0.265908</td><td>0.734092</td></tr><tr><td>6</td><td>1</td><td>0.325019</td><td>0.674981</td></tr><tr><td>7</td><td>1</td><td>0.379272</td><td>0.620728</td></tr><tr><td>8</td><td>1</td><td>0.427025</td><td>0.572975</td></tr><tr><td>9</td><td>1</td><td>0.467420</td><td>0.532580</td></tr><tr><td>10</td><td>1</td><td>0.500333</td><td>0.499667</td></tr></table><div class="note">The response is slow because the dominant pole is close to the unit circle.</div></div><div class="step"><h4>Q4 — Steady-state error</h4><div class="math">\[F(1)=\frac{0.012}{1-2.50+2.41-1.115+0.245-0.020}=\frac{0.012}{0.020}=0.6\]</div><div class="math">\[e_\infty=1-F(1)=0.4\]</div></div><div class="step"><h4>Q5 — Jury stability</h4><div class="math">\[D(1)=0.020>0,\quad (-1)^5D(-1)=7.290>0,\quad |-0.020|<1\]</div><table class="jury-table"><tr><th>Row</th><th colspan="6">Coefficients</th><th>Role</th></tr><tr><td>R1</td><td>1</td><td>-2.50</td><td>2.41</td><td>-1.115</td><td>0.245</td><td>-0.020</td><td>Original</td></tr><tr><td>R2</td><td>-0.020</td><td>0.245</td><td>-1.115</td><td>2.41</td><td>-2.50</td><td>1</td><td>Reverse</td></tr><tr><td>R3</td><td>0.9996</td><td>-2.4951</td><td>2.3877</td><td>-1.0668</td><td>0.1950</td><td></td><td>Reduced degree 4</td></tr><tr><td>R4</td><td>0.1950</td><td>-1.0668</td><td>2.3877</td><td>-2.4951</td><td>0.9996</td><td></td><td>Reverse</td></tr><tr><td>R5</td><td>0.9612</td><td>-2.2845</td><td>1.9205</td><td>-0.5800</td><td></td><td></td><td>Reduced degree 3</td></tr><tr><td>R6</td><td>-0.5800</td><td>1.9205</td><td>-2.2845</td><td>0.9612</td><td></td><td></td><td>Reverse</td></tr><tr><td>R7</td><td>0.5873</td><td>-1.0847</td><td>0.5200</td><td></td><td></td><td></td><td>Reduced degree 2</td></tr></table><div class="math">\[D_f(1)=0.0226>0,\quad D_f(-1)=2.1920>0,\quad |0.5200|<0.5873\]</div><div class="ok">All Jury stages pass. Therefore, all closed-loop poles are inside the unit circle. The fifth-order drone system is stable. However, stability does not mean perfect tracking: because \(F(1)=0.6\), the final error is \(0.4\).</div></div></div></section>
+<section id="review" class="panel"><h2>Final Review</h2><div class="summary"><h3>One-minute method</h3><ol><li>Draw the block diagram first.</li><li>Write the Z-domain equation.</li><li>Find \(H(z)\) or \(F(z)\).</li><li>Derive the recurrence equation.</li><li>Compute the table up to \(n=10\) when requested.</li><li>Draw the response curve \(y[n]\) from the computed table and interpret its shape.</li><li>Use \(F(1)\) for steady-state error.</li><li>Use Jury for stability from \(D(z)\).</li><li>Draw \(y[n]\) from the table: horizontal axis \(n\), vertical axis output \(y[n]\), then interpret rise, overshoot, and final error.</li></ol><div class="ar">ابدأ بالمخطط، ثم معادلة Z، ثم دالة التحويل، ثم معادلة الرجوع، ثم الجدول العددي، ثم الخطأ النهائي، وأخيراً الاستقرار بطريقة جيري.</div></div></section>
+</main><div class="footer">New Exam 2 website — factory electrical supply chain and fifth-order drone control.</div><script>function showPanel(id,btn){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');setTimeout(()=>{if(window.MathJax){MathJax.typesetPromise();}},80);}</script>
+</body></html>
+<div class="response-chart">
+<svg viewBox="0 0 760 340" role="img" aria-label="Factory system input and output curves">
+  <text class="chart-title" x="30" y="28">Input x[n] and output y[n] — factory electrical supply chain</text>
+
+  <line class="gridline" x1="70" y1="280" x2="720" y2="280"/>
+  <line class="gridline" x1="70" y1="230" x2="720" y2="230"/>
+  <line class="gridline" x1="70" y1="180" x2="720" y2="180"/>
+  <line class="gridline" x1="70" y1="130" x2="720" y2="130"/>
+  <line class="gridline" x1="70" y1="80" x2="720" y2="80"/>
+
+  <line class="axis" x1="70" y1="290" x2="720" y2="290"/>
+  <line class="axis" x1="70" y1="290" x2="70" y2="60"/>
+
+  <text class="chart-label" x="700" y="314">n</text>
+  <text class="chart-label" x="16" y="70">Amplitude</text>
+
+  <!-- x[n] -->
+  <polyline class="curve2" points="70,120 135,120 200,120 265,120 330,120 395,120 460,120 525,120 590,120 655,120 720,120"/>
+  <text class="chart-label" x="560" y="108">x[n]</text>
+
+  <!-- y[n] -->
+  <polyline class="curve" points="70,278 135,260 200,232 265,190 330,141 395,96 460,67 525,46 590,33 655,25 720,21"/>
+  <text class="chart-label" x="610" y="42">y[n]</text>
+
+  <!-- dots -->
+  <circle class="dot" cx="70" cy="278" r="5"/>
+  <circle class="dot" cx="135" cy="260" r="5"/>
+  <circle class="dot" cx="200" cy="232" r="5"/>
+  <circle class="dot" cx="265" cy="190" r="5"/>
+  <circle class="dot" cx="330" cy="141" r="5"/>
+  <circle class="dot" cx="395" cy="96" r="5"/>
+  <circle class="dot" cx="460" cy="67" r="5"/>
+  <circle class="dot" cx="525" cy="46" r="5"/>
+  <circle class="dot" cx="590" cy="33" r="5"/>
+  <circle class="dot" cx="655" cy="25" r="5"/>
+  <circle class="dot" cx="720" cy="21" r="5"/>
+</svg>
+</div>
+<div class="tip">The constant input \(x[n]\) generates a progressively increasing output \(y[n]\). The smooth convergence confirms stable delayed dynamics.</div>
+
+<div class="response-chart">
+<svg viewBox="0 0 760 340" role="img" aria-label="Drone system input and output curves">
+  <text class="chart-title" x="30" y="28">Input x[n] and output y[n] — fifth-order drone system</text>
+
+  <line class="gridline" x1="70" y1="280" x2="720" y2="280"/>
+  <line class="gridline" x1="70" y1="230" x2="720" y2="230"/>
+  <line class="gridline" x1="70" y1="180" x2="720" y2="180"/>
+  <line class="gridline" x1="70" y1="130" x2="720" y2="130"/>
+  <line class="gridline" x1="70" y1="80" x2="720" y2="80"/>
+
+  <line class="axis" x1="70" y1="290" x2="720" y2="290"/>
+  <line class="axis" x1="70" y1="290" x2="70" y2="60"/>
+
+  <text class="chart-label" x="700" y="314">n</text>
+  <text class="chart-label" x="18" y="70">Amplitude</text>
+
+  <!-- x[n] -->
+  <polyline class="curve2" points="70,80 135,80 200,80 265,80 330,80 395,80 460,80 525,80 590,80 655,80 720,80"/>
+  <text class="chart-label" x="575" y="68">x[n]=1</text>
+
+  <!-- y[n] -->
+  <polyline class="curve" points="70,278 135,265 200,246 265,223 330,198 395,173 460,149 525,126 590,107 655,90 720,77"/>
+  <text class="chart-label" x="600" y="118">y[n]</text>
+
+  <circle class="dot" cx="70" cy="278" r="5"/>
+  <circle class="dot" cx="135" cy="265" r="5"/>
+  <circle class="dot" cx="200" cy="246" r="5"/>
+  <circle class="dot" cx="265" cy="223" r="5"/>
+  <circle class="dot" cx="330" cy="198" r="5"/>
+  <circle class="dot" cx="395" cy="173" r="5"/>
+  <circle class="dot" cx="460" cy="149" r="5"/>
+  <circle class="dot" cx="525" cy="126" r="5"/>
+  <circle class="dot" cx="590" cy="107" r="5"/>
+  <circle class="dot" cx="655" cy="90" r="5"/>
+  <circle class="dot" cx="720" cy="77" r="5"/>
+</svg>
+</div>
+<div class="tip">The input remains fixed at unity while the drone output increases gradually. Since the output stays below the reference, the final error remains nonzero.</div>
