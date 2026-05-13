@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Complete Interactive Course: Jury Stability, Digital Control and Drone Exercise</title>
+<title>Complete Interactive Course: Jury Stability, Digital Control and Expanded Exercises</title>
 <script>
 window.MathJax = {tex:{inlineMath:[['\\(','\\)'],['$','$']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};
 </script>
@@ -45,6 +45,7 @@ input[type=range]{width:100%}canvas{background:rgba(255,255,255,.03);border-radi
 .block-diagram{width:100%;min-height:170px}.bd-label{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:15px;fill:#eef3ff;font-weight:800}.bd-small{font-size:12px;fill:#b9c6e6;font-weight:600}.bd-box{fill:rgba(96,165,250,.12);stroke:#60a5fa;stroke-width:2}.bd-box2{fill:rgba(167,139,250,.13);stroke:#a78bfa;stroke-width:2}.bd-sum{fill:rgba(94,234,212,.10);stroke:#5eead4;stroke-width:2}.bd-line{stroke:#eaf1ff;stroke-width:2.5;fill:none}.bd-feedback{stroke:#5eead4;stroke-width:2.4;fill:none}
 .question-card{border:1px solid rgba(94,234,212,.28);border-radius:22px;padding:20px;margin:22px 0;background:rgba(255,255,255,.04)}
 .qtag{display:inline-flex;align-items:center;justify-content:center;min-width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--violet),var(--blue));color:#fff;font-weight:900;margin-right:10px}
+.checklist li{margin-bottom:8px}
 @media print{body{background:#fff;color:#000}.tabs,button{display:none}.panel{display:block}.card,details,.diagram-wrap,.question-card{box-shadow:none;border:1px solid #ccc;background:#fff;color:#000}p,li,.ar,td{color:#111}.bd-label{fill:#000}.bd-small{fill:#333}.bd-line{stroke:#000}.bd-feedback{stroke:#000}}
 </style>
 </head>
@@ -52,9 +53,9 @@ input[type=range]{width:100%}canvas{background:rgba(255,255,255,.03);border-radi
 <header>
 <div class="kicker">Complete interactive resource</div>
 <h1>Discrete-Time Control Stability: Jury Method, Closed-Loop Systems, PI Motor Control, EV Drive and Drone Models</h1>
-<p>A complete academic and interactive page for understanding discrete-time feedback systems, Jury stability tables, recurrence equations, static error, and applied digital control models.</p>
-<div class="ar">صفحة أكاديمية تفاعلية شاملة لفهم أنظمة التغذية الراجعة المتقطعة، جداول جيري للاستقرار، معادلات الرجوع، الخطأ الساكن، وتطبيقات التحكم الرقمي.</div>
-<div class="badges"><span class="badge">Block diagrams</span><span class="badge">Full Jury tables</span><span class="badge">Drone expanded exercise</span><span class="badge">Step response table</span></div>
+<p>A complete academic and interactive page with question-based exercises, block diagrams, detailed solutions, Jury tables, recurrence equations, step-response tables, and final error analysis.</p>
+<div class="ar">صفحة أكاديمية تفاعلية شاملة بأسلوب أسئلة وتمارين، مع مخططات كتلية، حلول مفصلة، جداول جيري، معادلات الرجوع، جداول الاستجابة، وتحليل الخطأ النهائي.</div>
+<div class="badges"><span class="badge">Question-based exercises</span><span class="badge">Block diagrams</span><span class="badge">Full Jury tables</span><span class="badge">Drone expanded exercise</span></div>
 </header>
 
 <main>
@@ -70,25 +71,25 @@ input[type=range]{width:100%}canvas{background:rgba(255,255,255,.03);border-radi
 <section id="start" class="panel active">
 <h2>Study Map</h2>
 <div class="grid">
-<div class="card accent"><h3>System understanding before equations</h3><p>Start by identifying the reference, comparator, controller, dynamic system, sensor, feedback path, and output.</p><div class="ar">نبدأ بتحديد المرجع، المقارن، المتحكم، النظام الديناميكي، الحساس، مسار التغذية الراجعة، والخرج.</div></div>
+<div class="card accent"><h3>How to study each exercise</h3><p>Each exercise is now written like an exam problem: first understand the block diagram, then build the transfer function, then derive the reference equation, then compute numerical values, and finally decide stability.</p><div class="ar">كل تمرين مكتوب الآن مثل مسألة امتحان: نفهم أولاً المخطط الكتلي، ثم نبني دالة التحويل، ثم نستخرج المعادلة المرجعية، ثم نحسب القيم العددية، وأخيراً نحكم على الاستقرار.</div></div>
 <div class="card"><h3>General closed-loop rule</h3><div class="math">\[F(z)=\frac{Y(z)}{R(z)}=\frac{L(z)}{1+L(z)},\qquad L(z)=C(z)G(z)H(z)\]</div><div class="ar">دالة التحويل المغلقة تساوي دالة الحلقة المفتوحة مقسومة على واحد زائد دالة الحلقة المفتوحة.</div></div>
 <div class="card gold"><h3>Stability principle</h3><div class="math">\[|z_i|<1\quad \text{for every closed-loop pole}\]</div><div class="ar">النظام مستقر إذا كانت جميع أقطابه داخل الدائرة الواحدة.</div></div>
 </div>
 <h2>Universal solution algorithm</h2>
 <div class="timeline">
-<div class="titem"><h3>Draw the block diagram</h3><p>Understand the control structure.</p></div>
-<div class="titem"><h3>Find the closed-loop transfer function</h3><p>Use the negative-feedback relationship.</p></div>
-<div class="titem"><h3>Write the reference equation</h3><p>Convert the denominator into a characteristic equation.</p></div>
-<div class="titem"><h3>Build the recurrence equation</h3><p>Convert the Z-domain expression into a time-domain iterative formula.</p></div>
-<div class="titem"><h3>Fill the response table</h3><p>For a unit step, compute \(r[n]\), \(y[n]\), and \(e[n]\).</p></div>
-<div class="titem"><h3>Check stability</h3><p>Use Jury table or pole verification.</p></div>
+<div class="titem"><h3>Draw or read the block diagram</h3><p>Identify reference, comparator, controller, controlled dynamics, feedback and output.</p></div>
+<div class="titem"><h3>Find \(F(z)\)</h3><p>Apply the negative-feedback formula and simplify.</p></div>
+<div class="titem"><h3>Extract \(D(z)\)</h3><p>The denominator is the characteristic polynomial.</p></div>
+<div class="titem"><h3>Build the recurrence equation</h3><p>Divide by the highest power of \(z\), then apply inverse Z-transform.</p></div>
+<div class="titem"><h3>Compute step response</h3><p>Use \(r[n]=1\) and zero initial conditions.</p></div>
+<div class="titem"><h3>Check stability and error</h3><p>Use Jury or roots, then compute \(e_\infty=1-F(1)\).</p></div>
 </div>
 </section>
 
 <section id="jury" class="panel">
 <h2>Jury Stability Method — Complete Academic Explanation</h2>
 <div class="grid">
-<div class="card"><h3>Purpose</h3><p>The Jury method decides whether the roots of a discrete-time characteristic polynomial are all inside the unit circle.</p><div class="ar">تهدف طريقة جيري إلى معرفة هل جذور كثيرة الحدود المميزة كلها داخل الدائرة الواحدة.</div></div>
+<div class="card"><h3>Purpose</h3><p>The Jury method decides whether all roots of a discrete-time characteristic polynomial are inside the unit circle. This is essential because a stable discrete-time system must have all poles strictly inside \(|z|=1\).</p><div class="ar">تهدف طريقة جيري إلى معرفة هل جذور كثيرة الحدود المميزة كلها داخل الدائرة الواحدة، لأن استقرار النظام المتقطع يتطلب أن تكون كل الأقطاب داخل \(|z|=1\).</div></div>
 <div class="card"><h3>Polynomial form</h3><div class="math">\[D(z)=a_0z^n+a_1z^{n-1}+a_2z^{n-2}+\cdots+a_n\]</div><div class="ar">نكتب كثيرة الحدود بترتيب تنازلي للدرجات.</div></div>
 </div>
 <h2>Preliminary conditions</h2>
@@ -104,10 +105,17 @@ input[type=range]{width:100%}canvas{background:rgba(255,255,255,.03);border-radi
 
 <section id="juryex" class="panel">
 <h2>Jury Table Exercises — Complete Tables Until the Final Stage</h2>
+
 <details open>
 <summary>Jury Exercise A — Third-order stable polynomial</summary>
+<div class="question-card">
+<h3><span class="qtag">Q1</span>Write the characteristic polynomial and perform preliminary tests</h3>
 <div class="math">\[D(z)=z^3-0.8z^2+0.15z-0.02\]</div>
 <div class="math">\[D(1)=0.33>0,\quad (-1)^3D(-1)=1.97>0,\quad |-0.02|<1\]</div>
+<div class="ok">The preliminary tests pass. We continue to the Jury table.</div>
+</div>
+<div class="question-card">
+<h3><span class="qtag">Q2</span>Construct the complete Jury table</h3>
 <table class="jury-table">
 <tr><th>Row</th><th colspan="4">Coefficients</th><th>Role</th></tr>
 <tr><td>\(R_1\)</td><td>1</td><td>-0.8</td><td>0.15</td><td>-0.02</td><td>Original row</td></tr>
@@ -115,13 +123,24 @@ input[type=range]{width:100%}canvas{background:rgba(255,255,255,.03);border-radi
 <tr><td>\(R_3\)</td><td>0.9996</td><td>-0.797</td><td>0.134</td><td></td><td>Reduced row</td></tr>
 <tr><td>\(R_4\)</td><td>0.134</td><td>-0.797</td><td>0.9996</td><td></td><td>Reverse</td></tr>
 </table>
+<div class="ar">هذا الجدول يوضح الانتقال من الدرجة الثالثة إلى الدرجة الثانية، وهي المرحلة النهائية التي يمكن الحكم منها بسهولة.</div>
+</div>
+<div class="question-card">
+<h3><span class="qtag">Q3</span>Final decision</h3>
 <div class="math">\[D_r(1)=0.3366>0,\quad D_r(-1)=1.9306>0,\quad |0.134|<0.9996\]</div>
-<div class="ok">Stable.</div>
+<div class="ok">The polynomial is stable.</div>
+</div>
 </details>
 
 <details>
 <summary>Jury Exercise B — Fourth-order stable polynomial</summary>
+<div class="question-card">
+<h3><span class="qtag">Q1</span>State the polynomial</h3>
 <div class="math">\[D(z)=z^4-1.1z^3+0.45z^2-0.09z+0.006\]</div>
+<div class="ar">نبدأ بكثيرة حدود من الدرجة الرابعة، لذلك نحتاج إلى جدول جيري ممتد حتى نصل إلى درجة ثانية.</div>
+</div>
+<div class="question-card">
+<h3><span class="qtag">Q2</span>Build the full table</h3>
 <table class="jury-table">
 <tr><th>Row</th><th colspan="5">Coefficients</th><th>Role</th></tr>
 <tr><td>\(R_1\)</td><td>1</td><td>-1.1</td><td>0.45</td><td>-0.09</td><td>0.006</td><td>Original row</td></tr>
@@ -131,30 +150,145 @@ input[type=range]{width:100%}canvas{background:rgba(255,255,255,.03);border-radi
 <tr><td>\(R_5\)</td><td>0.993008</td><td>-1.061936</td><td>0.354204</td><td></td><td></td><td>Reduced degree 2</td></tr>
 <tr><td>\(R_6\)</td><td>0.354204</td><td>-1.061936</td><td>0.993008</td><td></td><td></td><td>Reverse</td></tr>
 </table>
+</div>
+<div class="question-card">
+<h3><span class="qtag">Q3</span>Final second-order decision</h3>
 <div class="math">\[D_f(1)=0.285276>0,\quad D_f(-1)=2.409148>0,\quad |0.354204|<0.993008\]</div>
-<div class="ok">Stable.</div>
+<div class="ok">The fourth-order polynomial is stable.</div>
+</div>
 </details>
 </section>
 
 <section id="control" class="panel">
-<h2>Complete Solved Control Exercises</h2>
+<h2>Control Exercises — Expanded Question-Based Format</h2>
+
 <details open>
 <summary>Exercise 1 — Unity feedback system \(G(z)=\frac{2z}{z-0.5}\)</summary>
+<div class="question-card">
+<h3><span class="qtag">Q1</span>Draw the block diagram and identify the signals</h3>
 <div class="diagram-wrap"><div class="diagram-title"><span>1</span> Block diagram — Simple unity-feedback dynamic system</div>
 <svg class="block-diagram" viewBox="0 0 980 230"><defs><marker id="arrow1" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#eaf1ff"/></marker></defs><line class="bd-line" marker-end="url(#arrow1)" x1="40" y1="90" x2="130" y2="90"/><text class="bd-label" x="35" y="72">R(z)</text><circle class="bd-sum" cx="165" cy="90" r="28"/><text class="bd-label" x="156" y="84">+</text><text class="bd-label" x="157" y="112">−</text><line class="bd-line" marker-end="url(#arrow1)" x1="193" y1="90" x2="310" y2="90"/><rect class="bd-box" x="310" y="50" width="250" height="80" rx="14"/><text class="bd-label" x="370" y="83">Dynamic system</text><text class="bd-label" x="360" y="108">G(z)=2z/(z−0.5)</text><line class="bd-line" marker-end="url(#arrow1)" x1="560" y1="90" x2="850" y2="90"/><text class="bd-label" x="865" y="95">Y(z)</text><path class="bd-feedback" d="M780,90 L780,178 L165,178 L165,120"/></svg></div>
-<div class="math">\[F(z)=\frac{2z}{3z-0.5}\]</div>
-<div class="math">\[z=0.1667<1\]</div>
-<div class="math">\[y[n]=\frac{1}{6}y[n-1]+\frac{2}{3}x[n]\]</div>
+<div class="ar">المرجع \(R(z)\) يقارن مع الخرج \(Y(z)\)، والفرق يدخل إلى النظام الديناميكي. التغذية الراجعة موحدة وسالبة.</div>
+</div>
+<div class="question-card">
+<h3><span class="qtag">Q2</span>Find the closed-loop transfer function</h3>
+<div class="math">\[F(z)=\frac{G(z)}{1+G(z)}=\frac{\frac{2z}{z-0.5}}{1+\frac{2z}{z-0.5}}=\frac{2z}{3z-0.5}\]</div>
+</div>
+<div class="question-card">
+<h3><span class="qtag">Q3</span>Write the characteristic equation and check stability</h3>
+<div class="math">\[D(z)=3z-0.5\]</div>
+<div class="math">\[3z-0.5=0\Rightarrow z=0.1667\]</div>
+<div class="ok">Since \(|0.1667|<1\), the system is stable.</div>
+</div>
+<div class="question-card">
+<h3><span class="qtag">Q4</span>Derive the recurrence equation</h3>
+<div class="math">\[(3z-0.5)Y(z)=2zR(z)\]</div>
+<div class="math">\[3Y(z)-0.5z^{-1}Y(z)=2R(z)\]</div>
+<div class="math">\[3y[n]-0.5y[n-1]=2r[n]\]</div>
+<div class="math">\[y[n]=\frac{1}{6}y[n-1]+\frac{2}{3}r[n]\]</div>
+</div>
+<div class="question-card">
+<h3><span class="qtag">Q5</span>Compute the first six step-response values and the steady-state error</h3>
+<table><tr><th>n</th><th>r[n]</th><th>y[n]</th><th>e[n]</th></tr><tr><td>0</td><td>1</td><td>0.6667</td><td>0.3333</td></tr><tr><td>1</td><td>1</td><td>0.7778</td><td>0.2222</td></tr><tr><td>2</td><td>1</td><td>0.7963</td><td>0.2037</td></tr><tr><td>3</td><td>1</td><td>0.7994</td><td>0.2006</td></tr><tr><td>4</td><td>1</td><td>0.7999</td><td>0.2001</td></tr><tr><td>5</td><td>1</td><td>0.8000</td><td>0.2000</td></tr></table>
+<div class="math">\[F(1)=\frac{2}{3-0.5}=0.8\Rightarrow e_\infty=1-0.8=0.2\]</div>
+<div class="note">The system is stable but does not eliminate steady-state error because there is no integrator.</div>
+<div class="ar">النظام مستقر، لكنه لا يلغي الخطأ الساكن لأن الحلقة لا تحتوي على مكامل.</div>
+</div>
 </details>
 
 <details>
 <summary>Exercise 2 — Dynamic system with a digital integrator</summary>
+<div class="question-card">
+<h3><span class="qtag">Q1</span>Draw the block diagram</h3>
 <div class="diagram-wrap"><div class="diagram-title"><span>2</span> Block diagram — Digital integrator before the controlled dynamic system</div>
 <svg class="block-diagram" viewBox="0 0 1050 250"><defs><marker id="arrow2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#eaf1ff"/></marker></defs><line class="bd-line" marker-end="url(#arrow2)" x1="40" y1="95" x2="130" y2="95"/><text class="bd-label" x="35" y="75">R(z)</text><circle class="bd-sum" cx="165" cy="95" r="28"/><text class="bd-label" x="156" y="89">+</text><text class="bd-label" x="157" y="117">−</text><line class="bd-line" marker-end="url(#arrow2)" x1="193" y1="95" x2="285" y2="95"/><rect class="bd-box2" x="285" y="55" width="190" height="80" rx="14"/><text class="bd-label" x="330" y="88">Integrator</text><text class="bd-label" x="326" y="113">C(z)=1/(z−1)</text><line class="bd-line" marker-end="url(#arrow2)" x1="475" y1="95" x2="545" y2="95"/><rect class="bd-box" x="545" y="55" width="260" height="80" rx="14"/><text class="bd-label" x="610" y="88">Controlled system</text><text class="bd-label" x="600" y="113">G(z)=2z/(z−0.5)</text><line class="bd-line" marker-end="url(#arrow2)" x1="805" y1="95" x2="920" y2="95"/><text class="bd-label" x="935" y="100">Y(z)</text><path class="bd-feedback" d="M870,95 L870,190 L165,190 L165,125"/></svg>
 <div class="ar">هنا أضفنا مكاملاً رقمياً قبل النظام المتحكم فيه. وجود المكامل يراكم الخطأ ويحسن الدقة الساكنة، لكنه يرفع درجة النظام لذلك يجب التحقق من الاستقرار.</div></div>
-<div class="math">\[F(z)=\frac{2z}{(z-1)(z-0.5)+2z}\]</div>
-<div class="math">\[D(z)=z^2+0.5z+0.5\]</div>
-<div class="ok">Stable by Jury.</div>
+</div>
+<div class="question-card">
+<h3><span class="qtag">Q2</span>Find the open-loop and closed-loop functions</h3>
+<div class="math">\[L(z)=C(z)G(z)=\frac{1}{z-1}\cdot \frac{2z}{z-0.5}=\frac{2z}{(z-1)(z-0.5)}\]</div>
+<div class="math">\[F(z)=\frac{L(z)}{1+L(z)}=\frac{2z}{(z-1)(z-0.5)+2z}\]</div>
+</div>
+<div class="question-card">
+<h3><span class="qtag">Q3</span>Find the characteristic polynomial</h3>
+<div class="math">\[(z-1)(z-0.5)=z^2-1.5z+0.5\]</div>
+<div class="math">\[D(z)=z^2-1.5z+0.5+2z=z^2+0.5z+0.5\]</div>
+</div>
+<div class="question-card">
+<h3><span class="qtag">Q4</span>Verify stability using Jury</h3>
+<div class="math">\[D(1)=1+0.5+0.5=2>0\]</div>
+<div class="math">\[D(-1)=1-0.5+0.5=1>0\]</div>
+<div class="math">\[|0.5|<1\]</div>
+<div class="ok">The system is stable.</div>
+</div>
+<div class="question-card">
+<h3><span class="qtag">Q5</span>Derive recurrence equation and explain the effect of the integrator</h3>
+<div class="math">\[(z^2+0.5z+0.5)Y(z)=2zR(z)\]</div>
+<div class="math">\[y[n]+0.5y[n-1]+0.5y[n-2]=2r[n-1]\]</div>
+<div class="math">\[y[n]=-0.5y[n-1]-0.5y[n-2]+2r[n-1]\]</div>
+<div class="tip">The integrator improves tracking accuracy, but it also increases the order of the system. Therefore, stability must always be checked after adding it.</div>
+</div>
+</details>
+
+<details>
+<summary>Exercise 3 — DC motor PI speed controller</summary>
+<div class="question-card">
+<h3><span class="qtag">Q1</span>Draw the block diagram and identify the control objective</h3>
+<div class="diagram-wrap"><div class="diagram-title"><span>M</span> DC motor speed control with PI and encoder</div>
+<svg class="block-diagram" viewBox="0 0 1120 280"><defs><marker id="arrow6" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#eaf1ff"/></marker></defs><line class="bd-line" marker-end="url(#arrow6)" x1="40" y1="110" x2="130" y2="110"/><text class="bd-label" x="35" y="88">Speed reference R(z)</text><circle class="bd-sum" cx="165" cy="110" r="28"/><text class="bd-label" x="156" y="104">+</text><text class="bd-label" x="157" y="132">−</text><line class="bd-line" marker-end="url(#arrow6)" x1="193" y1="110" x2="285" y2="110"/><text class="bd-small" x="210" y="92">error E(z)</text><rect class="bd-box2" x="285" y="70" width="230" height="80" rx="14"/><text class="bd-label" x="330" y="101">Digital PI</text><text class="bd-small" x="315" y="128">C(z)=Kp+Kiz/(z−1)</text><line class="bd-line" marker-end="url(#arrow6)" x1="515" y1="110" x2="595" y2="110"/><text class="bd-small" x="535" y="92">u[n]</text><rect class="bd-box" x="595" y="70" width="230" height="80" rx="14"/><text class="bd-label" x="660" y="101">DC Motor</text><text class="bd-small" x="635" y="128">G(z)=0.25z/(z−0.85)</text><line class="bd-line" marker-end="url(#arrow6)" x1="825" y1="110" x2="975" y2="110"/><text class="bd-label" x="990" y="115">Y(z)</text><rect class="bd-box" x="600" y="190" width="220" height="55" rx="14"/><text class="bd-label" x="650" y="224">Encoder H(z)=1</text><path class="bd-feedback" d="M925,110 L925,217 L820,217"/><path class="bd-feedback" marker-end="url(#arrow6)" d="M600,217 L165,217 L165,140"/></svg></div>
+<div class="ar">الهدف هو جعل سرعة المحرك تتبع السرعة المرجعية مع تقليل الخطأ الساكن ومقاومة اضطرابات الحمل.</div>
+</div>
+<div class="question-card">
+<h3><span class="qtag">Q2</span>Write the controller in rational form</h3>
+<div class="math">\[C(z)=K_p+\frac{K_iz}{z-1}=\frac{(K_p+K_i)z-K_p}{z-1}\]</div>
+</div>
+<div class="question-card">
+<h3><span class="qtag">Q3</span>Find the characteristic polynomial for \(K_p=1,\ K_i=0.2\)</h3>
+<div class="math">\[D(z)=(z-1)(z-0.85)+0.25z[(K_p+K_i)z-K_p]\]</div>
+<div class="math">\[D(z)=1.3z^2-2.1z+0.85\]</div>
+</div>
+<div class="question-card">
+<h3><span class="qtag">Q4</span>Check stability and interpret poles</h3>
+<div class="math">\[z_1=0.962,\qquad z_2=0.654\]</div>
+<div class="ok">Both poles are inside the unit circle. The system is stable.</div>
+<div class="ar">القطب \(0.962\) هو القطب المسيطر لأنه الأقرب إلى الواحد، لذلك يجعل الاستجابة ناعمة لكنها أبطأ.</div>
+</div>
+<div class="question-card">
+<h3><span class="qtag">Q5</span>Derive the implementable recurrence equation</h3>
+<div class="math">\[1.3y[n]-2.1y[n-1]+0.85y[n-2]=0.3r[n]-0.25r[n-1]\]</div>
+<div class="math">\[y[n]=1.615y[n-1]-0.654y[n-2]+0.231r[n]-0.192r[n-1]\]</div>
+<div class="tip">This is the equation a digital processor can execute using only current/previous reference values and two previous output values.</div>
+</div>
+</details>
+
+<details>
+<summary>Exercise 4 — Electric vehicle wheel-speed controller</summary>
+<div class="question-card">
+<h3><span class="qtag">Q1</span>Draw the block diagram</h3>
+<div class="diagram-wrap"><div class="diagram-title"><span>E</span> EV wheel-speed control under road disturbance</div>
+<svg class="block-diagram" viewBox="0 0 1120 300"><defs><marker id="arrow7" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#eaf1ff"/></marker></defs><line class="bd-line" marker-end="url(#arrow7)" x1="40" y1="120" x2="130" y2="120"/><text class="bd-label" x="35" y="98">Wheel speed ref</text><circle class="bd-sum" cx="165" cy="120" r="28"/><text class="bd-label" x="156" y="114">+</text><text class="bd-label" x="157" y="142">−</text><line class="bd-line" marker-end="url(#arrow7)" x1="193" y1="120" x2="285" y2="120"/><rect class="bd-box2" x="285" y="80" width="210" height="80" rx="14"/><text class="bd-label" x="330" y="112">PI traction</text><text class="bd-small" x="320" y="138">Kp=1.4, Ki=0.25</text><line class="bd-line" marker-end="url(#arrow7)" x1="495" y1="120" x2="575" y2="120"/><circle class="bd-sum" cx="610" cy="120" r="24"/><text class="bd-label" x="602" y="115">+</text><text class="bd-label" x="603" y="142">−</text><line class="bd-line" marker-end="url(#arrow7)" x1="610" y1="35" x2="610" y2="94"/><text class="bd-small" x="540" y="30">road slope / friction disturbance</text><line class="bd-line" marker-end="url(#arrow7)" x1="634" y1="120" x2="700" y2="120"/><rect class="bd-box" x="700" y="80" width="230" height="80" rx="14"/><text class="bd-label" x="765" y="112">EV wheel dynamics</text><text class="bd-small" x="748" y="138">G(z)=0.18z/(z−0.78)</text><line class="bd-line" marker-end="url(#arrow7)" x1="930" y1="120" x2="1030" y2="120"/><text class="bd-label" x="1040" y="125">Y(z)</text><path class="bd-feedback" d="M990,120 L990,240 L165,240 L165,150"/></svg></div>
+</div>
+<div class="question-card">
+<h3><span class="qtag">Q2</span>Write the model and gains</h3>
+<div class="math">\[G(z)=\frac{0.18z}{z-0.78},\qquad C(z)=K_p+\frac{K_iz}{z-1}\]</div>
+<div class="math">\[K_p=1.4,\quad K_i=0.25\Rightarrow C(z)=\frac{1.65z-1.4}{z-1}\]</div>
+</div>
+<div class="question-card">
+<h3><span class="qtag">Q3</span>Find the characteristic polynomial</h3>
+<div class="math">\[D(z)=(z-1)(z-0.78)+0.18z(1.65z-1.4)\]</div>
+<div class="math">\[D(z)=1.297z^2-2.032z+0.78\]</div>
+</div>
+<div class="question-card">
+<h3><span class="qtag">Q4</span>Apply Jury stability test</h3>
+<div class="math">\[D(1)=0.045>0,\quad D(-1)=4.109>0,\quad |0.78|<1.297\]</div>
+<div class="ok">Stable, but \(D(1)\) is small, so the system is near a slow boundary.</div>
+</div>
+<div class="question-card">
+<h3><span class="qtag">Q5</span>Write recurrence equation and compare</h3>
+<div class="math">\[1.297y[n]-2.032y[n-1]+0.78y[n-2]=0.297r[n]-0.252r[n-1]\]</div>
+<div class="math">\[y[n]=1.5667y[n-1]-0.6014y[n-2]+0.2290r[n]-0.1943r[n-1]\]</div>
+<div class="note">Compared with the DC motor case, the EV model is affected by road disturbance, so stability and robustness must both be considered.</div>
+</div>
 </details>
 </section>
 
@@ -165,15 +299,24 @@ input[type=range]{width:100%}canvas{background:rgba(255,255,255,.03);border-radi
 <p>A drone altitude-control system must force the measured altitude \(y[n]\) to follow a reference command \(r[n]\). The model includes a digital controller, actuator delay, motor-thrust dynamics, vertical-body dynamics, and an altitude sensor. The exercise is written as a complete exam-style problem.</p>
 <div class="ar">نظام التحكم في ارتفاع الدرون يجب أن يجعل الارتفاع المقاس \(y[n]\) يتبع المرجع \(r[n]\). يتضمن النموذج متحكماً رقمياً، تأخر المحركات، ديناميكا الدفع، ديناميكا الجسم العمودية، وحساس الارتفاع.</div>
 </div>
+<div class="card gold">
+<h3>Before solving: what each block means</h3>
+<ul class="checklist">
+<li><strong>Reference \(r[n]\):</strong> desired altitude command.</li>
+<li><strong>Error \(e[n]\):</strong> difference between desired and measured altitude.</li>
+<li><strong>Controller:</strong> computes the correction command.</li>
+<li><strong>Motors and body:</strong> convert command into vertical motion.</li>
+<li><strong>Sensor:</strong> measures altitude and closes the loop.</li>
+</ul>
+<div class="ar">قبل الحل: المرجع هو الارتفاع المطلوب، الخطأ هو الفرق بين المرجع والارتفاع المقاس، المتحكم يعطي أمر التصحيح، المحركات والجسم يحولان الأمر إلى حركة عمودية، والحساس يغلق الحلقة.</div>
+</div>
 
 <div class="question-card">
 <h3><span class="qtag">Q1</span>Draw the block diagram and write the closed-loop model equation</h3>
 <p>Draw the control structure and use the following closed-loop characteristic equation:</p>
-<div class="math">\[
-D(z)=z^5-2.65z^4+2.72z^3-1.35z^2+0.32z-0.03
-\]</div>
+<div class="math">\[D(z)=z^5-2.65z^4+2.72z^3-1.35z^2+0.32z-0.03\]</div>
 <p>The numerator is selected as \(N(z)=0.01z^5\) so that the final closed-loop gain for a unit-step reference is equal to one.</p>
-<div class="ar">ارسم بنية التحكم، ثم استعمل المعادلة المميزة المعطاة. تم اختيار البسط \(N(z)=0.01z^5\) حتى يكون الكسب النهائي للحلقة المغلقة مساوياً للواحد عند الدخل الدرجوي.</div>
+<div class="ar">تم اختيار البسط \(N(z)=0.01z^5\) حتى يكون الكسب النهائي للحلقة المغلقة مساوياً للواحد عند الدخل الدرجوي.</div>
 <div class="diagram-wrap">
 <div class="diagram-title"><span>D</span> Block diagram — Drone altitude closed-loop control</div>
 <svg class="block-diagram" viewBox="0 0 1180 320">
@@ -196,55 +339,26 @@ D(z)=z^5-2.65z^4+2.72z^3-1.35z^2+0.32z-0.03
 
 <div class="question-card">
 <h3><span class="qtag">Q2</span>Find the transfer function of the complete closed-loop system</h3>
-<p>The complete closed-loop transfer function is written as:</p>
-<div class="math">\[
-F(z)=\frac{Y(z)}{R(z)}=\frac{N(z)}{D(z)}
-\]</div>
-<p>Using \(N(z)=0.01z^5\):</p>
-<div class="math">\[
-F(z)=
+<div class="math">\[F(z)=\frac{Y(z)}{R(z)}=\frac{N(z)}{D(z)}\]</div>
+<div class="math">\[F(z)=
 \frac{0.01z^5}
-{z^5-2.65z^4+2.72z^3-1.35z^2+0.32z-0.03}
-\]</div>
-<div class="ar">دالة التحويل الكاملة للنظام المغلق هي نسبة الخرج إلى المرجع. المقام يحدد الاستقرار، أما البسط فيؤثر على شكل الاستجابة والكسب النهائي.</div>
+{z^5-2.65z^4+2.72z^3-1.35z^2+0.32z-0.03}\]</div>
 <div class="tip">Important distinction: stability is decided by \(D(z)\), while tracking accuracy is studied using \(F(1)\).</div>
+<div class="ar">الاستقرار يحدده المقام، أما الدقة النهائية في تتبع المرجع فتدرس من خلال \(F(1)\).</div>
 </div>
 
 <div class="question-card">
 <h3><span class="qtag">Q3</span>Derive the reference recurrence equation</h3>
-<p>Start from:</p>
-<div class="math">\[
-D(z)Y(z)=0.01z^5R(z)
-\]</div>
-<p>Substitute \(D(z)\):</p>
-<div class="math">\[
-(z^5-2.65z^4+2.72z^3-1.35z^2+0.32z-0.03)Y(z)=0.01z^5R(z)
-\]</div>
-<p>Divide by \(z^5\):</p>
-<div class="math">\[
-(1-2.65z^{-1}+2.72z^{-2}-1.35z^{-3}+0.32z^{-4}-0.03z^{-5})Y(z)=0.01R(z)
-\]</div>
-<p>Apply inverse Z-transform:</p>
-<div class="math">\[
-y[n]-2.65y[n-1]+2.72y[n-2]-1.35y[n-3]+0.32y[n-4]-0.03y[n-5]=0.01r[n]
-\]</div>
-<p>Solving for the current output:</p>
-<div class="math">\[
-y[n]=2.65y[n-1]-2.72y[n-2]+1.35y[n-3]-0.32y[n-4]+0.03y[n-5]+0.01r[n]
-\]</div>
+<div class="math">\[(z^5-2.65z^4+2.72z^3-1.35z^2+0.32z-0.03)Y(z)=0.01z^5R(z)\]</div>
+<div class="math">\[(1-2.65z^{-1}+2.72z^{-2}-1.35z^{-3}+0.32z^{-4}-0.03z^{-5})Y(z)=0.01R(z)\]</div>
+<div class="math">\[y[n]-2.65y[n-1]+2.72y[n-2]-1.35y[n-3]+0.32y[n-4]-0.03y[n-5]=0.01r[n]\]</div>
+<div class="math">\[y[n]=2.65y[n-1]-2.72y[n-2]+1.35y[n-3]-0.32y[n-4]+0.03y[n-5]+0.01r[n]\]</div>
 <div class="ar">هذه هي معادلة الرجوع المرجعية التي يمكن تنفيذها في برنامج تحكم رقمي. الخرج الحالي يعتمد على خمس قيم سابقة للخرج وعلى قيمة المرجع الحالية.</div>
 </div>
 
 <div class="question-card">
 <h3><span class="qtag">Q4</span>Fill the table for a unit-step input until 10 values</h3>
-<p>Assume zero initial conditions:</p>
-<div class="math">\[
-y[-1]=y[-2]=y[-3]=y[-4]=y[-5]=0
-\]</div>
-<p>The input is the unit-step signal:</p>
-<div class="math">\[
-r[n]=1,\qquad n\ge 0
-\]</div>
+<div class="math">\[y[-1]=y[-2]=y[-3]=y[-4]=y[-5]=0,\qquad r[n]=1\]</div>
 <table>
 <tr><th>n</th><th>r[n]</th><th>Recurrence expression used</th><th>y[n]</th><th>e[n]=r[n]-y[n]</th></tr>
 <tr><td>0</td><td>1</td><td>\(0.01\)</td><td>0.010000</td><td>0.990000</td></tr>
@@ -266,31 +380,11 @@ r[n]=1,\qquad n\ge 0
 <div class="question-card">
 <h3><span class="qtag">Q5</span>Compute the steady-state error and verify stability using Jury</h3>
 <h4>Steady-state error</h4>
-<p>The final value for a unit-step input is obtained from the DC gain:</p>
-<div class="math">\[
-F(1)=\frac{0.01}{1-2.65+2.72-1.35+0.32-0.03}
-\]</div>
-<div class="math">\[
-F(1)=\frac{0.01}{0.01}=1
-\]</div>
-<p>Therefore:</p>
-<div class="math">\[
-y[\infty]=1,\qquad e[\infty]=r[\infty]-y[\infty]=1-1=0
-\]</div>
+<div class="math">\[F(1)=\frac{0.01}{1-2.65+2.72-1.35+0.32-0.03}=\frac{0.01}{0.01}=1\]</div>
+<div class="math">\[y[\infty]=1,\qquad e[\infty]=1-1=0\]</div>
 <div class="ok">The steady-state error is zero. The drone altitude eventually reaches the desired reference.</div>
-
 <h4>Jury stability verification</h4>
-<p>First, check the necessary conditions for the fifth-order polynomial:</p>
-<div class="math">\[
-D(1)=0.01>0
-\]</div>
-<div class="math">\[
-(-1)^5D(-1)=-D(-1)=8.07>0
-\]</div>
-<div class="math">\[
-|-0.03|<1
-\]</div>
-<p>Then use a complete Jury reduction table. The following table gives the successive rows until the final reduced polynomial.</p>
+<div class="math">\[D(1)=0.01>0,\qquad (-1)^5D(-1)=8.07>0,\qquad |-0.03|<1\]</div>
 <table class="jury-table">
 <tr><th>Row</th><th colspan="6">Coefficients</th><th>Role</th></tr>
 <tr><td>\(R_1\)</td><td>1</td><td>-2.65</td><td>2.72</td><td>-1.35</td><td>0.32</td><td>-0.03</td><td>Original row</td></tr>
@@ -302,14 +396,8 @@ D(1)=0.01>0
 <tr><td>\(R_7\)</td><td>0.4841</td><td>-0.9045</td><td>0.4346</td><td></td><td></td><td></td><td>Reduced degree 2</td></tr>
 <tr><td>\(R_8\)</td><td>0.4346</td><td>-0.9045</td><td>0.4841</td><td></td><td></td><td></td><td>Reverse</td></tr>
 </table>
-<p>The final second-order polynomial is approximately:</p>
-<div class="math">\[
-D_f(z)=0.4841z^2-0.9045z+0.4346
-\]</div>
-<div class="math">\[
-D_f(1)=0.0142>0,\qquad D_f(-1)=1.8232>0,\qquad |0.4346|<0.4841
-\]</div>
-<p>For additional confirmation, the roots of the original fifth-order polynomial are approximately:</p>
+<div class="math">\[D_f(z)=0.4841z^2-0.9045z+0.4346\]</div>
+<div class="math">\[D_f(1)=0.0142>0,\quad D_f(-1)=1.8232>0,\quad |0.4346|<0.4841\]</div>
 <table>
 <tr><th>Pole</th><th>Magnitude</th><th>Meaning</th></tr>
 <tr><td>0.9136</td><td>0.9136</td><td>Dominant slow pole</td></tr>
