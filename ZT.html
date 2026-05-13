@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Z-Transform Properties and Inverse Z-Transform | خواص تحويل Z والتحويل العكسي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+:root{
+  --bg:#07111f;--panel:#0f1b2d;--card:#ffffff;--ink:#102033;--muted:#667085;--line:#e6eaf0;
+  --primary:#1e3a8a;--primary2:#0f766e;--cyan:#0284c7;--green:#11b981;--gold:#ffc247;--red:#e9485d;
+  --soft:#f6f8fc;--shadow:0 22px 55px rgba(16,32,51,.16);--radius:24px;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,Cairo,sans-serif;color:var(--ink);background:linear-gradient(135deg,#f5f7fb,#ffffff 45%,#f3f8f7);line-height:1.75}.ar{font-family:Cairo,Inter,sans-serif;direction:rtl;text-align:right}.en{direction:ltr;text-align:left}.math{direction:ltr;text-align:center;font-family:Inter,Arial,sans-serif}.hidden{display:none!important}
+.hero{position:relative;overflow:hidden;color:#fff;background:radial-gradient(circle at 15% 15%,rgba(0,194,255,.27),transparent 30%),radial-gradient(circle at 85% 20%,rgba(116,52,255,.32),transparent 30%),linear-gradient(135deg,#06131f,#10243f 55%,#1e3a8a);padding:70px min(7vw,80px) 80px}.hero:after{content:"Z";position:absolute;right:-40px;bottom:-135px;font-size:360px;font-weight:900;opacity:.06}.hero-inner{max-width:1240px;margin:auto;position:relative;z-index:1}.badge{display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.12);padding:9px 16px;border-radius:999px;font-weight:800;backdrop-filter:blur(9px)}h1{font-size:clamp(2.2rem,5vw,5rem);line-height:1.08;margin:20px 0 14px;letter-spacing:-.05em}.subtitle{font-size:1.2rem;max-width:980px;color:#dbe8ff}.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.btn{border:0;border-radius:999px;padding:12px 18px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px}.btn-primary{background:#fff;color:#102033}.btn-ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25)}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:36px}.stat{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:20px;backdrop-filter:blur(8px)}.stat b{display:block;font-size:2rem}.topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.navwrap{max-width:1240px;margin:auto;display:flex;gap:10px;align-items:center;padding:12px 20px;overflow:auto}.navwrap a{white-space:nowrap;text-decoration:none;color:#17233a;background:#f1f5fb;border:1px solid #e2e8f0;padding:8px 13px;border-radius:999px;font-weight:800;font-size:.94rem}.navwrap a:hover{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff}.progress-wrap{height:4px;background:#edf2f7}.progress{height:4px;width:0;background:linear-gradient(90deg,var(--cyan),var(--primary),var(--primary2))}
+main{max-width:1240px;margin:auto;padding:40px 20px}.section{margin:34px 0}.section-head{display:flex;align-items:center;gap:14px;margin:0 0 18px}.num{width:46px;height:46px;border-radius:16px;background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;display:grid;place-items:center;font-weight:900;box-shadow:0 12px 28px rgba(49,87,255,.24)}h2{font-size:clamp(1.65rem,3vw,2.35rem);line-height:1.2;margin:0;letter-spacing:-.025em}.bilingual-title small{display:block;color:var(--muted);font-family:Cairo,Inter,sans-serif;direction:rtl;text-align:left;font-size:1.05rem;margin-top:4px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:rgba(255,255,255,.92);border:1px solid rgba(226,232,240,.9);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}.card h3{margin:0 0 10px;font-size:1.35rem;color:#193b91}.arline{color:#526173;margin-top:4px}.formula{background:#081628;color:#fff;border-radius:18px;padding:18px;margin:16px 0;overflow:auto;border:1px solid rgba(255,255,255,.1)}.note{border-left:5px solid var(--green);background:#ecfdf5;border-radius:16px;padding:16px;margin:14px 0}.note.gold{border-left-color:var(--gold);background:#fffbeb}.note.red{border-left-color:var(--red);background:#fff1f2}.table-wrap{overflow:auto;border-radius:20px;box-shadow:var(--shadow)}table{width:100%;border-collapse:collapse;background:#fff;min-width:760px}th,td{padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#112957;color:#fff;text-align:left}tr:last-child td{border-bottom:0}.split{display:grid;grid-template-columns:1fr 1fr;gap:12px}.mini{background:#f7f9fd;border:1px solid #e7edf5;border-radius:16px;padding:15px}.stepper{counter-reset:s}.step{position:relative;padding:18px 18px 18px 66px;background:#fff;border:1px solid var(--line);border-radius:18px;margin:12px 0}.step:before{counter-increment:s;content:counter(s);position:absolute;left:18px;top:18px;width:34px;height:34px;border-radius:12px;background:var(--green);color:#fff;font-weight:900;display:grid;place-items:center}.exercise{border-top:7px solid var(--primary)}.tag{display:inline-flex;align-items:center;gap:6px;background:#e9efff;color:#193b91;border-radius:999px;padding:5px 10px;font-weight:900;font-size:.85rem}.solution{margin-top:14px;background:#f8fafc;border:1px solid #e5eaf0;border-radius:18px;padding:17px}.accordion{border-radius:18px;overflow:hidden;border:1px solid #e5eaf0;background:#fff;margin:12px 0}.acc-head{width:100%;text-align:left;background:#fff;border:0;padding:17px 18px;font-size:1rem;font-weight:900;cursor:pointer;display:flex;justify-content:space-between;gap:16px;color:#102033}.acc-body{display:none;padding:0 18px 18px;background:#fbfdff}.accordion.open .acc-body{display:block}.tabs{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 18px}.tab{border:1px solid #dbe3ef;background:#fff;border-radius:999px;padding:9px 14px;cursor:pointer;font-weight:900}.tab.active{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;border-color:transparent}.tab-panel{display:none}.tab-panel.active{display:block}.quiz-option{display:block;width:100%;text-align:left;margin:8px 0;padding:12px 14px;border-radius:14px;border:1px solid #dbe3ef;background:#fff;cursor:pointer;font-weight:700}.quiz-option.correct{border-color:var(--green);background:#ecfdf5}.quiz-option.wrong{border-color:var(--red);background:#fff1f2}.toast{position:fixed;right:20px;bottom:20px;background:#07111f;color:#fff;border-radius:16px;padding:14px 16px;box-shadow:var(--shadow);opacity:0;transform:translateY(10px);transition:.25s;z-index:99}.toast.show{opacity:1;transform:none}.toolbox{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.input{border:1px solid #dbe3ef;border-radius:14px;padding:11px 12px;font:inherit;background:#fff;min-width:180px}.result{font-weight:900;color:#193b91;margin-top:10px}footer{text-align:center;color:var(--muted);padding:36px 20px}.print-only{display:none}
+
+.academic-tools{max-width:1240px;margin:14px auto 0;padding:0 20px;display:grid;grid-template-columns:1.2fr .8fr;gap:12px}.tool-card{background:rgba(255,255,255,.92);border:1px solid #dbe3ef;border-radius:18px;padding:14px 16px;box-shadow:0 10px 25px rgba(16,32,51,.08)}.tool-card label{display:block;font-weight:900;margin-bottom:6px;color:#17324d}.tool-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.small-btn{border:1px solid #dbe3ef;background:#fff;border-radius:12px;padding:9px 12px;font-weight:900;cursor:pointer}.small-btn:hover{background:#eef4ff}.highlight{outline:3px solid rgba(30,58,138,.22);background:#f8fbff}.academic-note{background:#f8fafc;border:1px solid #d9e2ef;border-left:5px solid var(--primary);border-radius:18px;padding:18px;margin:18px 0}.readable main{max-width:1000px}.large-text{font-size:1.12rem}.dark-mode{background:#07111f;color:#e6edf7}.dark-mode .card,.dark-mode .tool-card,.dark-mode .accordion,.dark-mode .acc-head,.dark-mode .mini{background:#0f1b2d;color:#e6edf7;border-color:#24364f}.dark-mode .topbar{background:rgba(15,27,45,.88)}.dark-mode .navwrap a{background:#14243b;color:#e6edf7;border-color:#24364f}.dark-mode h2,.dark-mode h3,.dark-mode .result{color:#dbeafe}.dark-mode .arline,.dark-mode .ar,.dark-mode .subtitle,.dark-mode .arline{color:#cbd5e1}.dark-mode table{background:#0f1b2d;color:#e6edf7}.dark-mode td{border-color:#24364f}.dark-mode .solution,.dark-mode .note,.dark-mode .academic-note{background:#101d31;color:#e6edf7;border-color:#263953}
+@media(max-width:900px){.academic-tools{grid-template-columns:1fr}}
+
+@media(max-width:900px){.grid,.grid3,.stats,.split{grid-template-columns:1fr}.hero{padding:48px 22px}.step{padding-left:18px}.step:before{position:static;margin-bottom:10px}.bilingual-title small{text-align:left}.table-wrap table{min-width:620px}}
+@media print{.topbar,.hero-actions,.toolbox,.quiz-option,.toast{display:none}.hero{background:#102033}.card,.table-wrap{box-shadow:none}.accordion .acc-body{display:block}.print-only{display:block}body{background:#fff}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <span class="badge">📘 Digital Signal Processing / معالجة الإشارات الرقمية</span>
+    <h1>Z-Transform Properties and Inverse Z-Transform</h1>
+    <p class="subtitle"><b>خواص تحويل Z والتحويل العكسي</b><br>This academic interactive lesson presents each concept with its corresponding translation, then develops the theory, methods, and solved exercises in a structured website-ready format.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#exercises">Start Solved Exercises / ابدأ التمارين</a>
+      <button class="btn btn-ghost" onclick="window.print()">Print / طباعة</button>
+      <button class="btn btn-ghost" onclick="toggleAllSolutions()">Show/Hide Solutions / إظهار وإخفاء الحلول</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>2</b>Lessons / درسان</div>
+      <div class="stat"><b>16+</b>Solved Exercises / تمارين محلولة</div>
+      <div class="stat"><b>4</b>Main Properties / خواص رئيسية</div>
+      <div class="stat"><b>100%</b>Academic Layout / تصميم أكاديمي</div>
+    </div>
+  </div>
+</header>
+<div class="topbar">
+  <nav class="navwrap">
+    <a href="#standard">Standard Pairs / الأزواج القياسية</a><a href="#properties">Properties / الخواص</a><a href="#composite">Composite Signals / الإشارات المركبة</a><a href="#inverse">Inverse Z / التحويل العكسي</a><a href="#partial">Partial Fractions / الكسور الجزئية</a><a href="#applications">Applications / التطبيقات</a><a href="#exercises">Exercises / التمارين</a><a href="#quiz">Quiz / اختبار</a>
+  </nav>
+  <div class="progress-wrap"><div class="progress" id="progress"></div></div>
+</div>
+<section class="academic-tools" aria-label="Academic interaction tools">
+  <div class="tool-card">
+    <label>Exercise Search <span class="arline">/ البحث في التمارين</span></label>
+    <div class="tool-row"><input class="input" id="exerciseSearch" oninput="filterExercises()" placeholder="Type: ROC, inverse, convolution..." /><button class="small-btn" onclick="clearSearch()">Reset / إعادة</button><button class="small-btn" onclick="toggleAllSolutions()">Solutions / الحلول</button></div>
+  </div>
+  <div class="tool-card">
+    <label>Reading Mode <span class="arline">/ وضع القراءة</span></label>
+    <div class="tool-row"><button class="small-btn" onclick="document.body.classList.toggle('readable')">Focused / مركز</button><button class="small-btn" onclick="document.body.classList.toggle('large-text')">Larger Text / تكبير</button><button class="small-btn" onclick="document.body.classList.toggle('dark-mode')">Dark Mode / داكن</button></div>
+  </div>
+</section>
+<main>
+<section id="standard" class="section">
+  <div class="section-head"><span class="num">1</span><h2 class="bilingual-title">Standard Z-Transform Pairs <small>الأزواج القياسية لتحويل Z</small></h2></div>
+  <div class="card">
+    <div class="academic-note"><b>Study Orientation / توجيه دراسي:</b> Work from definitions to properties, then from properties to applications. Always state the ROC when the sequence has infinite duration.</div>
+    <div class="split"><p>These pairs are the building blocks. Most problems are solved by rewriting a signal or a rational expression until it matches one of these forms.</p><p class="ar">هذه الأزواج هي الأساس. أغلب المسائل تحل بإعادة كتابة الإشارة أو التعبير الجبري حتى يصبح مشابها لأحد هذه الأشكال.</p></div>
+    <div class="table-wrap"><table><thead><tr><th>Time-domain signal<br><span class="ar">الإشارة في الزمن</span></th><th>Z-domain expression<br><span class="ar">التعبير في مجال Z</span></th><th>ROC<br><span class="ar">منطقة التقارب</span></th><th>Meaning<br><span class="ar">المعنى</span></th></tr></thead><tbody>
+      <tr><td class="math">\(\delta[n]\)</td><td class="math">\(1\)</td><td>Finite duration / محدودة المدة</td><td>Unit impulse / نبضة واحدة عند الصفر</td></tr>
+      <tr><td class="math">\(\delta[n-k]\)</td><td class="math">\(z^{-k}\)</td><td>Finite duration / محدودة المدة</td><td>Delayed impulse / نبضة مؤخرة</td></tr>
+      <tr><td class="math">\(u[n]\)</td><td class="math">\(\frac{1}{1-z^{-1}}\)</td><td class="math">\(|z|>1\)</td><td>Unit step / إشارة الخطوة</td></tr>
+      <tr><td class="math">\(a^n u[n]\)</td><td class="math">\(\frac{1}{1-a z^{-1}}\)</td><td class="math">\(|z|>|a|\)</td><td>Exponential sequence / متتالية أسية</td></tr>
+      <tr><td class="math">\(n u[n]\)</td><td class="math">\(\frac{z^{-1}}{(1-z^{-1})^2}\)</td><td class="math">\(|z|>1\)</td><td>Ramp-like sequence / متتالية متزايدة خطيا</td></tr>
+    </tbody></table></div>
+  </div>
+</section>
+<section id="properties" class="section">
+  <div class="section-head"><span class="num">2</span><h2 class="bilingual-title">Main Properties of the Z-Transform <small>الخواص الرئيسية لتحويل Z</small></h2></div>
+  <div class="grid">
+    <div class="card"><h3>Linearity <span class="arline">/ الخطية</span></h3><div class="formula math">\(Z\{a x_1[n]+b x_2[n]\}=aX_1(z)+bX_2(z)\)</div><p>Break a complicated signal into simple parts, transform each part, then add the results.</p><p class="ar">نفكك الإشارة المعقدة إلى حدود بسيطة، نحول كل حد، ثم نجمع النتائج.</p></div>
+    <div class="card"><h3>Time Shifting <span class="arline">/ الإزاحة الزمنية</span></h3><div class="formula math">\(Z\{x[n-k]\}=z^{-k}X(z)\)</div><p>A delay of \(k\) samples adds the factor \(z^{-k}\).</p><p class="ar">التأخير بمقدار \(k\) عينات يضيف العامل \(z^{-k}\).</p></div>
+    <div class="card"><h3>Exponential Multiplication <span class="arline">/ الضرب في متتالية أسية</span></h3><div class="formula math">\(Z\{a^n x[n]\}=X\left(\frac{z}{a}\right)\)</div><p>Multiplying the time signal by \(a^n\) changes the argument of the transform.</p><p class="ar">ضرب الإشارة في \(a^n\) يغير وسيط التحويل في مجال Z.</p></div>
+    <div class="card"><h3>Convolution <span class="arline">/ الالتفاف</span></h3><div class="formula math">\(y[n]=x[n]*h[n] \Rightarrow Y(z)=X(z)H(z)\)</div><p>A difficult time-domain summation becomes simple multiplication in the Z-domain.</p><p class="ar">مجموع الالتفاف الصعب في الزمن يتحول إلى ضرب بسيط في مجال Z.</p></div>
+  </div>
+  <div class="card note gold"><b>Transfer Function / دالة التحويل:</b> <span class="math">\(H(z)=\frac{Y(z)}{X(z)}\)</span>. Therefore, <span class="math">\(Y(z)=H(z)X(z)\)</span>. <span class="ar">هذا هو الأساس الرياضي لتحليل الأنظمة الخطية الثابتة والمرشحات الرقمية.</span></div>
+</section>
+<section id="composite" class="section">
+  <div class="section-head"><span class="num">3</span><h2 class="bilingual-title">Composite Signal Method <small>منهجية التعامل مع الإشارات المركبة</small></h2></div>
+  <div class="grid">
+    <div class="card stepper"><h3>Systematic Steps <span class="arline">/ الخطوات المنظمة</span></h3><div class="step"><b>Identify components / تحديد المكونات:</b> Separate \(u[n]\), \(a^n u[n]\), impulses, and delayed terms.</div><div class="step"><b>Use standard pairs / استعمال الأزواج القياسية:</b> Transform each component alone.</div><div class="step"><b>Apply linearity / تطبيق الخطية:</b> Add all transformed terms with their constants.</div><div class="step"><b>Find ROC / تحديد منطقة التقارب:</b> Intersect the ROCs of all infinite-duration terms.</div></div>
+    <div class="card"><h3>Worked Example <span class="arline">/ مثال محلول</span></h3><p>Find the Z-transform of:</p><div class="formula math">\(x[n]=2u[n]+(0.5)^n u[n]+\delta[n-1]\)</div><div class="solution"><p><b>Step 1:</b> Transform each term.</p><div class="formula math">\(Z\{2u[n]\}=\frac{2}{1-z^{-1}},\quad Z\{(0.5)^n u[n]\}=\frac{1}{1-0.5z^{-1}},\quad Z\{\delta[n-1]\}=z^{-1}\)</div><p><b>Step 2:</b> Combine.</p><div class="formula math">\(X(z)=\frac{2}{1-z^{-1}}+\frac{1}{1-0.5z^{-1}}+z^{-1}\)</div><p><b>Step 3:</b> ROC: \(|z|>1\), because it is the stricter condition.</p><p class="ar"><b>الشرح:</b> النبضة لا تقيد منطقة التقارب لأنها محدودة المدة، لذلك نأخذ تقاطع \(|z|>1\) و \(|z|>0.5\).</p></div></div>
+  </div>
+</section>
+<section id="inverse" class="section">
+  <div class="section-head"><span class="num">4</span><h2 class="bilingual-title">Inverse Z-Transform <small>التحويل العكسي Z</small></h2></div>
+  <div class="grid">
+    <div class="card"><h3>Definition <span class="arline">/ التعريف</span></h3><p>The inverse Z-transform converts \(X(z)\) back to the time-domain sequence \(x[n]\).</p><p class="ar">التحويل العكسي يحول التعبير \(X(z)\) من مجال Z إلى المتتالية الزمنية \(x[n]\).</p><div class="formula math">\(x[n]=Z^{-1}\{X(z)\}\)</div></div>
+    <div class="card"><h3>Why It Matters <span class="arline">/ لماذا هو مهم؟</span></h3><p>Engineering interpretation needs the actual output sequence, not only the symbolic expression.</p><p class="ar">في التطبيقات الهندسية نحتاج إلى الخرج في الزمن حتى نفهم الاستجابة العابرة والمستقرة للنظام.</p></div>
+  </div>
+  <div class="card"><h3>Inverse Methods <span class="arline">/ طرق التحويل العكسي</span></h3><div class="table-wrap"><table><thead><tr><th>Method / الطريقة</th><th>Use / الاستعمال</th><th>Strength / الميزة</th></tr></thead><tbody><tr><td>Direct inspection / المعاينة المباشرة</td><td>When the expression matches a standard pair / عندما يطابق زوجا قياسيا</td><td>Fast / سريع</td></tr><tr><td>Power series / سلسلة قوى</td><td>Read coefficients of \(z^{-n}\) / قراءة معاملات الحدود</td><td>Good for first samples / مفيد للعينات الأولى</td></tr><tr><td>Partial fractions / الكسور الجزئية</td><td>Rational expressions / الكسور الجبرية</td><td>Most practical / الأكثر استعمالا</td></tr><tr><td>Long division / القسمة المطولة</td><td>Special cases / حالات خاصة</td><td>Clear sequence values / يعطي قيما مباشرة</td></tr></tbody></table></div></div>
+</section>
+<section id="partial" class="section">
+  <div class="section-head"><span class="num">5</span><h2 class="bilingual-title">Partial Fraction Decomposition <small>تفكيك الكسور الجزئية</small></h2></div>
+  <div class="card stepper"><h3>Reliable Procedure <span class="arline">/ طريقة مضمونة</span></h3><div class="step">Factor the denominator / حلل المقام إلى عوامل.</div><div class="step">Assume a simple fraction for every factor / افترض كسرا بسيطا لكل عامل.</div><div class="step">Multiply by the common denominator / اضرب في المقام المشترك.</div><div class="step">Expand and compare coefficients / وسع وقارن المعاملات.</div><div class="step">Apply inverse standard pairs / طبق الأزواج العكسية القياسية.</div></div>
+  <div class="card"><h3>Detailed Example <span class="arline">/ مثال مفصل</span></h3><div class="formula math">\(X(z)=\frac{1}{(1-z^{-1})(1-0.5z^{-1})}\)</div><div class="solution"><p><b>1) Assume:</b></p><div class="formula math">\(X(z)=\frac{A}{1-z^{-1}}+\frac{B}{1-0.5z^{-1}}\)</div><p><b>2) Clear denominators:</b></p><div class="formula math">\(1=A(1-0.5z^{-1})+B(1-z^{-1})\)</div><p><b>3) Expand:</b></p><div class="formula math">\(1=(A+B)+(-0.5A-B)z^{-1}\)</div><p><b>4) Compare coefficients:</b></p><div class="formula math">\(A+B=1,\qquad -0.5A-B=0\)</div><p><b>5) Solve:</b> \(B=-0.5A\), so \(A-0.5A=1\Rightarrow A=2\), and \(B=-1\).</p><p><b>6) Invert:</b></p><div class="formula math">\(x[n]=2u[n]-(0.5)^n u[n]\)</div><p class="ar"><b>الفكرة:</b> كل حد أصبح مطابقا لزوج قياسي، لذلك صار التحويل العكسي مباشرا.</p></div></div>
+</section>
+<section id="applications" class="section">
+  <div class="section-head"><span class="num">6</span><h2 class="bilingual-title">Engineering Applications <small>تطبيقات هندسية</small></h2></div>
+  <div class="grid">
+    <div class="card"><h3>Difference Equation <span class="arline">/ المعادلة الفرقية</span></h3><p>Solve with zero initial conditions:</p><div class="formula math">\(y[n]-0.5y[n-1]=u[n]\)</div><div class="solution"><p>Take Z-transform:</p><div class="formula math">\(Y(z)-0.5z^{-1}Y(z)=\frac{1}{1-z^{-1}}\)</div><p>Factor:</p><div class="formula math">\(Y(z)(1-0.5z^{-1})=\frac{1}{1-z^{-1}}\)</div><p>So:</p><div class="formula math">\(Y(z)=\frac{1}{(1-z^{-1})(1-0.5z^{-1})}\)</div><p>From partial fractions:</p><div class="formula math">\(y[n]=2u[n]-(0.5)^n u[n]\)</div></div></div>
+    <div class="card"><h3>System Output <span class="arline">/ خرج النظام</span></h3><p>Given:</p><div class="formula math">\(H(z)=\frac{1}{1-0.4z^{-1}},\qquad x[n]=u[n]\)</div><div class="solution"><p>Input transform:</p><div class="formula math">\(X(z)=\frac{1}{1-z^{-1}}\)</div><p>Output transform:</p><div class="formula math">\(Y(z)=\frac{1}{(1-z^{-1})(1-0.4z^{-1})}\)</div><p>Let \(Y(z)=\frac{A}{1-z^{-1}}+\frac{B}{1-0.4z^{-1}}\). Then \(A+B=1\), \(-0.4A-B=0\). Hence \(A=\frac{5}{3}\), \(B=-\frac{2}{3}\).</p><div class="formula math">\(y[n]=\frac{5}{3}u[n]-\frac{2}{3}(0.4)^n u[n]\)</div></div></div>
+  </div>
+</section>
+<section id="interactive" class="section">
+  <div class="section-head"><span class="num">7</span><h2 class="bilingual-title">Interactive Tools <small>أدوات تفاعلية</small></h2></div>
+  <div class="grid">
+    <div class="card"><h3>Exponential Pair Calculator <span class="arline">/ حاسبة الزوج الأسي</span></h3><p>Enter \(a\) and coefficient \(C\) for \(C a^n u[n]\).</p><div class="toolbox"><input class="input" id="coef" value="2" type="number" step="any" placeholder="C"><input class="input" id="aval" value="0.5" type="number" step="any" placeholder="a"><button class="btn btn-primary" onclick="calcPair()">Calculate / احسب</button></div><div class="result" id="pairResult">Result appears here.</div></div>
+    <div class="card"><h3>Show First Values <span class="arline">/ عرض أول القيم</span></h3><p>For \(y[n]=2-(0.5)^n\), display the first samples.</p><div class="toolbox"><input class="input" id="nmax" value="6" type="number" min="1" max="20"><button class="btn btn-primary" onclick="makeSamples()">Generate / أنشئ</button></div><div id="samples" class="result"></div></div>
+  </div>
+</section>
+<section id="exercises" class="section">
+  <div class="section-head"><span class="num">8</span><h2 class="bilingual-title">Detailed Solved Exercises <small>تمارين محلولة بالتفصيل</small></h2></div>
+  <div class="tabs"><button class="tab active" onclick="showTab('t1',this)">Lesson 2 / الدرس 2</button><button class="tab" onclick="showTab('t2',this)">Lesson 3 / الدرس 3</button><button class="tab" onclick="showTab('t3',this)">Advanced / متقدم</button></div>
+  <div id="t1" class="tab-panel active grid">
+    <div class="card exercise accordion open"><button class="acc-head" onclick="toggleAcc(this)">Exercise 1: Find \(Z\{\delta[n]+u[n]\}\) <span>+</span></button><div class="acc-body solution"><p><b>Idea / الفكرة:</b> Use linearity because the signal is a sum.</p><p>\(Z\{\delta[n]\}=1\), and \(Z\{u[n]\}=\frac{1}{1-z^{-1}}\).</p><div class="formula math">\(X(z)=1+\frac{1}{1-z^{-1}},\qquad |z|>1\)</div><p class="ar">النبضة لا تقيد منطقة التقارب، لذلك ROC تأتي من \(u[n]\).</p></div></div>
+    <div class="card exercise accordion"><button class="acc-head" onclick="toggleAcc(this)">Exercise 2: Find \(Z\{u[n-3]\}\) <span>+</span></button><div class="acc-body solution"><p>Start from \(Z\{u[n]\}=\frac{1}{1-z^{-1}}\). A delay by 3 samples gives multiplication by \(z^{-3}\).</p><div class="formula math">\(X(z)=\frac{z^{-3}}{1-z^{-1}},\qquad |z|>1\)</div><p class="ar">هذا يعني أن الخطوة تبدأ عند \(n=3\) بدل \(n=0\).</p></div></div>
+    <div class="card exercise accordion"><button class="acc-head" onclick="toggleAcc(this)">Exercise 3: Find \(Z\{2(0.5)^n u[n]\}\) <span>+</span></button><div class="acc-body solution"><p>Use \(Z\{a^n u[n]\}=\frac{1}{1-a z^{-1}}\). Here \(a=0.5\), then multiply by 2.</p><div class="formula math">\(X(z)=\frac{2}{1-0.5z^{-1}},\qquad |z|>0.5\)</div></div></div>
+    <div class="card exercise accordion"><button class="acc-head" onclick="toggleAcc(this)">Exercise 4: Transform \(3u[n]+2\delta[n-2]\) <span>+</span></button><div class="acc-body solution"><p>Separate terms:</p><div class="formula math">\(Z\{3u[n]\}=\frac{3}{1-z^{-1}},\qquad Z\{2\delta[n-2]\}=2z^{-2}\)</div><p>Combine:</p><div class="formula math">\(X(z)=\frac{3}{1-z^{-1}}+2z^{-2},\qquad |z|>1\)</div></div></div>
+    <div class="card exercise accordion"><button class="acc-head" onclick="toggleAcc(this)">Exercise 5: Transform \(u[n]+(0.3)^n u[n]\) <span>+</span></button><div class="acc-body solution"><p>Transform each component:</p><div class="formula math">\(X(z)=\frac{1}{1-z^{-1}}+\frac{1}{1-0.3z^{-1}}\)</div><p>ROC is the intersection: \(|z|>1\) and \(|z|>0.3\), so:</p><div class="formula math">\(|z|>1\)</div></div></div>
+    <div class="card exercise accordion"><button class="acc-head" onclick="toggleAcc(this)">Exercise 6: If \(y[n]=x[n]*h[n]\), find \(Y(z)\) <span>+</span></button><div class="acc-body solution"><p>Convolution in time becomes multiplication in Z-domain:</p><div class="formula math">\(Y(z)=X(z)H(z)\)</div><p class="ar">هذا هو السبب في أن تحويل Z مهم جدا في الأنظمة الخطية الثابتة.</p></div></div>
+  </div>
+  <div id="t2" class="tab-panel grid">
+    <div class="card exercise accordion open"><button class="acc-head" onclick="toggleAcc(this)">Exercise 7: Invert \(\frac{1}{1-0.2z^{-1}}\) <span>+</span></button><div class="acc-body solution"><p>Compare with \(\frac{1}{1-a z^{-1}}\leftrightarrow a^n u[n]\). Here \(a=0.2\).</p><div class="formula math">\(x[n]=(0.2)^n u[n]\)</div></div></div>
+    <div class="card exercise accordion"><button class="acc-head" onclick="toggleAcc(this)">Exercise 8: Invert \(\frac{2}{1-z^{-1}}\) <span>+</span></button><div class="acc-body solution"><p>Since \(\frac{1}{1-z^{-1}}\leftrightarrow u[n]\), multiply by 2:</p><div class="formula math">\(x[n]=2u[n]\)</div></div></div>
+    <div class="card exercise accordion"><button class="acc-head" onclick="toggleAcc(this)">Exercise 9: Invert \(z^{-3}\) <span>+</span></button><div class="acc-body solution"><p>Use the delayed impulse pair:</p><div class="formula math">\(Z^{-1}\{z^{-k}\}=\delta[n-k]\)</div><p>For \(k=3\):</p><div class="formula math">\(x[n]=\delta[n-3]\)</div></div></div>
+    <div class="card exercise accordion"><button class="acc-head" onclick="toggleAcc(this)">Exercise 10: Invert \(3z^{-2}+2z^{-4}\) <span>+</span></button><div class="acc-body solution"><p>Invert term by term:</p><div class="formula math">\(Z^{-1}\{3z^{-2}\}=3\delta[n-2],\quad Z^{-1}\{2z^{-4}\}=2\delta[n-4]\)</div><div class="formula math">\(x[n]=3\delta[n-2]+2\delta[n-4]\)</div></div></div>
+    <div class="card exercise accordion"><button class="acc-head" onclick="toggleAcc(this)">Exercise 11: Invert \(\frac{1}{(1-z^{-1})(1-0.3z^{-1})}\) <span>+</span></button><div class="acc-body solution"><p>Assume:</p><div class="formula math">\(X(z)=\frac{A}{1-z^{-1}}+\frac{B}{1-0.3z^{-1}}\)</div><p>Clear denominators:</p><div class="formula math">\(1=A(1-0.3z^{-1})+B(1-z^{-1})\)</div><p>Compare:</p><div class="formula math">\(A+B=1,\quad -0.3A-B=0\)</div><p>From the second equation, \(B=-0.3A\). Substitute: \(0.7A=1\Rightarrow A=\frac{10}{7}\), and \(B=-\frac{3}{7}\).</p><div class="formula math">\(x[n]=\frac{10}{7}u[n]-\frac{3}{7}(0.3)^n u[n]\)</div></div></div>
+    <div class="card exercise accordion"><button class="acc-head" onclick="toggleAcc(this)">Exercise 12: Invert \(\frac{3}{1-0.7z^{-1}}+\frac{2}{1-z^{-1}}\) <span>+</span></button><div class="acc-body solution"><p>Each term already matches a standard inverse pair:</p><div class="formula math">\(x[n]=3(0.7)^n u[n]+2u[n]\)</div></div></div>
+  </div>
+  <div id="t3" class="tab-panel grid">
+    <div class="card exercise accordion open"><button class="acc-head" onclick="toggleAcc(this)">Exercise 13: Solve \(y[n]-0.2y[n-1]=u[n]\) <span>+</span></button><div class="acc-body solution"><p>With zero initial conditions:</p><div class="formula math">\(Y(z)-0.2z^{-1}Y(z)=\frac{1}{1-z^{-1}}\)</div><div class="formula math">\(Y(z)=\frac{1}{(1-z^{-1})(1-0.2z^{-1})}\)</div><p>Assume \(\frac{A}{1-z^{-1}}+\frac{B}{1-0.2z^{-1}}\). Then:</p><div class="formula math">\(A+B=1,\quad -0.2A-B=0\)</div><p>So \(A=1.25\), \(B=-0.25\).</p><div class="formula math">\(y[n]=1.25u[n]-0.25(0.2)^n u[n]\)</div></div></div>
+    <div class="card exercise accordion"><button class="acc-head" onclick="toggleAcc(this)">Exercise 14: Solve \(y[n]-0.3y[n-1]=(0.5)^n u[n]\) <span>+</span></button><div class="acc-body solution"><p>Input transform:</p><div class="formula math">\(X(z)=\frac{1}{1-0.5z^{-1}}\)</div><p>Equation transform:</p><div class="formula math">\(Y(z)(1-0.3z^{-1})=\frac{1}{1-0.5z^{-1}}\)</div><div class="formula math">\(Y(z)=\frac{1}{(1-0.3z^{-1})(1-0.5z^{-1})}\)</div><p>Assume \(\frac{A}{1-0.3z^{-1}}+\frac{B}{1-0.5z^{-1}}\).</p><div class="formula math">\(1=A(1-0.5z^{-1})+B(1-0.3z^{-1})\)</div><p>Compare: \(A+B=1\), \(-0.5A-0.3B=0\). Solving gives \(A=-1.5\), \(B=2.5\).</p><div class="formula math">\(y[n]=-1.5(0.3)^n u[n]+2.5(0.5)^n u[n]\)</div></div></div>
+    <div class="card exercise accordion"><button class="acc-head" onclick="toggleAcc(this)">Exercise 15: Output for \(H(z)=\frac{1}{1-0.5z^{-1}}\), \(x[n]=u[n]\) <span>+</span></button><div class="acc-body solution"><p>Input transform:</p><div class="formula math">\(X(z)=\frac{1}{1-z^{-1}}\)</div><p>Output transform:</p><div class="formula math">\(Y(z)=H(z)X(z)=\frac{1}{(1-z^{-1})(1-0.5z^{-1})}\)</div><p>From the central example:</p><div class="formula math">\(y[n]=2u[n]-(0.5)^n u[n]\)</div><p class="ar">الجزء \(2u[n]\) هو الحالة المستقرة، والجزء \(-(0.5)^n u[n]\) هو الجزء العابر الذي يختفي مع الزمن.</p></div></div>
+    <div class="card exercise accordion"><button class="acc-head" onclick="toggleAcc(this)">Exercise 16: Output for \(H(z)=\frac{1}{1-0.4z^{-1}}\), \(x[n]=u[n]\) <span>+</span></button><div class="acc-body solution"><p>Compute:</p><div class="formula math">\(Y(z)=\frac{1}{(1-z^{-1})(1-0.4z^{-1})}\)</div><p>Assume \(\frac{A}{1-z^{-1}}+\frac{B}{1-0.4z^{-1}}\).</p><div class="formula math">\(A+B=1,\quad -0.4A-B=0\)</div><p>Then \(A=\frac{5}{3}\), \(B=-\frac{2}{3}\).</p><div class="formula math">\(y[n]=\frac{5}{3}u[n]-\frac{2}{3}(0.4)^n u[n]\)</div></div></div>
+  </div>
+</section>
+<section id="quiz" class="section">
+  <div class="section-head"><span class="num">9</span><h2 class="bilingual-title">Quick Interactive Quiz <small>اختبار تفاعلي سريع</small></h2></div>
+  <div class="grid3">
+    <div class="card"><h3>Question 1 / السؤال 1</h3><p>What is \(Z\{u[n-2]\}\)?</p><button class="quiz-option" onclick="mark(this,false)">\(\frac{1}{1-z^{-1}}\)</button><button class="quiz-option" onclick="mark(this,true)">\(\frac{z^{-2}}{1-z^{-1}}\)</button><button class="quiz-option" onclick="mark(this,false)">\(1-z^{-2}\)</button></div>
+    <div class="card"><h3>Question 2 / السؤال 2</h3><p>Convolution in time becomes:</p><button class="quiz-option" onclick="mark(this,true)">Multiplication in Z-domain / ضرب</button><button class="quiz-option" onclick="mark(this,false)">Subtraction / طرح</button><button class="quiz-option" onclick="mark(this,false)">Division only / قسمة فقط</button></div>
+    <div class="card"><h3>Question 3 / السؤال 3</h3><p>\(Z^{-1}\{\frac{1}{1-0.6z^{-1}}\}\) equals:</p><button class="quiz-option" onclick="mark(this,false)">\(0.6u[n]\)</button><button class="quiz-option" onclick="mark(this,true)">\((0.6)^n u[n]\)</button><button class="quiz-option" onclick="mark(this,false)">\(\delta[n-6]\)</button></div>
+  </div>
+</section>
+<section id="mistakes" class="section">
+  <div class="section-head"><span class="num">10</span><h2 class="bilingual-title">Common Mistakes <small>أخطاء شائعة</small></h2></div>
+  <div class="grid">
+    <div class="card note red"><b>Forgetting \(z^{-k}\) / نسيان عامل التأخير:</b> For \(x[n-k]\), always multiply by \(z^{-k}\).</div>
+    <div class="card note red"><b>Ignoring ROC / تجاهل منطقة التقارب:</b> ROC is required for infinite-duration sequences.</div>
+    <div class="card note red"><b>Wrong partial fraction form / صيغة خاطئة للكسور:</b> Every denominator factor needs its own constant.</div>
+    <div class="card note red"><b>Forgetting \(u[n]\) / نسيان الخطوة:</b> Causal exponentials must be written as \(a^n u[n]\).</div>
+  </div>
+</section>
+</main>
+<footer>Prepared as an academic interactive HTML lesson / تم إعداد الصفحة كدرس HTML أكاديمي تفاعلي.</footer>
+<div class="toast" id="toast">Correct / صحيح</div>
+<script>
+window.addEventListener('scroll',()=>{const h=document.documentElement;const p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;document.getElementById('progress').style.width=p+'%';});
+function toggleAcc(btn){btn.parentElement.classList.toggle('open'); if(window.MathJax){MathJax.typesetPromise();}}
+function toggleAllSolutions(){document.querySelectorAll('.accordion').forEach(a=>a.classList.toggle('open')); if(window.MathJax){MathJax.typesetPromise();}}
+function showTab(id,el){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active'); if(window.MathJax){MathJax.typesetPromise();}}
+function mark(btn,ok){btn.classList.add(ok?'correct':'wrong');const t=document.getElementById('toast');t.textContent=ok?'Correct / صحيح':'Try again / حاول مرة أخرى';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1200)}
+function calcPair(){const C=parseFloat(document.getElementById('coef').value);const a=parseFloat(document.getElementById('aval').value);const out=document.getElementById('pairResult');if(isNaN(C)||isNaN(a)){out.textContent='Please enter valid numbers / أدخل أرقاما صحيحة';return;}out.innerHTML=`For \\(x[n]=${C}(${a})^n u[n]\\), the transform is \\(X(z)=\\frac{${C}}{1-${a}z^{-1}}\\), ROC: \\(|z|>${Math.abs(a)}\\).`;if(window.MathJax){MathJax.typesetPromise([out]);}}
+
+function filterExercises(){const q=document.getElementById('exerciseSearch').value.toLowerCase().trim();document.querySelectorAll('.exercise').forEach(card=>{const hit=card.textContent.toLowerCase().includes(q);card.style.display=hit?'':'none';card.classList.toggle('highlight',!!q&&hit);});}
+function clearSearch(){const i=document.getElementById('exerciseSearch');i.value='';filterExercises();}
+
+function makeSamples(){let n=parseInt(document.getElementById('nmax').value);n=Math.max(1,Math.min(20,n||6));let html='<div class="table-wrap"><table><thead><tr><th>n</th><th>y[n]=2-(0.5)^n</th></tr></thead><tbody>';for(let i=0;i<n;i++){html+=`<tr><td>${i}</td><td>${(2-Math.pow(.5,i)).toFixed(6)}</td></tr>`;}html+='</tbody></table></div>';document.getElementById('samples').innerHTML=html;}
+makeSamples();calcPair();
+</script>
+</body>
+</html>
