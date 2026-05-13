@@ -123,39 +123,39 @@ canvas{background:rgba(255,255,255,.04);border-radius:18px;padding:10px;margin-t
 <section id="questions" class="panel active">
 <div class="white-page">
 <h2>Digital Control — Expanded Exam Sheet</h2>
-<p><strong>Duration:</strong> 90 minutes. <strong>Total:</strong> 40 points. Show all intermediate steps. A numerical answer without explanation is not sufficient.</p>
+<p><strong>Duration:</strong> 90 minutes. <strong>Total:</strong> 20 points. Each exercise is graded out of 10 points. Show all intermediate steps. A numerical answer without explanation is not sufficient.</p>
 
 <div class="exam-box">
-<h3>Exercise 1 — First-order motor in closed loop, then PI control <span class="points">20 pts</span></h3>
+<h3>Exercise 1 — First-order motor in closed loop, then PI control <span class="points">10 pts</span></h3>
 <p>A discrete-time first-order motor is given by:</p>
 <div class="math">\[G(z)=\frac{0.4z}{z-0.6}\]</div>
 <p>The feedback is unity and negative. The input is a unit-step signal \(X(z)\), and the output is \(Y(z)\).</p>
 
-<div class="q"><strong>Q1.</strong> Draw/read the closed-loop block diagram and find the complete closed-loop transfer function without PI controller. <strong>3 pts</strong></div>
-<div class="q"><strong>Q2.</strong> Find the relation between input and output, then derive the first-order difference equation. <strong>3 pts</strong></div>
-<div class="q"><strong>Q3.</strong> Decide whether the system is stable. Use the roots of the denominator/characteristic equation and the unit-circle rule. <strong>3 pts</strong></div>
+<div class="q"><strong>Q1.</strong> Draw/read the closed-loop block diagram and find the complete closed-loop transfer function without PI controller. <strong>1.5 pts</strong></div>
+<div class="q"><strong>Q2.</strong> Find the relation between input and output, then derive the first-order difference equation. <strong>1.5 pts</strong></div>
+<div class="q"><strong>Q3.</strong> Decide whether the system is stable. Use the roots of the denominator/characteristic equation and the unit-circle rule. <strong>1.5 pts</strong></div>
 <div class="q"><strong>Q4.</strong> Add a PI controller after the error signal:
 <div class="math">\[C(z)=K_p+\frac{K_iz}{z-1},\qquad K_p=0.8,\quad K_i=0.2\]</div>
-Find the new closed-loop transfer function. <strong>3 pts</strong></div>
-<div class="q"><strong>Q5.</strong> Derive the new relation between input and output, then use inverse Z-transform to obtain the second-order recurrence equation. Explain clearly how the delay terms are transformed. <strong>4 pts</strong></div>
-<div class="q"><strong>Q6.</strong> For a unit-step input, compute \(Y[n]\) up to \(n=10\), then draw \(Y[n]\) as discrete points, draw \(X[n]\) as the unit-step input, and compute the steady-state error \(e_\infty\). <strong>4 pts</strong></div>
+Find the new closed-loop transfer function. <strong>1.5 pts</strong></div>
+<div class="q"><strong>Q5.</strong> Derive the new relation between input and output, then use inverse Z-transform to obtain the second-order recurrence equation. Explain clearly how the delay terms are transformed. <strong>2 pts</strong></div>
+<div class="q"><strong>Q6.</strong> For a unit-step input, compute \(Y[n]\) up to \(n=10\), then draw \(Y[n]\) as discrete points, draw \(X[n]\) as the unit-step input, and compute the steady-state error \(e_\infty\). <strong>2 pts</strong></div>
 </div>
 
 <div class="exam-box">
-<h3>Exercise 2 — Third-order plant with PI controller, Jury stability and discrete response <span class="points">24 pts</span></h3>
+<h3>Exercise 2 — Third-order plant with PI controller, Jury stability and discrete response <span class="points">10 pts</span></h3>
 <p>A more complex discrete-time system is given by:</p>
 <div class="math">\[G_2(z)=\frac{0.15z^3}{z^3-1.1z^2+0.39z-0.045}\]</div>
 <p>The system is controlled by a PI controller:</p>
 <div class="math">\[C(z)=K_p+\frac{K_iz}{z-1},\qquad K_p=0.7,\quad K_i=0.15\]</div>
 <p>The feedback is unity and negative.</p>
 
-<div class="q"><strong>Q1.</strong> Draw the complete block diagram with PI controller, plant, feedback, input \(X(z)\), and output \(Y(z)\). <strong>3 pts</strong></div>
-<div class="q"><strong>Q2.</strong> Compute the open-loop transfer function \(L(z)=C(z)G_2(z)\). <strong>3 pts</strong></div>
-<div class="q"><strong>Q3.</strong> Compute the complete closed-loop transfer function \(F(z)=Y(z)/X(z)\). <strong>4 pts</strong></div>
-<div class="q"><strong>Q4.</strong> Derive the relation between \(X(z)\) and \(Y(z)\), then write the recurrence equation. <strong>4 pts</strong></div>
-<div class="q"><strong>Q5.</strong> Since the characteristic equation is fourth-order, use the Jury method to decide whether the closed-loop system is stable. Show all rows and all conditions. <strong>6 pts</strong></div>
-<div class="q"><strong>Q6.</strong> Starting from the input-output relation, derive the reference recurrence equation between \(X[n]\) and \(Y[n]\). Then assume the input is the unit-step signal \(X[n]=1\), compute \(Y[n]\) for \(0\le n\le 10\), and draw \(Y[n]\) as discrete sampled points like in Exercise 1. <strong>4 pts</strong></div>
-<div class="q"><strong>Q6.</strong> For a unit-step input, compute \(Y[n]\) up to \(n=10\), draw \(Y[n]\) as discrete points, draw \(X[n]\) as the unit-step input, and interpret the response. <strong>4 pts</strong></div>
+<div class="q"><strong>Q1.</strong> Draw the complete block diagram with PI controller, plant, feedback, input \(X(z)\), and output \(Y(z)\). <strong>1.5 pts</strong></div>
+<div class="q"><strong>Q2.</strong> Compute the open-loop transfer function \(L(z)=C(z)G_2(z)\). <strong>1.5 pts</strong></div>
+<div class="q"><strong>Q3.</strong> Compute the complete closed-loop transfer function \(F(z)=Y(z)/X(z)\). <strong>2 pts</strong></div>
+<div class="q"><strong>Q4.</strong> Derive the relation between \(X(z)\) and \(Y(z)\), then write the recurrence equation. <strong>2 pts</strong></div>
+<div class="q"><strong>Q5.</strong> Since the characteristic equation is fourth-order, use the Jury method to decide whether the closed-loop system is stable. Show all rows and all conditions. <strong>2 pts</strong></div>
+<div class="q"><strong>Q6.</strong> Starting from the input-output relation, derive the reference recurrence equation between \(X[n]\) and \(Y[n]\). Then assume the input is the unit-step signal \(X[n]=1\), compute \(Y[n]\) for \(0\le n\le 10\), and draw \(Y[n]\) as discrete sampled points like in Exercise 1. <strong>2 pts</strong></div>
+<div class="q"><strong>Q6.</strong> For a unit-step input, compute \(Y[n]\) up to \(n=10\), draw \(Y[n]\) as discrete points, draw \(X[n]\) as the unit-step input, and interpret the response. <strong>2 pts</strong></div>
 </div>
 </div>
 </section>
