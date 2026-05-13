@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complete Interactive Course: Jury Stability, Digital Control and Drone Exercise</title>
+<script>
+window.MathJax = {tex:{inlineMath:[['\\(','\\)'],['$','$']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg:#070b16;--ink:#f2f6ff;--muted:#b9c6e6;--line:rgba(255,255,255,.13);--blue:#60a5fa;--cyan:#5eead4;--violet:#a78bfa;--green:#86efac;--yellow:#fde68a;--red:#fb7185;--orange:#fdba74}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;background:radial-gradient(circle at 10% 5%,rgba(96,165,250,.22),transparent 28%),radial-gradient(circle at 85% 12%,rgba(167,139,250,.20),transparent 28%),linear-gradient(180deg,#060915,#0b1020 45%,#070b16);color:var(--ink);line-height:1.75}
+header{padding:56px 7vw 34px;border-bottom:1px solid var(--line)}main{padding:26px 7vw 70px}
+h1{margin:0 0 16px;font-size:clamp(2rem,5vw,4.6rem);line-height:1.05;letter-spacing:-.04em}
+h2{font-size:clamp(1.55rem,3vw,2.7rem);line-height:1.15;margin:46px 0 18px;letter-spacing:-.025em}
+h3{font-size:1.35rem;margin:22px 0 10px;color:#eaf1ff}h4{font-size:1.08rem;margin:18px 0 8px;color:#dbeafe}
+p,li{color:var(--muted);font-size:1.04rem}
+.kicker{color:var(--cyan);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:.82rem}
+.ar{direction:rtl;text-align:right;color:#d9e5ff;border-top:1px dashed rgba(255,255,255,.16);padding-top:10px;margin-top:10px}
+.badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.badge{padding:8px 13px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:#e0e7ff;font-size:.93rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.035));border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:0 22px 60px rgba(0,0,0,.28)}
+.card.accent{border-color:rgba(94,234,212,.35);background:linear-gradient(180deg,rgba(94,234,212,.10),rgba(255,255,255,.035))}
+.card.gold{border-color:rgba(253,230,138,.38);background:linear-gradient(180deg,rgba(253,230,138,.09),rgba(255,255,255,.035))}
+.math{font-family:"Cambria Math","STIX Two Math","Times New Roman",serif;font-size:1.18rem;color:#fff;background:rgba(96,165,250,.075);border:1px solid rgba(96,165,250,.22);border-radius:17px;padding:14px 16px;overflow-x:auto;margin:13px 0}
+.note,.ok,.danger,.tip{padding:16px 18px;border-radius:18px;margin:16px 0}.note{background:rgba(253,230,138,.10);border:1px solid rgba(253,230,138,.30);color:#fff}.ok{background:rgba(134,239,172,.10);border:1px solid rgba(134,239,172,.30);color:#fff}.danger{background:rgba(251,113,133,.10);border:1px solid rgba(251,113,133,.30);color:#fff}.tip{background:rgba(94,234,212,.10);border:1px solid rgba(94,234,212,.30);color:#fff}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;position:sticky;top:0;z-index:5;background:rgba(7,11,22,.88);backdrop-filter:blur(12px);padding:14px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.tab,button{cursor:pointer;border:none;border-radius:14px;padding:12px 15px;color:#fff;font-weight:800;background:#23325c}
+.tab:hover,.tab.active,button:hover{background:linear-gradient(90deg,var(--violet),var(--blue),var(--cyan));color:#06111f}
+.panel{display:none}.panel.active{display:block}
+details{border:1px solid var(--line);border-radius:22px;padding:18px 20px;background:rgba(255,255,255,.045);margin:18px 0}
+summary{cursor:pointer;font-size:1.15rem;font-weight:900;color:#fff}
+.step{border-left:4px solid var(--cyan);padding-left:17px;margin:20px 0}.step.v{border-left-color:var(--violet)}.step.g{border-left-color:var(--green)}.step.y{border-left-color:var(--yellow)}.step.o{border-left-color:var(--orange)}
+table{border-collapse:collapse;width:100%;margin:16px 0;border-radius:16px;overflow:hidden}
+th,td{border:1px solid rgba(255,255,255,.12);padding:12px;text-align:center;color:#dbeafe;vertical-align:middle}
+th{background:rgba(167,139,250,.22);color:#fff}tr:nth-child(even) td{background:rgba(255,255,255,.035)}
+.jury-table td:first-child,.jury-table th:first-child{font-weight:900;color:#fff;background:rgba(96,165,250,.12)}
+.timeline{counter-reset:item}.timeline .titem{position:relative;padding:0 0 18px 38px;border-left:2px solid rgba(94,234,212,.25);margin-left:10px}.timeline .titem:before{counter-increment:item;content:counter(item);position:absolute;left:-18px;top:0;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--cyan),var(--blue));color:#07111f;font-weight:900}
+input[type=range]{width:100%}canvas{background:rgba(255,255,255,.03);border-radius:18px;padding:10px}.footer{padding:30px 7vw;border-top:1px solid var(--line);color:#9caad0}
+.diagram-wrap{margin:18px 0 24px;padding:18px;border:1px solid rgba(94,234,212,.25);border-radius:22px;background:linear-gradient(180deg,rgba(94,234,212,.08),rgba(255,255,255,.035))}
+.diagram-title{display:flex;align-items:center;gap:10px;margin-bottom:14px;color:#fff;font-weight:900}.diagram-title span{display:inline-flex;width:28px;height:28px;border-radius:50%;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--cyan),var(--blue));color:#06111f}
+.block-diagram{width:100%;min-height:170px}.bd-label{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:15px;fill:#eef3ff;font-weight:800}.bd-small{font-size:12px;fill:#b9c6e6;font-weight:600}.bd-box{fill:rgba(96,165,250,.12);stroke:#60a5fa;stroke-width:2}.bd-box2{fill:rgba(167,139,250,.13);stroke:#a78bfa;stroke-width:2}.bd-sum{fill:rgba(94,234,212,.10);stroke:#5eead4;stroke-width:2}.bd-line{stroke:#eaf1ff;stroke-width:2.5;fill:none}.bd-feedback{stroke:#5eead4;stroke-width:2.4;fill:none}
+.question-card{border:1px solid rgba(94,234,212,.28);border-radius:22px;padding:20px;margin:22px 0;background:rgba(255,255,255,.04)}
+.qtag{display:inline-flex;align-items:center;justify-content:center;min-width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--violet),var(--blue));color:#fff;font-weight:900;margin-right:10px}
+@media print{body{background:#fff;color:#000}.tabs,button{display:none}.panel{display:block}.card,details,.diagram-wrap,.question-card{box-shadow:none;border:1px solid #ccc;background:#fff;color:#000}p,li,.ar,td{color:#111}.bd-label{fill:#000}.bd-small{fill:#333}.bd-line{stroke:#000}.bd-feedback{stroke:#000}}
+</style>
+</head>
+<body>
+<header>
+<div class="kicker">Complete interactive resource</div>
+<h1>Discrete-Time Control Stability: Jury Method, Closed-Loop Systems, PI Motor Control, EV Drive and Drone Models</h1>
+<p>A complete academic and interactive page for understanding discrete-time feedback systems, Jury stability tables, recurrence equations, static error, and applied digital control models.</p>
+<div class="ar">صفحة أكاديمية تفاعلية شاملة لفهم أنظمة التغذية الراجعة المتقطعة، جداول جيري للاستقرار، معادلات الرجوع، الخطأ الساكن، وتطبيقات التحكم الرقمي.</div>
+<div class="badges"><span class="badge">Block diagrams</span><span class="badge">Full Jury tables</span><span class="badge">Drone expanded exercise</span><span class="badge">Step response table</span></div>
+</header>
+
+<main>
+<nav class="tabs">
+<button class="tab active" onclick="showPanel('start',this)">Study Map</button>
+<button class="tab" onclick="showPanel('jury',this)">Jury Method</button>
+<button class="tab" onclick="showPanel('juryex',this)">Jury Table Exercises</button>
+<button class="tab" onclick="showPanel('control',this)">Control Exercises</button>
+<button class="tab" onclick="showPanel('drone',this)">Expanded Drone Exercise</button>
+<button class="tab" onclick="showPanel('simulator',this)">Interactive Tools</button>
+</nav>
+
+<section id="start" class="panel active">
+<h2>Study Map</h2>
+<div class="grid">
+<div class="card accent"><h3>System understanding before equations</h3><p>Start by identifying the reference, comparator, controller, dynamic system, sensor, feedback path, and output.</p><div class="ar">نبدأ بتحديد المرجع، المقارن، المتحكم، النظام الديناميكي، الحساس، مسار التغذية الراجعة، والخرج.</div></div>
+<div class="card"><h3>General closed-loop rule</h3><div class="math">\[F(z)=\frac{Y(z)}{R(z)}=\frac{L(z)}{1+L(z)},\qquad L(z)=C(z)G(z)H(z)\]</div><div class="ar">دالة التحويل المغلقة تساوي دالة الحلقة المفتوحة مقسومة على واحد زائد دالة الحلقة المفتوحة.</div></div>
+<div class="card gold"><h3>Stability principle</h3><div class="math">\[|z_i|<1\quad \text{for every closed-loop pole}\]</div><div class="ar">النظام مستقر إذا كانت جميع أقطابه داخل الدائرة الواحدة.</div></div>
+</div>
+<h2>Universal solution algorithm</h2>
+<div class="timeline">
+<div class="titem"><h3>Draw the block diagram</h3><p>Understand the control structure.</p></div>
+<div class="titem"><h3>Find the closed-loop transfer function</h3><p>Use the negative-feedback relationship.</p></div>
+<div class="titem"><h3>Write the reference equation</h3><p>Convert the denominator into a characteristic equation.</p></div>
+<div class="titem"><h3>Build the recurrence equation</h3><p>Convert the Z-domain expression into a time-domain iterative formula.</p></div>
+<div class="titem"><h3>Fill the response table</h3><p>For a unit step, compute \(r[n]\), \(y[n]\), and \(e[n]\).</p></div>
+<div class="titem"><h3>Check stability</h3><p>Use Jury table or pole verification.</p></div>
+</div>
+</section>
+
+<section id="jury" class="panel">
+<h2>Jury Stability Method — Complete Academic Explanation</h2>
+<div class="grid">
+<div class="card"><h3>Purpose</h3><p>The Jury method decides whether the roots of a discrete-time characteristic polynomial are all inside the unit circle.</p><div class="ar">تهدف طريقة جيري إلى معرفة هل جذور كثيرة الحدود المميزة كلها داخل الدائرة الواحدة.</div></div>
+<div class="card"><h3>Polynomial form</h3><div class="math">\[D(z)=a_0z^n+a_1z^{n-1}+a_2z^{n-2}+\cdots+a_n\]</div><div class="ar">نكتب كثيرة الحدود بترتيب تنازلي للدرجات.</div></div>
+</div>
+<h2>Preliminary conditions</h2>
+<div class="card"><div class="math">\[D(1)>0,\qquad (-1)^nD(-1)>0,\qquad |a_n|<a_0\]</div><div class="ar">إذا فشل أحد هذه الشروط يكون النظام غير مستقر. وإذا نجحت نكمل جدول جيري.</div></div>
+<h2>Full Jury table construction</h2>
+<details open><summary>General construction stages</summary>
+<div class="step"><h3>Original row</h3><div class="math">\[R_1=[a_0,\ a_1,\ldots,\ a_n]\]</div></div>
+<div class="step v"><h3>Reversed row</h3><div class="math">\[R_2=[a_n,\ a_{n-1},\ldots,\ a_0]\]</div></div>
+<div class="step g"><h3>Reduction row</h3><div class="math">\[q_k=p_0p_k-p_mp_{m-k}\]</div><p>The last term becomes zero and is removed. Repeat until reaching the final low-order stage.</p></div>
+<div class="step y"><h3>Decision</h3><p>After reaching the final stage, apply the remaining stability conditions. If all stages pass, the system is stable.</p></div>
+</details>
+</section>
+
+<section id="juryex" class="panel">
+<h2>Jury Table Exercises — Complete Tables Until the Final Stage</h2>
+<details open>
+<summary>Jury Exercise A — Third-order stable polynomial</summary>
+<div class="math">\[D(z)=z^3-0.8z^2+0.15z-0.02\]</div>
+<div class="math">\[D(1)=0.33>0,\quad (-1)^3D(-1)=1.97>0,\quad |-0.02|<1\]</div>
+<table class="jury-table">
+<tr><th>Row</th><th colspan="4">Coefficients</th><th>Role</th></tr>
+<tr><td>\(R_1\)</td><td>1</td><td>-0.8</td><td>0.15</td><td>-0.02</td><td>Original row</td></tr>
+<tr><td>\(R_2\)</td><td>-0.02</td><td>0.15</td><td>-0.8</td><td>1</td><td>Reversed row</td></tr>
+<tr><td>\(R_3\)</td><td>0.9996</td><td>-0.797</td><td>0.134</td><td></td><td>Reduced row</td></tr>
+<tr><td>\(R_4\)</td><td>0.134</td><td>-0.797</td><td>0.9996</td><td></td><td>Reverse</td></tr>
+</table>
+<div class="math">\[D_r(1)=0.3366>0,\quad D_r(-1)=1.9306>0,\quad |0.134|<0.9996\]</div>
+<div class="ok">Stable.</div>
+</details>
+
+<details>
+<summary>Jury Exercise B — Fourth-order stable polynomial</summary>
+<div class="math">\[D(z)=z^4-1.1z^3+0.45z^2-0.09z+0.006\]</div>
+<table class="jury-table">
+<tr><th>Row</th><th colspan="5">Coefficients</th><th>Role</th></tr>
+<tr><td>\(R_1\)</td><td>1</td><td>-1.1</td><td>0.45</td><td>-0.09</td><td>0.006</td><td>Original row</td></tr>
+<tr><td>\(R_2\)</td><td>0.006</td><td>-0.09</td><td>0.45</td><td>-1.1</td><td>1</td><td>Reverse</td></tr>
+<tr><td>\(R_3\)</td><td>0.999964</td><td>-1.09946</td><td>0.4473</td><td>-0.0834</td><td></td><td>Reduced degree 3</td></tr>
+<tr><td>\(R_4\)</td><td>-0.0834</td><td>0.4473</td><td>-1.09946</td><td>0.999964</td><td></td><td>Reverse</td></tr>
+<tr><td>\(R_5\)</td><td>0.993008</td><td>-1.061936</td><td>0.354204</td><td></td><td></td><td>Reduced degree 2</td></tr>
+<tr><td>\(R_6\)</td><td>0.354204</td><td>-1.061936</td><td>0.993008</td><td></td><td></td><td>Reverse</td></tr>
+</table>
+<div class="math">\[D_f(1)=0.285276>0,\quad D_f(-1)=2.409148>0,\quad |0.354204|<0.993008\]</div>
+<div class="ok">Stable.</div>
+</details>
+</section>
+
+<section id="control" class="panel">
+<h2>Complete Solved Control Exercises</h2>
+<details open>
+<summary>Exercise 1 — Unity feedback system \(G(z)=\frac{2z}{z-0.5}\)</summary>
+<div class="diagram-wrap"><div class="diagram-title"><span>1</span> Block diagram — Simple unity-feedback dynamic system</div>
+<svg class="block-diagram" viewBox="0 0 980 230"><defs><marker id="arrow1" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#eaf1ff"/></marker></defs><line class="bd-line" marker-end="url(#arrow1)" x1="40" y1="90" x2="130" y2="90"/><text class="bd-label" x="35" y="72">R(z)</text><circle class="bd-sum" cx="165" cy="90" r="28"/><text class="bd-label" x="156" y="84">+</text><text class="bd-label" x="157" y="112">−</text><line class="bd-line" marker-end="url(#arrow1)" x1="193" y1="90" x2="310" y2="90"/><rect class="bd-box" x="310" y="50" width="250" height="80" rx="14"/><text class="bd-label" x="370" y="83">Dynamic system</text><text class="bd-label" x="360" y="108">G(z)=2z/(z−0.5)</text><line class="bd-line" marker-end="url(#arrow1)" x1="560" y1="90" x2="850" y2="90"/><text class="bd-label" x="865" y="95">Y(z)</text><path class="bd-feedback" d="M780,90 L780,178 L165,178 L165,120"/></svg></div>
+<div class="math">\[F(z)=\frac{2z}{3z-0.5}\]</div>
+<div class="math">\[z=0.1667<1\]</div>
+<div class="math">\[y[n]=\frac{1}{6}y[n-1]+\frac{2}{3}x[n]\]</div>
+</details>
+
+<details>
+<summary>Exercise 2 — Dynamic system with a digital integrator</summary>
+<div class="diagram-wrap"><div class="diagram-title"><span>2</span> Block diagram — Digital integrator before the controlled dynamic system</div>
+<svg class="block-diagram" viewBox="0 0 1050 250"><defs><marker id="arrow2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#eaf1ff"/></marker></defs><line class="bd-line" marker-end="url(#arrow2)" x1="40" y1="95" x2="130" y2="95"/><text class="bd-label" x="35" y="75">R(z)</text><circle class="bd-sum" cx="165" cy="95" r="28"/><text class="bd-label" x="156" y="89">+</text><text class="bd-label" x="157" y="117">−</text><line class="bd-line" marker-end="url(#arrow2)" x1="193" y1="95" x2="285" y2="95"/><rect class="bd-box2" x="285" y="55" width="190" height="80" rx="14"/><text class="bd-label" x="330" y="88">Integrator</text><text class="bd-label" x="326" y="113">C(z)=1/(z−1)</text><line class="bd-line" marker-end="url(#arrow2)" x1="475" y1="95" x2="545" y2="95"/><rect class="bd-box" x="545" y="55" width="260" height="80" rx="14"/><text class="bd-label" x="610" y="88">Controlled system</text><text class="bd-label" x="600" y="113">G(z)=2z/(z−0.5)</text><line class="bd-line" marker-end="url(#arrow2)" x1="805" y1="95" x2="920" y2="95"/><text class="bd-label" x="935" y="100">Y(z)</text><path class="bd-feedback" d="M870,95 L870,190 L165,190 L165,125"/></svg>
+<div class="ar">هنا أضفنا مكاملاً رقمياً قبل النظام المتحكم فيه. وجود المكامل يراكم الخطأ ويحسن الدقة الساكنة، لكنه يرفع درجة النظام لذلك يجب التحقق من الاستقرار.</div></div>
+<div class="math">\[F(z)=\frac{2z}{(z-1)(z-0.5)+2z}\]</div>
+<div class="math">\[D(z)=z^2+0.5z+0.5\]</div>
+<div class="ok">Stable by Jury.</div>
+</details>
+</section>
+
+<section id="drone" class="panel">
+<h2>Expanded Drone Exercise — Five Questions with Detailed Solution</h2>
+<div class="card accent">
+<h3>Engineering context</h3>
+<p>A drone altitude-control system must force the measured altitude \(y[n]\) to follow a reference command \(r[n]\). The model includes a digital controller, actuator delay, motor-thrust dynamics, vertical-body dynamics, and an altitude sensor. The exercise is written as a complete exam-style problem.</p>
+<div class="ar">نظام التحكم في ارتفاع الدرون يجب أن يجعل الارتفاع المقاس \(y[n]\) يتبع المرجع \(r[n]\). يتضمن النموذج متحكماً رقمياً، تأخر المحركات، ديناميكا الدفع، ديناميكا الجسم العمودية، وحساس الارتفاع.</div>
+</div>
+
+<div class="question-card">
+<h3><span class="qtag">Q1</span>Draw the block diagram and write the closed-loop model equation</h3>
+<p>Draw the control structure and use the following closed-loop characteristic equation:</p>
+<div class="math">\[
+D(z)=z^5-2.65z^4+2.72z^3-1.35z^2+0.32z-0.03
+\]</div>
+<p>The numerator is selected as \(N(z)=0.01z^5\) so that the final closed-loop gain for a unit-step reference is equal to one.</p>
+<div class="ar">ارسم بنية التحكم، ثم استعمل المعادلة المميزة المعطاة. تم اختيار البسط \(N(z)=0.01z^5\) حتى يكون الكسب النهائي للحلقة المغلقة مساوياً للواحد عند الدخل الدرجوي.</div>
+<div class="diagram-wrap">
+<div class="diagram-title"><span>D</span> Block diagram — Drone altitude closed-loop control</div>
+<svg class="block-diagram" viewBox="0 0 1180 320">
+<defs><marker id="arrowD" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#eaf1ff"/></marker></defs>
+<line class="bd-line" marker-end="url(#arrowD)" x1="40" y1="120" x2="130" y2="120"/><text class="bd-label" x="35" y="96">Altitude reference R(z)</text>
+<circle class="bd-sum" cx="165" cy="120" r="28"/><text class="bd-label" x="156" y="114">+</text><text class="bd-label" x="157" y="142">−</text>
+<line class="bd-line" marker-end="url(#arrowD)" x1="193" y1="120" x2="270" y2="120"/><text class="bd-small" x="205" y="102">error E(z)</text>
+<rect class="bd-box2" x="270" y="80" width="170" height="80" rx="14"/><text class="bd-label" x="303" y="113">Controller</text><text class="bd-small" x="296" y="139">digital altitude law</text>
+<line class="bd-line" marker-end="url(#arrowD)" x1="440" y1="120" x2="510" y2="120"/>
+<rect class="bd-box" x="510" y="80" width="165" height="80" rx="14"/><text class="bd-label" x="548" y="113">Motors</text><text class="bd-small" x="540" y="139">actuator delay</text>
+<line class="bd-line" marker-end="url(#arrowD)" x1="675" y1="120" x2="740" y2="120"/>
+<rect class="bd-box" x="740" y="80" width="170" height="80" rx="14"/><text class="bd-label" x="772" y="113">Drone body</text><text class="bd-small" x="768" y="139">vertical dynamics</text>
+<line class="bd-line" marker-end="url(#arrowD)" x1="910" y1="120" x2="1030" y2="120"/><text class="bd-label" x="1040" y="125">Altitude Y(z)</text>
+<rect class="bd-box" x="690" y="220" width="220" height="55" rx="14"/><text class="bd-label" x="738" y="254">Altitude sensor</text>
+<path class="bd-feedback" d="M985,120 L985,248 L910,248"/><path class="bd-feedback" marker-end="url(#arrowD)" d="M690,248 L165,248 L165,150"/>
+</svg>
+</div>
+<div class="ok">The diagram shows a standard negative-feedback altitude loop: the measured altitude is subtracted from the desired altitude, and the controller acts on the error.</div>
+</div>
+
+<div class="question-card">
+<h3><span class="qtag">Q2</span>Find the transfer function of the complete closed-loop system</h3>
+<p>The complete closed-loop transfer function is written as:</p>
+<div class="math">\[
+F(z)=\frac{Y(z)}{R(z)}=\frac{N(z)}{D(z)}
+\]</div>
+<p>Using \(N(z)=0.01z^5\):</p>
+<div class="math">\[
+F(z)=
+\frac{0.01z^5}
+{z^5-2.65z^4+2.72z^3-1.35z^2+0.32z-0.03}
+\]</div>
+<div class="ar">دالة التحويل الكاملة للنظام المغلق هي نسبة الخرج إلى المرجع. المقام يحدد الاستقرار، أما البسط فيؤثر على شكل الاستجابة والكسب النهائي.</div>
+<div class="tip">Important distinction: stability is decided by \(D(z)\), while tracking accuracy is studied using \(F(1)\).</div>
+</div>
+
+<div class="question-card">
+<h3><span class="qtag">Q3</span>Derive the reference recurrence equation</h3>
+<p>Start from:</p>
+<div class="math">\[
+D(z)Y(z)=0.01z^5R(z)
+\]</div>
+<p>Substitute \(D(z)\):</p>
+<div class="math">\[
+(z^5-2.65z^4+2.72z^3-1.35z^2+0.32z-0.03)Y(z)=0.01z^5R(z)
+\]</div>
+<p>Divide by \(z^5\):</p>
+<div class="math">\[
+(1-2.65z^{-1}+2.72z^{-2}-1.35z^{-3}+0.32z^{-4}-0.03z^{-5})Y(z)=0.01R(z)
+\]</div>
+<p>Apply inverse Z-transform:</p>
+<div class="math">\[
+y[n]-2.65y[n-1]+2.72y[n-2]-1.35y[n-3]+0.32y[n-4]-0.03y[n-5]=0.01r[n]
+\]</div>
+<p>Solving for the current output:</p>
+<div class="math">\[
+y[n]=2.65y[n-1]-2.72y[n-2]+1.35y[n-3]-0.32y[n-4]+0.03y[n-5]+0.01r[n]
+\]</div>
+<div class="ar">هذه هي معادلة الرجوع المرجعية التي يمكن تنفيذها في برنامج تحكم رقمي. الخرج الحالي يعتمد على خمس قيم سابقة للخرج وعلى قيمة المرجع الحالية.</div>
+</div>
+
+<div class="question-card">
+<h3><span class="qtag">Q4</span>Fill the table for a unit-step input until 10 values</h3>
+<p>Assume zero initial conditions:</p>
+<div class="math">\[
+y[-1]=y[-2]=y[-3]=y[-4]=y[-5]=0
+\]</div>
+<p>The input is the unit-step signal:</p>
+<div class="math">\[
+r[n]=1,\qquad n\ge 0
+\]</div>
+<table>
+<tr><th>n</th><th>r[n]</th><th>Recurrence expression used</th><th>y[n]</th><th>e[n]=r[n]-y[n]</th></tr>
+<tr><td>0</td><td>1</td><td>\(0.01\)</td><td>0.010000</td><td>0.990000</td></tr>
+<tr><td>1</td><td>1</td><td>\(2.65y[0]+0.01\)</td><td>0.036500</td><td>0.963500</td></tr>
+<tr><td>2</td><td>1</td><td>\(2.65y[1]-2.72y[0]+0.01\)</td><td>0.079525</td><td>0.920475</td></tr>
+<tr><td>3</td><td>1</td><td>\(2.65y[2]-2.72y[1]+1.35y[0]+0.01\)</td><td>0.134961</td><td>0.865039</td></tr>
+<tr><td>4</td><td>1</td><td>\(2.65y[3]-2.72y[2]+1.35y[1]-0.32y[0]+0.01\)</td><td>0.197414</td><td>0.802586</td></tr>
+<tr><td>5</td><td>1</td><td>\(2.65y[4]-2.72y[3]+1.35y[2]-0.32y[1]+0.03y[0]+0.01\)</td><td>0.262032</td><td>0.737968</td></tr>
+<tr><td>6</td><td>1</td><td>full recurrence</td><td>0.325263</td><td>0.674737</td></tr>
+<tr><td>7</td><td>1</td><td>full recurrence</td><td>0.384927</td><td>0.615073</td></tr>
+<tr><td>8</td><td>1</td><td>full recurrence</td><td>0.439960</td><td>0.560040</td></tr>
+<tr><td>9</td><td>1</td><td>full recurrence</td><td>0.490071</td><td>0.509929</td></tr>
+<tr><td>10</td><td>1</td><td>full recurrence</td><td>0.535425</td><td>0.464575</td></tr>
+</table>
+<canvas id="droneChart" height="250"></canvas>
+<div class="ar">نلاحظ أن الخرج يرتفع تدريجياً نحو المرجع. في أول عشر عينات لا يصل بعد إلى 1 لأن القطب المسيطر قريب من الواحد، وهذا يجعل الاستجابة بطيئة لكنها مستقرة.</div>
+</div>
+
+<div class="question-card">
+<h3><span class="qtag">Q5</span>Compute the steady-state error and verify stability using Jury</h3>
+<h4>Steady-state error</h4>
+<p>The final value for a unit-step input is obtained from the DC gain:</p>
+<div class="math">\[
+F(1)=\frac{0.01}{1-2.65+2.72-1.35+0.32-0.03}
+\]</div>
+<div class="math">\[
+F(1)=\frac{0.01}{0.01}=1
+\]</div>
+<p>Therefore:</p>
+<div class="math">\[
+y[\infty]=1,\qquad e[\infty]=r[\infty]-y[\infty]=1-1=0
+\]</div>
+<div class="ok">The steady-state error is zero. The drone altitude eventually reaches the desired reference.</div>
+
+<h4>Jury stability verification</h4>
+<p>First, check the necessary conditions for the fifth-order polynomial:</p>
+<div class="math">\[
+D(1)=0.01>0
+\]</div>
+<div class="math">\[
+(-1)^5D(-1)=-D(-1)=8.07>0
+\]</div>
+<div class="math">\[
+|-0.03|<1
+\]</div>
+<p>Then use a complete Jury reduction table. The following table gives the successive rows until the final reduced polynomial.</p>
+<table class="jury-table">
+<tr><th>Row</th><th colspan="6">Coefficients</th><th>Role</th></tr>
+<tr><td>\(R_1\)</td><td>1</td><td>-2.65</td><td>2.72</td><td>-1.35</td><td>0.32</td><td>-0.03</td><td>Original row</td></tr>
+<tr><td>\(R_2\)</td><td>-0.03</td><td>0.32</td><td>-1.35</td><td>2.72</td><td>-2.65</td><td>1</td><td>Reversed row</td></tr>
+<tr><td>\(R_3\)</td><td>0.9991</td><td>-2.6404</td><td>2.6795</td><td>-1.2684</td><td>0.2405</td><td></td><td>Reduced degree 4</td></tr>
+<tr><td>\(R_4\)</td><td>0.2405</td><td>-1.2684</td><td>2.6795</td><td>-2.6404</td><td>0.9991</td><td></td><td>Reverse</td></tr>
+<tr><td>\(R_5\)</td><td>0.9405</td><td>-2.3310</td><td>2.0326</td><td>-0.6327</td><td></td><td></td><td>Reduced degree 3</td></tr>
+<tr><td>\(R_6\)</td><td>-0.6327</td><td>2.0326</td><td>-2.3310</td><td>0.9405</td><td></td><td></td><td>Reverse</td></tr>
+<tr><td>\(R_7\)</td><td>0.4841</td><td>-0.9045</td><td>0.4346</td><td></td><td></td><td></td><td>Reduced degree 2</td></tr>
+<tr><td>\(R_8\)</td><td>0.4346</td><td>-0.9045</td><td>0.4841</td><td></td><td></td><td></td><td>Reverse</td></tr>
+</table>
+<p>The final second-order polynomial is approximately:</p>
+<div class="math">\[
+D_f(z)=0.4841z^2-0.9045z+0.4346
+\]</div>
+<div class="math">\[
+D_f(1)=0.0142>0,\qquad D_f(-1)=1.8232>0,\qquad |0.4346|<0.4841
+\]</div>
+<p>For additional confirmation, the roots of the original fifth-order polynomial are approximately:</p>
+<table>
+<tr><th>Pole</th><th>Magnitude</th><th>Meaning</th></tr>
+<tr><td>0.9136</td><td>0.9136</td><td>Dominant slow pole</td></tr>
+<tr><td>0.6095 + 0.2330j</td><td>0.6524</td><td>Damped oscillatory component</td></tr>
+<tr><td>0.6095 - 0.2330j</td><td>0.6524</td><td>Damped oscillatory component</td></tr>
+<tr><td>0.2587 + 0.1009j</td><td>0.2777</td><td>Fast decaying component</td></tr>
+<tr><td>0.2587 - 0.1009j</td><td>0.2777</td><td>Fast decaying component</td></tr>
+</table>
+<div class="ok">All poles are inside the unit circle. The Jury table reaches the final stable stage. Therefore, the drone altitude system is stable.</div>
+<div class="ar">بما أن جدول جيري وصل إلى المرحلة النهائية مع تحقق الشروط، وبما أن كل الأقطاب داخل الدائرة الواحدة، فإن نظام ارتفاع الدرون مستقر. كما أن الخطأ النهائي يساوي صفراً لأن \(F(1)=1\).</div>
+</div>
+</section>
+
+<section id="simulator" class="panel">
+<h2>Interactive tools</h2>
+<div class="grid">
+<div class="card"><h3>Second-order Jury explorer</h3><p>Study \(D(z)=z^2+a_1z+a_2\).</p><label>\(a_1\): <span id="a1v">-1.20</span></label><input type="range" min="-2.5" max="2.5" step="0.01" value="-1.20" id="a1" oninput="juryUpdate()"><label>\(a_2\): <span id="a2v">0.35</span></label><input type="range" min="-1.5" max="1.5" step="0.01" value="0.35" id="a2" oninput="juryUpdate()"><div id="juryResult" class="note"></div></div>
+<div class="card"><h3>Step response sketch</h3><canvas id="respChart" height="230"></canvas></div>
+</div>
+</section>
+</main>
+<div class="footer">Complete interactive resource for Jury stability, discrete-time feedback systems, and drone altitude control.</div>
+
+<script>
+function showPanel(id,btn){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');setTimeout(()=>{if(id==='simulator'){juryUpdate();} if(id==='drone'){drawDrone();} if(window.MathJax){MathJax.typesetPromise();}},80);}
+let respChart, droneChart;
+function roots2(a,b,c){const disc=b*b-4*a*c;if(disc>=0){return [(-b+Math.sqrt(disc))/(2*a),(-b-Math.sqrt(disc))/(2*a)].map(x=>({re:x,im:0,mag:Math.abs(x)}));}const re=-b/(2*a),im=Math.sqrt(-disc)/(2*a),mag=Math.sqrt(re*re+im*im);return [{re,im,mag},{re,im:-im,mag}];}
+function fmtRoot(r){if(Math.abs(r.im)<1e-9)return r.re.toFixed(3);return r.re.toFixed(3)+(r.im>=0?'+':'')+r.im.toFixed(3)+'j';}
+function juryUpdate(){const a1=parseFloat(document.getElementById('a1').value),a2=parseFloat(document.getElementById('a2').value);document.getElementById('a1v').textContent=a1.toFixed(2);document.getElementById('a2v').textContent=a2.toFixed(2);const d1=1+a1+a2,dm=1-a1+a2,c3=Math.abs(a2)<1,stable=d1>0&&dm>0&&c3,roots=roots2(1,a1,a2),box=document.getElementById('juryResult');box.className=stable?'ok':'danger';box.innerHTML=`<strong>${stable?'Stable':'Not stable'}</strong><br>D(1)=${d1.toFixed(3)} ${d1>0?'✓':'✗'}<br>D(-1)=${dm.toFixed(3)} ${dm>0?'✓':'✗'}<br>|a₂|=${Math.abs(a2).toFixed(3)} ${c3?'< 1 ✓':'≥ 1 ✗'}<br>Roots: ${fmtRoot(roots[0])} (|z|=${roots[0].mag.toFixed(3)}), ${fmtRoot(roots[1])} (|z|=${roots[1].mag.toFixed(3)})`;drawResp(stable,a1,a2);}
+function drawResp(stable,a1,a2){const data=[];let y1=0,y2=0;for(let n=0;n<22;n++){let y=-a1*y1-a2*y2+0.12;if(!stable)y*=(1+0.045*n);data.push(y);y2=y1;y1=y;}const ctx=document.getElementById('respChart');if(!ctx)return;if(respChart)respChart.destroy();respChart=new Chart(ctx,{type:'line',data:{labels:data.map((_,i)=>i),datasets:[{label:'Illustrative y[n]',data,tension:.3}]},options:{plugins:{legend:{labels:{color:'#eef3ff'}}},scales:{x:{ticks:{color:'#b9c6e6'},grid:{color:'rgba(255,255,255,.08)'}},y:{ticks:{color:'#b9c6e6'},grid:{color:'rgba(255,255,255,.08)'}}}}});}
+function drawDrone(){const ctx=document.getElementById('droneChart');if(!ctx)return;const y=[0.01,0.0365,0.079525,0.134961,0.197414,0.262032,0.325263,0.384927,0.439960,0.490071,0.535425];if(droneChart)droneChart.destroy();droneChart=new Chart(ctx,{type:'line',data:{labels:y.map((_,i)=>i),datasets:[{label:'Drone altitude y[n]',data:y,tension:.35},{label:'Reference r[n]=1',data:y.map(()=>1),tension:0}]},options:{plugins:{legend:{labels:{color:'#eef3ff'}}},scales:{x:{ticks:{color:'#b9c6e6'},grid:{color:'rgba(255,255,255,.08)'}},y:{min:0,max:1.1,ticks:{color:'#b9c6e6'},grid:{color:'rgba(255,255,255,.08)'}}}}});}
+window.addEventListener('load',()=>{juryUpdate(); drawDrone();});
+</script>
+</body>
+</html>
