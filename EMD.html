@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Printable Digital Control Exams</title>
+
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)'], ['$', '$']],
+    displayMath: [['\\[','\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial, sans-serif;
+  background:#eef6df;
+  color:#1f2937;
+  line-height:1.7;
+  padding:18px;
+}
+
+.container{
+  max-width:1150px;
+  margin:auto;
+}
+
+header{
+  background:linear-gradient(135deg,#4d7c0f,#84cc16,#ca8a04);
+  color:white;
+  padding:35px;
+  border-radius:22px;
+  margin-bottom:22px;
+}
+
+header h1{
+  font-size:40px;
+  margin-bottom:10px;
+}
+
+header p{
+  font-size:18px;
+}
+
+.toolbar{
+  background:white;
+  padding:18px;
+  border-radius:18px;
+  margin-bottom:22px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  box-shadow:0 6px 20px rgba(0,0,0,.08);
+}
+
+button{
+  border:none;
+  padding:13px 18px;
+  border-radius:12px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.btn-exam{
+  background:#84cc16;
+  color:#1a2e05;
+}
+
+.btn-solution{
+  background:#0ea5e9;
+  color:white;
+}
+
+.btn-all{
+  background:#ca8a04;
+  color:white;
+}
+
+.page{
+  background:white;
+  padding:32px;
+  border-radius:18px;
+  margin-bottom:24px;
+  box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.exam-page{
+  border-top:8px solid #84cc16;
+}
+
+.solution-page{
+  border-top:8px solid #0ea5e9;
+}
+
+h2{
+  font-size:30px;
+  color:#365314;
+  margin-bottom:18px;
+}
+
+h3{
+  font-size:23px;
+  color:#854d0e;
+  margin:24px 0 12px;
+}
+
+h4{
+  font-size:19px;
+  color:#166534;
+  margin:17px 0 10px;
+}
+
+.info{
+  background:#f7fee7;
+  border-left:6px solid #84cc16;
+  padding:13px;
+  border-radius:12px;
+  margin:14px 0;
+}
+
+.question{
+  background:#fefce8;
+  border-left:5px solid #eab308;
+  padding:13px;
+  border-radius:10px;
+  margin:10px 0;
+}
+
+.solution{
+  background:#f0fdf4;
+  border-left:5px solid #22c55e;
+  padding:15px;
+  border-radius:12px;
+  margin:13px 0;
+}
+
+.math{
+  background:#f8fafc;
+  border-left:5px solid #84cc16;
+  padding:12px;
+  border-radius:10px;
+  margin:10px 0;
+  overflow-x:auto;
+}
+
+.points{
+  display:inline-block;
+  background:#fff7ed;
+  border:1px solid #fdba74;
+  color:#9a3412;
+  padding:3px 9px;
+  border-radius:999px;
+  font-weight:bold;
+  font-size:14px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:14px 0;
+}
+
+th,td{
+  border:1px solid #d1d5db;
+  padding:9px;
+  text-align:center;
+}
+
+th{
+  background:#d9f99d;
+  color:#365314;
+}
+
+.marking td{
+  text-align:left;
+}
+
+.graph-box{
+  border:2px solid #cbd5e1;
+  border-radius:14px;
+  padding:14px;
+  margin:14px 0;
+  background:white;
+}
+
+svg{
+  width:100%;
+  height:auto;
+}
+
+.axis{
+  stroke:#111827;
+  stroke-width:3;
+}
+
+.grid{
+  stroke:#e5e7eb;
+  stroke-width:1;
+}
+
+.curve-x{
+  fill:none;
+  stroke:#ca8a04;
+  stroke-width:4;
+}
+
+.curve-y{
+  fill:none;
+  stroke:#65a30d;
+  stroke-width:4;
+}
+
+.label{
+  font-size:14px;
+  font-weight:bold;
+  fill:#334155;
+}
+
+hr{
+  border:none;
+  border-top:2px dashed #cbd5e1;
+  margin:25px 0;
+}
+
+.hide{
+  display:none !important;
+}
+
+@media(max-width:768px){
+  body{
+    padding:10px;
+  }
+
+  header{
+    padding:24px;
+  }
+
+  header h1{
+    font-size:28px;
+  }
+
+  h2{
+    font-size:24px;
+  }
+
+  h3{
+    font-size:20px;
+  }
+
+  .page{
+    padding:18px;
+  }
+
+  .toolbar{
+    flex-direction:column;
+  }
+
+  button{
+    width:100%;
+  }
+
+  table{
+    display:block;
+    overflow-x:auto;
+    white-space:nowrap;
+  }
+}
+
+@media print{
+  body{
+    background:white;
+    padding:0;
+  }
+
+  header,
+  .toolbar,
+  .no-print{
+    display:none !important;
+  }
+
+  .container{
+    max-width:100%;
+  }
+
+  .page{
+    box-shadow:none;
+    border-radius:0;
+    margin:0;
+    padding:18mm;
+    page-break-after:always;
+  }
+
+  .exam-page{
+    border-top:none;
+  }
+
+  .solution-page{
+    border-top:none;
+  }
+
+  .print-exam-only .solution-page{
+    display:none !important;
+  }
+
+  .print-solution-only .exam-page{
+    display:none !important;
+  }
+
+  .print-one-page .exam-page{
+    page-break-after:auto;
+    font-size:12px;
+    padding:10mm;
+  }
+
+  .print-one-page .question{
+    padding:7px;
+    margin:5px 0;
+  }
+
+  .print-one-page h2{
+    font-size:20px;
+    margin-bottom:8px;
+  }
+
+  .print-one-page h3{
+    font-size:16px;
+    margin:10px 0 5px;
+  }
+
+  .print-one-page .info{
+    padding:8px;
+    margin:6px 0;
+  }
+
+  .print-one-page .math{
+    padding:6px;
+    margin:5px 0;
+  }
+
+  @page{
+    size:A4;
+    margin:10mm;
+  }
+}
+</style>
+
+<script>
+function printExam(){
+  document.body.classList.remove("print-solution-only");
+  document.body.classList.add("print-exam-only");
+  document.body.classList.add("print-one-page");
+  window.print();
+}
+
+function printSolution(){
+  document.body.classList.remove("print-exam-only");
+  document.body.classList.remove("print-one-page");
+  document.body.classList.add("print-solution-only");
+  window.print();
+}
+
+function printAll(){
+  document.body.classList.remove("print-exam-only");
+  document.body.classList.remove("print-solution-only");
+  document.body.classList.remove("print-one-page");
+  window.print();
+}
+
+window.onafterprint = function(){
+  document.body.classList.remove("print-exam-only");
+  document.body.classList.remove("print-solution-only");
+  document.body.classList.remove("print-one-page");
+};
+</script>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+<h1>Digital Control Systems — Printable Exam Models</h1>
+<p>Choose to print the exam paper only on one page, or print the detailed model solution separately.</p>
+</header>
+
+<div class="toolbar no-print">
+<button class="btn-exam" onclick="printExam()">Print Exam Only — One Page</button>
+<button class="btn-solution" onclick="printSolution()">Print Detailed Solution Only</button>
+<button class="btn-all" onclick="printAll()">Print Everything</button>
+</div>
+
+<!-- ================= EXAM PAPER ================= -->
+
+<section class="page exam-page">
+<h2>Digital Control Systems — Exam Paper</h2>
+
+<div class="info">
+<strong>Total:</strong> 20 points.  
+<strong>Duration:</strong> 90 minutes.  
+Each exercise is marked out of 10 points.  
+Show all calculation steps clearly.
+</div>
+
+<h3>Exercise 1 — Z-Transform and Difference Equations <span class="points">10 pts</span></h3>
+
+<div class="question">
+1. Compute the Z-transform of:
+\[
+x[n]=2u[n]-(0.5)^nu[n]+3\delta[n-2]
+\]
+<span class="points">1.25 pts</span>
+</div>
+
+<div class="question">
+2. Determine the region of convergence. <span class="points">1 pt</span>
+</div>
+
+<div class="question">
+3. Find the inverse Z-transform of:
+\[
+X(z)=\frac{2z}{z-0.4}+\frac{z}{z-1}
+\]
+<span class="points">1.25 pts</span>
+</div>
+
+<div class="question">
+4. Derive the recurrence equation of:
+\[
+H(z)=\frac{0.2+0.1z^{-1}}{1-1.1z^{-1}+0.32z^{-2}}
+\]
+<span class="points">1.75 pts</span>
+</div>
+
+<div class="question">
+5. Compute the first six samples of \(y[n]\) for a unit-step input. <span class="points">1.75 pts</span>
+</div>
+
+<div class="question">
+6. Draw the curves of \(x[n]\) and \(y[n]\), then verify stability using Jury criterion. <span class="points">3 pts</span>
+</div>
+
+<h3>Exercise 2 — Electric Vehicle PI Control System <span class="points">10 pts</span></h3>
+
+\[
+C(z)=K_p+\frac{K_iT_s}{z-1},\qquad K_p=1,\quad K_iT_s=0.3
+\]
+\[
+G(z)=\frac{0.4z}{z-0.6}
+\]
+
+<div class="question">
+1. Draw the closed-loop block diagram. <span class="points">1 pt</span>
+</div>
+
+<div class="question">
+2. Determine the open-loop transfer function \(L(z)=C(z)G(z)\). <span class="points">1.5 pts</span>
+</div>
+
+<div class="question">
+3. Compute the closed-loop transfer function \(F(z)\). <span class="points">2 pts</span>
+</div>
+
+<div class="question">
+4. Derive the recurrence equation. <span class="points">1.5 pts</span>
+</div>
+
+<div class="question">
+5. Compute \(y[n]\) from \(n=0\) to \(n=6\) for a unit-step input and draw \(x[n]\), \(y[n]\). <span class="points">2 pts</span>
+</div>
+
+<div class="question">
+6. Verify stability using Jury criterion. <span class="points">2 pts</span>
+</div>
+</section>
+
+<!-- ================= SOLUTION PAPER ================= -->
+
+<section class="page solution-page">
+<h2>Detailed Model Solution and Marking Scheme</h2>
+
+<h3>Exercise 1 Solution <span class="points">10 pts</span></h3>
+
+<div class="solution">
+<h4>1. Z-transform <span class="points">1.25 pts</span></h4>
+\[
+Z\{2u[n]\}=\frac{2}{1-z^{-1}}
+\]
+\[
+Z\{-(0.5)^nu[n]\}=-\frac{1}{1-0.5z^{-1}}
+\]
+\[
+Z\{3\delta[n-2]\}=3z^{-2}
+\]
+\[
+X(z)=\frac{2}{1-z^{-1}}-\frac{1}{1-0.5z^{-1}}+3z^{-2}
+\]
+</div>
+
+<div class="solution">
+<h4>2. Region of convergence <span class="points">1 pt</span></h4>
+The poles are \(z=1\) and \(z=0.5\). Since the signal is right-sided:
+\[
+ROC:\ |z|>1
+\]
+</div>
+
+<div class="solution">
+<h4>3. Inverse Z-transform <span class="points">1.25 pts</span></h4>
+\[
+\frac{2z}{z-0.4}=\frac{2}{1-0.4z^{-1}}
+\Rightarrow 2(0.4)^nu[n]
+\]
+\[
+\frac{z}{z-1}=\frac{1}{1-z^{-1}}
+\Rightarrow u[n]
+\]
+\[
+x[n]=2(0.4)^nu[n]+u[n]
+\]
+</div>
+
+<div class="solution">
+<h4>4. Recurrence equation <span class="points">1.75 pts</span></h4>
+\[
+(1-1.1z^{-1}+0.32z^{-2})Y(z)
+=
+(0.2+0.1z^{-1})X(z)
+\]
+\[
+y[n]-1.1y[n-1]+0.32y[n-2]=0.2x[n]+0.1x[n-1]
+\]
+\[
+y[n]=1.1y[n-1]-0.32y[n-2]+0.2x[n]+0.1x[n-1]
+\]
+</div>
+
+<div class="solution">
+<h4>5. Unit-step samples <span class="points">1.75 pts</span></h4>
+For \(x[n]=1\), zero initial conditions:
+<table>
+<tr><th>n</th><th>x[n]</th><th>y[n]</th></tr>
+<tr><td>0</td><td>1</td><td>0.2000</td></tr>
+<tr><td>1</td><td>1</td><td>0.5200</td></tr>
+<tr><td>2</td><td>1</td><td>0.8080</td></tr>
+<tr><td>3</td><td>1</td><td>1.0232</td></tr>
+<tr><td>4</td><td>1</td><td>1.1660</td></tr>
+<tr><td>5</td><td>1</td><td>1.2524</td></tr>
+</table>
+</div>
+
+<div class="solution">
+<h4>6. Drawing and Jury stability <span class="points">3 pts</span></h4>
+
+<div class="graph-box">
+<svg viewBox="0 0 760 330">
+<line class="grid" x1="70" y1="260" x2="720" y2="260"/>
+<line class="grid" x1="70" y1="210" x2="720" y2="210"/>
+<line class="grid" x1="70" y1="160" x2="720" y2="160"/>
+<line class="axis" x1="70" y1="280" x2="720" y2="280"/>
+<line class="axis" x1="70" y1="280" x2="70" y2="60"/>
+<polyline class="curve-x" points="70,170 190,170 310,170 430,170 550,170 670,170"/>
+<polyline class="curve-y" points="70,250 190,215 310,185 430,160 550,145 670,135"/>
+<text class="label" x="610" y="158">x[n]</text>
+<text class="label" x="610" y="126">y[n]</text>
+<text class="label" x="700" y="305">n</text>
+</svg>
+</div>
+
+\[
+D(z)=z^2-1.1z+0.32
+\]
+\[
+D(1)=1-1.1+0.32=0.22>0
+\]
+\[
+D(-1)=1+1.1+0.32=2.42>0
+\]
+\[
+|0.32|<1
+\]
+Therefore, the system is stable.
+</div>
+
+<table class="marking">
+<tr><th colspan="2">Exercise 1 Marking Scheme</th></tr>
+<tr><td>Z-transform</td><td>1.25 pts</td></tr>
+<tr><td>ROC</td><td>1 pt</td></tr>
+<tr><td>Inverse transform</td><td>1.25 pts</td></tr>
+<tr><td>Recurrence</td><td>1.75 pts</td></tr>
+<tr><td>Samples</td><td>1.75 pts</td></tr>
+<tr><td>Drawing + Jury</td><td>3 pts</td></tr>
+</table>
+
+<hr>
+
+<h3>Exercise 2 Solution <span class="points">10 pts</span></h3>
+
+<div class="solution">
+<h4>1. Closed-loop block diagram <span class="points">1 pt</span></h4>
+Unity negative feedback:
+\[
+R(z)\rightarrow \oplus \rightarrow C(z)\rightarrow G(z)\rightarrow Y(z)
+\]
+with \(Y(z)\) fed back negatively.
+</div>
+
+<div class="solution">
+<h4>2. Open-loop function <span class="points">1.5 pts</span></h4>
+\[
+C(z)=1+\frac{0.3}{z-1}
+=
+\frac{z-0.7}{z-1}
+\]
+\[
+L(z)=\frac{z-0.7}{z-1}\cdot\frac{0.4z}{z-0.6}
+=
+\frac{0.4z(z-0.7)}{(z-1)(z-0.6)}
+\]
+</div>
+
+<div class="solution">
+<h4>3. Closed-loop transfer function <span class="points">2 pts</span></h4>
+\[
+F(z)=\frac{L(z)}{1+L(z)}
+\]
+\[
+F(z)=
+\frac{0.4z(z-0.7)}
+{(z-1)(z-0.6)+0.4z(z-0.7)}
+\]
+\[
+F(z)=
+\frac{0.4z^2-0.28z}
+{1.4z^2-1.88z+0.6}
+\]
+</div>
+
+<div class="solution">
+<h4>4. Recurrence equation <span class="points">1.5 pts</span></h4>
+\[
+(1.4z^2-1.88z+0.6)Y(z)
+=
+(0.4z^2-0.28z)R(z)
+\]
+\[
+1.4y[n]-1.88y[n-1]+0.6y[n-2]
+=
+0.4r[n]-0.28r[n-1]
+\]
+</div>
+
+<div class="solution">
+<h4>5. Samples and drawing <span class="points">2 pts</span></h4>
+<table>
+<tr><th>n</th><th>r[n]</th><th>y[n]</th></tr>
+<tr><td>0</td><td>1</td><td>0.2857</td></tr>
+<tr><td>1</td><td>1</td><td>0.4702</td></tr>
+<tr><td>2</td><td>1</td><td>0.4960</td></tr>
+<tr><td>3</td><td>1</td><td>0.4516</td></tr>
+<tr><td>4</td><td>1</td><td>0.3811</td></tr>
+<tr><td>5</td><td>1</td><td>0.3100</td></tr>
+<tr><td>6</td><td>1</td><td>0.2514</td></tr>
+</table>
+
+<div class="graph-box">
+<svg viewBox="0 0 760 330">
+<line class="grid" x1="70" y1="260" x2="720" y2="260"/>
+<line class="grid" x1="70" y1="210" x2="720" y2="210"/>
+<line class="grid" x1="70" y1="160" x2="720" y2="160"/>
+<line class="axis" x1="70" y1="280" x2="720" y2="280"/>
+<line class="axis" x1="70" y1="280" x2="70" y2="60"/>
+<polyline class="curve-x" points="70,150 170,150 270,150 370,150 470,150 570,150 670,150"/>
+<polyline class="curve-y" points="70,235 170,205 270,200 370,208 470,222 570,235 670,246"/>
+<text class="label" x="610" y="138">r[n]</text>
+<text class="label" x="610" y="238">y[n]</text>
+<text class="label" x="700" y="305">n</text>
+</svg>
+</div>
+</div>
+
+<div class="solution">
+<h4>6. Jury stability <span class="points">2 pts</span></h4>
+\[
+D(z)=1.4z^2-1.88z+0.6
+\]
+\[
+D(1)=1.4-1.88+0.6=0.12>0
+\]
+\[
+D(-1)=1.4+1.88+0.6=3.88>0
+\]
+\[
+|0.6|<1.4
+\]
+The EV control system is stable.
+</div>
+
+<table class="marking">
+<tr><th colspan="2">Exercise 2 Marking Scheme</th></tr>
+<tr><td>Block diagram</td><td>1 pt</td></tr>
+<tr><td>Open-loop function</td><td>1.5 pts</td></tr>
+<tr><td>Closed-loop function</td><td>2 pts</td></tr>
+<tr><td>Recurrence</td><td>1.5 pts</td></tr>
+<tr><td>Samples + drawing</td><td>2 pts</td></tr>
+<tr><td>Jury stability</td><td>2 pts</td></tr>
+</table>
+
+</section>
+
+</div>
+</body>
+</html>
