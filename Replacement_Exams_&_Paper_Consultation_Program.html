@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Replacement Exams & Paper Consultation Program</title>
+
+<style>
+:root{
+  --bg:#eef2ff;
+  --bg2:#f8fafc;
+  --card:#ffffff;
+  --ink:#0f172a;
+  --muted:#64748b;
+  --blue:#2563eb;
+  --green:#16a34a;
+  --amber:#f59e0b;
+  --red:#dc2626;
+  --border:#e2e8f0;
+  --soft:#f1f5f9;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Inter,Arial,Helvetica,sans-serif;
+  background:
+    radial-gradient(circle at top left,#dbeafe,transparent 35%),
+    linear-gradient(135deg,var(--bg2),var(--bg));
+  color:var(--ink);
+  line-height:1.6;
+  min-height:100vh;
+}
+
+.container{
+  max-width:1280px;
+  margin:auto;
+  padding:20px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#0f172a,#1d4ed8 60%,#06b6d4);
+  color:white;
+  border-radius:30px;
+  padding:32px;
+  margin-bottom:18px;
+  box-shadow:0 20px 50px rgba(15,23,42,.22);
+  position:relative;
+  overflow:hidden;
+}
+
+.hero:before{
+  content:"";
+  position:absolute;
+  right:-90px;
+  top:-80px;
+  width:280px;
+  height:280px;
+  border-radius:50%;
+  background:rgba(255,255,255,.10);
+}
+
+.hero h1{
+  font-size:34px;
+  line-height:1.15;
+  margin-bottom:8px;
+  position:relative;
+}
+
+.hero p{
+  color:#dbeafe;
+  max-width:900px;
+  position:relative;
+}
+
+.pillbar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:16px;
+  position:relative;
+}
+
+.pill{
+  display:inline-flex;
+  padding:7px 12px;
+  border-radius:999px;
+  background:rgba(255,255,255,.13);
+  border:1px solid rgba(255,255,255,.25);
+  font-weight:800;
+  font-size:13px;
+}
+
+.livebar{
+  margin-top:16px;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:12px;
+  align-items:center;
+  position:relative;
+  background:rgba(15,23,42,.28);
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:18px;
+  padding:12px;
+}
+
+.livebar b{
+  font-size:14px;
+}
+
+.livebar span{
+  color:#dbeafe;
+  font-size:13px;
+}
+
+.panel{
+  background:rgba(255,255,255,.9);
+  backdrop-filter:blur(10px);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:18px;
+  margin:16px 0;
+  box-shadow:0 12px 30px rgba(15,23,42,.08);
+}
+
+.controls{
+  display:grid;
+  grid-template-columns:1.2fr 1fr 1.4fr auto;
+  gap:12px;
+  align-items:end;
+}
+
+label{
+  font-weight:900;
+  font-size:13px;
+  color:#334155;
+  margin-bottom:5px;
+  display:block;
+}
+
+select,
+input{
+  width:100%;
+  padding:12px 14px;
+  border:1px solid var(--border);
+  border-radius:15px;
+  font-size:14px;
+  background:white;
+  outline:none;
+}
+
+select:focus,
+input:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(37,99,235,.13);
+}
+
+.btns{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+button{
+  border:0;
+  border-radius:14px;
+  padding:12px 14px;
+  background:var(--ink);
+  color:white;
+  font-weight:900;
+  cursor:pointer;
+  transition:.18s;
+}
+
+button:hover{
+  background:#334155;
+  transform:translateY(-1px);
+}
+
+button.secondary{
+  background:#e2e8f0;
+  color:#0f172a;
+}
+
+.tab{
+  background:#e0e7ff;
+  color:#1e3a8a;
+}
+
+.tab.active{
+  background:var(--blue);
+  color:white;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:12px;
+  margin-top:14px;
+}
+
+.stat{
+  background:var(--soft);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:14px;
+  text-align:center;
+}
+
+.stat b{
+  display:block;
+  font-size:25px;
+  color:var(--blue);
+  line-height:1.1;
+}
+
+.stat span{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:800;
+}
+
+.view-tabs{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:16px;
+  box-shadow:0 8px 24px rgba(15,23,42,.08);
+  position:relative;
+  overflow:hidden;
+  animation:fadeIn .25s ease both;
+  transition:.2s;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:none}
+}
+
+.card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 14px 32px rgba(15,23,42,.12);
+}
+
+.card:before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:7px;
+  height:100%;
+  background:var(--blue);
+}
+
+.card.soon{
+  animation:blinkCard 1s infinite;
+  border-color:var(--amber);
+  box-shadow:
+    0 0 0 4px rgba(245,158,11,.14),
+    0 14px 32px rgba(245,158,11,.20);
+}
+
+.card.soon:before{
+  background:var(--amber);
+}
+
+.card.live{
+  animation:pulseLive 1.2s infinite;
+  border-color:var(--red);
+  box-shadow:
+    0 0 0 4px rgba(220,38,38,.12),
+    0 14px 32px rgba(220,38,38,.18);
+}
+
+.card.live:before{
+  background:var(--red);
+}
+
+.card.done{
+  background:linear-gradient(135deg,#f0fdf4,#ffffff);
+  border-color:#86efac;
+}
+
+.card.done:before{
+  background:var(--green);
+}
+
+.card.future:before{
+  background:var(--blue);
+}
+
+@keyframes blinkCard{
+  0%,100%{filter:brightness(1)}
+  50%{filter:brightness(1.08)}
+}
+
+@keyframes pulseLive{
+  0%,100%{transform:translateY(-2px) scale(1)}
+  50%{transform:translateY(-2px) scale(1.012)}
+}
+
+.status{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:5px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
+  margin:7px 0;
+}
+
+.status.future{
+  background:#eff6ff;
+  color:#1d4ed8;
+}
+
+.status.soon{
+  background:#fffbeb;
+  color:#92400e;
+}
+
+.status.live{
+  background:#fef2f2;
+  color:#991b1b;
+}
+
+.status.done{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.card h3{
+  font-size:16px;
+  line-height:1.35;
+  margin-bottom:7px;
+  padding-right:80px;
+}
+
+.badge{
+  display:inline-flex;
+  background:#eff6ff;
+  color:#1d4ed8;
+  border:1px solid #bfdbfe;
+  border-radius:999px;
+  padding:4px 10px;
+  font-size:12px;
+  font-weight:900;
+  margin:3px 0;
+}
+
+.teacher{
+  font-size:13px;
+  color:var(--muted);
+  font-weight:800;
+  margin-top:4px;
+}
+
+.meta{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:12px;
+}
+
+.box{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:11px;
+}
+
+.box strong{
+  display:block;
+  color:#0f172a;
+  font-size:12px;
+  margin-bottom:4px;
+}
+
+.exam{
+  border-left:5px solid var(--amber);
+}
+
+.review{
+  border-left:5px solid var(--green);
+}
+
+.note{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:10px;
+}
+
+.order{
+  position:absolute;
+  right:14px;
+  top:14px;
+  background:#f1f5f9;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:5px 9px;
+  font-weight:900;
+  color:#475569;
+  font-size:12px;
+}
+
+.countdown{
+  font-weight:900;
+  color:#0f172a;
+  margin-top:8px;
+  background:#f8fafc;
+  border:1px dashed var(--border);
+  padding:8px;
+  border-radius:14px;
+  font-size:12px;
+}
+
+.table-wrap{
+  overflow-x:auto;
+  border-radius:18px;
+  border:1px solid var(--border);
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px;
+  background:white;
+}
+
+th,
+td{
+  border-bottom:1px solid var(--border);
+  padding:11px;
+  text-align:left;
+  vertical-align:top;
+}
+
+th{
+  background:#f1f5f9;
+  color:#334155;
+  font-weight:900;
+  position:sticky;
+  top:0;
+}
+
+tr:hover td{
+  background:#f8fafc;
+}
+
+.row-soon td{
+  background:#fffbeb!important;
+}
+
+.row-live td{
+  background:#fef2f2!important;
+}
+
+.row-done td{
+  background:#f0fdf4!important;
+}
+
+.timeline{
+  display:grid;
+  gap:12px;
+}
+
+.day-block{
+  border:1px solid var(--border);
+  background:white;
+  border-radius:20px;
+  padding:14px;
+}
+
+.day-title{
+  font-size:18px;
+  font-weight:900;
+  margin-bottom:10px;
+  color:#1e3a8a;
+}
+
+.timeline-item{
+  display:grid;
+  grid-template-columns:110px 1fr;
+  gap:12px;
+  border-left:4px solid var(--blue);
+  padding:10px 0 10px 12px;
+  margin-left:6px;
+}
+
+.timeline-item.soon{
+  border-left-color:var(--amber);
+  background:#fffbeb;
+}
+
+.timeline-item.live{
+  border-left-color:var(--red);
+  background:#fef2f2;
+}
+
+.timeline-item.done{
+  border-left-color:var(--green);
+  background:#f0fdf4;
+}
+
+.time{
+  font-weight:900;
+  color:#0f172a;
+}
+
+.empty{
+  text-align:center;
+  padding:30px;
+  color:var(--muted);
+  background:#f8fafc;
+  border-radius:18px;
+  border:1px dashed var(--border);
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  padding:22px;
+  font-size:13px;
+}
+
+.toast{
+  position:fixed;
+  bottom:18px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#0f172a;
+  color:white;
+  padding:10px 14px;
+  border-radius:999px;
+  display:none;
+  font-weight:900;
+  z-index:9;
+}
+
+@media(max-width:1000px){
+  .controls,
+  .stats,
+  .cards{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .btns{
+    grid-column:1/-1;
+  }
+}
+
+@media(max-width:680px){
+  .container{
+    padding:10px;
+  }
+
+  .hero{
+    padding:22px;
+    border-radius:22px;
+  }
+
+  .hero h1{
+    font-size:25px;
+  }
+
+  .controls,
+  .stats,
+  .cards,
+  .meta,
+  .livebar{
+    grid-template-columns:1fr;
+  }
+
+  .timeline-item{
+    grid-template-columns:1fr;
+  }
+}
+
+@media print{
+  body{
+    background:white;
+  }
+
+  .hero,
+  .controls,
+  .view-tabs,
+  .footer,
+  .toast,
+  button{
+    display:none!important;
+  }
+
+  .panel,
+  .card,
+  .day-block{
+    box-shadow:none;
+    border:1px solid #000;
+    background:white;
+  }
+
+  .cards{
+    grid-template-columns:1fr;
+  }
+
+  .table-wrap{
+    border:0;
+  }
+
+  th,
+  td{
+    border:1px solid #000;
+  }
+
+  .card{
+    animation:none!important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<section class="hero">
+  <h1>Replacement Exams & Paper Consultation Program</h1>
+  <p>
+    Interactive live schedule. Modules blink when a replacement exam or paper consultation is approaching,
+    turn red while ongoing, and become green after consultation time ends.
+  </p>
+
+  <div class="pillbar">
+    <span class="pill">Replacement exam room: 210</span>
+    <span class="pill">Daily start: 08:00</span>
+    <span class="pill">Max 3 modules per level/day</span>
+    <span class="pill">Green status means consultation finished</span>
+  </div>
+
+  <div class="livebar">
+    <div>
+      <b id="nowLabel">Current time</b><br>
+      <span id="nextEvent">Loading next event...</span>
+    </div>
+    <button onclick="jumpToNext()">Jump to next</button>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="controls">
+    <div>
+      <label>Level / Speciality</label>
+      <select id="levelFilter">
+        <option value="all">All levels</option>
+        <option value="L2">Second Year Licence</option>
+        <option value="L3">Third Year Licence</option>
+        <option value="M1_IE">Master 1 — Industrial Electrotechnics</option>
+        <option value="M1_EM">Master 1 — Electrical Machines</option>
+        <option value="M1_EN">Master 1 — Electrical Networks</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Day</label>
+      <select id="dayFilter">
+        <option value="all">All days</option>
+        <option value="sunday">Sunday</option>
+        <option value="monday">Monday</option>
+        <option value="tuesday">Tuesday</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Search module or teacher</label>
+      <input id="searchBox" placeholder="Example: Sampled, Khelifa, Electric">
+    </div>
+
+    <div class="btns">
+      <button onclick="resetFilters()">Reset</button>
+      <button class="secondary" onclick="copyFilterLink()">Copy link</button>
+      <button class="secondary" onclick="window.print()">Print</button>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b id="visibleCount">0</b><span>visible modules</span></div>
+    <div class="stat"><b id="soonCount">0</b><span>blinking soon</span></div>
+    <div class="stat"><b id="liveCount">0</b><span>ongoing now</span></div>
+    <div class="stat"><b id="doneCount">0</b><span>finished</span></div>
+    <div class="stat"><b>210</b><span>exam room</span></div>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="view-tabs">
+    <button id="cardsTab" class="tab active" onclick="setView('cards')">Cards view</button>
+    <button id="tableTab" class="tab" onclick="setView('table')">Table view</button>
+    <button id="timelineTab" class="tab" onclick="setView('timeline')">Timeline view</button>
+  </div>
+
+  <div id="cardsView" class="cards"></div>
+
+  <div id="tableView" class="table-wrap" style="display:none">
+    <table>
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th>Day</th>
+          <th>Level</th>
+          <th>Module</th>
+          <th>Teacher</th>
+          <th>Replacement exam</th>
+          <th>Exam room</th>
+          <th>Paper consultation</th>
+          <th>Review room</th>
+          <th>Note</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <div id="timelineView" class="timeline" style="display:none"></div>
+</section>
+
+<div class="footer">
+  Department of Electrical Engineering — Faculty of Applied Sciences
+</div>
+
+</div>
+
+<div class="toast" id="toast">Link copied</div>
+
+<script>
+const scheduleData = [{"order": 1, "subject": "Fundamental Electrotechnics II", "teacher": "Naceur.S", "levelId": "L2", "levelName": "Second Year Licence — Electrical Engineering", "dayId": "sunday", "dayName": "Sunday", "examDate": "2026-05-17", "examStart": "08:00", "examEnd": "10:00", "examTime": "08:00 – 10:00", "examRoom": "210", "reviewDate": "2026-05-17", "reviewDay": "Sunday", "reviewStart": "10:00", "reviewEnd": "12:00", "reviewTime": "10:00 – 12:00", "reviewRoom": "109 / 110", "reviewDuration": "2 hours", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 3, "subject": "Electric Power Generation", "teacher": "Bourek.Y", "levelId": "L2", "levelName": "Second Year Licence — Electrical Engineering", "dayId": "sunday", "dayName": "Sunday", "examDate": "2026-05-17", "examStart": "12:00", "examEnd": "14:00", "examTime": "12:00 – 14:00", "examRoom": "210", "reviewDate": "2026-05-17", "reviewDay": "Sunday", "reviewStart": "14:00", "reviewEnd": "16:00", "reviewTime": "14:00 – 16:00", "reviewRoom": "109 / 110", "reviewDuration": "2 hours", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 4, "subject": "Combinational and Sequential Logic", "teacher": "Benmir.A", "levelId": "L2", "levelName": "Second Year Licence — Electrical Engineering", "dayId": "sunday", "dayName": "Sunday", "examDate": "2026-05-17", "examStart": "16:00", "examEnd": "18:00", "examTime": "16:00 – 18:00", "examRoom": "210", "reviewDate": "2026-05-16", "reviewDay": "Saturday 16 May", "reviewStart": "13:30", "reviewEnd": "15:30", "reviewTime": "13:30 – 15:30", "reviewRoom": "109 / 110", "reviewDuration": "2 hours", "note": "Special paper consultation session scheduled on Saturday 16 May."}, {"order": 5, "subject": "Signal Theory", "teacher": "Benyoussef.L", "levelId": "L2", "levelName": "Second Year Licence — Electrical Engineering", "dayId": "monday", "dayName": "Monday", "examDate": "2026-05-18", "examStart": "08:00", "examEnd": "10:00", "examTime": "08:00 – 10:00", "examRoom": "210", "reviewDate": "2026-05-18", "reviewDay": "Monday", "reviewStart": "10:00", "reviewEnd": "12:00", "reviewTime": "10:00 – 12:00", "reviewRoom": "109 / 110", "reviewDuration": "2 hours", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 6, "subject": "Electrical Safety", "teacher": "Larouci.B", "levelId": "L2", "levelName": "Second Year Licence — Electrical Engineering", "dayId": "monday", "dayName": "Monday", "examDate": "2026-05-18", "examStart": "12:00", "examEnd": "14:00", "examTime": "12:00 – 14:00", "examRoom": "210", "reviewDate": "2026-05-18", "reviewDay": "Monday", "reviewStart": "14:00", "reviewEnd": "16:00", "reviewTime": "14:00 – 16:00", "reviewRoom": "109 / 110", "reviewDuration": "2 hours", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 7, "subject": "Numerical Methods", "teacher": "Saadaoui.F", "levelId": "L2", "levelName": "Second Year Licence — Electrical Engineering", "dayId": "monday", "dayName": "Monday", "examDate": "2026-05-18", "examStart": "16:00", "examEnd": "18:00", "examTime": "16:00 – 18:00", "examRoom": "210", "reviewDate": "2026-05-18", "reviewDay": "Monday", "reviewStart": "18:00", "reviewEnd": "20:00", "reviewTime": "18:00 – 20:00", "reviewRoom": "109 / 110", "reviewDuration": "2 hours", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 2, "subject": "Electrical Measurements", "teacher": "Rezzoug.M", "levelId": "L2", "levelName": "Second Year Licence — Electrical Engineering", "dayId": "tuesday", "dayName": "Tuesday", "examDate": "2026-05-19", "examStart": "08:00", "examEnd": "10:00", "examTime": "08:00 – 10:00", "examRoom": "210", "reviewDate": "2026-05-19", "reviewDay": "Tuesday", "reviewStart": "10:00", "reviewEnd": "12:00", "reviewTime": "10:00 – 12:00", "reviewRoom": "109 / 110", "reviewDuration": "2 hours", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 8, "subject": "Techniques of Expression and Communication", "teacher": "Naceur.S", "levelId": "L2", "levelName": "Second Year Licence — Electrical Engineering", "dayId": "tuesday", "dayName": "Tuesday", "examDate": "2026-05-19", "examStart": "12:00", "examEnd": "14:00", "examTime": "12:00 – 14:00", "examRoom": "210", "reviewDate": "2026-05-19", "reviewDay": "Tuesday", "reviewStart": "14:00", "reviewEnd": "16:00", "reviewTime": "14:00 – 16:00", "reviewRoom": "109 / 110", "reviewDuration": "2 hours", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 1, "subject": "Machine Control", "teacher": "Ider.Z", "levelId": "L3", "levelName": "Third Year Licence — Electrical Engineering", "dayId": "sunday", "dayName": "Sunday", "examDate": "2026-05-17", "examStart": "08:00", "examEnd": "10:00", "examTime": "08:00 – 10:00", "examRoom": "210", "reviewDate": "2026-05-17", "reviewDay": "Sunday", "reviewStart": "10:00", "reviewEnd": "12:00", "reviewTime": "10:00 – 12:00", "reviewRoom": "111", "reviewDuration": "2 hours", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 2, "subject": "Industrial Maintenance", "teacher": "Abbassi.A", "levelId": "L3", "levelName": "Third Year Licence — Electrical Engineering", "dayId": "sunday", "dayName": "Sunday", "examDate": "2026-05-17", "examStart": "12:00", "examEnd": "14:00", "examTime": "12:00 – 14:00", "examRoom": "210", "reviewDate": "2026-05-17", "reviewDay": "Sunday", "reviewStart": "14:00", "reviewEnd": "16:00", "reviewTime": "14:00 – 16:00", "reviewRoom": "111", "reviewDuration": "2 hours", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 4, "subject": "Electrical Network Protection", "teacher": "Boudjella.H", "levelId": "L3", "levelName": "Third Year Licence — Electrical Engineering", "dayId": "sunday", "dayName": "Sunday", "examDate": "2026-05-17", "examStart": "16:00", "examEnd": "18:00", "examTime": "16:00 – 18:00", "examRoom": "210", "reviewDate": "2026-05-17", "reviewDay": "Sunday", "reviewStart": "18:00", "reviewEnd": "20:00", "reviewTime": "18:00 – 20:00", "reviewRoom": "111", "reviewDuration": "2 hours", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 5, "subject": "Entrepreneurship and Business Management", "teacher": "Temejghdeen.F", "levelId": "L3", "levelName": "Third Year Licence — Electrical Engineering", "dayId": "monday", "dayName": "Monday", "examDate": "2026-05-18", "examStart": "08:00", "examEnd": "10:00", "examTime": "08:00 – 10:00", "examRoom": "210", "reviewDate": "2026-05-18", "reviewDay": "Monday", "reviewStart": "10:00", "reviewEnd": "12:00", "reviewTime": "10:00 – 12:00", "reviewRoom": "111", "reviewDuration": "2 hours", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 6, "subject": "Materials and Introduction to High Voltage", "teacher": "Bouali.K", "levelId": "L3", "levelName": "Third Year Licence — Electrical Engineering", "dayId": "monday", "dayName": "Monday", "examDate": "2026-05-18", "examStart": "12:00", "examEnd": "14:00", "examTime": "12:00 – 14:00", "examRoom": "210", "reviewDate": "2026-05-18", "reviewDay": "Monday", "reviewStart": "14:00", "reviewEnd": "16:00", "reviewTime": "14:00 – 16:00", "reviewRoom": "111", "reviewDuration": "2 hours", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 7, "subject": "Industrial Control", "teacher": "Ayad.A", "levelId": "L3", "levelName": "Third Year Licence — Electrical Engineering", "dayId": "monday", "dayName": "Monday", "examDate": "2026-05-18", "examStart": "16:00", "examEnd": "18:00", "examTime": "16:00 – 18:00", "examRoom": "210", "reviewDate": "2026-05-18", "reviewDay": "Monday", "reviewStart": "18:00", "reviewEnd": "20:00", "reviewTime": "18:00 – 20:00", "reviewRoom": "111", "reviewDuration": "2 hours", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 3, "subject": "Industrial Automation", "teacher": "Benmakhlouf.A", "levelId": "L3", "levelName": "Third Year Licence — Electrical Engineering", "dayId": "tuesday", "dayName": "Tuesday", "examDate": "2026-05-19", "examStart": "08:00", "examEnd": "10:00", "examTime": "08:00 – 10:00", "examRoom": "210", "reviewDate": "2026-05-19", "reviewDay": "Tuesday", "reviewStart": "10:00", "reviewEnd": "12:00", "reviewTime": "10:00 – 12:00", "reviewRoom": "111", "reviewDuration": "2 hours", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 1, "subject": "Compliance with Standards and Ethics", "teacher": "Bouhafs.A", "levelId": "M1_IE", "levelName": "Master 1 — Industrial Electrotechnics", "dayId": "sunday", "dayName": "Sunday", "examDate": "2026-05-17", "examStart": "08:00", "examEnd": "10:00", "examTime": "08:00 – 10:00", "examRoom": "210", "reviewDate": "2026-05-17", "reviewDay": "Sunday", "reviewStart": "10:00", "reviewEnd": "11:30", "reviewTime": "10:00 – 11:30", "reviewRoom": "114", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 4, "subject": "Modeling and Identification of Electrical Systems", "teacher": "Bouhafs.A", "levelId": "M1_IE", "levelName": "Master 1 — Industrial Electrotechnics", "dayId": "sunday", "dayName": "Sunday", "examDate": "2026-05-17", "examStart": "11:30", "examEnd": "13:30", "examTime": "11:30 – 13:30", "examRoom": "210", "reviewDate": "2026-05-17", "reviewDay": "Sunday", "reviewStart": "13:30", "reviewEnd": "15:00", "reviewTime": "13:30 – 15:00", "reviewRoom": "114", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 6, "subject": "Industrial Electricity", "teacher": "Bouhadouza.B", "levelId": "M1_IE", "levelName": "Master 1 — Industrial Electrotechnics", "dayId": "sunday", "dayName": "Sunday", "examDate": "2026-05-17", "examStart": "15:00", "examEnd": "17:00", "examTime": "15:00 – 17:00", "examRoom": "210", "reviewDate": "2026-05-17", "reviewDay": "Sunday", "reviewStart": "17:00", "reviewEnd": "18:30", "reviewTime": "17:00 – 18:30", "reviewRoom": "114", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 7, "subject": "High Voltage Techniques", "teacher": "Ayad.A", "levelId": "M1_IE", "levelName": "Master 1 — Industrial Electrotechnics", "dayId": "monday", "dayName": "Monday", "examDate": "2026-05-18", "examStart": "08:00", "examEnd": "10:00", "examTime": "08:00 – 10:00", "examRoom": "210", "reviewDate": "2026-05-18", "reviewDay": "Monday", "reviewStart": "10:00", "reviewEnd": "11:30", "reviewTime": "10:00 – 11:30", "reviewRoom": "114", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 8, "subject": "Sampled-Data Control Systems", "teacher": "Khelifa.M", "levelId": "M1_IE", "levelName": "Master 1 — Industrial Electrotechnics", "dayId": "monday", "dayName": "Monday", "examDate": "2026-05-18", "examStart": "11:30", "examEnd": "13:30", "examTime": "11:30 – 13:30", "examRoom": "210", "reviewDate": "2026-05-18", "reviewDay": "Monday", "reviewStart": "13:30", "reviewEnd": "15:00", "reviewTime": "13:30 – 15:00", "reviewRoom": "114", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 2, "subject": "Elements of Applied Artificial Intelligence", "teacher": "Djerrah.D", "levelId": "M1_IE", "levelName": "Master 1 — Industrial Electrotechnics", "dayId": "tuesday", "dayName": "Tuesday", "examDate": "2026-05-19", "examStart": "08:00", "examEnd": "10:00", "examTime": "08:00 – 10:00", "examRoom": "210", "reviewDate": "2026-05-19", "reviewDay": "Tuesday", "reviewStart": "10:00", "reviewEnd": "11:30", "reviewTime": "10:00 – 11:30", "reviewRoom": "114", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 3, "subject": "Electric Drives", "teacher": "Sahraoui.L", "levelId": "M1_IE", "levelName": "Master 1 — Industrial Electrotechnics", "dayId": "tuesday", "dayName": "Tuesday", "examDate": "2026-05-19", "examStart": "11:30", "examEnd": "13:30", "examTime": "11:30 – 13:30", "examRoom": "210", "reviewDate": "2026-05-19", "reviewDay": "Tuesday", "reviewStart": "13:30", "reviewEnd": "15:00", "reviewTime": "13:30 – 15:00", "reviewRoom": "114", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 5, "subject": "Technology in Industrial Automation", "teacher": "Sahraoui.L", "levelId": "M1_IE", "levelName": "Master 1 — Industrial Electrotechnics", "dayId": "tuesday", "dayName": "Tuesday", "examDate": "2026-05-19", "examStart": "15:00", "examEnd": "17:00", "examTime": "15:00 – 17:00", "examRoom": "210", "reviewDate": "2026-05-19", "reviewDay": "Tuesday", "reviewStart": "17:00", "reviewEnd": "18:30", "reviewTime": "17:00 – 18:30", "reviewRoom": "114", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 1, "subject": "Compliance with Standards and Ethics", "teacher": "Bouhafs.A", "levelId": "M1_EM", "levelName": "Master 1 — Electrical Machines", "dayId": "sunday", "dayName": "Sunday", "examDate": "2026-05-17", "examStart": "08:00", "examEnd": "10:00", "examTime": "08:00 – 10:00", "examRoom": "210", "reviewDate": "2026-05-17", "reviewDay": "Sunday", "reviewStart": "10:00", "reviewEnd": "11:30", "reviewTime": "10:00 – 11:30", "reviewRoom": "113", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 5, "subject": "Machine–Converter Association", "teacher": "Bouakaz.W", "levelId": "M1_EM", "levelName": "Master 1 — Electrical Machines", "dayId": "sunday", "dayName": "Sunday", "examDate": "2026-05-17", "examStart": "11:30", "examEnd": "13:30", "examTime": "11:30 – 13:30", "examRoom": "210", "reviewDate": "2026-05-17", "reviewDay": "Sunday", "reviewStart": "13:30", "reviewEnd": "15:00", "reviewTime": "13:30 – 15:00", "reviewRoom": "113", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 6, "subject": "Electrical Machine Construction", "teacher": "Bourek.Y", "levelId": "M1_EM", "levelName": "Master 1 — Electrical Machines", "dayId": "sunday", "dayName": "Sunday", "examDate": "2026-05-17", "examStart": "15:00", "examEnd": "17:00", "examTime": "15:00 – 17:00", "examRoom": "210", "reviewDate": "2026-05-17", "reviewDay": "Sunday", "reviewStart": "17:00", "reviewEnd": "18:30", "reviewTime": "17:00 – 18:30", "reviewRoom": "113", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 7, "subject": "Electrical Engineering Materials and High Voltage", "teacher": "Naceur.S", "levelId": "M1_EM", "levelName": "Master 1 — Electrical Machines", "dayId": "monday", "dayName": "Monday", "examDate": "2026-05-18", "examStart": "08:00", "examEnd": "10:00", "examTime": "08:00 – 10:00", "examRoom": "210", "reviewDate": "2026-05-18", "reviewDay": "Monday", "reviewStart": "10:00", "reviewEnd": "11:30", "reviewTime": "10:00 – 11:30", "reviewRoom": "113", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 8, "subject": "Sampled-Data Control Systems", "teacher": "Khelifa.M", "levelId": "M1_EM", "levelName": "Master 1 — Electrical Machines", "dayId": "monday", "dayName": "Monday", "examDate": "2026-05-18", "examStart": "11:30", "examEnd": "13:30", "examTime": "11:30 – 13:30", "examRoom": "210", "reviewDate": "2026-05-18", "reviewDay": "Monday", "reviewStart": "13:30", "reviewEnd": "15:00", "reviewTime": "13:30 – 15:00", "reviewRoom": "113", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 2, "subject": "Elements of Applied Artificial Intelligence", "teacher": "Djerrah.D", "levelId": "M1_EM", "levelName": "Master 1 — Electrical Machines", "dayId": "tuesday", "dayName": "Tuesday", "examDate": "2026-05-19", "examStart": "08:00", "examEnd": "10:00", "examTime": "08:00 – 10:00", "examRoom": "210", "reviewDate": "2026-05-19", "reviewDay": "Tuesday", "reviewStart": "10:00", "reviewEnd": "11:30", "reviewTime": "10:00 – 11:30", "reviewRoom": "113", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 3, "subject": "Modeling of Electrical Machines", "teacher": "Khetach.L", "levelId": "M1_EM", "levelName": "Master 1 — Electrical Machines", "dayId": "tuesday", "dayName": "Tuesday", "examDate": "2026-05-19", "examStart": "11:30", "examEnd": "13:30", "examTime": "11:30 – 13:30", "examRoom": "210", "reviewDate": "2026-05-19", "reviewDay": "Tuesday", "reviewStart": "13:30", "reviewEnd": "15:00", "reviewTime": "13:30 – 15:00", "reviewRoom": "113", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 4, "subject": "Magnetic Field in Electrical Machines", "teacher": "Khetach.L", "levelId": "M1_EM", "levelName": "Master 1 — Electrical Machines", "dayId": "tuesday", "dayName": "Tuesday", "examDate": "2026-05-19", "examStart": "15:00", "examEnd": "17:00", "examTime": "15:00 – 17:00", "examRoom": "210", "reviewDate": "2026-05-19", "reviewDay": "Tuesday", "reviewStart": "17:00", "reviewEnd": "18:30", "reviewTime": "17:00 – 18:30", "reviewRoom": "113", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 1, "subject": "Compliance with Standards and Ethics", "teacher": "Bouhafs.A", "levelId": "M1_EN", "levelName": "Master 1 — Electrical Networks", "dayId": "sunday", "dayName": "Sunday", "examDate": "2026-05-17", "examStart": "08:00", "examEnd": "10:00", "examTime": "08:00 – 10:00", "examRoom": "210", "reviewDate": "2026-05-17", "reviewDay": "Sunday", "reviewStart": "10:00", "reviewEnd": "11:30", "reviewTime": "10:00 – 11:30", "reviewRoom": "112", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 3, "subject": "Electric Power Quality", "teacher": "Ruibah.T", "levelId": "M1_EN", "levelName": "Master 1 — Electrical Networks", "dayId": "sunday", "dayName": "Sunday", "examDate": "2026-05-17", "examStart": "11:30", "examEnd": "13:30", "examTime": "11:30 – 13:30", "examRoom": "210", "reviewDate": "2026-05-17", "reviewDay": "Sunday", "reviewStart": "13:30", "reviewEnd": "15:00", "reviewTime": "13:30 – 15:00", "reviewRoom": "112", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 4, "subject": "Modeling and Optimization of Electrical Power Networks", "teacher": "Bouhadouza.B", "levelId": "M1_EN", "levelName": "Master 1 — Electrical Networks", "dayId": "sunday", "dayName": "Sunday", "examDate": "2026-05-17", "examStart": "15:00", "examEnd": "17:00", "examTime": "15:00 – 17:00", "examRoom": "210", "reviewDate": "2026-05-17", "reviewDay": "Sunday", "reviewStart": "17:00", "reviewEnd": "18:30", "reviewTime": "17:00 – 18:30", "reviewRoom": "112", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 5, "subject": "Electrical Network Protection Techniques", "teacher": "Riubah.T", "levelId": "M1_EN", "levelName": "Master 1 — Electrical Networks", "dayId": "monday", "dayName": "Monday", "examDate": "2026-05-18", "examStart": "08:00", "examEnd": "10:00", "examTime": "08:00 – 10:00", "examRoom": "210", "reviewDate": "2026-05-18", "reviewDay": "Monday", "reviewStart": "10:00", "reviewEnd": "11:30", "reviewTime": "10:00 – 11:30", "reviewRoom": "112", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 6, "subject": "Centralized and Decentralized Power Generation", "teacher": "Boudjella.H", "levelId": "M1_EN", "levelName": "Master 1 — Electrical Networks", "dayId": "monday", "dayName": "Monday", "examDate": "2026-05-18", "examStart": "11:30", "examEnd": "13:30", "examTime": "11:30 – 13:30", "examRoom": "210", "reviewDate": "2026-05-18", "reviewDay": "Monday", "reviewStart": "13:30", "reviewEnd": "15:00", "reviewTime": "13:30 – 15:00", "reviewRoom": "112", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 7, "subject": "Electrical Network Planning", "teacher": "Boudjella.H", "levelId": "M1_EN", "levelName": "Master 1 — Electrical Networks", "dayId": "monday", "dayName": "Monday", "examDate": "2026-05-18", "examStart": "15:00", "examEnd": "17:00", "examTime": "15:00 – 17:00", "examRoom": "210", "reviewDate": "2026-05-18", "reviewDay": "Monday", "reviewStart": "17:00", "reviewEnd": "18:30", "reviewTime": "17:00 – 18:30", "reviewRoom": "112", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 2, "subject": "Elements of Applied Artificial Intelligence", "teacher": "Djerrah.D", "levelId": "M1_EN", "levelName": "Master 1 — Electrical Networks", "dayId": "tuesday", "dayName": "Tuesday", "examDate": "2026-05-19", "examStart": "08:00", "examEnd": "10:00", "examTime": "08:00 – 10:00", "examRoom": "210", "reviewDate": "2026-05-19", "reviewDay": "Tuesday", "reviewStart": "10:00", "reviewEnd": "11:30", "reviewTime": "10:00 – 11:30", "reviewRoom": "112", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}, {"order": 8, "subject": "Control of Electro-Energetic Systems", "teacher": "Bouakaz.W", "levelId": "M1_EN", "levelName": "Master 1 — Electrical Networks", "dayId": "tuesday", "dayName": "Tuesday", "examDate": "2026-05-19", "examStart": "11:30", "examEnd": "13:30", "examTime": "11:30 – 13:30", "examRoom": "210", "reviewDate": "2026-05-19", "reviewDay": "Tuesday", "reviewStart": "13:30", "reviewEnd": "15:00", "reviewTime": "13:30 – 15:00", "reviewRoom": "112", "reviewDuration": "1 hour 30 min", "note": "Paper consultation is scheduled immediately after the replacement exam."}];
+const SOON_MINUTES = 60;
+
+const levelFilter = document.getElementById("levelFilter");
+const dayFilter = document.getElementById("dayFilter");
+const searchBox = document.getElementById("searchBox");
+const cardsView = document.getElementById("cardsView");
+const tableView = document.getElementById("tableView");
+const timelineView = document.getElementById("timelineView");
+const tableBody = document.getElementById("tableBody");
+const visibleCount = document.getElementById("visibleCount");
+const soonCount = document.getElementById("soonCount");
+const liveCount = document.getElementById("liveCount");
+const doneCount = document.getElementById("doneCount");
+const toast = document.getElementById("toast");
+const nowLabel = document.getElementById("nowLabel");
+const nextEvent = document.getElementById("nextEvent");
+
+function normalize(s){
+  return String(s || "").toLowerCase().trim();
+}
+
+function toDate(date,time){
+  return new Date(`${date}T${time}:00`);
+}
+
+function fmtDuration(ms){
+  if(ms <= 0) return "now";
+  const min = Math.floor(ms / 60000);
+  const d = Math.floor(min / 1440);
+  const h = Math.floor((min % 1440) / 60);
+  const m = min % 60;
+  return (d ? d + "d " : "") + (h ? h + "h " : "") + m + "m";
+}
+
+function getStatus(x){
+  const now = new Date();
+
+  const examStart = toDate(x.examDate,x.examStart);
+  const examEnd = toDate(x.examDate,x.examEnd);
+  const reviewStart = toDate(x.reviewDate,x.reviewStart);
+  const reviewEnd = toDate(x.reviewDate,x.reviewEnd);
+  const soonMs = SOON_MINUTES * 60000;
+
+  if(now >= reviewEnd){
+    return {
+      className:"done",
+      label:"Paper consultation time ended",
+      detail:"The paper consultation session has ended.",
+      nextTime:null
+    };
+  }
+
+  if(now >= reviewStart && now < reviewEnd){
+    return {
+      className:"live",
+      label:"Paper consultation is happening now",
+      detail:"Consultation is ongoing now.",
+      nextTime:reviewEnd
+    };
+  }
+
+  if(reviewStart - now > 0 && reviewStart - now <= soonMs){
+    return {
+      className:"soon",
+      label:"Paper consultation starts soon",
+      detail:"Consultation starts in " + fmtDuration(reviewStart - now),
+      nextTime:reviewStart
+    };
+  }
+
+  if(now >= examEnd && now < reviewStart){
+    return {
+      className:"soon",
+      label:"Waiting for paper consultation",
+      detail:"Consultation starts in " + fmtDuration(reviewStart - now),
+      nextTime:reviewStart
+    };
+  }
+
+  if(now >= examStart && now < examEnd){
+    return {
+      className:"live",
+      label:"Replacement exam is happening now",
+      detail:"Exam is ongoing now.",
+      nextTime:examEnd
+    };
+  }
+
+  if(examStart - now > 0 && examStart - now <= soonMs){
+    return {
+      className:"soon",
+      label:"Replacement exam starts soon",
+      detail:"Exam starts in " + fmtDuration(examStart - now),
+      nextTime:examStart
+    };
+  }
+
+  return {
+    className:"future",
+    label:"Upcoming",
+    detail:"Exam starts in " + fmtDuration(examStart - now),
+    nextTime:examStart
+  };
+}
+
+function updateUrl(){
+  const p = new URLSearchParams();
+
+  if(levelFilter.value !== "all") p.set("level",levelFilter.value);
+  if(dayFilter.value !== "all") p.set("day",dayFilter.value);
+  if(searchBox.value.trim()) p.set("q",searchBox.value.trim());
+
+  history.replaceState(
+    null,
+    "",
+    location.pathname + (p.toString() ? "?" + p.toString() : "")
+  );
+}
+
+function loadUrl(){
+  const p = new URLSearchParams(location.search);
+
+  if(p.get("level")) levelFilter.value = p.get("level");
+  if(p.get("day")) dayFilter.value = p.get("day");
+  if(p.get("q")) searchBox.value = p.get("q");
+}
+
+function filteredData(){
+  const level = levelFilter.value;
+  const day = dayFilter.value;
+  const q = normalize(searchBox.value);
+
+  return scheduleData.filter(x => {
+    const okLevel = level === "all" || x.levelId === level;
+    const okDay = day === "all" || x.dayId === day;
+    const hay = normalize(`${x.subject} ${x.teacher} ${x.levelName} ${x.dayName}`);
+
+    return okLevel && okDay && (!q || hay.includes(q));
+  });
+}
+
+function renderCards(rows){
+  cardsView.innerHTML = rows.length ? rows.map((x,i) => {
+    const s = getStatus(x);
+
+    return `
+      <article class="card ${s.className}" id="card-${i}">
+        <div class="order">Order ${x.order}</div>
+        <h3>${x.subject}</h3>
+
+        <span class="status ${s.className}">${s.label}</span><br>
+        <span class="badge">${x.levelName}</span>
+
+        <div class="teacher">
+          Responsible teacher: <strong>${x.teacher}</strong>
+        </div>
+
+        <div class="meta">
+          <div class="box exam">
+            <strong>Replacement exam</strong>
+            Day: ${x.dayName}<br>
+            Time: ${x.examTime}<br>
+            Room: ${x.examRoom}
+          </div>
+
+          <div class="box review">
+            <strong>Paper consultation</strong>
+            Day: ${x.reviewDay}<br>
+            Time: ${x.reviewTime}<br>
+            Room: ${x.reviewRoom}
+          </div>
+        </div>
+
+        <div class="countdown">${s.detail}</div>
+        <div class="note">${x.note}</div>
+      </article>
+    `;
+  }).join("") : `<div class="empty">No result found. Try changing the filters.</div>`;
+}
+
+function renderTable(rows){
+  tableBody.innerHTML = rows.map(x => {
+    const s = getStatus(x);
+
+    return `
+      <tr class="row-${s.className}">
+        <td><span class="status ${s.className}">${s.label}</span></td>
+        <td>${x.dayName}</td>
+        <td>${x.levelName}</td>
+        <td><strong>${x.subject}</strong></td>
+        <td>${x.teacher}</td>
+        <td>${x.examTime}</td>
+        <td>${x.examRoom}</td>
+        <td>${x.reviewDay}<br>${x.reviewTime}</td>
+        <td>${x.reviewRoom}</td>
+        <td>${x.note}</td>
+      </tr>
+    `;
+  }).join("");
+}
+
+function renderTimeline(rows){
+  const days = ["Sunday","Monday","Tuesday","Saturday 16 May"];
+  const grouped = {};
+
+  rows.forEach(x => {
+    const key = x.reviewDay === "Saturday 16 May" ? "Saturday 16 May" : x.dayName;
+
+    if(!grouped[key]) grouped[key] = [];
+    grouped[key].push(x);
+  });
+
+  timelineView.innerHTML = days.filter(d => grouped[d]).map(day => `
+    <div class="day-block">
+      <div class="day-title">${day}</div>
+
+      ${grouped[day].map(x => {
+        const s = getStatus(x);
+
+        return `
+          <div class="timeline-item ${s.className}">
+            <div class="time">${x.examTime}</div>
+            <div>
+              <strong>${x.subject}</strong><br>
+              ${x.levelName} — ${x.teacher}<br>
+              <span class="status ${s.className}">${s.label}</span>
+              <span class="badge">Exam room ${x.examRoom}</span>
+              <span class="badge">Review: ${x.reviewDay} ${x.reviewTime} — Room ${x.reviewRoom}</span>
+              <div class="note">${s.detail}</div>
+            </div>
+          </div>
+        `;
+      }).join("")}
+    </div>
+  `).join("") || `<div class="empty">No timeline item found.</div>`;
+}
+
+function updateLiveSummary(){
+  const now = new Date();
+
+  nowLabel.textContent = "Current time: " + now.toLocaleString();
+
+  const upcoming = scheduleData
+    .map(x => ({x,s:getStatus(x),t:toDate(x.examDate,x.examStart)}))
+    .filter(o => o.s.className !== "done")
+    .sort((a,b) => (a.s.nextTime || a.t) - (b.s.nextTime || b.t))[0];
+
+  nextEvent.textContent = upcoming
+    ? `Next: ${upcoming.x.subject} — ${upcoming.s.label} (${upcoming.s.detail})`
+    : "All listed sessions have ended.";
+}
+
+function render(){
+  const rows = filteredData();
+
+  visibleCount.textContent = rows.length;
+  soonCount.textContent = rows.filter(x => getStatus(x).className === "soon").length;
+  liveCount.textContent = rows.filter(x => getStatus(x).className === "live").length;
+  doneCount.textContent = rows.filter(x => getStatus(x).className === "done").length;
+
+  renderCards(rows);
+  renderTable(rows);
+  renderTimeline(rows);
+  updateLiveSummary();
+  updateUrl();
+}
+
+function setView(view){
+  cardsView.style.display = view === "cards" ? "" : "none";
+  tableView.style.display = view === "table" ? "" : "none";
+  timelineView.style.display = view === "timeline" ? "" : "none";
+
+  ["cards","table","timeline"].forEach(v => {
+    document.getElementById(v + "Tab").classList.toggle("active", v === view);
+  });
+}
+
+function resetFilters(){
+  levelFilter.value = "all";
+  dayFilter.value = "all";
+  searchBox.value = "";
+  render();
+}
+
+async function copyFilterLink(){
+  updateUrl();
+
+  try{
+    await navigator.clipboard.writeText(location.href);
+    toast.style.display = "block";
+
+    setTimeout(() => toast.style.display = "none", 1400);
+  }catch(e){
+    alert(location.href);
+  }
+}
+
+function jumpToNext(){
+  const cards = [...document.querySelectorAll(".card.soon,.card.live,.card.future")];
+
+  if(cards[0]){
+    cards[0].scrollIntoView({behavior:"smooth",block:"center"});
+  }
+}
+
+[levelFilter,dayFilter,searchBox].forEach(el => el.addEventListener("input",render));
+
+loadUrl();
+render();
+setInterval(render,30000);
+</script>
+
+</body>
+</html>
