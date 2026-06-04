@@ -65,7 +65,7 @@ const DATA = [
 const specs=[...new Set(DATA.map(x=>x.specialty))], rooms=['109','110','111','112','113','114'];
 let U=JSON.parse(localStorage.getItem('ajip_final_uploads')||'{}');
 let CFG=JSON.parse(localStorage.getItem('ajip_final_cfg')||'{}');
-CFG=Object.assign({studentOpen:false,teacherOpen:false,programVisible:false,deadline:'2026-06-06T23:59',specialtyOpen:{},topicOpen:{},manual:{}},CFG);specs.forEach(s=>{if(CFG.specialtyOpen[s]===undefined)CFG.specialtyOpen[s]=true});DATA.forEach(r=>{if(CFG.topicOpen[r.id]===undefined)CFG.topicOpen[r.id]=true});
+CFG=Object.assign({studentOpen:false,teacherOpen:false,programVisible:false,deadline:'2026-06-09T23:59',specialtyOpen:{},topicOpen:{},manual:{}},CFG);specs.forEach(s=>{if(CFG.specialtyOpen[s]===undefined)CFG.specialtyOpen[s]=true});DATA.forEach(r=>{if(CFG.topicOpen[r.id]===undefined)CFG.topicOpen[r.id]=true});
 let isAdmin=localStorage.getItem('ajip_final_admin')==='1';
 function esc(s){return(s||'').toString().replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function norm(s){return(s||'').toString().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9؀-ۿ]/g,'')}
@@ -73,15 +73,53 @@ function looseName(s){return norm(s).replace(/\s+/g,'')}
 function save(){localStorage.setItem('ajip_final_uploads',JSON.stringify(U));localStorage.setItem('ajip_final_cfg',JSON.stringify(CFG));renderAll()}
 function login(){let p=prompt('KHELIFA.M password');if(p==='homme2015'){isAdmin=true;localStorage.setItem('ajip_final_admin','1');show('control')}else if(p!==null)alert('Wrong password')}function logout(){isAdmin=false;localStorage.removeItem('ajip_final_admin');show('dash')}
 function show(id,btn){let el=document.getElementById(id);if(el.classList.contains('admin-only')&&!isAdmin){login();return}document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');renderAll();setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),20)}
-function setFlag(k,v){CFG[k]=v;save()}function setDeadline(){if(!customDeadline.value)return alert('Select a deadline.');CFG.deadline=customDeadline.value;CFG.studentOpen=true;save()}function setSpec(sp,v){CFG.specialtyOpen[sp]=v;save()}function setTopic(id,v){CFG.topicOpen[id]=v;save()}
+function setFlag(k,v){
+  CFG[k]=v;
+  if(k==='studentOpen' && v){
+    // When KHELIFA.M opens the Student Portal, the portal becomes truly usable.
+    // All specialties and topics are enabled by default; KHELIFA.M can still close any specialty/topic individually afterwards.
+    specs.forEach(s=>CFG.specialtyOpen[s]=true);
+    DATA.forEach(r=>CFG.topicOpen[r.id]=true);
+    if(new Date(CFG.deadline) <= new Date()) CFG.deadline='2026-06-09T23:59';
+  }
+  save();
+}
+function setDeadline(){if(!customDeadline.value)return alert('Select a deadline.');CFG.deadline=customDeadline.value;CFG.studentOpen=true;specs.forEach(s=>CFG.specialtyOpen[s]=true);DATA.forEach(r=>CFG.topicOpen[r.id]=true);save()}function setSpec(sp,v){CFG.specialtyOpen[sp]=v;save()}function setTopic(id,v){CFG.topicOpen[id]=v;save()}
 function deadlineInfo(){let diff=new Date(CFG.deadline)-new Date();if(diff<=0)return{closed:true,text:'Closed',ms:0};let h=Math.floor(diff/36e5),m=Math.floor((diff%36e5)/6e4),s=Math.floor((diff%6e4)/1000);return{closed:false,text:`${h}h ${m}m ${s}s`,ms:diff}}
-function studentAllowed(r){let d=deadlineInfo();return CFG.studentOpen&&!d.closed&&CFG.specialtyOpen[r.specialty]&&CFG.topicOpen[r.id]}
+function studentAllowed(r){
+  let d=deadlineInfo();
+  // The master switch controlled by KHELIFA.M is the primary condition.
+  // Deadline, specialty and topic controls remain active, but the message below now explains the exact reason.
+  return !!(CFG.studentOpen && !d.closed && CFG.specialtyOpen[r.specialty]!==false && CFG.topicOpen[r.id]!==false);
+}
+function studentClosedReason(r){
+  let d=deadlineInfo();
+  if(!CFG.studentOpen) return 'Student Portal is not open yet by KHELIFA.M.';
+  if(d.closed) return 'The submission deadline has ended. KHELIFA.M can extend it from the Control Center.';
+  if(CFG.specialtyOpen[r.specialty]===false) return 'This specialty is currently closed by KHELIFA.M.';
+  if(CFG.topicOpen[r.id]===false) return 'This topic is currently closed by KHELIFA.M.';
+  return '';
+}
 function status(id){if(!U[id])return'<span class="badge wait">Awaiting upload</span>';return U[id].approved?'<span class="badge ok">Approved</span>':'<span class="badge ok">Uploaded / pending approval</span>'}
 function validName(id){let r=DATA.find(x=>x.id===id),el=document.getElementById('nm_'+id);if(!el)return false;let typed=looseName(el.value);if(!typed)return false;let allowed=(r.student||'').split('/').concat([r.supervisor,r.co]).filter(Boolean).map(looseName);return allowed.some(a=>a&&a===typed)}
-function pick(id){let r=DATA.find(x=>x.id===id),el=document.getElementById('nm_'+id);if(!studentAllowed(r))return alert('This topic is closed by KHELIFA.M.');if(U[id])return alert('A thesis has already been uploaded.');if(!validName(id)){alert('Name not recognized. Type one registered student name or the supervisor name. Uppercase/lowercase and extra spaces are ignored; the letters must be correct and in order.');if(el){el.focus();el.style.borderColor='var(--red)'}return}document.getElementById('file_'+id).click()}
+function pick(id){
+  let r=DATA.find(x=>x.id===id),el=document.getElementById('nm_'+id);
+  if(!studentAllowed(r)) return alert(studentClosedReason(r));
+  if(U[id]) return alert('A thesis has already been uploaded.');
+  if(!validName(id)){
+    alert('Name not recognized. Type one registered student name or the supervisor name. Uppercase/lowercase and extra spaces are ignored; the letters must be correct and in order.');
+    if(el){el.focus();el.style.borderColor='var(--red)'}
+    return;
+  }
+  document.getElementById('file_'+id).click();
+}
 function upload(e,id){let f=e.target.files[0];if(!f)return;if(!f.name.toLowerCase().endsWith('.pdf'))return alert('PDF files only.');let rd=new FileReader();rd.onload=()=>{let el=document.getElementById('nm_'+id);U[id]={name:f.name,data:rd.result,time:Date.now(),uploadedBy:el?el.value.trim():'',approved:false,downloads:{}};save();alert('Thesis uploaded successfully. Your card is now green. Please wait for the defense date publication: June 7 to June 9, 2026.')};rd.readAsDataURL(f)}
 function renderStudent(){let d=deadlineInfo();studentGate.innerHTML=studentOpenMsg();let sp=spec.value,q=norm(qStudent.value);studentGrid.innerHTML=DATA.filter(r=>r.specialty===sp&&norm(r.id+r.student+r.title+r.supervisor+r.president+r.examiner).includes(q)).map(r=>`<div class="card ${U[r.id]?'uploaded':''}">${status(r.id)} ${studentAllowed(r)?'<span class="badge ok">Open</span>':'<span class="badge closed">Closed</span>'}<div class="topic-title">${esc(r.id)} — ${esc(r.title)}</div><div class="meta"><b>Students:</b> ${esc(r.student||'To be completed')}<br><b>Supervisor:</b> ${esc(r.supervisor)}${r.co?'<br><b>Co-supervisor:</b> '+esc(r.co):''}<br><b>President:</b> ${esc(r.president)}<br><b>Examiner:</b> ${esc(r.examiner)}</div>${!U[r.id]?`<div class="upload"><input id="nm_${r.id}" type="text" autocomplete="name" placeholder="Type student or supervisor name" onkeydown="event.stopPropagation()"><small class="meta">Flexible name check: case and spaces are ignored.</small><button class="btn" onclick="pick('${r.id}')">Upload PDF Thesis</button><input type="file" id="file_${r.id}" accept=".pdf" onchange="upload(event,'${r.id}')"></div>`:`<div class="success blink">✅ Upload completed successfully. Please wait for the defense date publication: June 7–9, 2026.</div><div class="success">Uploaded file: ${esc(U[r.id].name)} <a class="btn dark" href="${U[r.id].data}" download="${esc(U[r.id].name)}">Download</a></div>`}</div>`).join('')}
-function studentOpenMsg(){let d=deadlineInfo();return CFG.studentOpen&&!d.closed?`<div class="success blink">Student submission is open. Remaining time: ${d.text}. Quick final review is recommended before uploading the final version.</div>`:'<div class="danger">Student submission is closed by KHELIFA.M.</div>'}
+function studentOpenMsg(){let d=deadlineInfo();
+  if(!CFG.studentOpen) return '<div class="danger">Student submission is closed by KHELIFA.M.</div>';
+  if(d.closed) return '<div class="danger">Student submission deadline has ended. KHELIFA.M can extend it from the Control Center.</div>';
+  return `<div class="success blink">Student submission is open. Remaining time: ${d.text}. Quick final review is recommended before uploading the final version.</div>`
+}
 function roleOf(r,name){let n=norm(name);if(n&&n===norm(r.supervisor))return'Supervisor';if(n&&n===norm(r.co))return'Co-supervisor';if(n&&n===norm(r.president))return'President';if(n&&n===norm(r.examiner))return'Examiner';return''}
 function track(id,role,name){U[id].downloads=U[id].downloads||{};U[id].downloads[role]={name,time:new Date().toLocaleString('en-GB')};save()}
 function renderTeacher(){teacherGate.innerHTML=CFG.teacherOpen?'<div class="success">Defense Committee Portal is open.</div>':'<div class="danger">Defense Committee Portal is closed by KHELIFA.M.</div>';if(!CFG.teacherOpen){teacherGrid.innerHTML='';return}let name=teacherName.value,q=norm(qTeacher.value);if(!name.trim()){teacherGrid.innerHTML='<div class="card">Enter your full name to display assigned uploaded theses.</div>';return}let list=DATA.filter(r=>U[r.id]&&roleOf(r,name)&&norm(r.id+r.student+r.title).includes(q));teacherGrid.innerHTML=list.map(r=>{let role=roleOf(r,name);return`<div class="card"><span class="badge ok">${role}</span><div class="topic-title">${esc(r.id)} — ${esc(r.title)}</div><div class="meta"><b>Students:</b> ${esc(r.student)}<br><b>File:</b> ${esc(U[r.id].name)}</div><a class="btn green" onclick="track('${r.id}','${role}',teacherName.value)" href="${U[r.id].data}" download="${esc(U[r.id].name)}">Download Assigned Thesis</a></div>`}).join('')||'<div class="card">No uploaded thesis is assigned to this name.</div>'}
