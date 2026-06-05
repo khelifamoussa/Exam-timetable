@@ -1,0 +1,1059 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UKMO 2026 · 3D Defense Schedule by Specialty</title>
+<style>
+:root{--green0:#001b0b;--green1:#004d22;--green2:#00c853;--green3:#00ff7b;--lime:#c9ff00;--yellow:#ffea00;--cyan:#00ecff;--orange:#ff7a00;--red:#ff1744;--ink:#06180d;--paper:rgba(255,255,255,.93);--glass:rgba(255,255,255,.18);--shadow:0 24px 55px rgba(0,36,13,.28)}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--ink);background:radial-gradient(circle at 12% 10%,rgba(0,255,123,.9),transparent 22%),radial-gradient(circle at 88% 0,rgba(255,234,0,.85),transparent 20%),radial-gradient(circle at 72% 88%,rgba(0,236,255,.46),transparent 24%),linear-gradient(135deg,#001b0b 0%,#00652b 38%,#00c853 70%,#c9ff00 130%);min-height:100svh;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:-35% auto auto -20%;width:70vw;height:70vw;border-radius:50%;background:conic-gradient(from 120deg,rgba(255,234,0,.6),rgba(0,255,123,.4),rgba(0,236,255,.4),rgba(255,255,255,.18));filter:blur(8px);z-index:-2;animation:spin 18s linear infinite} body:after{content:"🎓";position:fixed;right:2vw;top:2vh;font-size:clamp(78px,15vw,190px);z-index:-1;filter:drop-shadow(0 28px 24px rgba(0,0,0,.32));animation:cap 4.2s ease-in-out infinite}
+@keyframes spin{to{transform:rotate(360deg)}} @keyframes cap{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-18px) rotate(8deg)}}
+header{padding:28px clamp(14px,5vw,72px) 90px;color:#fff;background:linear-gradient(125deg,#001c0c,#006b30 45%,#00e060 80%,#c9ff00 130%);box-shadow:0 32px 90px rgba(0,0,0,.27);position:relative;overflow:hidden} .brand{display:flex;gap:16px;align-items:center} .seal{width:82px;height:82px;border-radius:26px;background:linear-gradient(145deg,#f2fff0,#00ff7b 48%,#007e35);display:grid;place-items:center;color:#00240f;font-weight:1000;box-shadow:inset 8px 8px 22px rgba(255,255,255,.74),inset -10px -10px 18px rgba(0,51,18,.35),0 24px 44px rgba(0,0,0,.36),0 0 40px rgba(201,255,0,.45);transform:perspective(700px) rotateY(-14deg) rotateX(8deg)}
+h1{margin:0;font-size:clamp(28px,5vw,56px);line-height:1.04;text-shadow:0 8px 24px rgba(0,0,0,.25)} .eyebrow{text-transform:uppercase;letter-spacing:.13em;font-size:12px;margin:0 0 7px;opacity:.92;font-weight:900} .subtitle{margin:9px 0 0;max-width:920px;font-size:clamp(14px,1.7vw,18px);opacity:.95} .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+main{padding:0 clamp(12px,5vw,72px) 34px;margin-top:-56px} button{border:0;border-radius:16px;padding:12px 15px;font-weight:950;cursor:pointer;background:linear-gradient(135deg,#003d1f,#00c853 55%,#c9ff00);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.33);box-shadow:0 13px 26px rgba(0,200,83,.32),inset 0 1px 0 rgba(255,255,255,.45);transition:.14s transform,.14s filter} button:hover{transform:translateY(-2px) scale(1.01)} .btn-light{background:linear-gradient(135deg,#fff,#d8ffe1);color:#003d1f;text-shadow:none} .btn-yellow{background:linear-gradient(135deg,#ff7a00,#ffea00,#00ff7b);color:#00220e;text-shadow:none} .btn-red{background:linear-gradient(135deg,#ff1744,#ff7a00);color:#fff}
+.panel{background:linear-gradient(145deg,rgba(255,255,255,.95),rgba(224,255,229,.78));border:1px solid rgba(255,255,255,.55);border-radius:30px;box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.8);backdrop-filter:blur(16px)}
+.topbar{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;padding:12px;margin-bottom:18px;position:sticky;top:8px;z-index:20} input{width:100%;border:1px solid rgba(0,104,39,.18);border-radius:16px;padding:12px 14px;font:inherit;min-height:46px;background:#fff}
+.specialty-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px} .spec-card{min-height:245px;padding:22px;position:relative;overflow:hidden;transform:perspective(1000px) rotateX(2deg);transition:.18s transform,.18s box-shadow;content-visibility:auto;contain-intrinsic-size:280px} .spec-card:hover{transform:perspective(1000px) rotateX(2deg) translateY(-8px) scale(1.015);box-shadow:0 35px 80px rgba(0,35,14,.38)} .spec-card:before{content:"🎓";position:absolute;right:18px;top:16px;font-size:54px;filter:drop-shadow(0 12px 10px rgba(0,0,0,.18));animation:smallcap 3s ease-in-out infinite} .spec-card:after{content:"";position:absolute;inset:auto -20% -35% auto;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,#ffea00,rgba(0,255,123,.5),transparent 68%);opacity:.75} @keyframes smallcap{50%{transform:translateY(-7px) rotate(7deg)}}
+.spec-card h2{font-size:clamp(23px,2.4vw,34px);max-width:78%;margin:0 0 12px;color:#002b18} .metric-row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 18px} .metric{background:linear-gradient(135deg,#001e10,#00c853 60%,#c9ff00);color:#fff;border-radius:999px;padding:8px 10px;font-weight:950;font-size:13px;box-shadow:0 10px 20px rgba(0,200,83,.25)} .spec-actions{display:grid;grid-template-columns:1fr;gap:9px;position:relative;z-index:2}
+#detail{display:none} .detail-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:18px;margin-bottom:14px} .detail-title{display:flex;gap:13px;align-items:center} .grad-icon{font-size:46px;filter:drop-shadow(0 10px 9px rgba(0,0,0,.18));animation:smallcap 3.3s ease-in-out infinite} .chips{display:flex;gap:8px;flex-wrap:wrap} .chip{padding:8px 10px;border-radius:999px;background:linear-gradient(135deg,#001e10,#00c853 55%,#c9ff00);color:#fff;font-weight:950;font-size:12px}
+.mode-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px} .mode-card{padding:15px;border-radius:22px;background:linear-gradient(145deg,#fff,#eaffef);box-shadow:0 12px 28px rgba(0,38,15,.13);border:1px solid rgba(0,184,74,.15)} .mode-card strong{display:block;margin-bottom:6px;color:#003d1f}
+.live-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:15px} .def-card{position:relative;padding:16px;overflow:hidden;transition:.15s transform;content-visibility:auto;contain-intrinsic-size:390px} .def-card:hover{transform:translateY(-5px)} .def-card:before{content:"";position:absolute;inset:0 auto 0 0;width:9px;background:linear-gradient(180deg,#00ff7b,#ffea00,#00ecff)} .row1{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center} .badge{background:linear-gradient(135deg,#001e10,#00c853 60%,#c9ff00);color:#fff;padding:7px 10px;border-radius:999px;font-weight:950;font-size:12px} .time{font-weight:1000;color:#003d1f} .title{font-weight:950;margin:9px 0} .muted{color:#385242} .meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px} .meta div{background:linear-gradient(145deg,#fff,#eaffef);border:1px solid rgba(0,184,74,.14);border-radius:14px;padding:8px} .statusBox{margin-top:10px;border-radius:16px;padding:11px 12px;font-weight:950;display:flex;gap:8px;align-items:center;border:1px solid rgba(0,0,0,.08);box-shadow:inset 0 1px 0 rgba(255,255,255,.7)} .status-early .statusBox{background:linear-gradient(135deg,#eaffef,#baffc9);color:#015224} .status-48 .statusBox{background:linear-gradient(135deg,#ddfff1,#74ff9f);color:#003d1c} .status-24 .statusBox{background:linear-gradient(135deg,#fff6a3,#ffea00);color:#493100;animation:yellowPulse 1.2s ease-in-out infinite} .status-12{animation:strongCell 850ms ease-in-out infinite} .status-12 .statusBox{background:linear-gradient(135deg,#ffea00,#ff7a00,#ff1744);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.35)} .status-live{animation:liveGlow 1s ease-in-out infinite} .status-live .statusBox{background:linear-gradient(135deg,#00ecff,#00ff7b);color:#002312} .status-done{background:linear-gradient(145deg,rgba(230,255,235,.97),rgba(0,209,95,.76))!important;border-color:rgba(0,255,123,.75)!important} .status-done:after{content:"🎓 🌸 🌼 🌸";position:absolute;right:14px;bottom:10px;font-size:25px;animation:flowers 2.5s ease-in-out infinite} .status-done .statusBox{background:linear-gradient(135deg,#00a847,#00ff7b,#c9ff00);color:#00210d} .countdown{margin-top:8px;font-weight:1000;color:#005b2a}
+@keyframes yellowPulse{50%{filter:brightness(1.35);box-shadow:0 0 28px rgba(255,234,0,.88)}} @keyframes strongCell{50%{box-shadow:0 22px 45px rgba(0,33,14,.22),0 0 46px rgba(255,23,68,.95),0 0 80px rgba(255,234,0,.58)}} @keyframes liveGlow{50%{box-shadow:0 22px 45px rgba(0,33,14,.22),0 0 48px rgba(0,236,255,.9)}} @keyframes flowers{50%{transform:translateY(-8px) rotate(5deg)}}
+.admin-only{display:none} body.admin .admin-only{display:inline-block} dialog{border:0;border-radius:26px;padding:0;box-shadow:0 28px 90px rgba(0,0,0,.35)} .modal{padding:22px;min-width:min(760px,94vw);background:#fff;border-radius:26px} .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px} .field{display:grid;gap:5px;font-weight:800} .field.full{grid-column:1/-1} .field input{min-height:42px} menu{display:flex;justify-content:flex-end;gap:10px;padding:0;margin:16px 0 0}
+.print-panel{display:none} footer{text-align:center;color:#eaffef;padding:24px 12px 34px;text-shadow:0 3px 10px rgba(0,0,0,.35);font-weight:800}
+@media(max-width:950px){header{padding-bottom:76px} .brand{align-items:flex-start} .seal{width:66px;height:66px;border-radius:21px} main{padding-inline:10px} .topbar{grid-template-columns:1fr;position:relative;top:auto} .specialty-grid,.mode-tabs{grid-template-columns:1fr} .spec-card{min-height:220px;transform:none} .spec-card:hover{transform:translateY(-5px)} .live-grid{grid-template-columns:1fr} .meta,.grid{grid-template-columns:1fr} body:before{display:none} body:after{opacity:.35;top:80px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+@media print{@page{size:A4 landscape;margin:10mm} body{background:#fff!important;color:#111!important;font-family:"Times New Roman",serif;font-size:9.5px} body:before,body:after,header,main>section:not(.print-panel),footer,dialog{display:none!important} .print-panel{display:block!important} .print-header{text-align:center;border-bottom:2px solid #111;margin-bottom:8px;padding-bottom:6px} .print-header h1{font-size:18px;margin:5px 0;color:#111!important} .print-header p{margin:2px 0;font-size:12px} .spec-print h2{font-size:16px;text-align:center;margin:8px 0;padding:6px;border:1px solid #111;background:#baffc9;color:#002b18} table{width:100%;border-collapse:collapse;table-layout:fixed} th,td{border:1px solid #222;padding:4px;vertical-align:top;word-wrap:break-word} th{background:#caffd8;color:#111;font-weight:bold} .print-bw .spec-print h2,.print-bw th{background:#fff!important;color:#111!important} .print-bw *{color:#111!important;box-shadow:none!important} .narrow{width:6%} .datecol{width:13%} .timecol{width:8%} .roomcol{width:5%} .studentcol{width:13%} .titlecol{width:25%} .teachercol{width:10%}}
+
+/* Fast interactive upgrade: strong 3D colors, smoother mobile, exact print modes */
+:root{--fast-shadow:0 12px 28px rgba(0,42,16,.24);--hot-green:#00ff5a;--deep-green:#003c18;--gold:#ffe600;--blue:#00d9ff;--pink:#ff2bd6}
+.spec-card,.def-card,.panel,.mode-card{will-change:transform;transform:translateZ(0);backface-visibility:hidden;contain:layout paint;box-shadow:var(--fast-shadow)}
+.spec-card{background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(194,255,0,.9) 38%,rgba(0,255,90,.88) 100%);border:2px solid rgba(255,255,255,.75)}
+.spec-card h2{color:#002511;text-shadow:0 2px 0 rgba(255,255,255,.55)}
+.def-card{background:linear-gradient(150deg,rgba(255,255,255,.97),rgba(219,255,223,.96) 55%,rgba(0,255,90,.28));border:1px solid rgba(0,255,90,.38)}
+button{touch-action:manipulation;user-select:none}
+button:active{transform:translateY(1px) scale(.99)}
+.live-grid{content-visibility:auto;contain-intrinsic-size:360px}
+.status-soon48{outline:2px solid var(--blue)}
+.status-soon24{animation:fastYellow 1.1s steps(2,end) infinite;outline:3px solid var(--gold)}
+.status-soon12{animation:fastUrgent .72s steps(2,end) infinite;outline:4px solid #ff2d00}
+.status-live{animation:livePulse 1s ease-in-out infinite;outline:4px solid var(--pink)}
+.status-done{background:linear-gradient(145deg,#eaffef,#32ff7a 58%,#baff00)!important;outline:4px solid #00ff5a}
+@keyframes fastYellow{50%{box-shadow:0 0 0 6px rgba(255,230,0,.55),0 12px 32px rgba(0,0,0,.18)}}
+@keyframes fastUrgent{50%{box-shadow:0 0 0 8px rgba(255,45,0,.7),0 0 30px rgba(255,45,0,.55)}}
+@keyframes livePulse{50%{box-shadow:0 0 0 8px rgba(255,43,214,.38),0 0 34px rgba(255,43,214,.55)}}
+@media(max-width:720px){
+  html{scroll-behavior:auto}
+  body{background:linear-gradient(135deg,#003f18,#00a83f 55%,#c9ff00)!important}
+  body:before,body:after{display:none!important}
+  .spec-card,.def-card,.panel,.mode-card{box-shadow:0 8px 18px rgba(0,38,14,.18);animation:none!important}
+  .status-soon24,.status-soon12,.status-live{animation:none!important;box-shadow:0 0 0 3px rgba(255,230,0,.55)}
+  header{padding-top:18px!important}.brand{gap:10px}.lead{font-size:15px}.btns{gap:8px}
+  button{min-height:44px}.live-grid{gap:12px}.def-card{padding:14px!important}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media print{
+  body.print-color{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  body.print-color .print-header{background:linear-gradient(90deg,#003c18,#00b84a,#c9ff00)!important;color:#fff!important;border:2px solid #004b20!important;border-radius:6px;padding:8px!important}
+  body.print-color .print-header *{color:#fff!important}
+  body.print-color .spec-print h2{background:linear-gradient(90deg,#00a83f,#c9ff00)!important;color:#002511!important;border:2px solid #004b20!important}
+  body.print-color th{background:#00a83f!important;color:#fff!important;border-color:#004b20!important}
+  body.print-color tbody tr:nth-child(odd) td{background:#eaffef!important}
+  body.print-color tbody tr:nth-child(even) td{background:#f7ffe8!important}
+  body.print-color td{border-color:#268b47!important;color:#06180d!important}
+  body.print-bw,body.print-bw *{-webkit-print-color-adjust:economy!important;print-color-adjust:economy!important;background:#fff!important;background-image:none!important;color:#000!important;text-shadow:none!important;filter:none!important}
+  body.print-bw .print-header,body.print-bw .spec-print h2,body.print-bw th,body.print-bw td{border-color:#000!important;box-shadow:none!important}
+  body.print-bw th{font-weight:900!important}
+}
+
+
+/* Requested update: faster interface, blue-green cards, B&W schedule PDF, colored student notices */
+.mode-tabs.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.def-card{background:linear-gradient(145deg,rgba(221,255,250,.97),rgba(214,246,255,.94) 34%,rgba(214,255,225,.96))!important;border:1px solid rgba(0,210,170,.32)!important;box-shadow:0 16px 36px rgba(0,70,115,.16),inset 0 1px 0 rgba(255,255,255,.82)!important;will-change:transform}
+.def-card:before{background:linear-gradient(180deg,#0077ff,#00e676,#c9ff00)!important;width:8px!important}.badge{background:linear-gradient(135deg,#005eea,#00c853 66%,#c9ff00)!important}.title{color:#003d2d}.student-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.student-print-btn{background:linear-gradient(135deg,#004cff,#00d084,#d9ff00);font-size:13px;padding:10px 12px}.status-48{animation:slowYellowBlink 2.4s ease-in-out infinite}.status-48 .statusBox{background:linear-gradient(135deg,#fff9b8,#ffea00,#d8ff4a)!important;color:#3b3100!important}.status-24{animation:mediumYellowBlink 1.25s ease-in-out infinite}.status-24 .statusBox{background:linear-gradient(135deg,#fff05a,#ffd000,#ff9d00)!important;color:#3d2600!important}.status-12{animation:rapidYellowBlink .55s ease-in-out infinite}.status-12 .statusBox{background:linear-gradient(135deg,#ffef00,#ff9d00,#ff1744)!important;color:#fff!important}.status-live .statusBox{background:linear-gradient(135deg,#00e5ff,#00ff85,#c9ff00)!important}.status-done:before{content:"🎓";position:absolute;right:18px;top:12px;font-size:34px;filter:drop-shadow(0 8px 8px rgba(0,0,0,.25));animation:smallcap 2s ease-in-out infinite}.status-done .flower-rain{display:block}.flower-rain{display:none;position:absolute;inset:0;pointer-events:none;overflow:hidden}.flower-rain i{position:absolute;top:-24px;font-style:normal;animation:fallFlowers 3.8s linear infinite}.flower-rain i:nth-child(1){left:18%;animation-delay:.1s}.flower-rain i:nth-child(2){left:42%;animation-delay:.9s}.flower-rain i:nth-child(3){left:66%;animation-delay:1.5s}.flower-rain i:nth-child(4){left:84%;animation-delay:2.2s}@keyframes slowYellowBlink{0%,100%{box-shadow:0 16px 36px rgba(0,70,115,.16)}50%{box-shadow:0 0 0 4px rgba(255,234,0,.52),0 0 35px rgba(255,234,0,.62)}}@keyframes mediumYellowBlink{0%,100%{filter:saturate(1)}50%{filter:saturate(1.45) brightness(1.08);box-shadow:0 0 0 5px rgba(255,208,0,.65),0 0 45px rgba(255,174,0,.8)}}@keyframes rapidYellowBlink{0%,100%{transform:translateZ(0) scale(1)}50%{transform:translateY(-2px) scale(1.012);box-shadow:0 0 0 6px rgba(255,214,0,.88),0 0 65px rgba(255,122,0,.95)}}@keyframes fallFlowers{0%{transform:translateY(-28px) rotate(0deg);opacity:0}12%{opacity:1}100%{transform:translateY(390px) rotate(260deg);opacity:0}}
+.student-print-panel{display:none}.student-notice{max-width:780px;margin:auto;border:4px solid #00a853;border-radius:18px;padding:18px;font-family:Arial,sans-serif;background:linear-gradient(135deg,#f8fff9,#e9fff1 55%,#dff8ff);color:#062016}.student-notice .notice-head{text-align:center;border-bottom:3px solid #00a853;padding-bottom:10px;margin-bottom:14px}.student-notice h1{margin:8px 0;color:#006b2d;font-size:24px}.notice-grid{display:grid;grid-template-columns:150px 1fr;gap:8px;border:1px solid #00a853}.notice-grid b,.notice-grid span{padding:9px;border-bottom:1px solid #9ce7b7}.notice-grid b{background:#d9ffe5;color:#00461d}.notice-message{margin-top:14px;padding:14px;border-radius:14px;background:#fff6c7;border:2px solid #ffcc00;color:#3b2a00;font-weight:700}.notice-footer{text-align:center;margin-top:18px;color:#006b2d;font-weight:800}
+@media (max-width:760px){.mode-tabs.two{grid-template-columns:1fr}.def-card{content-visibility:auto;contain-intrinsic-size:330px}.meta{grid-template-columns:1fr}.student-actions button,.topbar button{width:100%}}
+@media print{@page{size:A4 landscape;margin:10mm}.student-printing{@page{size:A4 portrait;margin:12mm}} body.print-student header,body.print-student main>section:not(.student-print-panel),body.print-student footer,body.print-student dialog{display:none!important} body.print-student .student-print-panel{display:block!important} body.print-student{background:#fff!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important} body.print-student .student-print-panel *{box-shadow:none!important} body.print-bw,body.print-bw *{-webkit-print-color-adjust:economy!important;print-color-adjust:economy!important;background:#fff!important;background-image:none!important;color:#000!important;text-shadow:none!important;filter:none!important} body.print-bw .print-header,body.print-bw .spec-print h2,body.print-bw th,body.print-bw td{border-color:#000!important;box-shadow:none!important} body.print-bw th{font-weight:900!important}}
+
+
+/* Ultra high-resolution academic color/BW printing */
+@media print{
+  body.print-color{background:#fff!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}
+  body.print-color .print-panel{display:block!important}
+  body.print-color .print-header{
+    background:linear-gradient(135deg,#003816 0%,#007d32 38%,#00d85a 70%,#d6ff00 100%)!important;
+    color:#fff!important;border:3px solid #003816!important;border-radius:10px!important;padding:10px!important;
+    box-shadow:none!important;text-shadow:none!important;page-break-after:avoid!important
+  }
+  body.print-color .print-header *{color:#fff!important}
+  body.print-color .spec-print{page-break-inside:avoid!important}
+  body.print-color .spec-print h2{
+    background:linear-gradient(90deg,#005b24,#00c853,#d6ff00)!important;color:#001b0b!important;
+    border:2px solid #005b24!important;border-radius:8px!important;letter-spacing:.3px!important
+  }
+  body.print-color table{border-collapse:collapse!important;width:100%!important;table-layout:fixed!important}
+  body.print-color th{background:#006d2c!important;color:#fff!important;border:1.4px solid #003d1f!important;font-weight:900!important}
+  body.print-color td{border:1.1px solid #138a3d!important;color:#04170a!important}
+  body.print-color tbody tr:nth-child(odd) td{background:#eaffef!important}
+  body.print-color tbody tr:nth-child(even) td{background:#f7ffe4!important}
+  body.print-color tbody tr td:first-child{background:#c9ffdc!important;font-weight:900!important;color:#003817!important}
+  body.print-color tbody tr td:nth-child(4){background:#e6f7ff!important;font-weight:900!important}
+  body.print-bw{background:#fff!important}
+  body.print-bw,body.print-bw *{-webkit-print-color-adjust:economy!important;print-color-adjust:economy!important;color-adjust:economy!important;background:#fff!important;background-image:none!important;color:#000!important;text-shadow:none!important;filter:none!important}
+  body.print-bw .print-header{border-bottom:2.5px solid #000!important;padding-bottom:7px!important}
+  body.print-bw .spec-print h2{border:1.8px solid #000!important}
+  body.print-bw th,body.print-bw td{border:1px solid #000!important}
+}
+
+
+
+/* Premium motivational individual student notice - high clarity print */
+.student-notice.premium-card{
+  max-width:820px;margin:0 auto;border:0;border-radius:28px;padding:0;
+  font-family:Arial,Helvetica,sans-serif;background:#fff;color:#052416;overflow:hidden;
+  box-shadow:0 18px 45px rgba(0,70,32,.18);
+}
+.premium-card .premium-cover{
+  position:relative;text-align:center;padding:28px 28px 22px;
+  background:linear-gradient(135deg,#003d1f 0%,#007a36 38%,#00c853 68%,#c8ff00 100%);
+  color:#fff;border-bottom:8px solid #ffd000;
+}
+.premium-card .premium-cover:before{content:"";position:absolute;inset:10px;border:2px solid rgba(255,255,255,.55);border-radius:20px;pointer-events:none}
+.premium-card .cap-mark{font-size:52px;line-height:1;margin-bottom:6px;filter:drop-shadow(0 9px 10px rgba(0,0,0,.28))}
+.premium-card .uni{font-weight:900;letter-spacing:.5px;font-size:15px;text-transform:uppercase}
+.premium-card .faculty{font-weight:800;font-size:12px;opacity:.95;margin-top:4px}
+.premium-card h1{font-size:26px;margin:13px 0 6px;color:#fff;text-transform:uppercase;letter-spacing:.8px}
+.premium-card .year-pill{display:inline-block;margin-top:8px;padding:7px 16px;border-radius:999px;background:#fff;color:#004b22;font-weight:900;border:2px solid #dfff58}
+.premium-card .student-name-box{margin:18px 22px 12px;padding:14px 16px;border-radius:18px;background:linear-gradient(90deg,#e9fff1,#f8ffe1);border:2.5px solid #00a84f;text-align:center}
+.premium-card .student-name-box small{display:block;color:#00652d;font-weight:900;text-transform:uppercase;letter-spacing:.9px;margin-bottom:5px}
+.premium-card .student-name-box strong{display:block;font-size:24px;color:#003d1f;line-height:1.28}
+.premium-card .premium-table{width:calc(100% - 44px);margin:12px 22px;border-collapse:separate;border-spacing:0;border:2.5px solid #006d34;border-radius:16px;overflow:hidden;table-layout:fixed}
+.premium-card .premium-table th,.premium-card .premium-table td{padding:11px 13px;border-bottom:1.5px solid #9fe8bb;vertical-align:top;word-break:break-word}
+.premium-card .premium-table th{width:31%;background:linear-gradient(135deg,#004b24,#00a84f);color:#fff;text-align:left;font-weight:900;text-transform:uppercase;font-size:11px;letter-spacing:.55px}
+.premium-card .premium-table td{background:#fbfffb;color:#061d10;font-weight:800;font-size:13.5px}
+.premium-card .premium-table tr:nth-child(even) td{background:#ecfff2}
+.premium-card .premium-table tr:last-child th,.premium-card .premium-table tr:last-child td{border-bottom:0}
+.premium-card .highlight-row td{background:#fff8c8!important;color:#2e2500!important;font-weight:900}
+.premium-card .premium-message{margin:16px 22px;padding:14px 16px;border-radius:18px;background:linear-gradient(135deg,#fff4a8,#ffe033 58%,#b7ff44);border:2.5px solid #d6a700;color:#2c2200;font-weight:900;line-height:1.55;text-align:center}
+.premium-card .motivation-strip{margin:14px 22px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.premium-card .motivation-strip span{padding:10px;border-radius:14px;text-align:center;background:linear-gradient(135deg,#e7f2ff,#eaffef);border:1.8px solid #00a84f;color:#004322;font-weight:900;font-size:12px}
+.premium-card .premium-footer{margin-top:18px;padding:16px 22px 20px;text-align:center;background:linear-gradient(90deg,#003d1f,#006d34);color:#fff;font-weight:900;border-top:6px solid #c8ff00}
+.premium-card .signature-line{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 22px 0;color:#003d1f;font-weight:900;font-size:12px}
+.premium-card .signature-line div{border-top:2px solid #007a36;padding-top:8px;text-align:center}
+@media print{
+  body.print-student{background:#fff!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}
+  body.print-student .student-print-panel{padding:0!important}
+  body.print-student .student-notice.premium-card{box-shadow:none!important;width:100%!important;max-width:none!important;border:1.5px solid #004b24!important;page-break-inside:avoid!important}
+  body.print-student .premium-card *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}
+  body.print-student .premium-card .premium-table th,body.print-student .premium-card .premium-table td{font-size:11.8px!important;padding:8px 10px!important}
+  body.print-student .premium-card h1{font-size:22px!important}
+  body.print-student .premium-card .student-name-box strong{font-size:20px!important}
+  body.print-student .premium-card .premium-message{font-size:13px!important;padding:11px!important}
+  body.print-student .premium-card .motivation-strip span{font-size:10.5px!important;padding:8px!important}
+}
+
+/* Final update: PDF-only schedule, blue/green cards, 72h/48h/24h/12h progressive reminders */
+.two-modes{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+.def-card{background:linear-gradient(145deg,rgba(232,247,255,.98),rgba(222,255,238,.96))!important;border:1px solid rgba(0,145,255,.28)!important}
+.def-card:before{background:linear-gradient(180deg,#005eff,#00d084,#00ff6a)!important}
+.status-72{animation:softYellowBlink 3s ease-in-out infinite;outline:2px solid rgba(255,222,0,.62)}
+.status-72 .statusBox{background:linear-gradient(135deg,#fffbd1,#ffef5a,#cfff7a)!important;color:#3c3300!important}
+.status-48{animation:slowYellowBlink 2.1s ease-in-out infinite!important;outline:3px solid rgba(255,224,0,.75)}
+.status-48 .statusBox{background:linear-gradient(135deg,#fff6a7,#ffdf00,#d7ff5a)!important;color:#382a00!important}
+.status-24{animation:mediumYellowBlink 1s ease-in-out infinite!important;outline:3px solid #ffd000}
+.status-24 .statusBox{background:linear-gradient(135deg,#fff05a,#ffd000,#ffb000)!important;color:#2a1e00!important}
+.status-12{animation:rapidYellowBlink .42s ease-in-out infinite!important;outline:4px solid #ff6a00}
+.status-12 .statusBox{background:linear-gradient(135deg,#fff000,#ff9d00,#ff1744)!important;color:#fff!important}
+@keyframes softYellowBlink{0%,100%{box-shadow:0 18px 36px rgba(0,120,255,.16)}50%{box-shadow:0 0 0 5px rgba(255,230,0,.35),0 22px 42px rgba(0,200,83,.24)}}
+@media(max-width:760px){.two-modes{grid-template-columns:1fr!important}.topbar{grid-template-columns:1fr!important}.def-card{contain:content}.meta{grid-template-columns:1fr!important}}
+@media print{body.print-bw,body.print-bw *{-webkit-print-color-adjust:economy!important;print-color-adjust:economy!important;background:#fff!important;background-image:none!important;color:#000!important;text-shadow:none!important;filter:none!important;box-shadow:none!important} body.print-bw .print-header,body.print-bw .spec-print h2,body.print-bw th,body.print-bw td{border-color:#000!important}}
+
+
+/* Restored high-precision color PDF schedule option */
+#printColorBtn,.btn-yellow{background:linear-gradient(135deg,#004b24,#00d964 45%,#fff200 100%)!important;color:#062000!important;text-shadow:none!important}
+@media (max-width:720px){.mode-tabs{grid-template-columns:1fr!important}.topbar{grid-template-columns:1fr!important}.topbar button{width:100%}}
+@media print{
+  body.print-color{background:#fff!important;color:#07180d!important;font-family:Arial,Helvetica,sans-serif!important;font-size:8.8px!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}
+  body.print-color:before,body.print-color:after,body.print-color header,body.print-color main>section:not(.print-panel),body.print-color footer,body.print-color dialog{display:none!important}
+  body.print-color .print-panel{display:block!important}
+  body.print-color .print-header{background:linear-gradient(90deg,#002f15,#007d35 38%,#00c853 70%,#d6ff00)!important;color:#fff!important;border:3px solid #003b19!important;border-radius:9px!important;padding:10px 12px!important;margin-bottom:9px!important;text-align:center!important;box-shadow:none!important}
+  body.print-color .print-header h1{font-size:19px!important;letter-spacing:.4px!important;margin:4px 0!important;color:#fff!important}
+  body.print-color .print-header p{font-size:11.5px!important;margin:2px 0!important;color:#fff!important;font-weight:800!important}
+  body.print-color .spec-print h2{background:linear-gradient(90deg,#005d27,#00c853,#d6ff00)!important;color:#001d0d!important;border:2.3px solid #00451e!important;border-radius:7px!important;text-align:center!important;padding:7px!important;font-size:16px!important;margin:8px 0!important}
+  body.print-color table{width:100%!important;border-collapse:collapse!important;table-layout:fixed!important;border:2px solid #00451e!important}
+  body.print-color th{background:#006f2e!important;color:#fff!important;border:1.4px solid #003616!important;font-weight:900!important;padding:5px 4px!important;text-align:center!important}
+  body.print-color td{border:1.05px solid #087333!important;color:#06180d!important;padding:4.8px 4px!important;vertical-align:top!important;line-height:1.28!important}
+  body.print-color tbody tr:nth-child(odd) td{background:#e9fff0!important}
+  body.print-color tbody tr:nth-child(even) td{background:#fbfff0!important}
+  body.print-color tbody tr td:first-child{background:#caffdc!important;color:#003817!important;font-weight:900!important;text-align:center!important}
+  body.print-color tbody tr td:nth-child(2),body.print-color tbody tr td:nth-child(3),body.print-color tbody tr td:nth-child(4){background:#e6f7ff!important;font-weight:900!important;text-align:center!important}
+  body.print-color .titlecol{width:26%!important}.studentcol{width:13%!important}.teachercol{width:9.8%!important}
+}
+
+
+
+/* One-page professional student print notice upgrade */
+@media print{
+  body.print-student{background:#fff!important;margin:0!important;overflow:hidden!important}
+  body.print-student .student-print-panel{display:block!important;width:100%!important;padding:0!important;margin:0!important}
+  body.print-student .student-notice.premium-card{
+    width:190mm!important;max-width:190mm!important;height:277mm!important;max-height:277mm!important;
+    margin:0 auto!important;border:1.8mm solid #005b2a!important;border-radius:7mm!important;
+    overflow:hidden!important;page-break-before:avoid!important;page-break-after:avoid!important;page-break-inside:avoid!important;
+    box-shadow:none!important;background:#fff!important;position:relative!important;
+  }
+  body.print-student .student-notice.premium-card:after{
+    content:"🎓";position:absolute;right:8mm;bottom:16mm;font-size:54mm;opacity:.055;line-height:1;z-index:0;
+  }
+  body.print-student .premium-card .premium-cover{
+    padding:8mm 10mm 6mm!important;border-bottom:2.2mm solid #ffd400!important;position:relative!important;z-index:1;
+  }
+  body.print-student .premium-card .premium-cover:before{inset:3mm!important;border-radius:5mm!important;border-width:.55mm!important}
+  body.print-student .premium-card .cap-mark{font-size:13mm!important;margin-bottom:1mm!important}
+  body.print-student .premium-card .uni{font-size:4.1mm!important;letter-spacing:.15mm!important}
+  body.print-student .premium-card .faculty{font-size:2.85mm!important;margin-top:1mm!important}
+  body.print-student .premium-card h1{font-size:6.4mm!important;margin:3mm 0 1.6mm!important;letter-spacing:.25mm!important}
+  body.print-student .premium-card .year-pill{font-size:3.2mm!important;padding:1.6mm 5mm!important;margin-top:1.5mm!important}
+  body.print-student .premium-card .student-name-box{
+    margin:5mm 7mm 3.5mm!important;padding:3.2mm 4mm!important;border-radius:5mm!important;border-width:.75mm!important;position:relative!important;z-index:1;
+  }
+  body.print-student .premium-card .student-name-box small{font-size:2.35mm!important;margin-bottom:1.2mm!important}
+  body.print-student .premium-card .student-name-box strong{font-size:5.2mm!important;line-height:1.18!important}
+  body.print-student .premium-card .premium-table{
+    width:176mm!important;margin:3.2mm 7mm!important;border-radius:4mm!important;border-width:.75mm!important;position:relative!important;z-index:1;
+  }
+  body.print-student .premium-card .premium-table th,
+  body.print-student .premium-card .premium-table td{
+    padding:2.35mm 3mm!important;font-size:2.85mm!important;line-height:1.18!important;border-bottom:.35mm solid #9fe8bb!important;
+  }
+  body.print-student .premium-card .premium-table th{width:31%!important;font-size:2.75mm!important;letter-spacing:.12mm!important}
+  body.print-student .premium-card .premium-message{
+    margin:4mm 7mm 3mm!important;padding:3.2mm 4.2mm!important;border-radius:4.5mm!important;border-width:.65mm!important;
+    font-size:3.45mm!important;line-height:1.35!important;position:relative!important;z-index:1;
+  }
+  body.print-student .premium-card .motivation-strip{margin:3.3mm 7mm 0!important;gap:2.5mm!important;position:relative!important;z-index:1}
+  body.print-student .premium-card .motivation-strip span{font-size:2.9mm!important;padding:2.5mm 1.5mm!important;border-radius:3.5mm!important;border-width:.45mm!important}
+  body.print-student .premium-card .signature-line{margin:5mm 7mm 0!important;gap:7mm!important;font-size:2.35mm!important;position:relative!important;z-index:1}
+  body.print-student .premium-card .signature-line div{padding-top:2.2mm!important;border-top:.55mm solid #007a36!important}
+  body.print-student .premium-card .premium-footer{
+    position:absolute!important;left:0!important;right:0!important;bottom:0!important;margin:0!important;padding:4.2mm 7mm!important;
+    font-size:2.85mm!important;border-top:1.8mm solid #c8ff00!important;z-index:1!important;
+  }
+}
+
+
+
+/* After-defense student certificate: one-page premium motivational certificate */
+.student-certificate{display:none}
+@media print{
+  body.print-student .student-certificate.premium-certificate{
+    display:block!important;
+    width:100%!important;
+    height:273mm!important;
+    overflow:hidden!important;
+    position:relative!important;
+    border:1.6mm solid #006b35!important;
+    border-radius:7mm!important;
+    background:
+      radial-gradient(circle at 16% 15%,rgba(255,234,0,.55),transparent 19%),
+      radial-gradient(circle at 86% 14%,rgba(0,229,255,.33),transparent 20%),
+      linear-gradient(135deg,#f7fff7 0%,#e8fff0 47%,#fff9cf 100%)!important;
+    font-family:Arial,"Segoe UI",sans-serif!important;
+    color:#042713!important;
+    -webkit-print-color-adjust:exact!important;
+    print-color-adjust:exact!important;
+    page-break-inside:avoid!important;
+    box-shadow:none!important;
+  }
+  body.print-student .premium-certificate:before{
+    content:"";position:absolute;inset:4mm;border:1mm solid #00b85a;border-radius:5mm;pointer-events:none;
+  }
+  body.print-student .premium-certificate:after{
+    content:"";position:absolute;inset:9mm;border:.35mm dashed rgba(0,107,53,.55);border-radius:4mm;pointer-events:none;
+  }
+  body.print-student .cert-flowers{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:3}
+  body.print-student .cert-flowers i{position:absolute;top:-7mm;font-style:normal;font-size:7mm;animation:printFlowerFall 2.8s linear infinite;color:#db1470!important}
+  body.print-student .cert-flowers i:nth-child(1){left:14%;animation-delay:.05s}.cert-flowers i:nth-child(2){left:29%;animation-delay:.55s}.cert-flowers i:nth-child(3){left:47%;animation-delay:.95s}.cert-flowers i:nth-child(4){left:66%;animation-delay:1.25s}.cert-flowers i:nth-child(5){left:82%;animation-delay:1.65s}
+  @keyframes printFlowerFall{0%{transform:translateY(-10mm) rotate(0deg);opacity:.9}100%{transform:translateY(285mm) rotate(220deg);opacity:.12}}
+  body.print-student .cert-inner{position:relative;z-index:4;height:100%;padding:13mm 13mm 10mm;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:space-between}
+  body.print-student .cert-top{width:100%;padding:4mm 5mm 5mm;border-radius:5mm;background:linear-gradient(135deg,#003f20,#00a853 58%,#c9ff00)!important;color:#fff!important}
+  body.print-student .cert-top .uni{font-weight:900;text-transform:uppercase;letter-spacing:.35mm;font-size:4.1mm;color:#fff!important}
+  body.print-student .cert-top .dept{font-weight:800;font-size:2.85mm;margin-top:1.2mm;color:#f5fff1!important}
+  body.print-student .cert-cap{font-size:19mm;line-height:1;margin:2mm 0 0;filter:drop-shadow(0 2mm 1mm rgba(0,0,0,.18))}
+  body.print-student .cert-title{margin:1mm 0 0;font-size:10.5mm;letter-spacing:.45mm;color:#00552a!important;font-weight:1000;text-transform:uppercase}
+  body.print-student .cert-subtitle{font-size:4.1mm;font-weight:900;color:#115b2e!important;margin:1mm 0 4mm}
+  body.print-student .cert-student{width:91%;padding:5mm 6mm;border-radius:6mm;background:linear-gradient(90deg,#e8fff0,#fffbd9)!important;border:.8mm solid #00a853!important;box-shadow:none!important}
+  body.print-student .cert-student small{display:block;text-transform:uppercase;font-weight:900;color:#00652b!important;letter-spacing:.25mm;font-size:3.2mm;margin-bottom:1.4mm}
+  body.print-student .cert-student strong{display:block;font-size:7.3mm;line-height:1.16;color:#002f18!important;font-weight:1000}
+  body.print-student .cert-message{width:91%;font-size:4.55mm;line-height:1.52;font-weight:900;color:#04361d!important;background:#fff!important;border-left:1.2mm solid #00a853!important;border-right:1.2mm solid #00a853!important;border-radius:5mm;padding:5mm 8mm;margin:3mm 0}
+  body.print-student .cert-info{width:91%;border-collapse:separate!important;border-spacing:0!important;overflow:hidden;border:.65mm solid #00a853!important;border-radius:4mm!important;text-align:left;font-size:3.15mm;background:#fff!important}
+  body.print-student .cert-info th,body.print-student .cert-info td{padding:2.3mm 3mm!important;border-bottom:.25mm solid #b3efc5!important;vertical-align:top!important}
+  body.print-student .cert-info th{width:31%!important;background:#d9ffe5!important;color:#004d22!important;text-transform:uppercase;font-weight:1000!important;letter-spacing:.12mm!important}
+  body.print-student .cert-info td{color:#06180d!important;font-weight:750!important;background:#fff!important}
+  body.print-student .cert-info tr:last-child th,body.print-student .cert-info tr:last-child td{border-bottom:0!important}
+  body.print-student .cert-wishes{width:91%;display:grid;grid-template-columns:repeat(3,1fr);gap:2.4mm;margin:3mm 0}
+  body.print-student .cert-wishes span{padding:3mm 1mm;border-radius:4mm;background:linear-gradient(135deg,#003f20,#00c853)!important;color:#fff!important;font-size:2.85mm;font-weight:1000;text-transform:uppercase;letter-spacing:.18mm}
+  body.print-student .cert-footer{width:91%;display:flex;justify-content:space-between;gap:14mm;margin-top:2mm;color:#004d22!important;font-size:3.2mm;font-weight:900}
+  body.print-student .cert-footer div{flex:1;border-top:.55mm solid #00a853;padding-top:2mm;text-align:center}
+}
+
+
+/* FINAL FIX: force individual student print/certificate to ONE A4 page even with browser headers enabled */
+@media print{
+  @page{size:A4 portrait;margin:4mm!important}
+  body.print-student, body.print-student html{width:210mm!important;height:297mm!important;margin:0!important;padding:0!important;overflow:hidden!important;background:#fff!important}
+  body.print-student .student-print-panel{display:block!important;width:210mm!important;height:265mm!important;margin:0 auto!important;padding:0!important;overflow:hidden!important;page-break-after:avoid!important;break-after:avoid!important}
+  body.print-student .student-notice.premium-card,
+  body.print-student .student-certificate.premium-certificate{
+    width:188mm!important;height:222mm!important;max-width:188mm!important;min-height:0!important;margin:0 auto!important;padding:0!important;overflow:hidden!important;transform:none!important;page-break-before:avoid!important;page-break-after:avoid!important;page-break-inside:avoid!important;break-inside:avoid!important;border-width:1.35mm!important;border-radius:5mm!important;
+  }
+  body.print-student .premium-card .premium-cover{padding:3.8mm 7mm 3.2mm!important;min-height:0!important}
+  body.print-student .premium-card .cap-mark{font-size:8mm!important;margin:0!important}
+  body.print-student .premium-card .uni{font-size:3.2mm!important;line-height:1.05!important}
+  body.print-student .premium-card .faculty{font-size:2.55mm!important;margin-top:.4mm!important;line-height:1.05!important}
+  body.print-student .premium-card h1{font-size:4.8mm!important;margin:1.4mm 0 .8mm!important;line-height:1!important}
+  body.print-student .premium-card .year-pill{font-size:2.45mm!important;padding:.8mm 3.5mm!important;margin-top:.4mm!important}
+  body.print-student .premium-card .student-name-box{margin:2.4mm 7mm 1.8mm!important;padding:1.6mm 3mm!important;border-radius:3.2mm!important}
+  body.print-student .premium-card .student-name-box small{font-size:2.2mm!important;margin-bottom:.4mm!important}
+  body.print-student .premium-card .student-name-box strong{font-size:3.8mm!important;line-height:1.08!important}
+  body.print-student .premium-card .premium-table{width:174mm!important;margin:1.8mm 7mm!important;border-radius:3mm!important;border-width:.5mm!important}
+  body.print-student .premium-card .premium-table th,body.print-student .premium-card .premium-table td{padding:1.25mm 2mm!important;font-size:2.45mm!important;line-height:1.07!important;border-bottom:.18mm solid #7edca3!important}
+  body.print-student .premium-card .premium-table th{font-size:2.1mm!important;width:31%!important;letter-spacing:.05mm!important}
+  body.print-student .premium-card .premium-message{margin:2mm 7mm 1.8mm!important;padding:1.9mm 3mm!important;font-size:2.6mm!important;line-height:1.16!important;border-radius:3mm!important}
+  body.print-student .premium-card .motivation-strip{margin:1.6mm 7mm 0!important;gap:1.8mm!important}
+  body.print-student .premium-card .motivation-strip span{padding:1.3mm .8mm!important;font-size:2.15mm!important;border-radius:2.6mm!important}
+  body.print-student .premium-card .signature-line{margin:2.5mm 7mm 0!important;font-size:2.25mm!important;gap:6mm!important}
+  body.print-student .premium-card .signature-line div{padding-top:1.2mm!important;border-top:.35mm solid #007a36!important}
+  body.print-student .premium-card .premium-footer{padding:1.9mm 5mm!important;font-size:2.35mm!important;border-top:.9mm solid #c8ff00!important}
+  body.print-student .cert-inner{padding:7mm 10mm 6mm!important;justify-content:space-between!important}
+  body.print-student .cert-top{padding:3mm 4mm!important}.cert-cap{font-size:13mm!important}.cert-title{font-size:7mm!important}.cert-subtitle{font-size:3.2mm!important}.cert-student{padding:3mm 4mm!important}.cert-student strong{font-size:5.2mm!important}.cert-message{font-size:3.4mm!important;padding:3mm 5mm!important;line-height:1.25!important}.cert-info th,.cert-info td{padding:1.4mm 2mm!important;font-size:2.55mm!important}.cert-wishes span{padding:1.8mm .8mm!important;font-size:2.55mm!important}.cert-footer{font-size:2.5mm!important}
+}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="seal">UKMO</div><div><p class="eyebrow">Université Kasdi Merbah Ouargla</p><h1>Master Thesis Defense Schedule</h1><p class="subtitle">Faculty of Applied Sciences · Department of Electrical Engineering · Academic Year 2025–2026</p><div class="hero-actions"><button id="notifyBtn">Enable defense reminders</button><button class="btn-light" id="homeBtnTop">Specialties</button><button class="btn-light" id="adminBtn">Admin access</button><button class="admin-only btn-red" id="lockBtn">Lock editing</button></div></div></div></header>
+<main>
+<section class="topbar panel"><input id="search" placeholder="Search inside the selected specialty: student, teacher, code, title…"><button class="btn-light" id="homeBtn">Back to specialties</button><button id="printBwBtn">Print PDF</button><button class="btn-yellow" id="printColorBtn">Print Color PDF</button></section>
+<section id="home"><div class="specialty-grid" id="specialtyGrid"></div></section>
+<section id="detail"><div class="detail-head panel"><div class="detail-title"><span class="grad-icon">🎓</span><div><h2 id="detailTitle" style="margin:0;color:#002b18"></h2><p id="detailInfo" class="muted" style="margin:4px 0 0"></p></div></div><div class="chips"><span class="chip">Fast 3D live view</span><span class="chip">PDF schedule</span><span class="chip">Color PDF</span><span class="chip">Student notice cards</span></div></div><div class="mode-tabs"><div class="mode-card"><strong>1 · Watch live 3D</strong><p class="muted">Animated blue-green cards with timing alerts, graduation effects, and individual student notice printing.</p><button id="viewLiveBtn">Open live program</button></div><div class="mode-card"><strong>2 · Print PDF schedule</strong><p class="muted">Clean official black-and-white academic table for this specialty only.</p><button id="modeBwBtn">Print PDF</button></div><div class="mode-card"><strong>3 · Print color PDF</strong><p class="muted">High-precision professional colored table for this specialty, optimized for sharp PDF export.</p><button class="btn-yellow" id="modeColorBtn">Print Color PDF</button></div></div><div id="liveProgram" class="live-grid"></div></section>
+<section id="printPanel" class="print-panel"></section><section id="studentPrintPanel" class="student-print-panel"></section>
+</main>
+<footer>Université Kasdi Merbah Ouargla · Faculty of Applied Sciences · Department of Electrical Engineering</footer>
+<dialog id="editor"><form method="dialog" class="modal"><h2>Edit defense</h2><div id="editFields" class="grid"></div><menu><button class="btn-light" value="cancel">Cancel</button><button id="saveEdit" value="default">Save</button></menu></form></dialog>
+<script>
+window.DEFENSES=[
+  {
+    "code": "RES01",
+    "specialty": "Electrical Networks",
+    "supervisor": "Boudjella Houari",
+    "coSupervisor": "",
+    "students": "Gheriani Aymen mohammed; Lemkeddem Zoubir",
+    "title": "Meta-heuristic Optimization for Power Dispatch with Nonconvex Cubic Cost Models",
+    "president": "BOUKAROURA Abdelkader",
+    "examiner": "GUEHRAR Youcef",
+    "date": "2026-06-07",
+    "dayLabel": "Sunday, 07 June 2026",
+    "start": "08:00",
+    "end": "09:15",
+    "room": "113",
+    "status": "Scheduled",
+    "id": 1
+  },
+  {
+    "code": "RES02",
+    "specialty": "Electrical Networks",
+    "supervisor": "Larouci Benyekhlef",
+    "coSupervisor": "",
+    "students": "Thabtia radja; Zenkhri Fatma",
+    "title": "Quantum computing applied in power system studies",
+    "president": "SADAOUI Fares",
+    "examiner": "Bouhadouza Boubekeur",
+    "date": "2026-06-07",
+    "dayLabel": "Sunday, 07 June 2026",
+    "start": "08:00",
+    "end": "09:15",
+    "room": "114",
+    "status": "Scheduled",
+    "id": 2
+  },
+  {
+    "code": "RES03",
+    "specialty": "Electrical Networks",
+    "supervisor": "SADAOUI Fares",
+    "coSupervisor": "",
+    "students": "Daoudi Brahim",
+    "title": "Multi-objective optimization of PV units, DSTATCOM and energy storage systems integration by battery in a distribution network",
+    "president": "Djafour Ahmed",
+    "examiner": "Larouci Benyekhlef",
+    "date": "2026-06-07",
+    "dayLabel": "Sunday, 07 June 2026",
+    "start": "09:35",
+    "end": "10:50",
+    "room": "113",
+    "status": "Scheduled",
+    "id": 3
+  },
+  {
+    "code": "RES05",
+    "specialty": "Electrical Networks",
+    "supervisor": "BOUKAROURA Abdelkader",
+    "coSupervisor": "",
+    "students": "Mehani Elhadj Ismail; Halimi Abdettouab",
+    "title": "Optimization of demand management in the distribution network integrating decentralized productions",
+    "president": "Rouibah Tahar",
+    "examiner": "Boudjella Houari",
+    "date": "2026-06-07",
+    "dayLabel": "Sunday, 07 June 2026",
+    "start": "09:35",
+    "end": "10:50",
+    "room": "114",
+    "status": "Scheduled",
+    "id": 4
+  },
+  {
+    "code": "ELT12",
+    "specialty": "Industrial Electrotechnics",
+    "supervisor": "Gadoum Abdelatif",
+    "coSupervisor": "",
+    "students": "Mabedi Abdelkader; DJAGHBALA YACINE",
+    "title": "Quantifying Green Hydrogen Yields from Wind Systems in Arid Climates: Application to Ouargla, Algeria",
+    "president": "Boudjella Houari",
+    "examiner": "Louazene Lakhdar",
+    "date": "2026-06-07",
+    "dayLabel": "Sunday, 07 June 2026",
+    "start": "11:10",
+    "end": "12:25",
+    "room": "109",
+    "status": "Scheduled",
+    "id": 5
+  },
+  {
+    "code": "RES07",
+    "specialty": "Electrical Networks",
+    "supervisor": "Bouhadouza Boubekeur",
+    "coSupervisor": "",
+    "students": "Hadri Abderrahim; Zerrouki Mohammed Amine",
+    "title": "Performance of new meta-heuristic methods on the optimal power flow of high-voltage electric transmission networks",
+    "president": "BOUHAFS ALI",
+    "examiner": "Larouci Benyekhlef",
+    "date": "2026-06-07",
+    "dayLabel": "Sunday, 07 June 2026",
+    "start": "11:10",
+    "end": "12:25",
+    "room": "113",
+    "status": "Scheduled",
+    "id": 6
+  },
+  {
+    "code": "ELT03",
+    "specialty": "Industrial Electrotechnics",
+    "supervisor": "Benmir Abdelkader",
+    "coSupervisor": "",
+    "students": "Degagra Ahmed; Bensid Messaoud",
+    "title": "Simulation of a lead-free Perovskite Solar Cell Based on MASnI3",
+    "president": "Belkebir Amel",
+    "examiner": "ARIF Mohammed",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "08:00",
+    "end": "09:15",
+    "room": "109",
+    "status": "Scheduled",
+    "id": 7
+  },
+  {
+    "code": "ELT07",
+    "specialty": "Industrial Electrotechnics",
+    "supervisor": "Benmakhlouf Abdeslam",
+    "coSupervisor": "",
+    "students": "Hamada Anas Fethallah; Tebba Hatem",
+    "title": "Classification of faults in solar panels",
+    "president": "Bouakaz Ouahid",
+    "examiner": "BOUHAFS ALI",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "08:00",
+    "end": "09:15",
+    "room": "110",
+    "status": "Scheduled",
+    "id": 8
+  },
+  {
+    "code": "MAC01",
+    "specialty": "Electrical Machines",
+    "supervisor": "Ayad Ahmed Nour El Islam",
+    "coSupervisor": "Rouibah Tahar",
+    "students": "Bouali Rami; Gadri Abdelaziz Salah",
+    "title": "Study and realization of an open-stator linear motor",
+    "president": "Bouali Khedidja",
+    "examiner": "BOUREK Yacine",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "08:00",
+    "end": "09:15",
+    "room": "111",
+    "status": "Scheduled",
+    "id": 9
+  },
+  {
+    "code": "MAC02",
+    "specialty": "Electrical Machines",
+    "supervisor": "Ider Zahir",
+    "coSupervisor": "Taibi Djamel",
+    "students": "Ceba Imad; Bencheikh Taha Mohammed",
+    "title": "Sensorless vector control of a five-phase asynchronous machine with x-y component consideration",
+    "president": "Khalifa moussa",
+    "examiner": "Laid Khettache",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "08:00",
+    "end": "09:15",
+    "room": "112",
+    "status": "Scheduled",
+    "id": 10
+  },
+  {
+    "code": "RES04",
+    "specialty": "Electrical Networks",
+    "supervisor": "GUEHRAR Youcef",
+    "coSupervisor": "",
+    "students": "Khalfaoui Mohammed; Bengou Hicham",
+    "title": "Optimal Sizing and Locations of DG Sources in Distribution Systems using Multi-Verse Optimizer (MVO) Algorithm",
+    "president": "Bouhadouza Boubekeur",
+    "examiner": "BOUKAROURA Abdelkader",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "08:00",
+    "end": "09:15",
+    "room": "113",
+    "status": "Scheduled",
+    "id": 11
+  },
+  {
+    "code": "RES08",
+    "specialty": "Electrical Networks",
+    "supervisor": "Gadoum Abdelatif",
+    "coSupervisor": "",
+    "students": "Ayat Hichame; Benachouri Ali",
+    "title": "Electrical Energy Storage Using Batteries and Supercapacitors",
+    "president": "DANOUNE Mohammed Bilal",
+    "examiner": "KOURAS Sid-Ali",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "08:00",
+    "end": "09:15",
+    "room": "114",
+    "status": "Scheduled",
+    "id": 12
+  },
+  {
+    "code": "ELT02",
+    "specialty": "Industrial Electrotechnics",
+    "supervisor": "Benmir Abdelkader",
+    "coSupervisor": "",
+    "students": "Aouachir Hamza; Guermache Ahmed nadir",
+    "title": "Simulation of a Perovskite Solar Cell Based on FASnI3",
+    "president": "KOURAS Sid-Ali",
+    "examiner": "Bouali Khedidja",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "09:35",
+    "end": "10:50",
+    "room": "109",
+    "status": "Scheduled",
+    "id": 13
+  },
+  {
+    "code": "ELT06",
+    "specialty": "Industrial Electrotechnics",
+    "supervisor": "Benmakhlouf Abdeslam",
+    "coSupervisor": "",
+    "students": "Belkhira Mohammed eldjalil; Berrim Mouataz",
+    "title": "Fuzzy PID control of the linear motor",
+    "president": "Taibi Djamel",
+    "examiner": "KHETTACH LAID",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "09:35",
+    "end": "10:50",
+    "room": "110",
+    "status": "Scheduled",
+    "id": 14
+  },
+  {
+    "code": "MAC03",
+    "specialty": "Electrical Machines",
+    "supervisor": "Benyoussef elakhdar",
+    "coSupervisor": "",
+    "students": "Kadi Abdelouahed; Rahim Khaled",
+    "title": "Sensorless nonlinear control of a seven-phase asynchronous motor",
+    "president": "Djarah djalal",
+    "examiner": "BOUREK Yacine",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "09:35",
+    "end": "10:50",
+    "room": "111",
+    "status": "Scheduled",
+    "id": 15
+  },
+  {
+    "code": "MAC05",
+    "specialty": "Electrical Machines",
+    "supervisor": "SAHRAOUI LAZHAR",
+    "coSupervisor": "",
+    "students": "Rezka Salah abderrahmane; Benzina Ahmed",
+    "title": "Robust control by input-output linearization of an asynchronous motor",
+    "president": "Gadoum Abdelatif",
+    "examiner": "Ider Zahir",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "09:35",
+    "end": "10:50",
+    "room": "112",
+    "status": "Scheduled",
+    "id": 16
+  },
+  {
+    "code": "RES06",
+    "specialty": "Electrical Networks",
+    "supervisor": "Rouibah Tahar",
+    "coSupervisor": "",
+    "students": "Benlahbib Mohammed Akram; Benhammouda Djamal Eddine",
+    "title": "Study and Optimization of the Electric Field under Very High Voltage Transmission Lines by the Cuckoo Search Algorithm",
+    "president": "Ben bouza Naima",
+    "examiner": "Ayad Ahmed Nour El Islam",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "09:35",
+    "end": "10:50",
+    "room": "113",
+    "status": "Scheduled",
+    "id": 17
+  },
+  {
+    "code": "ELT05",
+    "specialty": "Industrial Electrotechnics",
+    "supervisor": "DANOUNE Mohammed Bilal",
+    "coSupervisor": "",
+    "students": "Hadjadi Mohammed ali; Yagoub Ayoub",
+    "title": "Study of Mega Watt Power Injection Photovoltaics in Green Hydrogen Production Stations: Case of El-Hadjira PV Plant",
+    "president": "ARIF Mohammed",
+    "examiner": "Gadoum Abdelatif",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "11:10",
+    "end": "12:25",
+    "room": "109",
+    "status": "Scheduled",
+    "id": 18
+  },
+  {
+    "code": "ELT08",
+    "specialty": "Industrial Electrotechnics",
+    "supervisor": "Djarah djalal",
+    "coSupervisor": "",
+    "students": "Tahri Oussama; Djedra Miloud baha eddine",
+    "title": "Artificial Intelligence-Driven Optimization of Photovoltaic Self-Consumption for a Tertiary Building in an Arid Environment (Ouargla)",
+    "president": "Benmakhlouf Abdeslam",
+    "examiner": "BOUHAFS ALI",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "11:10",
+    "end": "12:25",
+    "room": "110",
+    "status": "Scheduled",
+    "id": 19
+  },
+  {
+    "code": "MAC04",
+    "specialty": "Electrical Machines",
+    "supervisor": "Laid Khettache",
+    "coSupervisor": "",
+    "students": "Hamidi Mohammed Islam; Naouiha Mohammed",
+    "title": "Optimization of Induction Motor Performance Using Metaheuristic Algorithms",
+    "president": "BOUKAROURA Abdelkader",
+    "examiner": "Benyoussef elakhdar",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "11:10",
+    "end": "12:25",
+    "room": "111",
+    "status": "Scheduled",
+    "id": 20
+  },
+  {
+    "code": "MAC06",
+    "specialty": "Electrical Machines",
+    "supervisor": "Taibi Djamel",
+    "coSupervisor": "",
+    "students": "Kholladi Chakib; Benzerca Hamza",
+    "title": "Direct torque control of an asynchronous motor integrated into a Top Drive oil drilling system",
+    "president": "Rouibah Tahar",
+    "examiner": "SAHRAOUI LAZHAR",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "11:10",
+    "end": "12:25",
+    "room": "112",
+    "status": "Scheduled",
+    "id": 21
+  },
+  {
+    "code": "ELT01",
+    "specialty": "Industrial Electrotechnics",
+    "supervisor": "BOUREK Yacine",
+    "coSupervisor": "Taibi Djamel",
+    "students": "Hamel Riad; Benmeriem Mohammed Tayeb",
+    "title": "Vector control of a five-phase asynchronous motor without speed sensors",
+    "president": "Louazene Lakhdar",
+    "examiner": "Benyoussef elakhdar",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "12:45",
+    "end": "14:00",
+    "room": "109",
+    "status": "Scheduled",
+    "id": 22
+  },
+  {
+    "code": "ELT04",
+    "specialty": "Industrial Electrotechnics",
+    "supervisor": "Rezoug Mohamed Redha",
+    "coSupervisor": "",
+    "students": "Khadir Tidjani",
+    "title": "Design of a nonlinear disturbance observer for robust control of the asynchronous machine",
+    "president": "Gadoum Abdelatif",
+    "examiner": "SAHRAOUI LAZHAR",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "12:45",
+    "end": "14:00",
+    "room": "110",
+    "status": "Scheduled",
+    "id": 23
+  },
+  {
+    "code": "MAC07",
+    "specialty": "Electrical Machines",
+    "supervisor": "Abbassi Abderrahmane",
+    "coSupervisor": "",
+    "students": "Belmahdi chams Eddine",
+    "title": "Numerical study and modeling of a pipeline inspection device by magnetic flux leakage (MFL)",
+    "president": "Benmir Abdelkader",
+    "examiner": "Naceur sonia",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "12:45",
+    "end": "14:00",
+    "room": "111",
+    "status": "Scheduled",
+    "id": 24
+  },
+  {
+    "code": "MAC09",
+    "specialty": "Electrical Machines",
+    "supervisor": "BOUHAFS ALI",
+    "coSupervisor": "",
+    "students": "Djoualil Eldjilali; Ghazal Abderraouf",
+    "title": "FOC and Extended Kalman Filter for Speed Estimation in Induction Motor",
+    "president": "Khalifa moussa",
+    "examiner": "Djarah djalal",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "12:45",
+    "end": "14:00",
+    "room": "112",
+    "status": "Scheduled",
+    "id": 25
+  },
+  {
+    "code": "ELT09",
+    "specialty": "Industrial Electrotechnics",
+    "supervisor": "Benyoussef elakhdar",
+    "coSupervisor": "",
+    "students": "Merad Akram; Mabedi Ahmed Mohammed",
+    "title": "Nonlinear control by sliding mode of a seven-phase asynchronous motor",
+    "president": "Benmir Abdelkader",
+    "examiner": "Khalifa moussa",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "14:20",
+    "end": "15:35",
+    "room": "109",
+    "status": "Scheduled",
+    "id": 26
+  },
+  {
+    "code": "ELT10",
+    "specialty": "Industrial Electrotechnics",
+    "supervisor": "Gadoum Abdelatif",
+    "coSupervisor": "",
+    "students": "Khemis Abdelhakim; Akchiche Abdeldjalil",
+    "title": "Integrated Lithium-Ion Battery and supercapacitors based Hybrid Energy Storage System",
+    "president": "GUEHRAR Youcef",
+    "examiner": "SADAOUI Fares",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "14:20",
+    "end": "15:35",
+    "room": "110",
+    "status": "Scheduled",
+    "id": 27
+  },
+  {
+    "code": "MAC08",
+    "specialty": "Electrical Machines",
+    "supervisor": "Belkebir Amel",
+    "coSupervisor": "Bouali Khedidja",
+    "students": "Abaidia Mohammed; Mengaa Hani Charef Eddine",
+    "title": "Design by optimization of an MHD pump using the CuckooSearch method",
+    "president": "Naceur sonia",
+    "examiner": "Abbassi Abderrahmane",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "14:20",
+    "end": "15:35",
+    "room": "111",
+    "status": "Scheduled",
+    "id": 28
+  },
+  {
+    "code": "ELT11",
+    "specialty": "Industrial Electrotechnics",
+    "supervisor": "Gadoum Abdelatif",
+    "coSupervisor": "",
+    "students": "Zehari Aboubakour Kamel; Belkhir Abderraouf",
+    "title": "Quantifying Green Hydrogen Yields from Photovoltaic Systems in Arid Climates: Application to Ouargla, Algeria",
+    "president": "Djafour Ahmed",
+    "examiner": "DANOUNE Mohammed Bilal",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "15:55",
+    "end": "17:10",
+    "room": "109",
+    "status": "Scheduled",
+    "id": 29
+  },
+  {
+    "code": "ELT13",
+    "specialty": "Industrial Electrotechnics",
+    "supervisor": "KHETTACHEL AID",
+    "coSupervisor": "",
+    "students": "Benzeghmane Soufia; Tati Fatma zohra",
+    "title": "Comparative Analysis of Direct Torque Control and Field-Oriented Control for a Linear Induction Motor Drive",
+    "president": "Ayad Ahmed Nour El islam",
+    "examiner": "Taibi Djamel",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "15:55",
+    "end": "17:10",
+    "room": "110",
+    "status": "Scheduled",
+    "id": 30
+  },
+  {
+    "code": "MAC10",
+    "specialty": "Electrical Machines",
+    "supervisor": "Naceur sonia",
+    "coSupervisor": "",
+    "students": "Kaliche Brahim; Benmoussa Abdel mouhaimen",
+    "title": "Improvement of hydrodynamic performance and Reynolds number of the MHD pump by stochastic optimization",
+    "president": "Abbassi Abderrahmane",
+    "examiner": "Belkebir Amel",
+    "date": "2026-06-08",
+    "dayLabel": "Monday, 08 June 2026",
+    "start": "15:55",
+    "end": "17:10",
+    "room": "111",
+    "status": "Scheduled",
+    "id": 31
+  },
+  {
+    "code": "ELT14",
+    "specialty": "Industrial Electrotechnics",
+    "supervisor": "ARIF Mohammed",
+    "coSupervisor": "",
+    "students": "Abada Abdennour",
+    "title": "Realization of a water level sensor for domestic tank control",
+    "president": "Bouakaz Ouahid",
+    "examiner": "khalifa moussa",
+    "date": "2026-06-09",
+    "dayLabel": "Tuesday, 09 June 2026",
+    "start": "08:00",
+    "end": "09:15",
+    "room": "109",
+    "status": "Scheduled",
+    "id": 32
+  },
+  {
+    "code": "ELT15",
+    "specialty": "Industrial Electrotechnics",
+    "supervisor": "KOURAS Sid-Ali",
+    "coSupervisor": "",
+    "students": "Belkemari Abdessettar; Gusmia Mohammed Ali",
+    "title": "Intelligent optimization of solar tracking for photovoltaic panels using artificial intelligence",
+    "president": "Rezoug Mohamed Redha",
+    "examiner": "Benbouza Naima",
+    "date": "2026-06-09",
+    "dayLabel": "Tuesday, 09 June 2026",
+    "start": "08:00",
+    "end": "09:15",
+    "room": "110",
+    "status": "Scheduled",
+    "id": 33
+  },
+  {
+    "code": "ELT16",
+    "specialty": "Industrial Electrotechnics",
+    "supervisor": "Khalifa moussa",
+    "coSupervisor": "",
+    "students": "Gougui Baha eddine; Bouaziz Abbas toufik",
+    "title": "AI-Based Improvement of Response Time and Stability in Drone Control Systems Using MATLAB and Python",
+    "president": "KOURAS Sid-Ali",
+    "examiner": "Benmakhlouf Abdeslam",
+    "date": "2026-06-09",
+    "dayLabel": "Tuesday, 09 June 2026",
+    "start": "09:35",
+    "end": "10:50",
+    "room": "109",
+    "status": "Scheduled",
+    "id": 34
+  },
+  {
+    "code": "ELT17",
+    "specialty": "Industrial Electrotechnics",
+    "supervisor": "Khalifa moussa",
+    "coSupervisor": "",
+    "students": "",
+    "title": "",
+    "president": "Benyoussef elakhdar",
+    "examiner": "Taibi Djamel",
+    "date": "2026-06-09",
+    "dayLabel": "Tuesday, 09 June 2026",
+    "start": "11:10",
+    "end": "12:25",
+    "room": "109",
+    "status": "Scheduled",
+    "id": 35
+  }
+];
+const KEY='ukmo-defense-schedule-specialty-3d-v1';
+const ADMIN_CODE='UKMO-2026';
+let defenses=JSON.parse(localStorage.getItem(KEY)||JSON.stringify(window.DEFENSES));
+let selectedSpec=''; let isAdmin=sessionStorage.getItem('ukmo-admin')==='true'; let editingId=null;
+const $=id=>document.getElementById(id); const fields=['code','date','dayLabel','start','end','room','specialty','students','title','supervisor','coSupervisor','president','examiner','status'];
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function save(){localStorage.setItem(KEY,JSON.stringify(defenses))} function groupBy(arr,key){return arr.reduce((a,x)=>((a[key(x)]??=[]).push(x),a),{})}
+function startDt(d){return new Date(`${d.date}T${d.start}:00`)} function endDt(d){return new Date(`${d.date}T${d.end}:00`)}
+function fmtLeft(ms){if(ms<=0)return 'Defense time reached'; const m=Math.floor(ms/60000),days=Math.floor(m/1440),h=Math.floor((m%1440)/60),min=m%60; return days?`${days}d ${h}h ${min}m remaining`:`${h}h ${min}m remaining`;}
+function statusInfo(d){const now=Date.now(), st=startDt(d).getTime(), en=endDt(d).getTime(), mins=Math.round((st-now)/60000); if(now>=en)return{cls:'status-done',icon:'🎓🌸',msg:'Congratulations! We wish you a successful professional career, continued success, more achievements, and excellence.'}; if(now>=st&&now<en)return{cls:'status-live',icon:'🔴',msg:'The thesis defense is taking place now.'}; if(mins<=720)return{cls:'status-12',icon:'⚡',msg:`Less than 12 hours: your defense is scheduled exactly on ${d.dayLabel} from ${d.start} to ${d.end}. Stay focused, review the abstract and key results, and trust yourself — you will succeed with confidence. Best wishes for success.`}; if(mins<=1440)return{cls:'status-24',icon:'🟡',msg:'Less than 24 hours: prepare the key results carefully, rehearse your presentation, revise your answers, and organize your final defense notes.'}; if(mins<=2880)return{cls:'status-48',icon:'🖥️',msg:'Less than 48 hours: start preparing your PPT presentation, rehearse the oral delivery, and complete a full revision of the thesis.'}; if(mins<=4320)return{cls:'status-72',icon:'📩',msg:'Less than 72 hours: send the final thesis manuscript to your supervisor so it can be forwarded to the defense committee members.'}; return{cls:'status-early',icon:'✅',msg:'Scheduled. Keep following the platform for reminders and updates.'};}
+function specs(){return [...new Set(defenses.map(d=>d.specialty))].sort()} function bySpec(s){return defenses.filter(d=>d.specialty===s).sort((a,b)=>`${a.date} ${a.start} ${a.room}`.localeCompare(`${b.date} ${b.start} ${b.room}`))}
+function applyAdmin(){document.body.classList.toggle('admin',isAdmin); $('adminBtn').textContent=isAdmin?'Admin active':'Admin access'}
+function renderHome(){applyAdmin(); $('home').style.display='block'; $('detail').style.display='none'; $('search').value=''; $('specialtyGrid').innerHTML=specs().map(s=>{const list=bySpec(s), rooms=[...new Set(list.map(d=>d.room))].sort().join(' · '), days=[...new Set(list.map(d=>d.dayLabel))].length; return `<article class="spec-card panel"><h2>${esc(s)}</h2><div class="metric-row"><span class="metric">${list.length} defenses</span><span class="metric">Rooms ${esc(rooms)}</span><span class="metric">${days} day(s)</span></div><p class="muted">Click to go directly to the topics and program of this specialty.</p><div class="spec-actions"><button onclick="openSpec('${esc(s)}')">Open topics & program</button><button onclick="openSpec('${esc(s)}'); printSelected()">Print PDF schedule</button><button class="btn-yellow" onclick="openSpec('${esc(s)}'); printSelectedColor()">Print color PDF schedule</button></div></article>`}).join('');}
+window.openSpec=function(s){selectedSpec=s; $('home').style.display='none'; $('detail').style.display='block'; const list=bySpec(s); $('detailTitle').textContent=s; $('detailInfo').textContent=`${list.length} defenses · rooms ${[...new Set(list.map(d=>d.room))].sort().join(', ')} · one separate academic table for this specialty`; renderDetail(); location.hash='program';}
+function detailList(){const q=$('search').value.trim().toLowerCase(); return bySpec(selectedSpec).filter(d=>!q||Object.values(d).join(' ').toLowerCase().includes(q));}
+function renderDetail(){applyAdmin(); const list=detailList(); $('liveProgram').innerHTML=list.map(card).join('')||'<p class="panel" style="padding:18px">No defenses found.</p>'; renderPrint();}
+function card(d){const st=statusInfo(d); return `<article class="def-card panel ${st.cls}" data-id="${d.id}"><div class="flower-rain"><i>🌸</i><i>🌼</i><i>🌺</i><i>🌷</i></div><div class="row1"><span class="badge">${esc(d.code)} · Room ${esc(d.room)}</span><span class="time">${esc(d.dayLabel)} · ${esc(d.start)}–${esc(d.end)}</span></div><div class="title">${esc(d.title||'Title not provided')}</div><div><b>Students:</b> ${esc(d.students||'—')}</div><div class="meta"><div><b>Supervisor</b><br>${esc(d.supervisor||'—')}</div><div><b>Co-supervisor</b><br>${esc(d.coSupervisor||'—')}</div><div><b>President</b><br>${esc(d.president||'—')}</div><div><b>Examiner</b><br>${esc(d.examiner||'—')}</div></div><div class="statusBox"><span>${st.icon}</span><span>${esc(st.msg)}</span></div><div class="countdown" data-id="${d.id}">${fmtLeft(startDt(d)-Date.now())}</div><div class="student-actions"><button class="student-print-btn" onclick="printStudent(${d.id})">Print my notice / certificate</button></div><div class="admin-only" style="margin-top:10px"><button class="btn-light" onclick="openEditor(${d.id})">Edit</button></div></article>`}
+function renderPrint(){const list=selectedSpec?detailList():[]; $('printPanel').innerHTML=`<div class="print-header"><p>Université Kasdi Merbah Ouargla</p><p>Faculty of Applied Sciences</p><p>Department of Electrical Engineering</p><h1>Master Thesis Defense Schedule 2026</h1><p>Academic Year 2025–2026</p></div><section class="spec-print"><h2>${esc(selectedSpec||'Selected specialty')}</h2><table><thead><tr><th class="narrow">Code</th><th class="datecol">Date</th><th class="timecol">Time</th><th class="roomcol">Room</th><th class="studentcol">Students</th><th class="titlecol">Thesis Title</th><th class="teachercol">Supervisor</th><th class="teachercol">Co-supervisor</th><th class="teachercol">President</th><th class="teachercol">Examiner</th></tr></thead><tbody>${list.map(d=>`<tr><td>${esc(d.code)}</td><td>${esc(d.dayLabel)}</td><td>${esc(d.start)}–${esc(d.end)}</td><td>${esc(d.room)}</td><td>${esc(d.students||'—')}</td><td>${esc(d.title||'—')}</td><td>${esc(d.supervisor||'—')}</td><td>${esc(d.coSupervisor||'—')}</td><td>${esc(d.president||'—')}</td><td>${esc(d.examiner||'—')}</td></tr>`).join('')}</tbody></table></section>`}
+function printSelected(){if(!selectedSpec) return; renderPrint(); document.body.classList.remove('print-color','print-bw','print-student','student-printing'); document.body.classList.add('print-bw'); document.title=`${selectedSpec} - Defense Schedule PDF`; requestAnimationFrame(()=>requestAnimationFrame(()=>window.print()));}
+function printSelectedColor(){if(!selectedSpec) return; renderPrint(); document.body.classList.remove('print-color','print-bw','print-student','student-printing'); document.body.classList.add('print-color'); document.title=`${selectedSpec} - High Precision Color Defense Schedule`; requestAnimationFrame(()=>requestAnimationFrame(()=>window.print()));}
+function studentNoticeHtml(d){
+  const st=statusInfo(d);
+  const exactDate=`${d.dayLabel} · ${d.start} – ${d.end}`;
+  const finished=Date.now()>=endDt(d).getTime();
+  if(finished){
+    return `<div class="student-certificate premium-certificate">
+      <div class="cert-flowers"><i>🌸</i><i>🌼</i><i>🌺</i><i>🌷</i><i>💐</i></div>
+      <div class="cert-inner">
+        <div class="cert-top"><div class="uni">Université Kasdi Merbah Ouargla</div><div class="dept">Faculty of Applied Sciences · Department of Electrical Engineering</div></div>
+        <div><div class="cert-cap">🎓</div><h1 class="cert-title">Congratulations</h1><div class="cert-subtitle">Thesis Defense Achievement Certificate</div></div>
+        <div class="cert-student"><small>Presented proudly to</small><strong>${esc(d.students||'—')}</strong></div>
+        <div class="cert-message">Congratulations on completing your thesis defense. We wish you success, a bright professional career, continued excellence, and many more achievements. مبروك، بالتوفيق والنجاح ومزيد من التفوق.</div>
+        <table class="cert-info"><tbody>
+          <tr><th>Defense Code</th><td>${esc(d.code)}</td></tr>
+          <tr><th>Specialty</th><td>${esc(d.specialty)}</td></tr>
+          <tr><th>Thesis Title</th><td>${esc(d.title||'—')}</td></tr>
+          <tr><th>Date & Time</th><td>${esc(exactDate)}</td></tr>
+          <tr><th>Room</th><td>${esc(d.room)}</td></tr>
+          <tr><th>Supervisor</th><td>${esc(d.supervisor||'—')}</td></tr>
+          <tr><th>Committee</th><td>President: ${esc(d.president||'—')} · Examiner: ${esc(d.examiner||'—')}</td></tr>
+        </tbody></table>
+        <div class="cert-wishes"><span>Success</span><span>Excellence</span><span>Future</span></div>
+        <div class="cert-footer"><div>Department Administration</div><div>Official Congratulations</div></div>
+      </div>
+    </div>`;
+  }
+  return `<div class="student-notice premium-card">
+    <div class="premium-cover">
+      <div class="cap-mark">🎓</div>
+      <div class="uni">Université Kasdi Merbah Ouargla</div>
+      <div class="faculty">Faculty of Applied Sciences · Department of Electrical Engineering</div>
+      <h1>Individual Thesis Defense Notice</h1>
+      <span class="year-pill">Academic Year 2025–2026</span>
+    </div>
+    <div class="student-name-box"><small>Candidate(s)</small><strong>${esc(d.students||'—')}</strong></div>
+    <table class="premium-table" aria-label="Individual defense information">
+      <tbody>
+        <tr><th>Defense Code</th><td>${esc(d.code)}</td></tr>
+        <tr><th>Specialty</th><td>${esc(d.specialty)}</td></tr>
+        <tr><th>Thesis Title</th><td>${esc(d.title||'—')}</td></tr>
+        <tr class="highlight-row"><th>Date & Time</th><td>${esc(exactDate)}</td></tr>
+        <tr class="highlight-row"><th>Room</th><td>${esc(d.room)}</td></tr>
+        <tr><th>Supervisor</th><td>${esc(d.supervisor||'—')}</td></tr>
+        <tr><th>Co-supervisor</th><td>${esc(d.coSupervisor||'—')}</td></tr>
+        <tr><th>President</th><td>${esc(d.president||'—')}</td></tr>
+        <tr><th>Examiner</th><td>${esc(d.examiner||'—')}</td></tr>
+      </tbody>
+    </table>
+    <div class="premium-message">${esc(st.msg)}</div>
+    <div class="motivation-strip"><span>Confidence</span><span>Clarity</span><span>Success</span></div>
+    <div class="signature-line"><div>Department Administration</div><div>Student Signature</div></div>
+    <div class="premium-footer">Best wishes for a successful defense · بالتوفيق والنجاح ومزيد من التفوق</div>
+  </div>`
+}
+window.printStudent=function(id){
+  const d=defenses.find(x=>x.id===id); if(!d)return;
+  const finished=Date.now()>=endDt(d).getTime();
+  const content=studentNoticeHtml(d);
+  const win=window.open('', '_blank', 'width=900,height=1100');
+  if(!win){
+    $('studentPrintPanel').innerHTML=content;
+    document.body.classList.remove('print-color','print-bw');
+    document.body.classList.add('print-student','student-printing');
+    document.title=`${d.code} - Individual Defense Notice`;
+    requestAnimationFrame(()=>requestAnimationFrame(()=>window.print()));
+    return;
+  }
+  const pageTitle = finished ? `${d.code} - Congratulations Certificate` : `${d.code} - Individual Defense Notice`;
+  win.document.open();
+  win.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${pageTitle}</title>
+  <style>
+    @page{size:A4 portrait;margin:0}
+    *{box-sizing:border-box;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+    html,body{margin:0;padding:0;background:#fff;font-family:Arial,"Segoe UI",sans-serif;color:#042713}
+    body{width:210mm;min-height:297mm;overflow:hidden}
+    .sheet{width:210mm;height:297mm;padding:4mm;display:flex;align-items:flex-start;justify-content:center;overflow:hidden;background:#fff}
+    .student-notice.premium-card{width:188mm;height:222mm;border:1.45mm solid #006436;border-radius:6mm;overflow:hidden;background:linear-gradient(135deg,#fbfff9,#e9fff2 55%,#e8f8ff);position:relative;color:#062016}
+    .premium-card:after{content:"🎓";position:absolute;right:8mm;bottom:10mm;font-size:42mm;opacity:.055;line-height:1}
+    .premium-cover{padding:4mm 7mm 3.5mm;text-align:center;background:linear-gradient(135deg,#003f20,#00a853 56%,#c9ff00);border-bottom:1.6mm solid #ffd400;color:#fff;position:relative;z-index:1}
+    .premium-cover:before{content:"";position:absolute;inset:2.5mm;border:.45mm solid rgba(255,255,255,.6);border-radius:4mm;pointer-events:none}.cap-mark{font-size:9mm;line-height:1;margin-bottom:1mm}.uni{font-size:4mm;font-weight:900;text-transform:uppercase;letter-spacing:.15mm}.faculty{font-size:3.05mm;font-weight:800;margin-top:.8mm}.premium-cover h1{margin:2.2mm 0 1.4mm;font-size:5mm;letter-spacing:.2mm}.year-pill{display:inline-block;background:#fff;color:#006b2d;border:.55mm solid #d6ff00;border-radius:99px;padding:1mm 4mm;font-weight:900;font-size:2.35mm}
+    .student-name-box{margin:3mm 7mm 2.2mm;padding:2mm 3mm;border-radius:4.5mm;background:linear-gradient(90deg,#e9fff1,#f8ffe1);border:.65mm solid #00a84f;text-align:center;position:relative;z-index:1}.student-name-box small{display:block;color:#00652d;font-size:2.7mm;font-weight:900;text-transform:uppercase;letter-spacing:.25mm;margin-bottom:.7mm}.student-name-box strong{font-size:4.1mm;line-height:1.15;color:#003d1f;font-weight:1000}
+    .premium-table{width:174mm;margin:2.2mm 7mm;border-collapse:separate;border-spacing:0;overflow:hidden;border:.65mm solid #006436;border-radius:4mm;position:relative;z-index:1;background:#fff}.premium-table th,.premium-table td{padding:1.55mm 2.2mm;border-bottom:.28mm solid #8fe3ae;line-height:1.14;font-size:2.35mm;text-align:left}.premium-table tr:last-child th,.premium-table tr:last-child td{border-bottom:0}.premium-table th{width:31%;background:#008a43;color:#fff;text-transform:uppercase;font-size:2.35mm;letter-spacing:.12mm}.premium-table td{font-weight:800;color:#06180d;background:#f7fff9}.premium-table .highlight-row td{background:#fff6c7!important;color:#1e1a00!important}
+    .premium-message{margin:2.6mm 7mm 2mm;padding:2mm 3mm;border-radius:4mm;background:linear-gradient(135deg,#fff4a8,#fff06a,#d8ff35);border:.55mm solid #ffcc00;color:#3b2a00;font-weight:1000;text-align:center;font-size:2.85mm;line-height:1.28;position:relative;z-index:1}.motivation-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:2.2mm;margin:2mm 7mm 0;position:relative;z-index:1}.motivation-strip span{padding:1.45mm .8mm;border:.4mm solid #00a853;border-radius:3.3mm;background:linear-gradient(90deg,#e7f6ff,#ecfff0);text-align:center;color:#004f28;font-weight:1000;font-size:2.35mm}.signature-line{display:flex;gap:8mm;margin:3mm 7mm 0;color:#00542a;font-weight:900;text-align:center;font-size:2.8mm;position:relative;z-index:1}.signature-line div{flex:1;border-top:.5mm solid #007a36;padding-top:1.8mm}.premium-footer{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(90deg,#004b24,#008d43,#c9ff00);color:#fff;text-align:center;padding:2.3mm 5mm;font-size:2.35mm;font-weight:1000;border-top:1.4mm solid #c8ff00;z-index:2}
+    .student-certificate.premium-certificate{width:188mm;height:222mm;overflow:hidden;position:relative;border:1.45mm solid #006b35;border-radius:6mm;background:radial-gradient(circle at 16% 15%,rgba(255,234,0,.55),transparent 18%),linear-gradient(135deg,#f7fff7,#e8fff0 48%,#fff9cf);color:#042713}.premium-certificate:before{content:"";position:absolute;inset:3.5mm;border:.8mm solid #00b85a;border-radius:5mm}.premium-certificate:after{content:"";position:absolute;inset:8mm;border:.3mm dashed rgba(0,107,53,.55);border-radius:4mm}.cert-flowers{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:3}.cert-flowers i{position:absolute;top:-8mm;font-style:normal;font-size:5mm}.cert-flowers i:nth-child(1){left:14%}.cert-flowers i:nth-child(2){left:29%;top:10mm}.cert-flowers i:nth-child(3){left:47%;top:3mm}.cert-flowers i:nth-child(4){left:66%;top:14mm}.cert-flowers i:nth-child(5){left:82%;top:5mm}.cert-inner{position:relative;z-index:4;height:100%;padding:10mm 12mm 8mm;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:space-between}.cert-top{width:100%;padding:4mm 5mm;border-radius:5mm;background:linear-gradient(135deg,#003f20,#00a853 58%,#c9ff00);color:#fff}.cert-top .uni{font-size:3.8mm;color:#fff}.cert-top .dept{font-size:2.35mm;font-weight:800;margin-top:1mm;color:#f5fff1}.cert-cap{font-size:17mm;line-height:1;margin:1mm 0}.cert-title{margin:0;font-size:9mm;letter-spacing:.35mm;color:#00552a;font-weight:1000;text-transform:uppercase}.cert-subtitle{font-size:3.7mm;font-weight:900;color:#115b2e;margin:1mm 0 2mm}.cert-student{width:91%;padding:4mm 5mm;border-radius:5mm;background:linear-gradient(90deg,#e8fff0,#fffbd9);border:.7mm solid #00a853}.cert-student small{display:block;text-transform:uppercase;font-weight:900;color:#00652b;letter-spacing:.2mm;font-size:2.35mm;margin-bottom:1mm}.cert-student strong{display:block;font-size:6.4mm;line-height:1.12;color:#002f18;font-weight:1000}.cert-message{width:91%;font-size:4mm;line-height:1.35;font-weight:900;color:#04361d;background:#fff;border-left:1mm solid #00a853;border-right:1mm solid #00a853;border-radius:4mm;padding:4mm 6mm;margin:2mm 0}.cert-info{width:91%;border-collapse:separate;border-spacing:0;overflow:hidden;border:.55mm solid #00a853;border-radius:4mm;text-align:left;font-size:2.9mm;background:#fff}.cert-info th,.cert-info td{padding:1.8mm 2.5mm;border-bottom:.22mm solid #b3efc5;vertical-align:top}.cert-info th{width:31%;background:#d9ffe5;color:#004d22;text-transform:uppercase;font-weight:1000}.cert-info td{color:#06180d;font-weight:800;background:#fff}.cert-info tr:last-child th,.cert-info tr:last-child td{border-bottom:0}.cert-wishes{width:91%;display:grid;grid-template-columns:repeat(3,1fr);gap:2mm;margin:2mm 0}.cert-wishes span{padding:2.4mm 1mm;border-radius:3.5mm;background:linear-gradient(135deg,#003f20,#00c853);color:#fff;font-size:2.35mm;font-weight:1000;text-transform:uppercase}.cert-footer{width:91%;display:flex;justify-content:space-between;gap:12mm;margin-top:1mm;color:#004d22;font-size:2.35mm;font-weight:900}.cert-footer div{flex:1;border-top:.5mm solid #00a853;padding-top:1.7mm;text-align:center}
+    @media print{html,body{width:210mm;height:297mm;overflow:hidden}.sheet{page-break-after:avoid;page-break-before:avoid;page-break-inside:avoid}.student-notice,.student-certificate{page-break-inside:avoid;break-inside:avoid}}
+  </style></head><body><main class="sheet">${content}</main><script>window.onload=()=>setTimeout(()=>{window.focus();window.print();},250); window.onafterprint=()=>setTimeout(()=>window.close(),250);<\/script></body></html>`);
+  win.document.close();
+}
+window.openEditor=id=>{if(!isAdmin){alert('Editing is restricted to the administrator.');return} editingId=id; const d=defenses.find(x=>x.id===id); $('editFields').innerHTML=fields.map(f=>`<label class="field ${['title','students'].includes(f)?'full':''}"><span>${f}</span><input name="${f}" value="${esc(d[f])}"></label>`).join(''); editor.showModal();}
+$('saveEdit').onclick=e=>{e.preventDefault(); const d=defenses.find(x=>x.id===editingId); [...$('editFields').querySelectorAll('input')].forEach(i=>d[i.name]=i.value); save(); editor.close(); renderDetail();}
+$('adminBtn').onclick=()=>{const code=prompt('Enter administrator passcode'); if(code===ADMIN_CODE){isAdmin=true;sessionStorage.setItem('ukmo-admin','true'); selectedSpec?renderDetail():renderHome();} else if(code!==null) alert('Incorrect passcode.')}; $('lockBtn').onclick=()=>{isAdmin=false;sessionStorage.removeItem('ukmo-admin'); selectedSpec?renderDetail():renderHome();};
+$('homeBtn').onclick=$('homeBtnTop').onclick=()=>{selectedSpec=''; history.replaceState(null,'',location.pathname); renderHome();}; $('search').addEventListener('input',()=>selectedSpec&&renderDetail()); $('printBwBtn').onclick=$('modeBwBtn').onclick=()=>printSelected(); $('printColorBtn').onclick=$('modeColorBtn').onclick=()=>printSelectedColor(); $('viewLiveBtn').onclick=()=>$('liveProgram').scrollIntoView({behavior:'smooth',block:'start'}); window.addEventListener('afterprint',()=>document.body.classList.remove('print-color','print-bw','print-student','student-printing'));
+$('notifyBtn').onclick=async()=>{if('Notification'in window){await Notification.requestPermission(); alert('Reminders are enabled while this page is open.')}};
+function tick(){if(selectedSpec){document.querySelectorAll('.countdown').forEach(el=>{const d=defenses.find(x=>x.id==el.dataset.id); if(d) el.textContent=fmtLeft(startDt(d)-Date.now());}); document.querySelectorAll('.def-card[data-id]').forEach(el=>{const d=defenses.find(x=>x.id==el.dataset.id); if(!d)return; const st=statusInfo(d); const current=[...el.classList].find(c=>c.startsWith('status-')); if(current!==st.cls) renderDetail(); const box=el.querySelector('.statusBox'); if(box) box.innerHTML=`<span>${st.icon}</span><span>${esc(st.msg)}</span>`;})} if('Notification'in window&&Notification.permission==='granted'){defenses.forEach(d=>{const mins=Math.round((startDt(d)-Date.now())/60000); const notices={2880:'Contact your supervisor, send the final manuscript, start preparing your PPT, and complete a full revision.',1440:'Prepare the key results very well and rehearse your presentation.',720:'Your defense is approaching: focus on the abstract, key results, conclusions, and confidence.',60:'Your defense starts in 1 hour. Best wishes for success.',15:'Your defense starts in 15 minutes. You can do it confidently.'}; if(notices[mins]&&!d[`n${mins}`]){d[`n${mins}`]=true;save();new Notification(`Defense reminder: ${d.code}`,{body:`${d.students} · ${notices[mins]}`})}})}}
+setInterval(tick,30000); renderHome(); tick();
+</script>
+</body>
+</html>
