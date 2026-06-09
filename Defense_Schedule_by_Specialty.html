@@ -397,13 +397,13 @@ button:active{transform:translateY(1px) scale(.99)}
 </style>
 </head>
 <body>
-<header><div class="brand"><div class="seal">UKMO</div><div><p class="eyebrow">Université Kasdi Merbah Ouargla</p><h1>Master Thesis Defense Schedule</h1><p class="subtitle">Faculty of Applied Sciences · Department of Electrical Engineering · Academic Year 2025–2026</p><div class="hero-actions"><button id="notifyBtn">Enable defense reminders</button><button class="btn-light" id="homeBtnTop">Specialties</button><button class="btn-light" id="adminBtn">Admin access</button><button class="admin-only btn-red" id="lockBtn">Lock editing</button></div></div></div></header>
+<header><div class="brand"><div class="seal">UKMO</div><div><p class="eyebrow">Université Kasdi Merbah Ouargla</p><h1>Master Thesis Defense Schedule</h1><p class="subtitle">Faculty of Applied Sciences · Department of Electrical Engineering · Academic Year 2025–2026</p><div class="hero-actions"><button id="notifyBtn">Enable defense reminders</button><button class="btn-light" id="homeBtnTop">Specialties</button><button class="btn-light" id="adminBtn">Admin access</button><button class="btn-light" id="teachersBtn">Teachers panel</button><button class="admin-only btn-red" id="lockBtn">Lock editing</button></div></div></div></header>
 <main>
 <section class="topbar panel"><input id="search" placeholder="Search inside the selected specialty: student, teacher, code, title…"><button class="btn-light" id="homeBtn">Back to specialties</button><button id="printBwBtn">Print PDF</button><button class="btn-yellow" id="printColorBtn">Print Color PDF</button></section>
 <section id="home"><div class="specialty-grid" id="specialtyGrid"></div></section>
 <section id="detail"><div class="detail-head panel"><div class="detail-title"><span class="grad-icon">🎓</span><div><h2 id="detailTitle" style="margin:0;color:#002b18"></h2><p id="detailInfo" class="muted" style="margin:4px 0 0"></p></div></div><div class="chips"><span class="chip">Fast 3D live view</span><span class="chip">PDF schedule</span><span class="chip">Color PDF</span><span class="chip">Student notice cards</span></div></div><div class="mode-tabs"><div class="mode-card"><strong>1 · Watch live 3D</strong><p class="muted">Animated blue-green cards with timing alerts, graduation effects, and individual student notice printing.</p><button id="viewLiveBtn">Open live program</button></div><div class="mode-card"><strong>2 · Print PDF schedule</strong><p class="muted">Clean official black-and-white academic table for this specialty only.</p><button id="modeBwBtn">Print PDF</button></div><div class="mode-card"><strong>3 · Print color PDF</strong><p class="muted">High-precision professional colored table for this specialty, optimized for sharp PDF export.</p><button class="btn-yellow" id="modeColorBtn">Print Color PDF</button></div></div><div id="liveProgram" class="live-grid"></div></section>
 
-<section id="teacherPanel" class="teacher-panel" style="display:none!important" hidden>
+<section id="teacherPanel" class="teacher-panel">
   <div class="teacher-head panel">
     <div><h2 style="margin:0;color:#002b18">Teachers Evaluation Panel</h2><p class="muted" style="margin:5px 0 0">Choose a specialty, select the thesis, then open the President, Examiner, or Supervisor evaluation form.</p></div>
     <button class="btn-light" id="teacherBackHome">Back to main program</button>
@@ -1188,12 +1188,13 @@ window.saveEvaluation=function(id,role){
   alert('Saved successfully. The minutes will use the updated information automatically.');
 }
 function teacherReportHTML(d,ev,role,lang){
-  const finalTitle=ev.titleChanged&&ev.modifiedTitle?ev.modifiedTitle:ev.title;
+  const originalTitle=d.title||'';
+  const finalTitle=(ev.titleChanged&&ev.modifiedTitle)?ev.modifiedTitle:originalTitle;
   const roleLabel={president:'President of the Committee',examiner:'Examiner',supervisor:'Supervisor'}[role];
   const ar=lang==='ar';
   const dir=ar?'rtl':'ltr';
   const title=ar?'محضر المناقشة والتصحيحات اللازمة':'Defense Minutes and Required Corrections';
-  const rows=[['Defense code','رمز المناقشة',d.code],['Specialty','التخصص',ev.specialty||d.specialty],['Student(s)','الطالب/الطلبة',ev.students||d.students],['Date and time','التاريخ والتوقيت',`${ev.dayLabel||d.dayLabel} · ${ev.start||d.start}–${ev.end||d.end}`],['Room','القاعة',ev.room||d.room],['President','رئيس اللجنة',ev.president||d.president],['Examiner','الأستاذ المناقش',ev.examiner||d.examiner],['Supervisor','الأستاذ المشرف',ev.supervisor||d.supervisor],['Co-supervisor','المشرف المساعد',ev.coSupervisor||d.coSupervisor||'—'],['Original title','العنوان الأصلي',ev.title||d.title],['Title modification','تعديل العنوان',ev.titleChanged?(ar?'موافق على تعديل العنوان':'Approved title modification'):(ar?'لا يوجد تعديل، يعتمد العنوان الأصلي':'No modification; original title is adopted')],['Final approved title','العنوان النهائي المعتمد',finalTitle||d.title],['Decision','القرار',ev.decision||'Accepted'],['Grade / Mention','التقدير',ev.grade||'—']];
+  const rows=[['Defense code','رمز المناقشة',d.code],['Specialty','التخصص',ev.specialty||d.specialty],['Student(s)','الطالب/الطلبة',ev.students||d.students],['Date and time','التاريخ والتوقيت',`${ev.dayLabel||d.dayLabel} · ${ev.start||d.start}–${ev.end||d.end}`],['Room','القاعة',ev.room||d.room],['President','رئيس اللجنة',ev.president||d.president],['Examiner','الأستاذ المناقش',ev.examiner||d.examiner],['Supervisor','الأستاذ المشرف',ev.supervisor||d.supervisor],['Co-supervisor','المشرف المساعد',ev.coSupervisor||d.coSupervisor||'—'],['Original title','العنوان الأصلي',originalTitle],['Title modification','تعديل العنوان',ev.titleChanged?(ar?'موافق على تعديل العنوان':'Approved title modification'):(ar?'لا يوجد تعديل، يعتمد العنوان الأصلي':'No modification; original title is adopted')],['Final approved title','العنوان النهائي المعتمد',finalTitle||originalTitle],['Decision','القرار',ev.decision||'Accepted'],['Grade / Mention','التقدير',ev.grade||'—']];
   return `<!doctype html><html lang="${ar?'ar':'en'}" dir="${dir}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title}</title><style>@page{size:A4;margin:9mm}*{box-sizing:border-box}body{margin:0;font-family:${ar?'Tahoma,Arial,sans-serif':'Arial,Helvetica,sans-serif'};color:#07180d;-webkit-print-color-adjust:exact;print-color-adjust:exact}.sheet{min-height:277mm;border:1.4mm solid #006b35;border-radius:5mm;padding:8mm;background:linear-gradient(135deg,#f8fff9,#e9fff1 58%,#fffbd6)}.head{text-align:center;background:linear-gradient(135deg,#003d1f,#00a853 65%,#c9ff00);color:#fff;border-radius:4mm;padding:5mm;margin-bottom:5mm}.head h1{margin:2mm 0;font-size:7mm}.uni{font-weight:900;font-size:3.6mm}.sub{font-size:3mm;font-weight:800}.role{display:inline-block;margin-top:2mm;padding:1.5mm 5mm;border-radius:99px;background:#fff;color:#005b2a;font-weight:900}.tbl{width:100%;border-collapse:collapse;background:#fff;border:0.45mm solid #007a36}.tbl th,.tbl td{border:0.25mm solid #99ddb0;padding:2.1mm 2.5mm;vertical-align:top;font-size:3.2mm;line-height:1.25}.tbl th{width:28%;background:#dcffe7;color:#004d22;text-align:${ar?'right':'left'}}.box{margin-top:4mm;border:0.4mm solid #00a853;border-radius:3mm;background:#fff;padding:3mm}.box h2{margin:0 0 2mm;color:#005b2a;font-size:4.5mm}.box p{min-height:18mm;margin:0;white-space:pre-wrap;font-size:3.25mm;line-height:1.45}.sign{display:grid;grid-template-columns:repeat(3,1fr);gap:6mm;margin-top:8mm;text-align:center;font-weight:900;color:#004d22}.sign div{border-top:.45mm solid #007a36;padding-top:2mm}.foot{text-align:center;margin-top:5mm;font-weight:900;color:#005b2a;font-size:3mm}@media print{body{background:#fff}.sheet{page-break-inside:avoid;break-inside:avoid}}</style></head><body><main class="sheet"><section class="head"><div class="uni">UNIVERSITÉ KASDI MERBAH OUARGLA</div><div class="sub">Faculty of Applied Sciences · Department of Electrical Engineering</div><h1>${title}</h1><div class="role">${ar?({'president':'رئيس اللجنة','examiner':'الأستاذ المناقش','supervisor':'الأستاذ المشرف'}[role]):roleLabel}</div></section><table class="tbl"><tbody>${rows.map(r=>`<tr><th>${ar?r[1]:r[0]}</th><td>${esc(r[2])}</td></tr>`).join('')}</tbody></table><section class="box"><h2>${ar?'ملاحظات التقييم':'Evaluation notes'}</h2><p>${esc(ev.notes||'')}</p></section><section class="box"><h2>${ar?'محضر التصحيحات اللازمة':'Required corrections report'}</h2><p>${esc(ev.corrections||'')}</p></section><section class="sign"><div>${ar?'رئيس اللجنة':'Committee President'}</div><div>${ar?'الأستاذ المناقش':'Examiner'}</div><div>${ar?'الأستاذ المشرف':'Supervisor'}</div></section><div class="foot">${ar?'تم إنشاء هذا المحضر آليًا حسب المعلومات المعتمدة أو المعدلة في المنصة.':'This report was generated automatically from the approved or updated platform information.'}</div></main></body></html>`;
 }
 window.printTeacherReport=function(id,role,lang){
@@ -1205,7 +1206,8 @@ window.printTeacherReport=function(id,role,lang){
 }
 
 function officialMinutesHTML(d,ev){
-  const finalTitle=(ev.titleChanged&&ev.modifiedTitle)?ev.modifiedTitle:(ev.title||d.title||'');
+  const originalTitle=d.title||'';
+  const finalTitle=(ev.titleChanged&&ev.modifiedTitle)?ev.modifiedTitle:originalTitle;
   const dateTxt=(ev.dayLabel||d.dayLabel||'')+' · '+(ev.start||d.start||'')+' - '+(ev.end||d.end||'');
   const students=(ev.students||d.students||'');
   const spec=(ev.specialty||d.specialty||'');
@@ -1268,6 +1270,45 @@ window.saveEvaluation=function(id,role){
   const d=defenses.find(x=>x.id===id); if(d){['code','specialty','students','title','date','dayLabel','start','end','room','president','examiner','supervisor','coSupervisor'].forEach(k=>{if(data[k]!==undefined)d[k]=data[k]}); save();}
   alert('Saved successfully. The official minutes will use the approved or updated information automatically.');
 }
+function splitStudentNamesForMinutes(value){
+  const cleaned=String(value||'').replace(/\s+/g,' ').trim();
+  if(!cleaned)return [''];
+  const parts=cleaned.split(/\s*;\s*/).map(x=>x.trim()).filter(Boolean);
+  return parts.length?parts:[cleaned];
+}
+function officialMinutesPage(lang,base,finalTitle,dateTxt,scores,final,mention,today,studentName){
+  const pageBase={...base,students:studentName};
+  if(lang==='en'){
+    return `<main class="page ltr" dir="ltr" lang="en">
+<header class="official-head">
+  <div class="republic">People's Democratic Republic of Algeria</div>
+  <div class="ministry">Ministry of Higher Education and Scientific Research</div>
+  <div class="uni">University Kasdi Merbah Ouargla</div>
+  <img src="${UKMO_LOGO_DATA}" class="logo">
+  <div class="sides"><span>Faculty: Applied Sciences<br>Department: Electrical Engineering</span><span>Academic Year: 2025 / 2026</span></div>
+</header>
+<h1 class="bar">Master Thesis Defense Evaluation Form</h1>
+<p class="ref">Reference: Decree No. 362 dated 09 June 2014 defining the preparation and defense procedures of the Master's thesis. Reference: Decree No. 1165 dated 04 October 2025 defining registration, re-registration, organization, evaluation and progression procedures.</p>
+<h2 class="section-title">Defense Committee Members</h2>
+${committeeTable('en',pageBase)}${studentBlock('en',pageBase,finalTitle,dateTxt)}${scoreTable('en',scores,final,mention)}${officialNote('en')}
+<footer class="bottom"><div>Ouargla, ${esc(today)}</div><div>Head of Department</div><div>Committee President Signature</div></footer>
+</main>`;
+  }
+  return `<main class="page rtl" dir="rtl" lang="ar">
+<header class="official-head">
+  <div class="republic">الجمهورية الجزائرية الديمقراطية الشعبية</div>
+  <div class="ministry">وزارة التعليم العالي والبحث العلمي</div>
+  <div class="uni">جامعة قاصدي مرباح ورقلة</div>
+  <img src="${UKMO_LOGO_DATA}" class="logo">
+  <div class="sides"><span>كلية: العلوم التطبيقية.<br>قسم: الهندسة الكهربائية.</span><span>السنة الجامعية: 2025 / 2026</span></div>
+</header>
+<h1 class="bar">بطاقة تقييمية لمناقشة مذكرة الماستر</h1>
+<p class="ref">المرجع: القرار رقم 362 المؤرخ في 09 جوان 2014 المحدد لكيفيات إعداد ومناقشة مذكرة الماستر. المرجع: قرار 1165 مؤرخ في 04 أكتوبر 2025 يحدد كيفيات التسجيل وإعادة التسجيل في التكوينات لنيل الشهادات وكذا التنظيم والتقييم والتدرج فيها.</p>
+<h2 class="section-title">أعضاء لجنة المناقشة</h2>
+${committeeTable('ar',pageBase)}${studentBlock('ar',pageBase,finalTitle,dateTxt)}${scoreTable('ar',scores,final,mention)}${officialNote('ar')}
+<footer class="bottom"><div>ورقلة في: ${esc(today)}</div><div>رئيس القسم</div><div>إمضاء رئيس اللجنة</div></footer>
+</main>`;
+}
 function officialMinutesHTML(d,lang='ar'){
   const roles=['president','examiner','supervisor'];
   const evs={president:mergedEvalFor(d.id,'president'),examiner:mergedEvalFor(d.id,'examiner'),supervisor:mergedEvalFor(d.id,'supervisor')};
@@ -1277,22 +1318,72 @@ function officialMinutesHTML(d,lang='ar'){
   const scores=roles.reduce((a,r)=>{a[r]={c:evs[r].scoreContent||'',w:evs[r].scoreWriting||'',p:evs[r].scorePresentation||'',t:roleTotal(evs[r])||''};return a},{});
   const dateTxt=(base.dayLabel||d.dayLabel||'')+' · '+(base.start||d.start||'')+' - '+(base.end||d.end||'');
   const today=new Date().toLocaleDateString(lang==='ar'?'ar-DZ':'en-GB');
-  if(lang==='en'){
-    return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Official Defense Minutes</title><style>${officialMinutesCSS()}</style></head><body><main class="page ltr" dir="ltr" lang="en"><header class="official-head"><div class="ministry">Ministry of Higher Education and Scientific Research</div><div class="uni">University Kasdi Merbah Ouargla</div><img src="${UKMO_LOGO_DATA}" class="logo"><div class="sides"><span>Faculty: Applied Sciences<br>Department: Electrical Engineering</span><span>Academic Year: 2025 / 2026</span></div></header><h1 class="bar">Master Thesis Defense Evaluation Form</h1><p class="ref">Reference: Decree No. 362 dated 09 June 2014 and Decree No. 171 dated 09 February 2023 governing registration, evaluation and progression.</p><h2 class="section-title">Defense Committee Members</h2>${committeeTable('en',base)}${studentBlock('en',base,finalTitle,dateTxt)}${scoreTable('en',scores,final,mentionEn)}${officialNote('en')}<footer class="bottom"><div>Ouargla, ${esc(today)}</div><div>Head of Department</div><div>Committee President Signature</div></footer></main></body></html>`
-  }
-  return `<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>محضر المناقشة والتقييم</title><style>${officialMinutesCSS()}
-/* STUDENT PUBLIC VERSION: teacher panel is completely hidden */
-#teachersBtn,#teacherPanel,.teacher-panel{display:none!important;visibility:hidden!important}
-</style></head><body><main class="page rtl" dir="rtl" lang="ar"><header class="official-head"><div class="ministry">وزارة التعليم العالي والبحث العلمي</div><div class="uni">جامعة قاصدي مرباح ورقلة</div><img src="${UKMO_LOGO_DATA}" class="logo"><div class="sides"><span>كلية: العلوم التطبيقية.<br>قسم: الهندسة الكهربائية.</span><span>السنة الجامعية: 2025 / 2026</span></div></header><h1 class="bar">بطاقة تقييمية لمناقشة مذكرة الماستر</h1><p class="ref">المرجع: القرار رقم 362 المؤرخ في 09 جوان 2014 المحدد لكيفيات إعداد ومناقشة مذكرة الماستر. المرجع: قرار 171 مؤرخ في 09 فيفري 2023 يحدد كيفيات التسجيل وإعادة التسجيل في التكوينات لنيل الشهادات وكذا التنظيم والتقييم والتدرج فيها.</p><h2 class="section-title">أعضاء لجنة المناقشة</h2>${committeeTable('ar',base)}${studentBlock('ar',base,finalTitle,dateTxt)}${scoreTable('ar',scores,final,mentionAr)}${officialNote('ar')}<footer class="bottom"><div>ورقلة في: ${esc(today)}</div><div>رئيس القسم</div><div>إمضاء رئيس اللجنة</div></footer></main></body></html>`
+  const students=splitStudentNamesForMinutes(base.students||d.students||'');
+  const pages=students.map(st=>officialMinutesPage(lang,base,finalTitle,dateTxt,scores,final,lang==='ar'?mentionAr:mentionEn,today,st)).join('');
+  return `<!doctype html><html lang="${lang==='ar'?'ar':'en'}" dir="${lang==='ar'?'rtl':'ltr'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${lang==='ar'?'محضر المناقشة والتقييم':'Official Defense Minutes'}</title><style>${officialMinutesCSS()}</style></head><body>${pages}</body></html>`;
 }
-function officialMinutesCSS(){return `@page{size:A4 portrait;margin:5mm}*{box-sizing:border-box}html,body{margin:0;padding:0;background:#fff;color:#000;font-family:Arial,Tahoma,sans-serif;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}.page{width:200mm;height:287mm;margin:0 auto;padding:2mm 3mm;overflow:hidden;background:#fff}.rtl{direction:rtl!important;text-align:right!important;unicode-bidi:embed!important;font-family:"Traditional Arabic",Tahoma,Arial,sans-serif}.ltr{direction:ltr!important;text-align:left!important;unicode-bidi:embed!important;font-family:"Times New Roman",Arial,sans-serif}.rtl table,.rtl .t{direction:rtl!important}.ltr table,.ltr .t{direction:ltr!important}.rtl th,.rtl td{text-align:right!important}.ltr th,.ltr td{text-align:left!important}.rtl .official-head,.rtl .bar,.rtl .section-title,.rtl .committee th,.rtl .committee td,.rtl .score,.rtl .member,.rtl .date-box,.rtl .bottom div{text-align:center!important}.ltr .official-head,.ltr .bar,.ltr .section-title,.ltr .committee th,.ltr .committee td,.ltr .score,.ltr .member,.ltr .date-box,.ltr .bottom div{text-align:center!important}.official-head{text-align:center;position:relative;line-height:1.08}.ministry{font-weight:900;font-size:4.8mm}.uni{font-weight:900;font-size:4.1mm;margin-top:.6mm}.logo{width:17mm;height:17mm;object-fit:contain;margin:1mm auto .6mm;display:block}.sides{display:flex;justify-content:space-between;gap:6mm;font-size:2.9mm;font-weight:800;text-align:inherit;margin-top:-1mm}.bar{margin:1.6mm 0 1mm;background:#f2f2f2;text-align:center;font-weight:900;font-size:5.7mm;padding:1.4mm}.ref{font-size:2.25mm;text-align:center;line-height:1.35;font-weight:700;margin:0 2mm 1.4mm}.section-title{text-align:center;font-size:4mm;font-weight:900;margin:.7mm 0 1mm}.t{width:100%;border-collapse:collapse;table-layout:fixed}.t th,.t td{border:.34mm solid #111;padding:.82mm 1.05mm;vertical-align:middle;font-size:2.86mm;line-height:1.12}.t th{background:#f0f0f0;font-weight:900}.committee th,.committee td{text-align:center;height:6.3mm}.lab{font-weight:900;background:#f5f5f5}.info{margin-top:1.8mm}.info td{height:6.7mm}.title-box{border:.32mm solid #222;height:16mm;margin:.8mm 8mm 1.4mm;padding:1.2mm 1.8mm;font-size:2.9mm;line-height:1.18;overflow:hidden}.date-row{display:grid;grid-template-columns:32mm 1fr 31mm;gap:1.5mm;align-items:center;margin:.6mm 0 1.2mm}.date-box{border:.32mm solid #222;height:6.8mm;display:flex;align-items:center;justify-content:center;font-size:2.8mm;font-weight:800}.eval th,.eval td{font-size:2.72mm;line-height:1.18;font-weight:800}.eval .crit{text-align:inherit;font-size:2.62mm;line-height:1.2;font-weight:900}.eval .score{width:14mm;text-align:center}.eval .member{width:22mm;text-align:center}.eval .critcol{width:76mm}.eval-ar{direction:rtl!important;table-layout:fixed!important}.eval-ar th,.eval-ar td{text-align:center!important;font-weight:800}.eval-ar .crit,.eval-ar .mention{text-align:right!important;direction:rtl!important;font-weight:900}.eval-ar .critcol{width:86mm!important}.eval-ar .member{width:22mm!important}.eval-ar .score{width:14mm!important}.eval-en{direction:ltr!important;table-layout:fixed!important}.eval-en th,.eval-en td{text-align:center!important;font-weight:800}.eval-en .crit,.eval-en .mention{text-align:left!important;direction:ltr!important;font-weight:900}.eval-en .critcol{width:86mm!important}.eval-en .member{width:22mm!important}.eval-en .score{width:14mm!important}.eval tbody td{height:25mm}.final td{height:6.8mm;font-weight:900}.mention{font-size:2.55mm;font-weight:900}.note{border:.32mm solid #222;margin-top:1.3mm;padding:1.2mm 1.8mm;font-size:2.6mm;line-height:1.22;font-weight:800}.bottom{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5mm;margin-top:2mm;align-items:end}.bottom div{border-top:.32mm solid #111;text-align:center;font-weight:900;font-size:2.8mm;padding-top:1.6mm;min-height:9mm}.filled{font-weight:900;color:#111}.small{font-size:2.25mm}@media print{body{background:#fff!important}.page{break-inside:avoid;page-break-inside:avoid}}`}
+function officialMinutesCSS(){return `@page{size:A4 portrait;margin:5mm}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff;color:#000;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+body{font-family:Arial,Tahoma,sans-serif}
+.page{width:200mm;height:287mm;margin:0 auto;padding:2.4mm 3.6mm;background:#fff;overflow:hidden;page-break-after:always;break-after:page;position:relative}
+.page:last-child{page-break-after:auto;break-after:auto}
+.rtl{direction:rtl!important;text-align:right!important;unicode-bidi:embed!important;font-family:"Traditional Arabic","Amiri",Tahoma,Arial,sans-serif}
+.ltr{direction:ltr!important;text-align:left!important;unicode-bidi:embed!important;font-family:"Times New Roman",Arial,sans-serif}
+.official-head{text-align:center;line-height:1.08;position:relative;margin:0 0 .7mm}
+.republic{font-weight:900;font-size:4.85mm;margin-bottom:.35mm}
+.ministry{font-weight:900;font-size:4.75mm;margin-bottom:.35mm}
+.uni{font-weight:900;font-size:4.15mm;margin:.2mm 0 .1mm}
+.logo{width:15.7mm;height:15.7mm;object-fit:contain;margin:.4mm auto .2mm;display:block}
+.sides{display:flex;justify-content:space-between;gap:6mm;font-size:3.25mm;font-weight:900;text-align:inherit;margin-top:-.6mm;line-height:1.18}
+.bar{margin:1mm 0 .8mm;background:#f0f0f0;text-align:center!important;font-weight:900;font-size:6.05mm;padding:1.25mm 1mm;line-height:1.05}
+.ref{font-size:2.72mm;text-align:center!important;line-height:1.18;font-weight:900;margin:0 2mm .8mm}
+.section-title{text-align:center!important;font-size:4.45mm;font-weight:900;margin:.5mm 0 .7mm;line-height:1.05}
+.t{width:100%;border-collapse:collapse;table-layout:fixed;margin:0;border:.45mm solid #111}
+.t th,.t td{border:.38mm solid #111;padding:1.05mm 1.25mm;vertical-align:middle;font-size:3.35mm;line-height:1.13;color:#000}
+.t th{background:#efefef!important;font-weight:900}
+.committee th,.committee td{text-align:center!important;height:6.6mm;font-weight:900}
+.lab{font-weight:900;background:#f5f5f5!important;text-align:center!important}
+.filled{font-weight:900;color:#000}
+.info{margin-top:1.25mm}
+.info td{height:6.9mm;font-weight:900}
+.title-label{display:inline-block;border:.38mm solid #222;background:#f5f5f5!important;padding:1mm 2.2mm;margin-top:1mm;font-size:3.15mm;font-weight:900}
+.title-box{border:.43mm solid #222;min-height:16mm;margin:.55mm 7mm 1mm;padding:1.5mm 2.4mm;font-size:4.15mm;line-height:1.2;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center!important;font-weight:900;word-break:break-word;overflow-wrap:anywhere}
+.rtl .title-box{direction:rtl!important;text-align:center!important;font-family:"Traditional Arabic",Tahoma,Arial,sans-serif}
+.ltr .title-box{direction:ltr!important;text-align:center!important;font-family:"Times New Roman",Arial,sans-serif}
+.date-row{display:grid;grid-template-columns:33mm 1fr 33mm;gap:1.3mm;align-items:center;margin:.35mm 0 .8mm}
+.date-box{border:.38mm solid #222;height:6.7mm;display:flex;align-items:center;justify-content:center;font-size:3.15mm;font-weight:900;text-align:center!important}
+.eval{margin-top:.2mm}
+.eval th,.eval td{font-size:3.5mm;line-height:1.12;font-weight:900;text-align:center!important;padding:1.05mm 1.1mm}
+.eval .crit{font-size:3.22mm;line-height:1.14;font-weight:900}
+.eval .score{width:15mm;text-align:center!important}
+.eval .member{width:23mm;text-align:center!important}
+.eval .critcol{width:85mm}
+.eval tbody td{height:21.6mm}
+.eval-ar{direction:rtl!important;table-layout:fixed!important}
+.eval-ar .crit,.eval-ar .mention{text-align:right!important;direction:rtl!important}
+.eval-ar .critcol{width:86mm!important}
+.eval-ar .member{width:23mm!important}
+.eval-ar .score{width:15mm!important}
+.eval-en{direction:ltr!important;table-layout:fixed!important}
+.eval-en .crit,.eval-en .mention{text-align:left!important;direction:ltr!important}
+.eval-en .critcol{width:86mm!important}
+.eval-en .member{width:23mm!important}
+.eval-en .score{width:15mm!important}
+.final td{height:7mm;font-weight:900}
+.mention{font-size:3.02mm;font-weight:900;line-height:1.12}
+.note{border:.42mm solid #222;margin-top:.8mm;padding:1mm 1.6mm;font-size:3.06mm;line-height:1.16;font-weight:900}
+.bottom{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6mm;margin-top:1.7mm;align-items:end}
+.bottom div{border-top:.42mm solid #111;text-align:center!important;font-weight:900;font-size:3.45mm;padding-top:1.25mm;min-height:8.2mm}
+.small{font-size:2.55mm}
+@media print{body{background:#fff!important}.page{break-inside:avoid;page-break-inside:avoid}}`}
 function committeeTable(lang,b){
  if(lang==='en')return `<table class="t committee" dir="ltr"><tr><th>Committee</th><th>Name</th><th>Signature</th></tr><tr><td class="lab">President</td><td class="filled">${esc(b.president||'')}</td><td></td></tr><tr><td class="lab">Examiner</td><td class="filled">${esc(b.examiner||'')}</td><td></td></tr><tr><td class="lab">Supervisor</td><td class="filled">${esc(b.supervisor||'')}</td><td></td></tr><tr><td class="lab">Co-supervisor</td><td class="filled">${esc(b.coSupervisor||'—')}</td><td></td></tr></table>`;
  return `<table class="t committee" dir="rtl"><tr><th>اللجنة:</th><th>الاسم واللقب:</th><th>الإمضاء:</th></tr><tr><td class="lab">الرئيس</td><td class="filled">${esc(b.president||'')}</td><td></td></tr><tr><td class="lab">المناقش</td><td class="filled">${esc(b.examiner||'')}</td><td></td></tr><tr><td class="lab">المشرف</td><td class="filled">${esc(b.supervisor||'')}</td><td></td></tr><tr><td class="lab">المشرف المساعد</td><td class="filled">${esc(b.coSupervisor||'—')}</td><td></td></tr></table>`;
 }
 function studentBlock(lang,b,title,dateTxt){
- if(lang==='en')return `<table class="t info" dir="ltr"><tr><td class="lab" style="width:26mm">Candidate(s)</td><td class="filled">${esc(b.students||'')}</td><td class="lab" style="width:25mm">Specialty</td><td class="filled">${esc(b.specialty||'')}</td></tr><tr><td class="lab">Field</td><td>Electrical Engineering</td><td class="lab">Defense date</td><td class="filled">${esc(dateTxt)}</td></tr></table><div class="lab" style="display:inline-block;border:.32mm solid #222;padding:1mm 2mm;margin-top:1mm;font-size:2.8mm">Thesis title</div><div class="title-box filled">${esc(title)}</div>`;
- return `<table class="t info" dir="rtl"><tr><td class="lab" style="width:26mm">الطالب(ة):</td><td class="filled">${esc(b.students||'')}</td><td class="lab" style="width:20mm">التخصص:</td><td class="filled">${esc(b.specialty||'')}</td></tr><tr><td class="lab">الشعبة:</td><td>هندسة كهربائية</td><td class="lab">تاريخ المناقشة:</td><td class="filled">${esc(dateTxt)}</td></tr></table><div class="lab" style="display:inline-block;border:.32mm solid #222;padding:1mm 2mm;margin-top:1mm;font-size:2.8mm">عنوان المذكرة</div><div class="title-box filled">${esc(title)}</div>`;
+ if(lang==='en')return `<table class="t info" dir="ltr"><tr><td class="lab" style="width:26mm">Candidate(s)</td><td class="filled">${esc(b.students||'')}</td><td class="lab" style="width:25mm">Specialty</td><td class="filled">${esc(b.specialty||'')}</td></tr><tr><td class="lab">Field</td><td>Electrical Engineering</td><td class="lab">Defense date</td><td class="filled">${esc(dateTxt)}</td></tr></table><div class="title-label">Thesis title</div><div class="title-box filled">${esc(title)}</div>`;
+ return `<table class="t info" dir="rtl"><tr><td class="lab" style="width:26mm">الطالب(ة):</td><td class="filled">${esc(b.students||'')}</td><td class="lab" style="width:20mm">التخصص:</td><td class="filled">${esc(b.specialty||'')}</td></tr><tr><td class="lab">الشعبة:</td><td>هندسة كهربائية</td><td class="lab">تاريخ المناقشة:</td><td class="filled">${esc(dateTxt)}</td></tr></table><div class="title-label">عنوان المذكرة</div><div class="title-box filled">${esc(title)}</div>`;
 }
 function scoreTable(lang,s,final,mention){
  const ar=lang==='ar';
@@ -1316,13 +1407,10 @@ window.printOfficialDiscussionMinutes=function(id,lang='ar'){
   if(doc.readyState==='complete') setTimeout(go,450); else frame.onload=()=>setTimeout(go,450);
 }
 
-$('homeBtn').onclick=$('homeBtnTop').onclick=()=>{selectedSpec=''; const tp=$('teacherPanel'); if(tp) tp.style.display='none'; history.replaceState(null,'',location.pathname); renderHome();};
-if($('teachersBtn')) $('teachersBtn').style.display='none';
-if($('teacherBackHome')) $('teacherBackHome').onclick=()=>{history.replaceState(null,'',location.pathname); renderHome(); const tp=$('teacherPanel'); if(tp) tp.style.display='none';};
-$('search').addEventListener('input',()=>selectedSpec&&renderDetail()); $('printBwBtn').onclick=$('modeBwBtn').onclick=()=>printSelected(); $('printColorBtn').onclick=$('modeColorBtn').onclick=()=>printSelectedColor(); $('viewLiveBtn').onclick=()=>$('liveProgram').scrollIntoView({behavior:'smooth',block:'start'}); window.addEventListener('afterprint',()=>document.body.classList.remove('print-color','print-bw','print-student','student-printing'));
+$('homeBtn').onclick=$('homeBtnTop').onclick=()=>{selectedSpec=''; $('teacherPanel').style.display='none'; history.replaceState(null,'',location.pathname); renderHome();};
+$('teachersBtn').onclick=()=>showTeacherPanel(); $('teacherBackHome').onclick=()=>{history.replaceState(null,'',location.pathname); renderHome(); $('teacherPanel').style.display='none';}; $('search').addEventListener('input',()=>selectedSpec&&renderDetail()); $('printBwBtn').onclick=$('modeBwBtn').onclick=()=>printSelected(); $('printColorBtn').onclick=$('modeColorBtn').onclick=()=>printSelectedColor(); $('viewLiveBtn').onclick=()=>$('liveProgram').scrollIntoView({behavior:'smooth',block:'start'}); window.addEventListener('afterprint',()=>document.body.classList.remove('print-color','print-bw','print-student','student-printing'));
 $('notifyBtn').onclick=async()=>{if('Notification'in window){await Notification.requestPermission(); alert('Reminders are enabled while this page is open.')}};
 function tick(){if(selectedSpec){document.querySelectorAll('.countdown').forEach(el=>{const d=defenses.find(x=>x.id==el.dataset.id); if(d) el.textContent=fmtLeft(startDt(d)-Date.now());}); document.querySelectorAll('.def-card[data-id]').forEach(el=>{const d=defenses.find(x=>x.id==el.dataset.id); if(!d)return; const st=statusInfo(d); const current=[...el.classList].find(c=>c.startsWith('status-')); if(current!==st.cls) renderDetail(); const box=el.querySelector('.statusBox'); if(box) box.innerHTML=`<span>${st.icon}</span><span>${esc(st.msg)}</span>`;})} if('Notification'in window&&Notification.permission==='granted'){defenses.forEach(d=>{const mins=Math.round((startDt(d)-Date.now())/60000); const notices={2880:'Contact your supervisor, send the final manuscript, start preparing your PPT, and complete a full revision.',1440:'Prepare the key results very well and rehearse your presentation.',720:'Your defense is approaching: focus on the abstract, key results, conclusions, and confidence.',60:'Your defense starts in 1 hour. Best wishes for success.',15:'Your defense starts in 15 minutes. You can do it confidently.'}; if(notices[mins]&&!d[`n${mins}`]){d[`n${mins}`]=true;save();new Notification(`Defense reminder: ${d.code}`,{body:`${d.students} · ${notices[mins]}`})}})}}
-window.showTeacherPanel=function(){return false};
 setInterval(tick,30000); renderHome(); tick();
 </script>
 </body>
