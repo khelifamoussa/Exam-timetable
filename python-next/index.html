@@ -180,6 +180,16 @@ body{background:radial-gradient(ellipse at 8% 10%,#ffe5fa 0,transparent 32%),rad
 .ds-overlay[data-layout="split"] .ds-stdin textarea{min-height:38px;max-height:64px;font-size:17px}
 @media(max-width:760px){.sample-inputs{font-size:12px}.ds-stdin{flex-wrap:wrap}.ds-stdin textarea{flex-basis:100%}}
 
+
+/* CALCULATOR GRAPH VIEW V13 — real Python output decoded to SVG, no eval */
+.calc-graph{display:none;min-height:210px;flex:1 1 auto;background:#fff;color:#283255;border-top:3px solid #32bba1;overflow:hidden;padding:5px 13px 8px;direction:ltr}
+.calc-graph.show{display:flex;flex-direction:column}
+.calc-graph-title{font:900 17px/1.3 Cairo,Inter,sans-serif;text-align:center;color:#2b2878;padding:4px 0}
+.calc-graph svg{display:block;width:100%;height:100%;min-height:150px;flex:1}
+.ds-overlay[data-layout="split"] .ds-live-results:has(.calc-graph.show) .ds-result{flex:0 1 auto;max-height:34%!important;min-height:75px;font-size:clamp(17px,calc(var(--ds-text) - 8px),38px)}
+.ds-overlay[data-layout="split"] .ds-live-results:has(.calc-graph.show) .calc-graph{flex:1;min-height:220px}
+.ds-overlay:not([data-layout="split"]) .ds-code-panel .calc-graph.show{min-height:220px;max-height:40vh}
+
 </style></head><body id="top">
 <div class="ambient" aria-hidden="true"><div class="orb one"></div><div class="orb two"></div></div>
 <header class="global"><a class="brand" href="#top" aria-label="الصفحة الرئيسية"><b>PYTHON<span>//NEXT</span></b><small>AI BUILDERS ACADEMY</small></a><div class="top-links"><span class="pill">M1 · LESSONS 1–5 → APPS → AI</span><a href="#note-backend">▯ Student access · pending</a><a href="#note-backend">⌘ Teacher · pending</a><a href="#note-backend">▣ Wall · pending</a></div></header>
@@ -251,7 +261,7 @@ body{background:radial-gradient(ellipse at 8% 10%,#ffe5fa 0,transparent 32%),rad
         <button type="button" id="dsPrint">▣ PDF</button>
       </div>
       <pre id="dsExpected" class="ds-expected" hidden></pre>
-      <pre id="dsResult" class="ds-result" role="status" aria-live="polite">التعليمات والنتائج تظهر هنا بعد التشغيل.</pre>
+      <div id="dsCalcGraph" class="calc-graph" aria-label="Python calculated graph"></div><pre id="dsResult" class="ds-result" role="status" aria-live="polite">التعليمات والنتائج تظهر هنا بعد التشغيل.</pre>
     </section>
 
     <section id="dsLiveResults" class="ds-live-results" aria-label="مخرجات تنفيذ Python على يسار الشاشة" dir="ltr">
@@ -365,7 +375,7 @@ function go(i){if(i<0||i>=A.length)return;index=i;localStorage.setItem('pyn9:las
  $('stepNumber').textContent=String(i+1).padStart(2,'0')+' / '+A.length;$('difficulty').textContent=PE[l.phase-1];$('runnerBadge').textContent=kind(l);$('titleAr').textContent=l.ar;$('titleEn').textContent=l.en;$('concept').textContent=l.concept;$('explanationAr').textContent=l.explanationAr;$('explanationEn').textContent=l.explanationEn;$('editor').value=l.code;$('sampleInputWrap').hidden=!(l.inputs&&l.inputs.length);$('sampleInputs').value=(l.inputs||[]).join('\n');$('expected').textContent=l.expected||'This lesson has a hands-on challenge. First predict the result.';$('expected').hidden=true;$('challengeText').textContent=l.challengeAr;$('topicTag').textContent=l.packages==='None'?'main.py':'Module: '+l.packages;
  $('output').textContent='Ready: Predict → Run → Change';$('output').className='output';$('modeHint').textContent=l.kind==='basic'?'⚡ تشغيل فوري للأمثلة الأساسية؛ ويمكن اختيار Python الكامل عند الحاجة.':l.kind==='pyodide'?'🌍 ستُحمّل بيئة Python المتقدمة في المتصفح عند أول تشغيل؛ تحتاج إنترنت.':'📱 هذا التطبيق مخصص للتجربة داخل Pydroid 3 أو على حاسوب بعد تثبيت المكتبات.';
  $('previous').disabled=i===0;$('next').disabled=i===A.length-1;$('done').textContent=done.has(l.id)?'✓ تم إكمال الدرس':'✓ فهمت المثال';phaseButtons();renderList();updateCount();if(document.body.classList.contains('ds-mode'))updateDs();if(window.innerWidth<750&&!document.body.classList.contains('ds-mode'))window.scrollTo({top:0,behavior:'smooth'})}
-function setOutput(s,state=''){const n=$('output');n.textContent=s;n.className='output'+(state?' '+state:'');if(document.body.classList.contains('ds-mode'))syncDsOutput()}
+function setOutput(s,state=''){const n=$('output');n.textContent=state==='ok'?handlePythonPlots(s):s;n.className='output'+(state?' '+state:'');if(state!=='ok'){$('dsCalcGraph').classList.remove('show');$('dsCalcGraph').replaceChildren()}if(document.body.classList.contains('ds-mode'))syncDsOutput()}
 function hint(s){if(/division by zero/i.test(s))return '\n\n💡 لا يمكن القسمة على صفر. غيّر المقسوم عليه. / Division by zero.';if(/NameError|not defined/i.test(s))return '\n\n💡 اسم المتغير غير معرّف. تحقق من التهجئة.';if(/IndentationError|unexpected indent|expected an indented block/i.test(s))return '\n\n💡 تأكد من المسافات البادئة تحت if / for / def.';if(/SyntaxError/i.test(s))return '\n\n💡 خطأ في الصياغة: راجع الأقواس والاقتباسات والنقطتين.';return ''}
 function lineFromError(s){const m=String(s).match(/line\s+(\d+)/i);return m?'\n⚠ LINE '+m[1]+' / السطر '+m[1]:''}
 function makeWorker(){if(worker)return worker;worker=new Worker(URL.createObjectURL(new Blob([document.getElementById('pyn-worker-source').textContent], {type:'text/javascript'})));return worker}
@@ -516,6 +526,64 @@ $('dsFocus').addEventListener('click',()=>{if(ds.dataset.layout==='split')dsSpli
 
 $('dsSampleInputs').addEventListener('input',()=>{$('sampleInputs').value=$('dsSampleInputs').value});
 $('sampleInputs').addEventListener('input',()=>{$('dsSampleInputs').value=$('sampleInputs').value});
+
+/* Calculator graph: transform ONLY valid Python-generated PLOT: JSON into SVG */
+function calcSVG(tag,attributes,content){
+ const el=document.createElementNS('http://www.w3.org/2000/svg',tag);
+ for(const [key,value] of Object.entries(attributes||{}))el.setAttribute(key,String(value));
+ if(content!==undefined)el.textContent=String(content);
+ return el;
+}
+function drawPythonPlot(model){
+ const root=$('dsCalcGraph');
+ const series=(Array.isArray(model.series)?model.series:[]).slice(0,5).map((s,i)=>({
+  name:String(s.name||'Series '+(i+1)).slice(0,40),
+  points:(Array.isArray(s.points)?s.points:[]).slice(0,700)
+   .filter(p=>Array.isArray(p)&&p.length===2&&typeof p[0]==='number'&&typeof p[1]==='number'&&Number.isFinite(p[0])&&Number.isFinite(p[1]))
+ }));
+ const valid=series.filter(s=>s.points.length>=2);
+ if(!valid.length)throw Error('The plot requires at least two valid numeric points');
+ const all=valid.flatMap(s=>s.points),xs=all.map(p=>p[0]),ys=all.map(p=>p[1]);
+ let minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
+ let rangeX=maxX-minX||1,rangeY=maxY-minY||1;
+ minX-=rangeX*.07;maxX+=rangeX*.07;minY-=rangeY*.12;maxY+=rangeY*.12;
+ const W=800,H=470,p={left:70,right:W-25,top:25,bottom:H-58};
+ const x=v=>p.left+(v-minX)/(maxX-minX)*(p.right-p.left);
+ const y=v=>p.bottom-(v-minY)/(maxY-minY)*(p.bottom-p.top);
+ root.replaceChildren();
+ const heading=document.createElement('div');heading.className='calc-graph-title';heading.textContent=String(model.title||'Python Plot').slice(0,120);root.append(heading);
+ const svg=calcSVG('svg',{viewBox:'0 0 '+W+' '+H,role:'img','aria-label':heading.textContent});root.append(svg);
+ for(let t=0;t<=5;t++){
+  const xx=minX+(maxX-minX)*t/5,yy=minY+(maxY-minY)*t/5;
+  svg.append(calcSVG('line',{x1:x(xx),y1:p.top,x2:x(xx),y2:p.bottom,stroke:'#e2e6f1'}));
+  svg.append(calcSVG('line',{x1:p.left,y1:y(yy),x2:p.right,y2:y(yy),stroke:'#e2e6f1'}));
+  svg.append(calcSVG('text',{x:x(xx),y:p.bottom+24,'text-anchor':'middle','font-size':14,fill:'#4a5878'},Number(xx.toFixed(2))));
+  svg.append(calcSVG('text',{x:p.left-9,y:y(yy)+4,'text-anchor':'end','font-size':14,fill:'#4a5878'},Number(yy.toFixed(2))));
+ }
+ const colors=['#8232d4','#0e9b89','#ee7540','#bf2da2','#266ecc'];
+ for(let j=0;j<valid.length;j++){
+  const item=valid[j];const path=item.points.map((v,i)=>(i?'L':'M')+x(v[0]).toFixed(2)+','+y(v[1]).toFixed(2)).join(' ');
+  svg.append(calcSVG('path',{d:path,fill:'none',stroke:colors[j%colors.length],'stroke-width':3.5,'stroke-linecap':'round','stroke-linejoin':'round'}));
+  svg.append(calcSVG('circle',{cx:85+j*142,cy:11,r:5,fill:colors[j%colors.length]}));
+  svg.append(calcSVG('text',{x:95+j*142,y:16,'font-size':13,'font-weight':800,fill:'#2c3457'},item.name));
+ }
+ root.classList.add('show');
+}
+function handlePythonPlots(message){
+ const raw=String(message??'');
+ const lines=raw.split('\n');let count=0;const regular=[];
+ const root=$('dsCalcGraph');root.classList.remove('show');root.replaceChildren();
+ for(let i=0;i<lines.length;i++){
+  const row=lines[i];const at=row.indexOf('PLOT:');
+  if(at!==-1){
+    try{const parsed=JSON.parse(row.slice(at+5));drawPythonPlot(parsed);count++;continue}
+    catch(e){regular.push('Graph data error: '+String(e.message||e));continue}
+  }
+  regular.push(row);
+ }
+ return count?regular.filter(x=>x.trim()).join('\n')+'\n✓ رسم '+count+' منحنى من نقاط حسبها Python.':raw;
+}
+
 setDsStage(0);
 applySplitShare(dsSplitShare);
 go(index);
