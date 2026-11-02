@@ -399,7 +399,7 @@ let dsTheme=localStorage.getItem('pyn9:dsTheme')||'light';
 if(!dsThemes.includes(dsTheme))dsTheme='light';
 let dsFocus='all';
 function syncDsOutput(){const src=$('output'),dst=$('dsResult');dst.textContent=src.textContent;dst.className='ds-result'+(src.classList.contains('error')?' error':src.classList.contains('ok')?' ok':'')}
-function updateDs(){const l=A[index];$('dsTitle').textContent=l.ar;$('dsEnglish').textContent=l.en;$('dsConcept').textContent=l.concept;$('dsExplain').textContent=l.explanationAr;$('dsChallenge').textContent=l.challengeAr;$('dsCount').textContent=String(index+1).padStart(2,'0')+' / '+A.length;$('dsEditor').value=$('editor').value;$('dsSampleInputWrap').hidden=$('sampleInputWrap').hidden;$('dsSampleInputs').value=$('sampleInputs').value;$('dsExpected').textContent=l.expected||'انظر إلى النتيجة بعد التشغيل.';$('dsExpected').hidden=true;syncDsOutput();ds.style.setProperty('--ds-text',dsSize+'px');ds.dataset.theme=dsTheme;ds.dataset.focus=dsFocus}
+function updateDs(){const l=A[index];$('dsCalcGraph').classList.remove('show');$('dsCalcGraph').replaceChildren();$('dsTitle').textContent=l.ar;$('dsEnglish').textContent=l.en;$('dsConcept').textContent=l.concept;$('dsExplain').textContent=l.explanationAr;$('dsChallenge').textContent=l.challengeAr;$('dsCount').textContent=String(index+1).padStart(2,'0')+' / '+A.length;$('dsEditor').value=$('editor').value;$('dsSampleInputWrap').hidden=$('sampleInputWrap').hidden;$('dsSampleInputs').value=$('sampleInputs').value;$('dsExpected').textContent=l.expected||'انظر إلى النتيجة بعد التشغيل.';$('dsExpected').hidden=true;syncDsOutput();ds.style.setProperty('--ds-text',dsSize+'px');ds.dataset.theme=dsTheme;ds.dataset.focus=dsFocus}
 function openDs(){document.body.classList.add('ds-mode');ds.setAttribute('aria-hidden','false');updateDs();$('dsExit').focus()}
 function closeDs(){document.body.classList.remove('ds-mode');ds.setAttribute('aria-hidden','true');if(document.fullscreenElement===ds&&document.exitFullscreen)document.exitFullscreen().catch(()=>{});$('dsLaunch').focus()}
 $('dsLaunch').addEventListener('click',openDs);
@@ -478,12 +478,12 @@ function applySplitShare(value){
 function dsSplitMode(active){
  if(active){
   ds.dataset.layout='split';
-  dsLiveResults.append($('dsExpected'),$('dsResult'));
+  dsLiveResults.append($('dsExpected'),$('dsResult'),$('dsCalcGraph'));
   $('dsSplitToggle').textContent='▥ عمودان ✓';
  }else{
   delete ds.dataset.layout;
   dsHomeExpected.append($('dsExpected'));
-  dsHomeOutput.append($('dsResult'));
+  dsHomeOutput.append($('dsResult'));dsHomeOutput.append($('dsCalcGraph'));
   $('dsSplitToggle').textContent='▥ عمودان';
  }
  applySplitShare(dsSplitShare);
