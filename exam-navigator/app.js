@@ -53,7 +53,9 @@
   $('student-name').textContent=fullName(selected);
   $('student-latin').textContent=lang==='ar'?`${selected.firstLatin} ${selected.lastLatin}`:`${selected.last} ${selected.first}`;
   $('student-latin').dir=lang==='ar'?'ltr':'rtl';
-  $('student-facts').innerHTML=[label(selected.course)[lang==='ar'?0:1],label(selected.course)[lang==='ar'?2:3],t('الفوج ','Group ')+selected.group].map(x=>`<span>${esc(x)}</span>`).join('');
+  const fields=[[t('الاسم','First name'),lang==='ar'?selected.first:selected.firstLatin,'user'],[t('اللقب','Surname'),lang==='ar'?selected.last:selected.lastLatin,'card'],[t('الفوج','Group'),String(selected.group).padStart(2,'0'),'group'],[t('المستوى','Level'),label(selected.course)[lang==='ar'?0:1],'cap'],[t('التخصص','Specialty'),label(selected.course)[lang==='ar'?2:3],'gear']];
+  const icons={user:'<circle cx="12" cy="7" r="4"/><path d="M4 22v-3a8 8 0 0 1 16 0v3"/>',card:'<rect x="2" y="4" width="20" height="16" rx="3"/><circle cx="8" cy="10" r="2"/><path d="M4 16q4-5 8 0m3-7h4m-4 5h4"/>',group:'<circle cx="12" cy="7" r="3"/><path d="M6 21v-2a6 6 0 0 1 12 0v2M3 10a3 3 0 0 0 0 6m18-6a3 3 0 0 1 0 6M2 22v-3m20 3v-3"/>',cap:'<path d="m1 8 11-5 11 5-11 5ZM5 11v6q7 6 14 0v-6m4-3v10"/>',gear:'<circle cx="12" cy="12" r="4"/><path d="m9 2-1 3-3 1-3 3 2 3-1 3 3 3 3-1 3 2 3-2 3 1 3-3-1-3 2-3-3-3-3-1-1-3Z"/>'};
+  $('student-facts').innerHTML=fields.map(([name,value,icon])=>`<div class="fact-row"><span class="fact-icon"><svg viewBox="0 0 24 24" aria-hidden="true">${icons[icon]}</svg></span><span class="fact-label">${esc(name)}:</span><strong>${esc(value)}</strong></div>`).join('');
   $('room-label').textContent=roomText(selected.room);
   const roommates=D.students.filter(s=>s.room===selected.room&&label(s.course)[4]===label(selected.course)[4]);
   $('room-meta').textContent=t(`${roommates.length} طالبًا موزعين على هذه القاعة · السعة ${D.capacities[selected.room]}`,`${roommates.length} students assigned · Capacity ${D.capacities[selected.room]}`);
@@ -151,7 +153,7 @@
   const oldFilter=$('search-level').value;lang=lang==='ar'?'en':'ar';document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.title=t('دليل قاعات الاختبارات | جامعة ورقلة','Exam Room Finder | University of Ouargla');
   document.querySelectorAll('[data-ar]').forEach(el=>el.innerHTML=el.dataset[lang]);
   document.querySelectorAll('[data-placeholder-ar]').forEach(el=>el.placeholder=el.dataset[lang==='ar'?'placeholderAr':'placeholderEn']);
-  $('language').innerHTML=lang==='ar'?'EN <span>→</span>':'عربي <span>←</span>';$('language').setAttribute('aria-label',t('Switch to English','التبديل إلى العربية'));
+  $('language').textContent=lang==='ar'?'EN':'AR';document.querySelector('.current-lang').textContent=lang==='ar'?'AR':'EN';$('language').setAttribute('aria-label',t('Switch to English','التبديل إلى العربية'));
   $('voice').setAttribute('aria-label',t('البحث بالصوت','Search by voice'));$('voice').title=t('البحث بالصوت','Search by voice');
   initializeOptions();$('search-level').value=oldFilter;if(selected){renderStudent();search.value=fullName(selected);}hideSuggestions();renderSchedule();status('','');
   if(reminders)$('reminder').textContent=t('✓ التنبيه مفعّل — اضغط لإيقافه','✓ Reminders on — click to turn off');
@@ -164,7 +166,7 @@
  search.addEventListener('keydown',event=>{if(event.key==='Escape'){hideSuggestions();return;}if($('suggestion-wrap').hidden||!suggestions.length)return;if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();activeIndex=(activeIndex+(event.key==='ArrowDown'?1:-1)+suggestions.length)%suggestions.length;setActiveSuggestion();}else if(event.key==='Enter'&&activeIndex>=0){event.preventDefault();selectStudent(suggestions[activeIndex]);}});
  $('date-tabs').addEventListener('click',event=>{const button=event.target.closest('[data-date]');if(button){activeDate=button.dataset.date;renderSchedule();}});
  $('browse-course').addEventListener('change',()=>{course=$('browse-course').value;if(selected?.course!==course){selected=null;$('student-result').hidden=true;search.value='';$('art-room').textContent='D';reminders=false;$('reminder').textContent=t('تنبيه قبل 10 دقائق','Remind me 10 minutes before');}activeDate='';hideSuggestions();renderSchedule();status('','');});
- $('language').onclick=setLanguage;$('voice').onclick=()=>startVoice('search');$('ask').onclick=()=>startVoice('ask');$('speak').onclick=speakAnswer;$('calendar').onclick=downloadCalendar;$('reminder').onclick=enableReminders;$('print').onclick=()=>window.print();
+ $('highlight-room').onclick=()=>{const el=document.querySelector('.campus-art');el.classList.remove('spotlight');void el.offsetWidth;el.classList.add('spotlight');toast('القاعة المخصّصة لك: '+roomText(selected.room)+' — الرسم توضيحي وليس مسارًا جغرافيًا.','Your assigned destination: '+roomText(selected.room)+' — this illustration is not a geographic route.');};$('language').onclick=setLanguage;$('voice').onclick=()=>startVoice('search');$('ask').onclick=()=>startVoice('ask');$('speak').onclick=speakAnswer;$('calendar').onclick=downloadCalendar;$('reminder').onclick=enableReminders;$('print').onclick=()=>window.print();
  window.addEventListener('beforeprint',()=>renderSchedule(true));window.addEventListener('afterprint',()=>renderSchedule());
  document.addEventListener('visibilitychange',()=>{if(!document.hidden){renderNext();checkReminders();}});
  initializeOptions();renderSchedule();setupVoice();setInterval(()=>{renderNext();checkReminders();},15000);

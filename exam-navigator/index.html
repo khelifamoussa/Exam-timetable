@@ -6,40 +6,24 @@
 <meta name="description" content="ابحث عن قاعة اختبارات الأعمال الموجهة وجدولك الشخصي — قسم الهندسة الكهربائية، جامعة قاصدي مرباح ورقلة.">
 <title>دليل قاعات الاختبارات | جامعة ورقلة</title>
 <link rel="icon" href="icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="styles.css?v=20261114-2">
-<script src="data.js?v=20261114-2" defer></script><script src="core.js?v=20261114-2" defer></script><script src="app.js?v=20261114-2" defer></script>
+<link rel="preload" as="image" href="assets/campus.webp"><link rel="stylesheet" href="styles.css?v=20261114-3"><link rel="stylesheet" href="reference.css?v=20261114-3">
+<script src="data.js?v=20261114-2" defer></script><script src="core.js?v=20261114-2" defer></script><script src="app.js?v=20261114-3" defer></script>
 </head>
-<body>
+<body class="reference-design">
+<div class="scene-backdrop" aria-hidden="true"></div>
 <a class="skip" href="#search">انتقل إلى البحث</a>
 <header class="topbar wrap">
- <a class="brand" href="./" aria-label="الصفحة الرئيسية"><span class="brand-mark">◈</span><span><strong data-ar="جامعة قاصدي مرباح ورقلة" data-en="Kasdi Merbah University • Ouargla">جامعة قاصدي مرباح ورقلة</strong><small data-ar="كلية العلوم التطبيقية · قسم الهندسة الكهربائية" data-en="Applied Sciences · Electrical Engineering">كلية العلوم التطبيقية · قسم الهندسة الكهربائية</small></span></a>
- <div class="header-tools"><span class="academic">2026 / 2027</span><button id="language" class="language" aria-label="Switch to English">EN <span>→</span></button></div>
+ <a class="brand" href="./" aria-label="الصفحة الرئيسية"><img class="university-logo" src="assets/university-logo.png" alt="شعار جامعة قاصدي مرباح ورقلة" width="84" height="84"><span><strong data-ar="جامعة قاصدي مرباح ورقلة" data-en="Kasdi Merbah University • Ouargla">جامعة قاصدي مرباح ورقلة</strong><small data-ar="قسم الهندسة الكهربائية" data-en="Department of Electrical Engineering">قسم الهندسة الكهربائية</small></span></a>
+ <div class="header-tools"><div class="language-capsule"><span class="current-lang">AR</span><i></i><button id="language" class="language" aria-label="Switch to English">EN</button></div></div>
 </header>
 <main class="wrap">
 <section class="hero" aria-labelledby="hero-title">
- <div class="hero-copy">
-  <div class="eyebrow"><span></span><span data-ar="دليلك لاختبارات الأعمال الموجهة" data-en="Your tutorial assessment companion">دليلك لاختبارات الأعمال الموجهة</span></div>
-  <h1 id="hero-title" data-ar="قاعة اختبارك،&lt;br&gt;&lt;em&gt;في لحظة.&lt;/em&gt;" data-en="Your exam room.&lt;br&gt;&lt;em&gt;One search away.&lt;/em&gt;">قاعة اختبارك،<br><em>في لحظة.</em></h1>
-  <p data-ar="اسمك أو رقم تسجيلك يكفي. اعرف قاعتك، مقاييسك ومواعيدك، واستعد للاختبار بكل اطمئنان." data-en="Your name or registration number is all you need. Find your room, subjects and exam times, and arrive prepared.">اسمك أو رقم تسجيلك يكفي. اعرف قاعتك، مقاييسك ومواعيدك، واستعد للاختبار بكل اطمئنان.</p>
-  <div class="hero-pills"><span data-ar="✦ بحث فوري" data-en="✦ Instant search">✦ بحث فوري</span><span data-ar="◉ مساعد صوتي" data-en="◉ Voice assistant">◉ مساعد صوتي</span><span data-ar="▦ جدول شخصي" data-en="▦ Personal schedule">▦ جدول شخصي</span></div>
- </div>
- <div class="campus-art" aria-hidden="true">
-  <div class="art-grid"></div><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
-  <div class="floating-label"><i></i><span data-ar="وجهتك واضحة" data-en="Find your destination">وجهتك واضحة</span></div>
-  <svg class="campus" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
-   <defs><linearGradient id="ground" x2="0" y2="1"><stop stop-color="#e7f0e9"/><stop offset="1" stop-color="#c7ddd2"/></linearGradient><linearGradient id="front" x2="0" y2="1"><stop stop-color="#fffaf0"/><stop offset="1" stop-color="#dfdfca"/></linearGradient><linearGradient id="glass" x2="1" y2="1"><stop stop-color="#56b8a6"/><stop offset="1" stop-color="#00695f"/></linearGradient><filter id="shadow"><feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#005749" flood-opacity=".18"/></filter></defs>
-   <g filter="url(#shadow)"><path d="M45 242 284 104 563 265 323 403Z" fill="url(#ground)"/><path d="M45 242v14l278 160v-13Z" fill="#a4bdb0"/><path d="m323 403 240-138v14L323 416Z" fill="#8eafa0"/></g>
-   <path d="m120 270 54-31 117 67 107-62 42 24-149 86Z" fill="#f5faf4"/><path class="route" d="m166 280 125 72 132-76" fill="none" stroke="#00c7a6" stroke-width="8" stroke-linecap="round" stroke-dasharray="8 12"/>
-   <g filter="url(#shadow)"><path d="m88 187 117-68 128 74-117 68Z" fill="#fffdf2"/><path d="m88 187 128 74v82L88 269Z" fill="url(#front)"/><path d="m216 261 117-68v82l-117 68Z" fill="#c9d9ca"/><path d="m106 210 19 11v24l-19-11Zm34 20 19 11v24l-19-11Zm34 20 19 11v24l-19-11Z" fill="url(#glass)"/><path d="m106 251 19 11v24l-19-11Zm34 20 19 11v24l-19-11Zm34 20 19 11v24l-19-11Z" fill="url(#glass)"/><path d="m235 267 20-12v25l-20 12Zm33-19 20-12v25l-20 12Zm33-19 20-12v25l-20 12Z" fill="#459d89"/><path d="m235 302 20-12v25l-20 12Zm33-19 20-12v25l-20 12Zm33-19 20-12v25l-20 12Z" fill="#459d89"/></g>
-   <g filter="url(#shadow)"><path d="m317 180 92-53 113 65-92 54Z" fill="#fffdf2"/><path d="m317 180 113 66v91l-113-65Z" fill="url(#front)"/><path d="m430 246 92-54v91l-92 54Z" fill="#cadacb"/><path d="m333 207 17 10v22l-17-10Zm30 17 17 10v22l-17-10Zm30 18 17 10v22l-17-10Z" fill="url(#glass)"/><path d="m333 248 17 10v22l-17-10Zm30 17 17 10v22l-17-10Zm30 18 17 10v22l-17-10Z" fill="url(#glass)"/><path d="m449 252 17-10v23l-17 10Zm29-17 17-10v23l-17 10Zm-29 56 17-10v23l-17 10Zm29-17 17-10v23l-17 10Z" fill="#459d89"/></g>
-   <g fill="#3f9476"><ellipse cx="74" cy="285" rx="14" ry="25"/><ellipse cx="294" cy="211" rx="14" ry="25"/><ellipse cx="471" cy="333" rx="14" ry="25"/><ellipse cx="234" cy="359" rx="14" ry="25"/></g><g stroke="#8f9d7a" stroke-width="4"><path d="M74 304v16m220-90v16m177 104v16m-237 10v16"/></g>
-  </svg>
-  <div class="location-pin"><span>◉</span><b id="art-room">D</b></div>
-  <div class="art-note"><span class="pin-symbol">⌖</span><div><strong data-ar="اعرف قاعتك قبل الموعد" data-en="Know your room ahead of time">اعرف قاعتك قبل الموعد</strong><small data-ar="رسم توضيحي، وليس خريطة الحرم" data-en="Illustration, not a campus map">رسم توضيحي، وليس خريطة الحرم</small></div><span>→</span></div>
- </div>
+ <div class="hero-copy"><h1 id="hero-title" data-ar="اعرف قاعة اختبارك" data-en="Find your exam room">اعرف قاعة اختبارك</h1><p data-ar="اكتب اسمك للوصول إلى قاعتك بسهولة" data-en="Enter your name. Find your room with ease.">اكتب اسمك للوصول إلى قاعتك بسهولة</p></div>
+ <div class="floating-book" aria-hidden="true"><span>✦</span><svg viewBox="0 0 120 90"><defs><linearGradient id="book" x2="1" y2="1"><stop stop-color="#128c7b"/><stop offset="1" stop-color="#004f48"/></linearGradient></defs><path d="m12 47 66-26 32 18-65 29z" fill="#dfbf76"/><path d="m12 47 33 21v12L12 59z" fill="#e4d8a6"/><path d="m45 68 65-29v12L45 80Z" fill="#fff6d9"/><path d="m12 39 66-26 32 18-65 29z" fill="url(#book)"/><path d="m12 39 33 21v10L12 49z" fill="#00675d"/><path d="m12 28 66-26 32 18-65 29z" fill="url(#book)"/><path d="m12 28 33 21v10L12 38z" fill="#e3c879"/><path d="m45 49 65-29v10L45 59Z" fill="#ffefc5"/><path d="m45 49 65-29" stroke="#dbb551" stroke-width="3"/></svg></div>
+ <div class="floating-compass" aria-hidden="true">⌖</div>
 </section>
 <section class="search-panel" aria-label="البحث عن الطالب">
- <div class="search-heading"><div><span class="section-kicker" data-ar="ابدأ من هنا" data-en="START HERE">ابدأ من هنا</span><h2 data-ar="ابحث عن اسمك" data-en="Find your name">ابحث عن اسمك</h2></div><span class="secure-note" data-ar="المواعيد بتوقيت الجزائر" data-en="All times: Algeria (UTC+1)">المواعيد بتوقيت الجزائر</span></div>
+ <h2 class="sr-only" data-ar="ابحث عن اسمك" data-en="Find your name">ابحث عن اسمك</h2>
  <form id="search-form" autocomplete="off">
   <div class="search-line"><div class="input-area"><label for="search" class="sr-only" data-ar="الاسم أو رقم التسجيل" data-en="Name or registration number">الاسم أو رقم التسجيل</label><span class="search-symbol">⌕</span><input id="search" type="search" role="combobox" aria-autocomplete="list" aria-controls="suggestions" aria-expanded="false" placeholder="اكتب الاسم، اللقب أو رقم التسجيل…" data-placeholder-ar="اكتب الاسم، اللقب أو رقم التسجيل…" data-placeholder-en="Enter your name or registration number…" spellcheck="false" enterkeyhint="search"><button type="button" id="voice" class="voice-btn" aria-label="البحث بالصوت" title="البحث بالصوت"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3m-4 0h8"/></svg></button></div><button class="primary" type="submit" data-ar="اعثر على قاعتي" data-en="Find my room">اعثر على قاعتي</button></div>
   <div class="search-options"><span data-ar="بالعربية أو بالحروف اللاتينية · تظهر الاقتراحات أثناء الكتابة" data-en="Arabic or Latin letters · Suggestions as you type">بالعربية أو بالحروف اللاتينية · تظهر الاقتراحات أثناء الكتابة</span><label><span data-ar="المستوى" data-en="Level">المستوى</span><select id="search-level" aria-label="تصفية المستوى"></select></label></div>
@@ -47,10 +31,22 @@
  </form>
  <p id="status" role="status" aria-live="polite"></p>
 </section>
-<section id="student-result" class="student-result" hidden aria-labelledby="student-name">
- <div class="identity"><span class="section-kicker" data-ar="✓ تم العثور على الطالب" data-en="✓ STUDENT FOUND">✓ تم العثور على الطالب</span><h2 id="student-name"></h2><p id="student-latin" dir="ltr"></p><div id="student-facts" class="facts"></div><div class="result-actions"><button id="speak" class="secondary" data-ar="استمع لجدولي" data-en="Read my schedule">استمع لجدولي</button><button id="ask" class="secondary" data-ar="اسأل بالصوت" data-en="Ask by voice">اسأل بالصوت</button></div></div>
- <div class="room-card"><span data-ar="وجهتك في جميع الاختبارات" data-en="YOUR ROOM FOR ALL TESTS">وجهتك في جميع الاختبارات</span><strong id="room-label"></strong><p id="room-meta"></p><small data-ar="راجع رقم القاعة على بابها عند الوصول" data-en="Check the room number on the door when you arrive">راجع رقم القاعة على بابها عند الوصول</small></div>
+<section class="lookup-stage" aria-label="بطاقة الطالب والقاعة">
+ <div class="welcome-card glass-card">
+  <div class="card-top"><span class="result-badge" data-ar="قاعة اختبارك في متناولك" data-en="YOUR ROOM IS ONE SEARCH AWAY">قاعة اختبارك في متناولك</span><span class="mini-seal">✓</span></div>
+  <h2 data-ar="مرحبًا بك في دليل الاختبارات" data-en="Welcome to your exam guide">مرحبًا بك في دليل الاختبارات</h2>
+  <p data-ar="ابدأ بكتابة اسمك أو رقم تسجيلك، ثم اختر سجلك لتظهر معلوماتك هنا." data-en="Type your name or registration number, then select your record to see your details here.">ابدأ بكتابة اسمك أو رقم تسجيلك، ثم اختر سجلك لتظهر معلوماتك هنا.</p>
+  <div class="welcome-fields"><span data-ar="الاسم واللقب" data-en="Full name">الاسم واللقب</span><b>—</b><span data-ar="الفوج والمستوى" data-en="Group and level">الفوج والمستوى</span><b>—</b><span data-ar="التخصص" data-en="Specialty">التخصص</span><b>—</b></div>
+  <div class="welcome-destination"><span data-ar="قاعتك تظهر هنا" data-en="Your room will appear here">قاعتك تظهر هنا</span><strong>⌖</strong><small data-ar="بيانات فعلية من قوائم القسم" data-en="Based on the department rosters">بيانات فعلية من قوائم القسم</small></div>
+ </div>
+ <section id="student-result" class="student-result glass-card" hidden aria-labelledby="student-name">
+  <div class="identity"><div class="card-top"><span class="result-badge" data-ar="تم العثور على الطالب" data-en="STUDENT FOUND">تم العثور على الطالب</span><span class="mini-seal">✓</span></div><h2 id="student-name" class="sr-only"></h2><p id="student-latin" dir="ltr"></p><div id="student-facts" class="facts"></div></div>
+  <div class="room-card"><span data-ar="وجهتك في جميع الاختبارات" data-en="YOUR ROOM FOR ALL TESTS">وجهتك في جميع الاختبارات</span><strong id="room-label"></strong><p id="room-meta"></p><small data-ar="راجع رقم القاعة على بابها عند الوصول" data-en="Check the room number on the door when you arrive">راجع رقم القاعة على بابها عند الوصول</small></div>
+  <div class="result-actions"><button id="highlight-room" class="primary" data-ar="إبراز قاعتي في الواجهة" data-en="Highlight my room">إبراز قاعتي في الواجهة</button><button id="speak" class="secondary" data-ar="استمع لجدولي" data-en="Read my schedule">استمع لجدولي</button><button id="ask" class="secondary" data-ar="اسأل بالصوت" data-en="Ask by voice">اسأل بالصوت</button></div>
+ </section>
+ <div class="campus-art" aria-hidden="true"><div class="destination-beam"></div><svg class="campus-route" viewBox="0 0 600 520"><defs><filter id="route-glow"><feGaussianBlur stdDeviation="5"/></filter></defs><path class="route-halo" d="M340 464 347 400 270 355 180 306 215 270 141 220 145 134"/><path class="route-line" d="M340 464 347 400 270 355 180 306 215 270 141 220 145 134"/><path class="route-dashes" d="M340 464 347 400 270 355 180 306 215 270 141 220 145 134"/></svg><div class="location-pin"><b id="art-room">⌖</b></div><div class="destination-ring"></div><div class="art-note"><span class="pin-symbol">⌖</span><div><strong data-ar="قاعتك واضحة، وموعدك حاضر" data-en="Your room and times, clearly displayed">قاعتك واضحة، وموعدك حاضر</strong><small data-ar="تصوّر بصري فقط، وليس خريطة أو مسارًا جغرافيًا" data-en="Visual illustration only, not a geographic map or route">تصوّر بصري فقط، وليس خريطة أو مسارًا جغرافيًا</small></div></div></div>
 </section>
+<div class="good-luck"><i></i><span data-ar="بالتوفيق في اختباراتكم" data-en="Wishing you success in your exams">بالتوفيق في اختباراتكم</span><b>✦</b><i></i></div>
 <section class="schedule-section" aria-labelledby="schedule-heading">
  <div class="schedule-top"><div><span class="section-kicker" data-ar="كل موعد في مكانه" data-en="EVERY TEST, AT A GLANCE">كل موعد في مكانه</span><h2 id="schedule-heading" data-ar="التوزيع الزمني للاختبارات" data-en="Your assessment schedule">التوزيع الزمني للاختبارات</h2><p id="schedule-subtitle"></p></div><label class="browse-label"><span data-ar="تصفح المستوى والتخصص" data-en="Browse level and specialty">تصفح المستوى والتخصص</span><select id="browse-course"></select></label></div>
  <div id="next-exam" class="next-exam" aria-live="polite"></div>
