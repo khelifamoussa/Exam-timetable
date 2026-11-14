@@ -1,0 +1,210 @@
+{
+  "totalStudents": 633,
+  "capacityPerSession": 255,
+  "allStudentsAssigned": true,
+  "capacityViolations": 0,
+  "mixedLevelRooms": 0,
+  "examAssignments": 2736,
+  "sources": [
+    "G1(3).xlsx",
+    "G1(4).xlsx",
+    "G2(3).xlsx",
+    "G2(4).xlsx",
+    "G3(3).xlsx",
+    "G3(4).xlsx",
+    "G4(3).xlsx",
+    "G4(4).xlsx",
+    "G5(3).xlsx",
+    "G5(4).xlsx",
+    "G6(2).xlsx",
+    "ING-2(2).xlsx",
+    "M1-Elt(3).xlsx",
+    "M1-Mach(3).xlsx",
+    "M1-Res(3).xlsx",
+    "M2-Elt(3).xlsx",
+    "M2-Mach(3).xlsx",
+    "M2-Res(3).xlsx"
+  ],
+  "schedule": "In_Class_Test_Schedule_2026_2027 (2)(1).pdf",
+  "groups": [
+    {
+      "course": "ING2",
+      "group": 1,
+      "count": 28,
+      "rooms": {
+        "113": 14,
+        "114": 14
+      }
+    },
+    {
+      "course": "L2",
+      "group": 1,
+      "count": 39,
+      "rooms": {
+        "D": 39
+      }
+    },
+    {
+      "course": "L2",
+      "group": 2,
+      "count": 38,
+      "rooms": {
+        "D": 38
+      }
+    },
+    {
+      "course": "L2",
+      "group": 3,
+      "count": 38,
+      "rooms": {
+        "210": 38
+      }
+    },
+    {
+      "course": "L2",
+      "group": 4,
+      "count": 36,
+      "rooms": {
+        "109": 18,
+        "110": 18
+      }
+    },
+    {
+      "course": "L2",
+      "group": 5,
+      "count": 36,
+      "rooms": {
+        "111": 18,
+        "112": 18
+      }
+    },
+    {
+      "course": "L2",
+      "group": 6,
+      "count": 37,
+      "rooms": {
+        "113": 19,
+        "114": 18
+      }
+    },
+    {
+      "course": "L3",
+      "group": 1,
+      "count": 40,
+      "rooms": {
+        "D": 40
+      }
+    },
+    {
+      "course": "L3",
+      "group": 2,
+      "count": 35,
+      "rooms": {
+        "D": 35
+      }
+    },
+    {
+      "course": "L3",
+      "group": 3,
+      "count": 34,
+      "rooms": {
+        "210": 34
+      }
+    },
+    {
+      "course": "L3",
+      "group": 4,
+      "count": 38,
+      "rooms": {
+        "109": 19,
+        "110": 19
+      }
+    },
+    {
+      "course": "L3",
+      "group": 5,
+      "count": 38,
+      "rooms": {
+        "111": 19,
+        "112": 19
+      }
+    },
+    {
+      "course": "M1-ELT",
+      "group": 1,
+      "count": 42,
+      "rooms": {
+        "D": 42
+      }
+    },
+    {
+      "course": "M1-MACH",
+      "group": 1,
+      "count": 32,
+      "rooms": {
+        "109": 16,
+        "110": 16
+      }
+    },
+    {
+      "course": "M1-RES",
+      "group": 1,
+      "count": 43,
+      "rooms": {
+        "D": 43
+      }
+    },
+    {
+      "course": "M2-ELT",
+      "group": 1,
+      "count": 38,
+      "rooms": {
+        "111": 19,
+        "112": 19
+      }
+    },
+    {
+      "course": "M2-MACH",
+      "group": 1,
+      "count": 20,
+      "rooms": {
+        "210": 20
+      }
+    },
+    {
+      "course": "M2-RES",
+      "group": 1,
+      "count": 21,
+      "rooms": {
+        "210": 21
+      }
+    }
+  ],
+  "registrationLengthWarnings": [
+    {
+      "course": "L3",
+      "name": "دبابي ضياء الدين",
+      "digits": 11
+    },
+    {
+      "course": "L3",
+      "name": "بروبة ناصر",
+      "digits": 11
+    },
+    {
+      "course": "L3",
+      "name": "GUENDOUZ LARBI",
+      "digits": 11
+    },
+    {
+      "course": "M1-RES",
+      "name": "بلقاسم علي",
+      "digits": 10
+    }
+  ],
+  "notes": [
+    "Registration identifiers retained exactly for lookup; no assumed corrections.",
+    "No grades, absences or raw registration numbers in the public dataset.",
+    "Room numbers are destinations, not geographic routing; no floor or building inferred."
+  ]
+}
