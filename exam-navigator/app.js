@@ -95,7 +95,7 @@
   if(/(الثاني|second)/.test(q)&&chosen.length>1)chosen=[chosen[1]];
   else if(/(الاول|first)/.test(q)&&chosen.length>1)chosen=[chosen[0]];
   const introduction=t(`مرحبًا ${selected.first}. مكان اختباراتك هو ${roomText(selected.room)}. `,`Hello ${selected.firstLatin}. Your tests take place in ${roomText(selected.room)}. `);
-  return introduction+(!future.length?t('انتهت الاختبارات المبرمجة. هذا ملخص اليوم الأول. ','All scheduled tests have ended. Here is the first day for reference. '):'')+chosen.map((e,i)=>(i?t('بعد استراحة عشر دقائق، ','After a ten minute break, '):formatDate(e.date)+'. ')+t(`اختبار ${e.ar} من الساعة ${e.start} حتى ${e.end}. `,`${e.en}, from ${e.start} until ${e.end}. `)).join('');
+  return introduction+(!future.length?t('انتهت الاختبارات المبرمجة. هذه معلومات من الجدول للرجوع إليها. ','All scheduled tests have ended. Here is the schedule for reference. '):'')+chosen.map((e,i)=>(i?t('بعد استراحة عشر دقائق، ','After a ten minute break, '):formatDate(e.date)+'. ')+t(`اختبار ${e.ar} من الساعة ${e.start} حتى ${e.end}. `,`${e.en}, from ${e.start} until ${e.end}. `)).join('');
  }
  function speakAnswer(query=''){
   const text=speechText(typeof query==='string'?query:'');status(text,text);
@@ -156,7 +156,7 @@
   initializeOptions();$('search-level').value=oldFilter;if(selected){renderStudent();search.value=fullName(selected);}hideSuggestions();renderSchedule();status('','');
   if(reminders)$('reminder').textContent=t('✓ التنبيه مفعّل — اضغط لإيقافه','✓ Reminders on — click to turn off');
  }
- search.addEventListener('input',()=>{updateSearch().catch(()=>status('تعذر إكمال البحث. جرّب البحث بالاسم.','Could not complete this search. Try searching by name.'));});
+ search.addEventListener('input',()=>{if(selected){selected=null;reminders=false;$('student-result').hidden=true;$('art-room').textContent='D';$('reminder').textContent=t('تنبيه قبل 10 دقائق','Remind me 10 minutes before');renderSchedule();}updateSearch().catch(()=>status('تعذر إكمال البحث. جرّب البحث بالاسم.','Could not complete this search. Try searching by name.'));});
  $('search-level').addEventListener('change',updateSearch);
  $('search-form').addEventListener('submit',async event=>{event.preventDefault();await updateSearch();if(suggestions.length===1)selectStudent(suggestions[0]);else if(suggestions.length){activeIndex=0;setActiveSuggestion();status('اختر اسمك من النتائج أدناه.','Choose your name from the matches below.');}});
  $('suggestions').addEventListener('click',event=>{const li=event.target.closest('[data-index]');if(li)selectStudent(suggestions[+li.dataset.index]);});
