@@ -60,6 +60,7 @@
   const roommates=D.students.filter(s=>s.room===selected.room&&label(s.course)[4]===label(selected.course)[4]);
   $('room-meta').textContent=t(`${roommates.length} طالبًا موزعين على هذه القاعة · السعة ${D.capacities[selected.room]}`,`${roommates.length} students assigned · Capacity ${D.capacities[selected.room]}`);
   $('art-room').textContent=selected.room;
+  window.ExamWayfinding.render(selected.room,lang);
  }
  function renderSchedule(all=false){
   $('schedule-subtitle').textContent=courseLabel(course)+(selected?t(' · جدولك الشخصي',' · Your personal schedule'):t(' · اختر اسمك لإظهار القاعة',' · Select your name to see your room'));
@@ -158,16 +159,17 @@
   initializeOptions();$('search-level').value=oldFilter;if(selected){renderStudent();search.value=fullName(selected);}hideSuggestions();renderSchedule();status('','');
   if(reminders)$('reminder').textContent=t('✓ التنبيه مفعّل — اضغط لإيقافه','✓ Reminders on — click to turn off');
  }
- search.addEventListener('input',()=>{if(selected){selected=null;reminders=false;$('student-result').hidden=true;$('art-room').textContent='D';$('reminder').textContent=t('تنبيه قبل 10 دقائق','Remind me 10 minutes before');renderSchedule();}updateSearch().catch(()=>status('تعذر إكمال البحث. جرّب البحث بالاسم.','Could not complete this search. Try searching by name.'));});
+ search.addEventListener('input',()=>{if(selected){selected=null;window.ExamWayfinding.clear();reminders=false;$('student-result').hidden=true;$('art-room').textContent='D';$('reminder').textContent=t('تنبيه قبل 10 دقائق','Remind me 10 minutes before');renderSchedule();}updateSearch().catch(()=>status('تعذر إكمال البحث. جرّب البحث بالاسم.','Could not complete this search. Try searching by name.'));});
  $('search-level').addEventListener('change',updateSearch);
  $('search-form').addEventListener('submit',async event=>{event.preventDefault();await updateSearch();if(suggestions.length===1)selectStudent(suggestions[0]);else if(suggestions.length){activeIndex=0;setActiveSuggestion();status('اختر اسمك من النتائج أدناه.','Choose your name from the matches below.');}});
  $('suggestions').addEventListener('click',event=>{const li=event.target.closest('[data-index]');if(li)selectStudent(suggestions[+li.dataset.index]);});
  function setActiveSuggestion(){document.querySelectorAll('#suggestions li').forEach((li,i)=>li.setAttribute('aria-selected',String(i===activeIndex)));const li=$('suggestion-'+activeIndex);if(li){search.setAttribute('aria-activedescendant',li.id);li.scrollIntoView({block:'nearest'});}}
  search.addEventListener('keydown',event=>{if(event.key==='Escape'){hideSuggestions();return;}if($('suggestion-wrap').hidden||!suggestions.length)return;if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();activeIndex=(activeIndex+(event.key==='ArrowDown'?1:-1)+suggestions.length)%suggestions.length;setActiveSuggestion();}else if(event.key==='Enter'&&activeIndex>=0){event.preventDefault();selectStudent(suggestions[activeIndex]);}});
  $('date-tabs').addEventListener('click',event=>{const button=event.target.closest('[data-date]');if(button){activeDate=button.dataset.date;renderSchedule();}});
- $('browse-course').addEventListener('change',()=>{course=$('browse-course').value;if(selected?.course!==course){selected=null;$('student-result').hidden=true;search.value='';$('art-room').textContent='D';reminders=false;$('reminder').textContent=t('تنبيه قبل 10 دقائق','Remind me 10 minutes before');}activeDate='';hideSuggestions();renderSchedule();status('','');});
- $('highlight-room').onclick=()=>{const el=document.querySelector('.campus-art');el.classList.remove('spotlight');void el.offsetWidth;el.classList.add('spotlight');toast('القاعة المخصّصة لك: '+roomText(selected.room)+' — الرسم توضيحي وليس مسارًا جغرافيًا.','Your assigned destination: '+roomText(selected.room)+' — this illustration is not a geographic route.');};$('language').onclick=setLanguage;$('voice').onclick=()=>startVoice('search');$('ask').onclick=()=>startVoice('ask');$('speak').onclick=speakAnswer;$('calendar').onclick=downloadCalendar;$('reminder').onclick=enableReminders;$('print').onclick=()=>window.print();
+ $('browse-course').addEventListener('change',()=>{course=$('browse-course').value;if(selected?.course!==course){selected=null;window.ExamWayfinding.clear();$('student-result').hidden=true;search.value='';$('art-room').textContent='D';reminders=false;$('reminder').textContent=t('تنبيه قبل 10 دقائق','Remind me 10 minutes before');}activeDate='';hideSuggestions();renderSchedule();status('','');});
+ $('highlight-room').onclick=()=>{if(selected)window.ExamWayfinding.render(selected.room,lang,true);};$('language').onclick=setLanguage;$('voice').onclick=()=>startVoice('search');$('ask').onclick=()=>startVoice('ask');$('speak').onclick=speakAnswer;$('calendar').onclick=downloadCalendar;$('reminder').onclick=enableReminders;$('print').onclick=()=>window.print();
  window.addEventListener('beforeprint',()=>renderSchedule(true));window.addEventListener('afterprint',()=>renderSchedule());
  document.addEventListener('visibilitychange',()=>{if(!document.hidden){renderNext();checkReminders();}});
  initializeOptions();renderSchedule();setupVoice();setInterval(()=>{renderNext();checkReminders();},15000);
 })();
+
