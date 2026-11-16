@@ -6,10 +6,16 @@
 <meta name="description" content="ابحث عن قاعة اختبارات الأعمال الموجهة وجدولك الشخصي — قسم الهندسة الكهربائية، جامعة قاصدي مرباح ورقلة.">
 <title>دليل قاعات الاختبارات | جامعة ورقلة</title>
 <link rel="icon" href="icon.svg" type="image/svg+xml">
-<link rel="preload" as="image" href="assets/campus.webp"><link rel="stylesheet" href="styles.css?v=20261114-3"><link rel="stylesheet" href="reference.css?v=20261114-3">
+<link rel="preload" as="image" href="assets/wayfinding.webp"><link rel="stylesheet" href="styles.css?v=20261114-3"><link rel="stylesheet" href="reference.css?v=20261114-3">
 <script src="data.js?v=20261114-2" defer></script><script src="core.js?v=20261114-2" defer></script>
 <link rel="stylesheet" href="wayfinding.css?v=20261116-1"><script src="wayfinding.js?v=20261116-1" defer></script>
 <script src="app.js?v=20261116-map1" defer></script>
+<style>
+/* Keep the interactive faculty map as the only visible wayfinding illustration. */
+.reference-design .scene-backdrop,.reference-design .campus-art{display:none!important}
+.reference-design .lookup-stage,html[dir=ltr] .reference-design .lookup-stage{grid-template-columns:minmax(0,1fr);grid-template-areas:"card";min-height:0;margin-bottom:24px}
+.reference-design .lookup-stage .glass-card{width:min(100%,720px);justify-self:center;margin-inline:auto}
+</style>
 </head>
 <body class="reference-design">
 <div class="scene-backdrop" aria-hidden="true"></div>
@@ -44,7 +50,7 @@
  <section id="student-result" class="student-result glass-card" hidden aria-labelledby="student-name">
   <div class="identity"><div class="card-top"><span class="result-badge" data-ar="تم العثور على الطالب" data-en="STUDENT FOUND">تم العثور على الطالب</span><span class="mini-seal">✓</span></div><h2 id="student-name" class="sr-only"></h2><p id="student-latin" dir="ltr"></p><div id="student-facts" class="facts"></div></div>
   <div class="room-card"><span data-ar="وجهتك في جميع الاختبارات" data-en="YOUR ROOM FOR ALL TESTS">وجهتك في جميع الاختبارات</span><strong id="room-label"></strong><p id="room-meta"></p><small data-ar="راجع رقم القاعة على بابها عند الوصول" data-en="Check the room number on the door when you arrive">راجع رقم القاعة على بابها عند الوصول</small></div>
-  <div class="result-actions"><button id="highlight-room" class="primary" data-ar="إبراز قاعتي في الواجهة" data-en="Highlight my room">إبراز قاعتي في الواجهة</button><button id="speak" class="secondary" data-ar="استمع لجدولي" data-en="Read my schedule">استمع لجدولي</button><button id="ask" class="secondary" data-ar="اسأل بالصوت" data-en="Ask by voice">اسأل بالصوت</button></div>
+  <div class="result-actions"><button id="highlight-room" class="primary" data-ar="عرض مسار الوصول إلى قاعتي" data-en="Show route to my room">عرض مسار الوصول إلى قاعتي</button><button id="speak" class="secondary" data-ar="استمع لجدولي" data-en="Read my schedule">استمع لجدولي</button><button id="ask" class="secondary" data-ar="اسأل بالصوت" data-en="Ask by voice">اسأل بالصوت</button></div>
  </section>
  <div class="campus-art" aria-hidden="true"><div class="destination-beam"></div><svg class="campus-route" viewBox="0 0 600 520"><defs><filter id="route-glow"><feGaussianBlur stdDeviation="5"/></filter></defs><path class="route-halo" d="M340 464 347 400 270 355 180 306 215 270 141 220 145 134"/><path class="route-line" d="M340 464 347 400 270 355 180 306 215 270 141 220 145 134"/><path class="route-dashes" d="M340 464 347 400 270 355 180 306 215 270 141 220 145 134"/></svg><div class="location-pin"><b id="art-room">⌖</b></div><div class="destination-ring"></div><div class="art-note"><span class="pin-symbol">⌖</span><div><strong data-ar="قاعتك واضحة، وموعدك حاضر" data-en="Your room and times, clearly displayed">قاعتك واضحة، وموعدك حاضر</strong><small data-ar="تصوّر بصري فقط، وليس خريطة أو مسارًا جغرافيًا" data-en="Visual illustration only, not a geographic map or route">تصوّر بصري فقط، وليس خريطة أو مسارًا جغرافيًا</small></div></div></div>
 </section>
