@@ -1,0 +1,1 @@
+{"name":"ukmo-navigation-3d","version":"1.0.0","private":true,"type":"module","scripts":{"build":"esbuild route3d.js --bundle --minify --format=esm --target=es2020 --outfile=../../exam-navigator/route3d.bundle.js"},"dependencies":{"three":"0.180.0"},"devDependencies":{"esbuild":"0.25.10"}}

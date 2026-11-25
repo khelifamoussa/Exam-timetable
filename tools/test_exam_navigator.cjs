@@ -13,6 +13,6 @@ assert.equal(C.dayState(e,new Date('2026-11-15T15:40:00Z')),'ongoing');
 assert.equal(C.nextExam(D.exams.L2,new Date('2026-11-15T16:15:00Z')).start,'17:20');
 assert.equal(C.nextExam(D.exams['M2-MACH'],new Date('2026-12-01T00:00:00Z')),null);
 assert.equal(D.exams['M2-MACH'].filter(x=>x.date==='2026-11-30').length,1);
-assert.equal(D.exams.L2.filter(x=>x.date==='2026-11-29').length,1);
+assert.equal(D.exams.L2.filter(x=>x.date==='2026-11-29').length,0);assert.equal(D.exams.L2.filter(x=>x.date==='2026-12-01'&&x.start==='16:30').length,1);
 const ics=C.calendar(D.exams.L2,'D','L2');assert(ics.includes('DTSTART:20261115T153000Z'));assert.equal((ics.match(/BEGIN:VEVENT/g)||[]).length,5);assert(ics.includes('TRIGGER:-PT10M'));for(const line of ics.split('\r\n'))assert(Buffer.byteLength(line)<=75);
 console.log('PASS: 633 student lookups, all session capacities and level separation, date boundaries, single-test days, calendar times and UTF-8 folding.');

@@ -3,7 +3,9 @@
  'use strict';
  const D=window.EXAM_DATA,C=window.ExamCore,$=id=>document.getElementById(id);
  let lang='ar',selected=null,course='L2',activeDate='',suggestions=[],activeIndex=-1,searchSeq=0,reminders=false,toastTimer,recognition,voiceMode='search';
- const reminded=new Set(),search=$('search');
+ const reminded=new Set(),search=$('search'),searchIndex=C.createSearchIndex(D.students);let composing=false,searchTimer;const floorText=r=>r==='D'?t('الطابق الأرضي','Ground floor'):r==='210'?t('الطابق الثاني','Second floor'):t('الطابق الأول','First floor');
+ function marked(value){const ranges=C.highlightRanges(value,search.value);let last=0,out='';for(const [a,b] of ranges){out+=esc(value.slice(last,a))+'<mark>'+esc(value.slice(a,b))+'</mark>';last=b;}return out+esc(value.slice(last));}
+
  const t=(ar,en)=>lang==='ar'?ar:en;
  const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const label=c=>D.labels[c],courseLabel=c=>`${label(c)[lang==='ar'?0:1]} · ${label(c)[lang==='ar'?2:3]}`;
@@ -22,7 +24,7 @@
  function renderSuggestions(total){
   $('suggestion-wrap').hidden=false; search.setAttribute('aria-expanded','true');activeIndex=-1;search.removeAttribute('aria-activedescendant');
   $('search-count').textContent=total?t(`${total} نتيجة${total>12?' — اكتب مزيدًا من الاسم لتضييق البحث':''}`,`${total} matches${total>12?' — type more to narrow your search':''}`):t('لم يُعثر على نتيجة. جرّب الاسم أو اللقب أو رقم التسجيل الكامل.','No match. Try your first name, surname or complete registration number.');
-  $('suggestions').innerHTML=suggestions.map((s,i)=>`<li id="suggestion-${i}" role="option" aria-selected="false" data-index="${i}"><div><strong>${esc(fullName(s))}</strong><small>${esc(courseLabel(s.course))} · ${t('الفوج','Group')} ${s.group}</small></div><span class="suggestion-room">${esc(roomText(s.room))}</span></li>`).join('');
+  $('suggestions').innerHTML=suggestions.map((s,i)=>`<li id="suggestion-${i}" role="option" aria-selected="false" data-index="${i}"><div><strong>${marked(fullName(s))}</strong><small dir="${lang==='ar'?'ltr':'rtl'}">${marked(lang==='ar'?s.firstLatin+' '+s.lastLatin:s.last+' '+s.first)}</small><small>${esc(courseLabel(s.course))} · ${t('الفوج','Group')} ${s.group}</small></div><span class="suggestion-room">${esc(roomText(s.room))}</span></li>`).join('');
  }
  async function updateSearch(){
   const seq=++searchSeq,normalized=C.normalize(search.value),q=/^[\d\s]+$/.test(normalized)?normalized.replace(/\s/g,''):normalized,filter=$('search-level').value;
@@ -34,10 +36,9 @@
    const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(D.salt+q));
    if(seq!==searchSeq)return;
    const hash=[...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,'0')).join('');
-   suggestions=pool.filter(s=>s.id===hash);renderSuggestions(suggestions.length);
+   suggestions=pool.filter(s=>s.id===hash);if(suggestions.length===1){selectStudent(suggestions[0]);window.ExamWayfinding.focus();return;}renderSuggestions(suggestions.length);
   }else{
-   const rows=pool.map(s=>({s,score:C.scoreStudent(s,q)})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score||fullName(a.s).localeCompare(fullName(b.s),lang));
-   suggestions=rows.slice(0,12).map(x=>x.s);renderSuggestions(rows.length);
+   const found=C.indexedSearch(searchIndex,q,filter,12);suggestions=found.students;renderSuggestions(found.total);
   }
   status('اختر سجلك وتحقق من المستوى والتخصص.','Select your record and check your level and specialty.');
  }
@@ -56,7 +57,8 @@
   const fields=[[t('الاسم','First name'),lang==='ar'?selected.first:selected.firstLatin,'user'],[t('اللقب','Surname'),lang==='ar'?selected.last:selected.lastLatin,'card'],[t('الفوج','Group'),String(selected.group).padStart(2,'0'),'group'],[t('المستوى','Level'),label(selected.course)[lang==='ar'?0:1],'cap'],[t('التخصص','Specialty'),label(selected.course)[lang==='ar'?2:3],'gear']];
   const icons={user:'<circle cx="12" cy="7" r="4"/><path d="M4 22v-3a8 8 0 0 1 16 0v3"/>',card:'<rect x="2" y="4" width="20" height="16" rx="3"/><circle cx="8" cy="10" r="2"/><path d="M4 16q4-5 8 0m3-7h4m-4 5h4"/>',group:'<circle cx="12" cy="7" r="3"/><path d="M6 21v-2a6 6 0 0 1 12 0v2M3 10a3 3 0 0 0 0 6m18-6a3 3 0 0 1 0 6M2 22v-3m20 3v-3"/>',cap:'<path d="m1 8 11-5 11 5-11 5ZM5 11v6q7 6 14 0v-6m4-3v10"/>',gear:'<circle cx="12" cy="12" r="4"/><path d="m9 2-1 3-3 1-3 3 2 3-1 3 3 3 3-1 3 2 3-2 3 1 3-3-1-3 2-3-3-3-3-1-1-3Z"/>'};
   $('student-facts').innerHTML=fields.map(([name,value,icon])=>`<div class="fact-row"><span class="fact-icon"><svg viewBox="0 0 24 24" aria-hidden="true">${icons[icon]}</svg></span><span class="fact-label">${esc(name)}:</span><strong>${esc(value)}</strong></div>`).join('');
-  $('room-label').textContent=roomText(selected.room);
+  $('room-label').textContent=roomText(selected.room);$('room-floor').textContent=floorText(selected.room);$('student-change').hidden=!D.exams[selected.course].some(e=>e.rescheduled);
+
   const roommates=D.students.filter(s=>s.room===selected.room&&label(s.course)[4]===label(selected.course)[4]);
   $('room-meta').textContent=t(`${roommates.length} طالبًا موزعين على هذه القاعة · السعة ${D.capacities[selected.room]}`,`${roommates.length} students assigned · Capacity ${D.capacities[selected.room]}`);
   $('art-room').textContent=selected.room;
@@ -69,7 +71,7 @@
   const room=selected?.course===course?selected.room:null;
   $('timeline').innerHTML=(all?dates:[activeDate]).map(date=>{
    const rows=exams().filter(e=>e.date===date);
-   return (all?`<h3 class="print-date">${esc(formatDate(date))}</h3>`:'')+rows.map((e,i)=>`${i?`<div class="break-row">${t('استراحة 10 دقائق · 17:10 – 17:20 · البقاء في المقاعد','10-minute break · 17:10–17:20 · Remain in your seat')}</div>`:''}<article class="exam-row"><div class="exam-time">${e.start} – ${e.end}<small>${t('40 دقيقة','40 minutes')}</small></div><div class="exam-info"><span class="exam-tag">${i===0?t('الاختبار الأول','FIRST TEST'):t('الاختبار الثاني','SECOND TEST')}</span><h3>${esc(e[lang==='ar'?'ar':'en'])}</h3>${lang==='ar'?`<p lang="en" dir="ltr">${esc(e.en)}</p>`:''}</div><div class="exam-location"><small>${t('مكان الاختبار','LOCATION')}</small>${room?esc(roomText(room)):t('ابحث عن اسمك','Find your name')}</div></article>`).join('');
+   return (all?`<h3 class="print-date">${esc(formatDate(date))}</h3>`:'')+rows.map((e,i)=>`${i&&rows[i-1].end==='17:10'&&e.start==='17:20'?`<div class="break-row">${t('استراحة 10 دقائق · 17:10 – 17:20 · البقاء في المقاعد','10-minute break · 17:10–17:20 · Remain in your seat')}</div>`:''}<article class="exam-row"><div class="exam-time">${e.start} – ${e.end}<small>${t('40 دقيقة','40 minutes')}</small></div><div class="exam-info"><span class="exam-tag">${e.start==='16:30'?t('الاختبار الأول','FIRST TEST'):t('الاختبار الثاني','SECOND TEST')}</span><h3>${esc(e[lang==='ar'?'ar':'en'])}</h3>${e.rescheduled?`<p class="rescheduled-tag">${t('موعد جديد — نُقل من الأحد 29 نوفمبر','New date — moved from Sunday 29 November')}</p>`:''}${lang==='ar'?`<p lang="en" dir="ltr">${esc(e.en)}</p>`:''}</div><div class="exam-location"><small>${t('مكان الاختبار','LOCATION')}</small>${room?esc(roomText(room)):t('ابحث عن اسمك','Find your name')}</div></article>`).join('');
   }).join('');
   renderNext();
  }
@@ -79,7 +81,7 @@
   const ms=C.examDate(e)-now,ongoing=ms<=0;
   const mins=Math.ceil(Math.max(0,ms)/60000),days=Math.floor(mins/1440),hours=Math.floor((mins%1440)/60),minutes=mins%60;
   const countdown=ongoing?t('جارٍ الآن','In progress'):days?t(`${days} يوم · ${hours} س`,`${days}d · ${hours}h`):hours?t(`${hours} س · ${minutes} د`,`${hours}h · ${minutes}m`):t(`${minutes} دقيقة`,`${minutes} min`);
-  box.innerHTML=`<div><strong>${ongoing?t('الاختبار الجاري: ','Current test: '):t('اختبارك القادم: ','Next test: ')}${esc(e[lang==='ar'?'ar':'en'])}</strong><small>${esc(formatDate(e.date))} · <bdi>${e.start} – ${e.end}</bdi>${selected?.course===course?' · '+esc(roomText(selected.room)):''}</small></div><span class="countdown">${esc(countdown)}</span>`;
+  box.innerHTML=`<div><strong>${ongoing?t('الاختبار الجاري: ','Current test: '):t('اختبارك القادم: ','Next test: ')}${esc(e[lang==='ar'?'ar':'en'])}</strong><small>${esc(formatDate(e.date))} · <bdi>${e.start} – ${e.end}</bdi>${selected?.course===course?' · '+esc(roomText(selected.room))+' · '+esc(floorText(selected.room)):''}</small></div><span class="countdown">${esc(countdown)}</span>`;
  }
  function speechText(query=''){
   if(!selected)return t('ابحث عن اسمك أولًا، ثم اختر سجلك من القائمة.','Search for your name and select your record first.');
@@ -89,14 +91,15 @@
   let requestedDate='';
   if(/(غدا|غد|tomorrow)/.test(q)){const d=new Date(Date.now()+86400000);requestedDate=new Intl.DateTimeFormat('en-CA',{timeZone:'Africa/Algiers',year:'numeric',month:'2-digit',day:'2-digit'}).format(d);}
   else if(/(اليوم|today)/.test(q)){requestedDate=new Intl.DateTimeFormat('en-CA',{timeZone:'Africa/Algiers',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());}
+  else if(/(1 ديسمبر|01 ديسمبر|1 december|01 december|december 1|december 01)/.test(q))requestedDate='2026-12-01';
   else {const match=q.match(/(?:^|\s)(15|16|22|23|24|29|30)(?:\s|$)/);if(match)requestedDate='2026-11-'+match[1];}
   if(requestedDate){chosen=all.filter(e=>e.date===requestedDate);if(!chosen.length)return t('لا يوجد اختبار مبرمج لك في '+formatDate(requestedDate)+'. قاعتك في الاختبارات المبرمجة هي '+roomText(selected.room)+'.','You have no scheduled test on '+formatDate(requestedDate)+'. Your assigned room is '+roomText(selected.room)+'.');}
   else if(q){
    const scored=all.map(e=>{const words=C.normalize(e[lang==='ar'?'ar':'en']).split(' ').filter(w=>w.length>3&&!['الكهربائيه','electrical','systems'].includes(w));return {e,score:words.filter(w=>q.includes(w)).length};}).filter(x=>x.score>0).sort((a,b)=>b.score-a.score);
    if(scored.length&& (scored.length===1||scored[0].score>scored[1].score))chosen=[scored[0].e];
   }
-  if(/(الثاني|second)/.test(q)&&chosen.length>1)chosen=[chosen[1]];
-  else if(/(الاول|first)/.test(q)&&chosen.length>1)chosen=[chosen[0]];
+  if(/(الثاني|second)/.test(q))chosen=chosen.filter(e=>e.start==='17:20');
+  else if(/(الاول|first)/.test(q))chosen=chosen.filter(e=>e.start==='16:30');
   const introduction=t(`مرحبًا ${selected.first}. مكان اختباراتك هو ${roomText(selected.room)}. `,`Hello ${selected.firstLatin}. Your tests take place in ${roomText(selected.room)}. `);
   return introduction+(!future.length?t('انتهت الاختبارات المبرمجة. هذه معلومات من الجدول للرجوع إليها. ','All scheduled tests have ended. Here is the schedule for reference. '):'')+chosen.map((e,i)=>(i?t('بعد استراحة عشر دقائق، ','After a ten minute break, '):formatDate(e.date)+'. ')+t(`اختبار ${e.ar} من الساعة ${e.start} حتى ${e.end}. `,`${e.en}, from ${e.start} until ${e.end}. `)).join('');
  }
@@ -128,8 +131,8 @@
  function downloadCalendar(){
   const room=selected?.course===course?selected.room:null;
   const blob=new Blob([C.calendar(exams(),room,course,lang)],{type:'text/calendar;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');
-  a.href=url;a.download=`UKMO-${course}-November-2026.ics`;a.click();setTimeout(()=>URL.revokeObjectURL(url),30000);
-  toast('افتح ملف التقويم على هاتفك واستورد المواعيد. تحقق من تفعيل تنبيه قبل 10 دقائق.','Open and import the calendar file on your phone. Check that the 10-minute reminder is enabled.');
+  a.href=url;a.download=`UKMO-${course}-Schedule-20261125.ics`;a.click();setTimeout(()=>URL.revokeObjectURL(url),30000);
+  toast('استورد التقويم المحدّث. إذا استوردت الجدول سابقًا، تحقق من استبدال موعد 29 نوفمبر بموعد 01 ديسمبر؛ قد يلزم حذف الموعد القديم يدويًا في تطبيق تقويمك.','Import the updated calendar. If you imported an earlier version, check that 29 November is replaced with 01 December; your calendar app may require deleting the old entry manually.');
  }
  async function enableReminders(){
   if(!selected){toast('اختر اسمك أولًا لتفعيل تنبيهات جدولك الشخصي.','Select your name first to enable personal reminders.');return;}
@@ -151,15 +154,16 @@
   });
  }
  function setLanguage(){
-  const oldFilter=$('search-level').value;lang=lang==='ar'?'en':'ar';document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.title=t('دليل قاعات الاختبارات | جامعة ورقلة','Exam Room Finder | University of Ouargla');
+  const oldFilter=$('search-level').value;lang=lang==='ar'?'en':'ar';try{localStorage.setItem('ukmo-student-language',lang);}catch{}document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.title=t('دليل قاعات الاختبارات | جامعة ورقلة','Exam Room Finder | University of Ouargla');
   document.querySelectorAll('[data-ar]').forEach(el=>el.innerHTML=el.dataset[lang]);
   document.querySelectorAll('[data-placeholder-ar]').forEach(el=>el.placeholder=el.dataset[lang==='ar'?'placeholderAr':'placeholderEn']);
   $('language').textContent=lang==='ar'?'EN':'AR';document.querySelector('.current-lang').textContent=lang==='ar'?'AR':'EN';$('language').setAttribute('aria-label',t('Switch to English','التبديل إلى العربية'));
-  $('voice').setAttribute('aria-label',t('البحث بالصوت','Search by voice'));$('voice').title=t('البحث بالصوت','Search by voice');
+  $('search-level').setAttribute('aria-label',t('تصفية المستوى','Filter by level'));$('suggestions').setAttribute('aria-label',t('اقتراحات الطلبة','Student suggestions'));$('date-tabs').setAttribute('aria-label',t('تواريخ الاختبارات','Exam dates'));$('voice').setAttribute('aria-label',t('البحث بالصوت','Search by voice'));$('voice').title=t('البحث بالصوت','Search by voice');
   initializeOptions();$('search-level').value=oldFilter;if(selected){renderStudent();search.value=fullName(selected);}hideSuggestions();renderSchedule();status('','');
   if(reminders)$('reminder').textContent=t('✓ التنبيه مفعّل — اضغط لإيقافه','✓ Reminders on — click to turn off');
  }
- search.addEventListener('input',()=>{if(selected){selected=null;window.ExamWayfinding.clear();reminders=false;$('student-result').hidden=true;$('art-room').textContent='D';$('reminder').textContent=t('تنبيه قبل 10 دقائق','Remind me 10 minutes before');renderSchedule();}updateSearch().catch(()=>status('تعذر إكمال البحث. جرّب البحث بالاسم.','Could not complete this search. Try searching by name.'));});
+ function onSearchInput(){if(composing)return;if(selected){selected=null;window.ExamWayfinding.clear();reminders=false;$('student-result').hidden=true;$('art-room').textContent='D';$('reminder').textContent=t('تنبيه قبل 10 دقائق','Remind me 10 minutes before');renderSchedule();}clearTimeout(searchTimer);searchTimer=setTimeout(()=>updateSearch().catch(()=>status('تعذر إكمال البحث. جرّب البحث بالاسم.','Could not complete this search. Try searching by name.')),35);}
+ search.addEventListener('input',onSearchInput);search.addEventListener('compositionstart',()=>{composing=true;});search.addEventListener('compositionend',()=>{composing=false;onSearchInput();});
  $('search-level').addEventListener('change',updateSearch);
  $('search-form').addEventListener('submit',async event=>{event.preventDefault();await updateSearch();if(suggestions.length===1)selectStudent(suggestions[0]);else if(suggestions.length){activeIndex=0;setActiveSuggestion();status('اختر اسمك من النتائج أدناه.','Choose your name from the matches below.');}});
  $('suggestions').addEventListener('click',event=>{const li=event.target.closest('[data-index]');if(li)selectStudent(suggestions[+li.dataset.index]);});
@@ -167,9 +171,9 @@
  search.addEventListener('keydown',event=>{if(event.key==='Escape'){hideSuggestions();return;}if($('suggestion-wrap').hidden||!suggestions.length)return;if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();activeIndex=(activeIndex+(event.key==='ArrowDown'?1:-1)+suggestions.length)%suggestions.length;setActiveSuggestion();}else if(event.key==='Enter'&&activeIndex>=0){event.preventDefault();selectStudent(suggestions[activeIndex]);}});
  $('date-tabs').addEventListener('click',event=>{const button=event.target.closest('[data-date]');if(button){activeDate=button.dataset.date;renderSchedule();}});
  $('browse-course').addEventListener('change',()=>{course=$('browse-course').value;if(selected?.course!==course){selected=null;window.ExamWayfinding.clear();$('student-result').hidden=true;search.value='';$('art-room').textContent='D';reminders=false;$('reminder').textContent=t('تنبيه قبل 10 دقائق','Remind me 10 minutes before');}activeDate='';hideSuggestions();renderSchedule();status('','');});
- $('highlight-room').onclick=()=>{if(selected)window.ExamWayfinding.render(selected.room,lang,true);};$('language').onclick=setLanguage;$('voice').onclick=()=>startVoice('search');$('ask').onclick=()=>startVoice('ask');$('speak').onclick=speakAnswer;$('calendar').onclick=downloadCalendar;$('reminder').onclick=enableReminders;$('print').onclick=()=>window.print();
+ $('highlight-room').onclick=()=>{if(selected)window.ExamWayfinding.start();};$('language').onclick=setLanguage;$('voice').onclick=()=>startVoice('search');$('ask').onclick=()=>startVoice('ask');$('speak').onclick=speakAnswer;$('calendar').onclick=downloadCalendar;$('reminder').onclick=enableReminders;$('print').onclick=()=>window.print();
  window.addEventListener('beforeprint',()=>renderSchedule(true));window.addEventListener('afterprint',()=>renderSchedule());
  document.addEventListener('visibilitychange',()=>{if(!document.hidden){renderNext();checkReminders();}});
- initializeOptions();renderSchedule();setupVoice();setInterval(()=>{renderNext();checkReminders();},15000);
+ initializeOptions();renderSchedule();setupVoice();try{if(localStorage.getItem('ukmo-student-language')==='en')setLanguage();}catch{}setInterval(()=>{renderNext();checkReminders();},15000);
 })();
 
